@@ -1,0 +1,61 @@
+package core
+
+import java.lang.Math as nativeMath
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
+
+data class Point2(var x: Float = 0.0F, var y: Float = 0.0F) {
+  constructor(point: Point2) : this(point.x, point.y)
+
+  operator fun get(index: Int): Float {
+    return when (index) {
+      0 -> this.x
+      1 -> this.y
+      else -> throw IndexOutOfBoundsException("Index $index out of bounds for length 2")
+    }
+  }
+
+  operator fun times(scalar: Float): Point2 = Point2(this.x * scalar, this.y * scalar)
+
+  infix fun distance(other: Point2): Float {
+    val dx = this.x - other.x
+    val dy = this.y - other.y
+    return sqrt(dx * dx + dy * dy)
+  }
+
+  fun rotate(angle: Float, angleUnit: AngleUnit = AngleUnit.RADIANS): Point2 {
+    val angle =
+      when (angleUnit) {
+        AngleUnit.RADIANS -> angle
+        AngleUnit.DEGREES -> nativeMath.toRadians(angle.toDouble()).toFloat()
+      }
+
+    return when (angle) {
+      0f,
+      2 * nativeMath.PI.toFloat() -> Point2(x, y)
+      nativeMath.PI.toFloat() / 2 -> Point2(-y, x)
+      nativeMath.PI.toFloat() -> Point2(-x, -y)
+      3 * nativeMath.PI.toFloat() / 2 -> Point2(y, -x)
+      else -> {
+        val cosAngle = cos(angle)
+        val sinAngle = sin(angle)
+
+        Point2((x * cosAngle) - (y * sinAngle), (x * sinAngle) + (y * cosAngle))
+      }
+    }
+  }
+
+  override fun hashCode(): Int {
+    var result = x.hashCode()
+    result = 31 * result + y.hashCode()
+    return result
+  }
+
+  override fun equals(other: Any?): Boolean {
+    if (other !is Point2) {
+      return false
+    }
+    return this.x == other.x && this.y == other.y
+  }
+}
