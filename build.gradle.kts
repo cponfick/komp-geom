@@ -3,9 +3,9 @@ plugins {
   id("com.diffplug.spotless") version "7.0.3"
 }
 
-group = "com.github.cponfick"
+group = "io.github.cponfick"
 
-version = "1.0-SNAPSHOT"
+version = "0.0.1"
 
 repositories { mavenCentral() }
 
