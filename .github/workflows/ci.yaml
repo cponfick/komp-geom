@@ -1,0 +1,27 @@
+name: Continuous Integration
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Continuous Integration
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+
+      - name: Build and test
+        run: ./gradlew build
+
+      - name: JVM tests
+        run: ./gradlew jvmTest
+
+      - name: JS tests
+        run: ./gradlew jsTest
+

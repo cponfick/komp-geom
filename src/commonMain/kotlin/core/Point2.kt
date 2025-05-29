@@ -1,6 +1,6 @@
 package core
 
-import java.lang.Math as nativeMath
+import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -26,17 +26,17 @@ data class Point2(var x: Float = 0.0F, var y: Float = 0.0F) {
 
   fun rotate(angle: Float, angleUnit: AngleUnit = AngleUnit.RADIANS): Point2 {
     val angle =
-      when (angleUnit) {
-        AngleUnit.RADIANS -> angle
-        AngleUnit.DEGREES -> nativeMath.toRadians(angle.toDouble()).toFloat()
-      }
+        when (angleUnit) {
+          AngleUnit.RADIANS -> angle
+          AngleUnit.DEGREES -> (angle * PI.toFloat() / 180f)
+        }
 
     return when (angle) {
       0f,
-      2 * nativeMath.PI.toFloat() -> Point2(x, y)
-      nativeMath.PI.toFloat() / 2 -> Point2(-y, x)
-      nativeMath.PI.toFloat() -> Point2(-x, -y)
-      3 * nativeMath.PI.toFloat() / 2 -> Point2(y, -x)
+      2 * PI.toFloat() -> Point2(x, y)
+      PI.toFloat() / 2 -> Point2(-y, x)
+      PI.toFloat() -> Point2(-x, -y)
+      3 * PI.toFloat() / 2 -> Point2(y, -x)
       else -> {
         val cosAngle = cos(angle)
         val sinAngle = sin(angle)

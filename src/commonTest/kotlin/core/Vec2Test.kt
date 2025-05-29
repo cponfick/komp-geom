@@ -5,6 +5,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import kotlin.math.PI
 
 class Vec2Test :
   DescribeSpec({
@@ -210,7 +211,7 @@ class Vec2Test :
         val vector1 = Vec2(1.0F, 0.0F)
         val vector2 = Vec2(0.0F, 1.0F)
         val angle = vector1.angle(vector2, AngleUnit.RADIANS)
-        angle shouldBe Math.PI.toFloat() / 2F
+        angle shouldBe PI.toFloat() / 2F
       }
 
       it("angle between two vectors in degrees") {

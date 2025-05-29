@@ -1,7 +1,12 @@
 # Computational Geometry in Kotlin
 
-This repository contains a collection of algorithms and data structures for computational geometry implemented in
-Kotlin. The focus is on providing efficient and easy-to-use solutions for common geometric problems.
+This repository contains a collection of algorithms and data structures for computational geometry implemented in KMP (
+Kotlin Multiplatform). The focus is on providing efficient solutions to common geometric problems on multiple platforms.
+
+Currently, following platforms are supported:
+
+- JVM
+- JS
 
 ## Implemented Algorithms
 
