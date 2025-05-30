@@ -69,11 +69,11 @@ publishing {
 }
 
 npmPublish {
-//  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
+  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
 
   registries {
     github {
-      uri.set("https://npm.pkg.github.com/cponfick/komp-geom")
+      uri.set("https://npm.pkg.github.com")
       username = System.getenv("GITHUB_ACTOR")
       password = System.getenv("GITHUB_TOKEN")
     }
