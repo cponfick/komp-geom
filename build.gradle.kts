@@ -61,7 +61,7 @@ mavenPublishing {
 
   signAllPublications()
 
-  coordinates(group.toString(), rootProject.name, version.toString())
+  coordinates(group.toString(), "komp-geom", version.toString())
 
   pom {
     name = "Kotlin Computational Geometry"
