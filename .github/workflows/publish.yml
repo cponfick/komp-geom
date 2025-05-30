@@ -36,7 +36,7 @@ jobs:
         run: ./gradlew jsTest
 
   publish:
-    name: Publish to Maven Central and NPM
+    name: Publish to Maven Central
     runs-on: ubuntu-latest
     needs:
       - test
