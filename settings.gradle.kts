@@ -1,8 +1,7 @@
 pluginManagement {
     repositories {
-        google()
         gradlePluginPortal()
         mavenCentral()
     }
 }
-rootProject.name = "kompgeom"
+rootProject.name = "komp-geom"

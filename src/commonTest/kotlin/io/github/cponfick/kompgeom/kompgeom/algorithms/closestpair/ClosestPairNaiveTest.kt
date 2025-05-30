@@ -1,7 +1,7 @@
-package io.github.cponfick.algorithms.closestpair
+package io.github.cponfick.kompgeom.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.core.DEFAULT_EPSILON
-import io.github.cponfick.core.Point2
+import io.github.cponfick.kompgeom.kompgeom.core.DEFAULT_EPSILON
+import io.github.cponfick.kompgeom.kompgeom.core.Point2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe

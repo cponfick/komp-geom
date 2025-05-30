@@ -1,4 +1,4 @@
-[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yaml)
+[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yaml) ![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)
 # Computational Geometry in Kotlin 
 
 This repository contains a collection of algorithms and data structures for computational geometry implemented in KMP (
