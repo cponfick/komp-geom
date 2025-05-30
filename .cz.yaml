@@ -1,0 +1,11 @@
+---
+commitizen:
+  annotated_tag: true
+  bump_message: "release $current_version \u2192 $new_version"
+  major_version_zero: true
+  name: cz_conventional_commits
+  tag_format: $version
+  version: 0.0.0
+  version_files:
+    - build.gradle.kts
+  version_scheme: semver

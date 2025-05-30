@@ -8,7 +8,7 @@ plugins {
 
 group = "io.github.cponfick"
 
-version = "0.0.1"
+version = "0.0.0"
 
 repositories { mavenCentral() }
 
