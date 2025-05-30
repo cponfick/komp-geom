@@ -69,6 +69,14 @@ publishing {
 }
 
 npmPublish {
+  packages {
+    named("js") {
+      packageJson {
+        name.set("@cponfick/komp-geom")
+      }
+    }
+  }
+
   registries {
     register("github") {
       uri.set("https://npm.pkg.github.com/cponfick/komp-geom")
