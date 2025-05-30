@@ -5,10 +5,10 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-data class Point2(var x: Float = 0.0F, var y: Float = 0.0F) {
-  constructor(point: Point2) : this(point.x, point.y)
+public class Point2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
+  public constructor(point: Point2) : this(point.x, point.y)
 
-  operator fun get(index: Int): Float {
+  public operator fun get(index: Int): Float {
     return when (index) {
       0 -> this.x
       1 -> this.y
@@ -16,15 +16,15 @@ data class Point2(var x: Float = 0.0F, var y: Float = 0.0F) {
     }
   }
 
-  operator fun times(scalar: Float): Point2 = Point2(this.x * scalar, this.y * scalar)
+  public operator fun times(scalar: Float): Point2 = Point2(this.x * scalar, this.y * scalar)
 
-  infix fun distance(other: Point2): Float {
+  public infix fun distance(other: Point2): Float {
     val dx = this.x - other.x
     val dy = this.y - other.y
     return sqrt(dx * dx + dy * dy)
   }
 
-  fun rotate(angle: Float, angleUnit: AngleUnit = AngleUnit.RADIANS): Point2 {
+  public fun rotate(angle: Float, angleUnit: AngleUnit = AngleUnit.RADIANS): Point2 {
     val angle =
       when (angleUnit) {
         AngleUnit.RADIANS -> angle

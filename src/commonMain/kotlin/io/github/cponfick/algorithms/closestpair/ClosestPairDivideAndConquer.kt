@@ -2,7 +2,7 @@ package io.github.cponfick.algorithms.closestpair
 
 import io.github.cponfick.core.Point2
 
-class ClosestPairDivideAndConquer(input: Collection<Point2>) : IClosestPair {
+public class ClosestPairDivideAndConquer(input: Collection<Point2>) : IClosestPair {
   private val sortedByX: List<Point2> = input.sortedBy { it.x }
   private val sortedByY: List<Point2> = input.sortedBy { it.y }
 

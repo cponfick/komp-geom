@@ -5,14 +5,14 @@ import kotlin.math.absoluteValue
 import kotlin.math.acos
 import kotlin.math.sqrt
 
-data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
-  constructor(vector: Vec2) : this(vector.x, vector.y)
+public class Vec2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
+  public constructor(vector: Vec2) : this(vector.x, vector.y)
 
-  constructor(a: Point2, b: Point2) : this(b.x - a.x, b.y - a.y)
+  public constructor(a: Point2, b: Point2) : this(b.x - a.x, b.y - a.y)
 
-  val length: Float by lazy { sqrt(this.x * this.x + this.y * this.y) }
+  public val length: Float by lazy { sqrt(this.x * this.x + this.y * this.y) }
 
-  operator fun get(index: Int): Float {
+  public operator fun get(index: Int): Float {
     return when (index) {
       0 -> this.x
       1 -> this.y
@@ -20,25 +20,25 @@ data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
     }
   }
 
-  operator fun plus(other: Vec2): Vec2 = Vec2(this.x + other.x, this.y + other.y)
+  public operator fun plus(other: Vec2): Vec2 = Vec2(this.x + other.x, this.y + other.y)
 
-  operator fun minus(other: Vec2): Vec2 = Vec2(this.x - other.x, this.y - other.y)
+  public operator fun minus(other: Vec2): Vec2 = Vec2(this.x - other.x, this.y - other.y)
 
-  operator fun times(scalar: Float): Vec2 = Vec2(this.x * scalar, this.y * scalar)
+  public operator fun times(scalar: Float): Vec2 = Vec2(this.x * scalar, this.y * scalar)
 
-  operator fun div(scalar: Float): Vec2 =
+  public operator fun div(scalar: Float): Vec2 =
     if (scalar != 0F) Vec2(this.x / scalar, this.y / scalar)
     else throw ArithmeticException("Division by zero")
 
-  operator fun unaryMinus(): Vec2 = Vec2(-x, -y)
+  public operator fun unaryMinus(): Vec2 = Vec2(-x, -y)
 
-  infix fun dot(other: Vec2): Float = this.x * other.x + this.y * other.y
+  public infix fun dot(other: Vec2): Float = this.x * other.x + this.y * other.y
 
-  infix fun cross(other: Vec2): Float = this.x * other.y - this.y * other.x
+  public infix fun cross(other: Vec2): Float = this.x * other.y - this.y * other.x
 
-  fun perpendicular(): Vec2 = Vec2(-this.y, this.x)
+  public fun perpendicular(): Vec2 = Vec2(-this.y, this.x)
 
-  fun angle(other: Vec2, angleUnit: AngleUnit = AngleUnit.RADIANS): Float {
+  public fun angle(other: Vec2, angleUnit: AngleUnit = AngleUnit.RADIANS): Float {
     val dotProduct = this dot other
     val lengthsProduct = this.length * other.length
     val cosTheta = dotProduct / lengthsProduct
@@ -51,10 +51,10 @@ data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
     }
   }
 
-  fun approxEqual(other: Vec2, epsilon: Float = DEFAULT_EPSILON): Boolean =
+  public fun approxEqual(other: Vec2, epsilon: Float = DEFAULT_EPSILON): Boolean =
     (this.x - other.x).absoluteValue < epsilon && (this.y - other.y).absoluteValue < epsilon
 
-  fun normalize(): Vec2 {
+  public fun normalize(): Vec2 {
     val len = length
     return if (len > 0) {
       Vec2(this.x / len, this.y / len)
@@ -76,17 +76,17 @@ data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
     return result
   }
 
-  companion object {
-    fun zero(): Vec2 = Vec2(0.0F, 0.0F)
+  public companion object {
+    public fun zero(): Vec2 = Vec2(0.0F, 0.0F)
 
-    fun one(): Vec2 = Vec2(1.0F, 1.0F)
+    public fun one(): Vec2 = Vec2(1.0F, 1.0F)
 
-    fun unitX(): Vec2 = Vec2(1.0F, 0.0F)
+    public fun unitX(): Vec2 = Vec2(1.0F, 0.0F)
 
-    fun unitY(): Vec2 = Vec2(0.0F, 1.0F)
+    public fun unitY(): Vec2 = Vec2(0.0F, 1.0F)
 
-    operator fun Float.times(vector: Vec2): Vec2 = Vec2(this * vector.x, this * vector.y)
+    public operator fun Float.times(vector: Vec2): Vec2 = Vec2(this * vector.x, this * vector.y)
 
-    operator fun Float.div(vector: Vec2): Vec2 = Vec2(this / vector.x, this / vector.y)
+    public operator fun Float.div(vector: Vec2): Vec2 = Vec2(this / vector.x, this / vector.y)
   }
 }

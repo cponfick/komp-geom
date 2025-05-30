@@ -13,6 +13,7 @@ version = "0.0.1"
 repositories { mavenCentral() }
 
 kotlin {
+  explicitApi()
   jvm()
   js(IR) { nodejs() }
 

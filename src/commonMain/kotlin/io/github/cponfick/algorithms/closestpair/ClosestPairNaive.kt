@@ -2,7 +2,7 @@ package io.github.cponfick.algorithms.closestpair
 
 import io.github.cponfick.core.Point2
 
-class ClosestPairNaive(input: Collection<Point2>) : IClosestPair {
+public class ClosestPairNaive(input: Collection<Point2>) : IClosestPair {
   private val points = input.toList()
 
   init {

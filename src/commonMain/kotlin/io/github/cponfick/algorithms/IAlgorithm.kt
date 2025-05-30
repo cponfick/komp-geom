@@ -1,12 +1,12 @@
 package io.github.cponfick.algorithms
 
-interface IAlgorithm<Output> {
-  fun run(): Output
+public interface IAlgorithm<Output> {
+  public fun run(): Output
 
-  fun getName(): String
+  public fun getName(): String
 
-  fun getGroup(): String
+  public fun getGroup(): String
 
-  fun getId(): String =
+  public fun getId(): String =
     "${getGroup().lowercase().replace(" ","-")}:${getName().lowercase().replace(" ","-")}"
 }

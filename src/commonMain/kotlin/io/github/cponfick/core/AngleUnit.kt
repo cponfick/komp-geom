@@ -1,6 +1,6 @@
 package io.github.cponfick.core
 
-enum class AngleUnit {
+public enum class AngleUnit {
   RADIANS,
   DEGREES,
 }

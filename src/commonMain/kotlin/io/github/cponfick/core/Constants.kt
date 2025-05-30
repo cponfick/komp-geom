@@ -1,3 +1,3 @@
 package io.github.cponfick.core
 
-const val DEFAULT_EPSILON = 0.0001F
+public const val DEFAULT_EPSILON: Float = 0.0001F
