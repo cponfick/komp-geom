@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 
 plugins {
   kotlin("multiplatform") version "2.1.20"
-  id("com.diffplug.spotless") version "7.0.3"
+  id("com.diffplug.spotless") version "7.0.4"
   id("io.kotest.multiplatform") version "5.9.1"
 }
 
