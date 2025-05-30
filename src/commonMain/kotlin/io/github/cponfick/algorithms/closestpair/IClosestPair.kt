@@ -1,7 +1,7 @@
-package algorithms.closestpair
+package io.github.cponfick.algorithms.closestpair
 
-import algorithms.IAlgorithm
-import core.Point2
+import io.github.cponfick.algorithms.IAlgorithm
+import io.github.cponfick.core.Point2
 
 data class Result(val distance: Float, val result: Pair<Point2, Point2>)
 

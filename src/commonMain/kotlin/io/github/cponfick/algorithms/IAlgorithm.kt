@@ -1,4 +1,4 @@
-package algorithms
+package io.github.cponfick.algorithms
 
 interface IAlgorithm<Output> {
   fun run(): Output

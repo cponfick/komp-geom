@@ -1,6 +1,6 @@
-package algorithms.closestpair
+package io.github.cponfick.algorithms.closestpair
 
-import core.Point2
+import io.github.cponfick.core.Point2
 
 class ClosestPairDivideAndConquer(input: Collection<Point2>) : IClosestPair {
   private val sortedByX: List<Point2> = input.sortedBy { it.x }

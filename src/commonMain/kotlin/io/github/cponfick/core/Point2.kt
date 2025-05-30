@@ -1,4 +1,4 @@
-package core
+package io.github.cponfick.core
 
 import kotlin.math.PI
 import kotlin.math.cos
@@ -26,10 +26,10 @@ data class Point2(var x: Float = 0.0F, var y: Float = 0.0F) {
 
   fun rotate(angle: Float, angleUnit: AngleUnit = AngleUnit.RADIANS): Point2 {
     val angle =
-        when (angleUnit) {
-          AngleUnit.RADIANS -> angle
-          AngleUnit.DEGREES -> (angle * PI.toFloat() / 180f)
-        }
+      when (angleUnit) {
+        AngleUnit.RADIANS -> angle
+        AngleUnit.DEGREES -> (angle * PI.toFloat() / 180f)
+      }
 
     return when (angle) {
       0f,

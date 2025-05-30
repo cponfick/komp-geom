@@ -1,6 +1,9 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+
 plugins {
   kotlin("multiplatform") version "2.1.20"
   id("com.diffplug.spotless") version "7.0.3"
+  id("io.kotest.multiplatform") version "5.9.1"
 }
 
 group = "io.github.cponfick"
@@ -10,14 +13,8 @@ version = "0.0.1"
 repositories { mavenCentral() }
 
 kotlin {
-  jvm {
-    compilations.all { kotlinOptions.jvmTarget = "21" }
-    testRuns["test"].executionTask.configure { useJUnitPlatform() }
-  }
-
-  js(IR) {
-    nodejs()
-  }
+  jvm()
+  js(IR) { nodejs() }
 
   // Configure JVM toolchain at extension level as required by error message
   jvmToolchain(21)
@@ -33,10 +30,30 @@ kotlin {
       }
     }
     val jvmMain by getting
-    val jvmTest by getting
+    val jvmTest by getting {
+      dependencies {
+
+      }
+    }
     val jsMain by getting
     val jsTest by getting
   }
 }
 
-spotless { kotlin { ktfmt("0.53").googleStyle() } }
+tasks {
+  withType<Test> {
+    useJUnitPlatform()
+    testLogging {
+      showStandardStreams = true
+      showExceptions = true
+      exceptionFormat = FULL
+    }
+  }
+}
+
+spotless {
+  kotlin {
+    target("src/**/*.kt")
+    ktfmt("0.53").googleStyle()
+  }
+}

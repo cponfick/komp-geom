@@ -1,4 +1,4 @@
-package core
+package io.github.cponfick.core
 
 import kotlin.math.PI
 import kotlin.math.absoluteValue
@@ -27,8 +27,8 @@ data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
   operator fun times(scalar: Float): Vec2 = Vec2(this.x * scalar, this.y * scalar)
 
   operator fun div(scalar: Float): Vec2 =
-      if (scalar != 0F) Vec2(this.x / scalar, this.y / scalar)
-      else throw ArithmeticException("Division by zero")
+    if (scalar != 0F) Vec2(this.x / scalar, this.y / scalar)
+    else throw ArithmeticException("Division by zero")
 
   operator fun unaryMinus(): Vec2 = Vec2(-x, -y)
 
@@ -52,7 +52,7 @@ data class Vec2(var x: Float = 0.0F, var y: Float = 0.0F) {
   }
 
   fun approxEqual(other: Vec2, epsilon: Float = DEFAULT_EPSILON): Boolean =
-      (this.x - other.x).absoluteValue < epsilon && (this.y - other.y).absoluteValue < epsilon
+    (this.x - other.x).absoluteValue < epsilon && (this.y - other.y).absoluteValue < epsilon
 
   fun normalize(): Vec2 {
     val len = length

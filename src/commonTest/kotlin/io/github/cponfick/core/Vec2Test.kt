@@ -1,6 +1,6 @@
-package core
+package io.github.cponfick.core
 
-import core.Vec2.Companion.times
+import io.github.cponfick.core.Vec2.Companion.times
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
