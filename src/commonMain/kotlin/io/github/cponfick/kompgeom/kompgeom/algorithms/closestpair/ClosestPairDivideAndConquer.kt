@@ -1,6 +1,6 @@
-package io.github.cponfick.algorithms.closestpair
+package io.github.cponfick.kompgeom.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.core.Point2
+import io.github.cponfick.kompgeom.kompgeom.core.Point2
 
 public class ClosestPairDivideAndConquer(input: Collection<Point2>) : IClosestPair {
   private val sortedByX: List<Point2> = input.sortedBy { it.x }
