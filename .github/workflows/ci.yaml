@@ -34,4 +34,3 @@ jobs:
 
       - name: JS tests
         run: ./gradlew jsTest
-

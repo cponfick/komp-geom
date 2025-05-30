@@ -1,0 +1,28 @@
+name: Validate PR
+
+on:
+  pull_request:
+    branches: [ '**' ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  validate-title:
+    name: Validate PR Title
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Commitizen
+        run: |
+          python -m pip install --upgrade pip
+          pip install commitizen
+
+      - name: Validate PR Title
+        run: cz check --message "${{ github.event.pull_request.title }}"
