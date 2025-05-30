@@ -1,9 +1,9 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 
 plugins {
-  kotlin("multiplatform") version "2.1.20"
-  id("com.diffplug.spotless") version "7.0.3"
-  id("io.kotest.multiplatform") version "5.9.1"
+  alias(libs.plugins.kotlin.multiplatform)
+  alias(libs.plugins.spotless)
+  alias(libs.plugins.kotest.multiplatform)
 }
 
 group = "io.github.cponfick"
@@ -14,6 +14,7 @@ repositories { mavenCentral() }
 
 kotlin {
   jvm()
+  //  linuxX64()
   js(IR) { nodejs() }
 
   // Configure JVM toolchain at extension level as required by error message
@@ -24,17 +25,12 @@ kotlin {
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
-        implementation("io.kotest:kotest-framework-engine:5.9.1")
-        implementation("io.kotest:kotest-assertions-core:5.9.1")
-        implementation("io.kotest:kotest-property:5.9.1")
+        implementation(libs.kotest.assertions.core)
       }
     }
     val jvmMain by getting
-    val jvmTest by getting {
-      dependencies {
+    val jvmTest by getting
 
-      }
-    }
     val jsMain by getting
     val jsTest by getting
   }
@@ -54,6 +50,6 @@ tasks {
 spotless {
   kotlin {
     target("src/**/*.kt")
-    ktfmt("0.53").googleStyle()
+    ktfmt(libs.versions.ktfmt.get()).googleStyle()
   }
 }

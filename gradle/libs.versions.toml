@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.1.21"
+spotless = "7.0.4"
+kotest = "5.9.1"
+ktfmt = "0.53"
+
+[libraries]
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }

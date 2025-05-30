@@ -7,14 +7,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         name: Continuous Integration
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: '21'
+          cache: 'gradle'
+          cache-dependency-path: |
+            /*.gradle*
+            /**/*.gradle*
+            /**/gradle-wrapper.properties
+            /gradle/libs.versions.toml
+
+      - name: Format code
+        run: ./gradlew spotlessCheck
 
       - name: Build and test
         run: ./gradlew build
