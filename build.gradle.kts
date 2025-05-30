@@ -14,11 +14,7 @@ repositories { mavenCentral() }
 
 kotlin {
   jvm()
-  //  linuxX64()
   js(IR) { nodejs() }
-
-  // Configure JVM toolchain at extension level as required by error message
-  jvmToolchain(21)
 
   sourceSets {
     val commonMain by getting
