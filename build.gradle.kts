@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.spotless)
   alias(libs.plugins.kotest.multiplatform)
+  alias(libs.plugins.maven.publish )
 }
 
 group = "io.github.cponfick"
@@ -50,3 +51,17 @@ spotless {
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
   }
 }
+
+// Maven Publish Configuration
+publishing {
+  repositories {
+    maven {
+      url = uri("https://maven.pkg.github.com/cponfick/komp-geom")
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+}
+
