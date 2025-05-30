@@ -70,8 +70,8 @@ publishing {
 
 npmPublish {
   registries {
-    register("https://npm.pkg.github.com/cponfick/komp-geom") {
-      uri.set("https://nexus.example.com/repository/npm-internal")
+    register("github") {
+      uri.set("https://npm.pkg.github.com/cponfick/komp-geom")
       username = System.getenv("GITHUB_ACTOR")
       password = System.getenv("GITHUB_TOKEN")
     }
