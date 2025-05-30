@@ -2,8 +2,8 @@ name: Validate PR
 
 on:
   pull_request:
-    branches: [ '**' ]
-    types: [ opened, synchronize, reopened ]
+    branches:
+      - main
 
 jobs:
   validate-title:
