@@ -6,7 +6,7 @@ plugins {
   alias(libs.plugins.spotless)
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
-  //  alias(libs.plugins.npm.publish)
+  alias(libs.plugins.npm.publish)
 }
 
 group = "io.github.cponfick"
@@ -102,14 +102,13 @@ mavenPublishing {
   }
 }
 
-// npmPublish {
-//  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
-//
-//  registries {
-//    github {
-//      uri.set("https://npm.pkg.github.com")
-//      username = System.getenv("GITHUB_ACTOR")
-//      password = System.getenv("GITHUB_TOKEN")
-//    }
-//  }
-// }
+npmPublish {
+  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
+
+  registries {
+    npmjs {
+      uri.set("https://registry.npmjs.org/")
+      authToken.set(System.getenv("NPM_AUTH_TOKEN"))
+    }
+  }
+}
