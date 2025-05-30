@@ -17,10 +17,9 @@ jobs:
           java-version: '21'
           cache: 'gradle'
           cache-dependency-path: |
-            /*.gradle*
-            /**/*.gradle*
-            /**/gradle-wrapper.properties
-            /gradle/libs.versions.toml
+            **/*.gradle*
+            **/gradle-wrapper.properties
+            **/gradle/libs.versions.toml
 
       - name: Format code
         run: ./gradlew spotlessCheck
