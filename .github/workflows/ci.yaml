@@ -7,7 +7,8 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
@@ -25,11 +26,8 @@ jobs:
             **/gradle-wrapper.properties
             **/gradle/libs.versions.toml
 
-      - name: Format code
+      - name: Test Code Style
         run: ./gradlew spotlessCheck
-
-      - name: Build and test
-        run: ./gradlew build
 
       - name: JVM tests
         run: ./gradlew jvmTest

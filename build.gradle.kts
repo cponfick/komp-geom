@@ -57,17 +57,6 @@ spotless {
   }
 }
 
-publishing {
-  repositories {
-    maven {
-      // mavenCentral
-      url = uri("https://repo.maven.apache.org/maven2")
-    }
-  }
-}
-
-// <module directory>/build.gradle.kts
-
 mavenPublishing {
   publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
