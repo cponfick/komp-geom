@@ -3,6 +3,7 @@ kotlin = "2.1.21"
 spotless = "7.0.4"
 kotest = "5.9.1"
 ktfmt = "0.53"
+npm-publish = "3.5.3"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
@@ -12,3 +13,4 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 maven-publish = { id = "maven-publish" }
+npm-publish = { id = "dev.petuska.npm.publish", version.ref = "npm-publish" }

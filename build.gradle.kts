@@ -4,7 +4,8 @@ plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.spotless)
   alias(libs.plugins.kotest.multiplatform)
-  alias(libs.plugins.maven.publish )
+  alias(libs.plugins.maven.publish)
+  alias(libs.plugins.npm.publish)
 }
 
 group = "io.github.cponfick"
@@ -16,7 +17,10 @@ repositories { mavenCentral() }
 kotlin {
   explicitApi()
   jvm()
-  js(IR) { nodejs() }
+  js(IR) {
+    binaries.library()
+    nodejs()
+  }
 
   sourceSets {
     val commonMain by getting
@@ -52,7 +56,6 @@ spotless {
   }
 }
 
-// Maven Publish Configuration
 publishing {
   repositories {
     maven {
@@ -65,3 +68,12 @@ publishing {
   }
 }
 
+npmPublish {
+  registries {
+    register("https://npm.pkg.github.com/cponfick/komp-geom") {
+      uri.set("https://nexus.example.com/repository/npm-internal")
+      username = System.getenv("GITHUB_ACTOR")
+      password = System.getenv("GITHUB_TOKEN")
+    }
+  }
+}
