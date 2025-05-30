@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 
 plugins {
@@ -5,7 +6,7 @@ plugins {
   alias(libs.plugins.spotless)
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
-  alias(libs.plugins.npm.publish)
+  //  alias(libs.plugins.npm.publish)
 }
 
 group = "io.github.cponfick"
@@ -59,23 +60,56 @@ spotless {
 publishing {
   repositories {
     maven {
-      url = uri("https://maven.pkg.github.com/cponfick/komp-geom")
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
+      // mavenCentral
+      url = uri("https://repo.maven.apache.org/maven2")
+    }
+  }
+}
+
+// <module directory>/build.gradle.kts
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+  signAllPublications()
+
+  coordinates(group.toString(), rootProject.name, version.toString())
+
+  pom {
+    name = "Kotlin Computational Geometry"
+    description = "A computational geometry library written in the kotlin multiplatform technology."
+    inceptionYear = "2025"
+    url = "https://github.com/cponfick/komp-geom"
+    licenses {
+      license {
+        name = "MIT License"
+        url = "https://github.com/cponfick/komp-geom/blob/main/LICENSE"
+        distribution = "repo"
       }
     }
-  }
-}
-
-npmPublish {
-  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
-
-  registries {
-    github {
-      uri.set("https://npm.pkg.github.com")
-      username = System.getenv("GITHUB_ACTOR")
-      password = System.getenv("GITHUB_TOKEN")
+    developers {
+      developer {
+        id = "cponfick"
+        name = "Constantin Ponfick"
+        url = "https://github.com/cponfick"
+      }
+    }
+    scm {
+      url = "https://github.com/cponfick/komp-geom"
+      connection = "scm:git:git://github.com/cponfick/komp-geom.git"
+      developerConnection = "scm:git:ssh://github.com/cponfick/komp-geom.git"
     }
   }
 }
+
+// npmPublish {
+//  packages { named("js") { packageJson { name.set("@cponfick/komp-geom") } } }
+//
+//  registries {
+//    github {
+//      uri.set("https://npm.pkg.github.com")
+//      username = System.getenv("GITHUB_ACTOR")
+//      password = System.getenv("GITHUB_TOKEN")
+//    }
+//  }
+// }
