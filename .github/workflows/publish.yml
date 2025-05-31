@@ -88,6 +88,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      pull-requests: write
 
     environment:
       name: github-pages
