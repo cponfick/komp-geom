@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.kompgeom.core
+package io.github.cponfick.kompgeom.core
 
 import kotlin.math.PI
 import kotlin.math.cos

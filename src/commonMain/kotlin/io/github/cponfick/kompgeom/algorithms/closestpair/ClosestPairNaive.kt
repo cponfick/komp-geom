@@ -1,6 +1,6 @@
-package io.github.cponfick.kompgeom.kompgeom.algorithms.closestpair
+package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.kompgeom.core.Point2
+import io.github.cponfick.kompgeom.core.Point2
 
 public class ClosestPairNaive(input: Collection<Point2>) : IClosestPair {
   private val points = input.toList()

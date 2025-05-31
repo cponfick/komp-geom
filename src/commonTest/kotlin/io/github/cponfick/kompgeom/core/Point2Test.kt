@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.kompgeom.core
+package io.github.cponfick.kompgeom.core
 
 import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe

@@ -1,6 +1,6 @@
-package io.github.cponfick.kompgeom.kompgeom.core
+package io.github.cponfick.kompgeom.core
 
-import io.github.cponfick.kompgeom.kompgeom.core.Vec2.Companion.times
+import io.github.cponfick.kompgeom.core.Vec2.Companion.times
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe

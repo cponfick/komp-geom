@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.kompgeom.algorithms
+package io.github.cponfick.kompgeom.algorithms
 
 public interface IAlgorithm<Output> {
   public fun run(): Output
