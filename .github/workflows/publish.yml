@@ -119,16 +119,24 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
 
+      - name: Create branch from main for documentation
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git fetch origin main
+          git checkout -b ${github.ref_name}-docs origin/main
+
       - name: Copy to docs
         run: |
           rm -rf docs/dokka/
           mkdir -p docs/dokka/${{github.ref_name}}
           cp -r build/dokka/html/* docs/dokka/${{github.ref_name}}/
 
-      - name: Commit and push changes to current branch
+      - name: Commit, push, and create pr for documentation
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
           git add docs/dokka/${{github.ref_name}}
           git commit -m "Update documentation for ${{github.ref_name}}"
           git push
+          gh pr create --title "Update documentation for ${{github.ref_name}}" --body "This PR updates the documentation for version ${{github.ref_name}}." --base main --head ${github.ref_name}-docs --label documentation
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
