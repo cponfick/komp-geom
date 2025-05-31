@@ -23,18 +23,12 @@ kotlin {
   }
 
   sourceSets {
-    val commonMain by getting
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
         implementation(libs.kotest.assertions.core)
       }
     }
-    val jvmMain by getting
-    val jvmTest by getting
-
-    val jsMain by getting
-    val jsTest by getting
   }
 }
 
