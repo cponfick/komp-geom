@@ -79,14 +79,6 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_KEY_CONTENTS }}
 
-      - name: Build with Gradle
-        run: ./gradlew dokkaGeneratePublicationHtml
-
-      - name: Upload documentation artifacts
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'build/dokka/html'
-
   publish-gh-pages:
     name: Publish to GitHub Pages
     runs-on: ubuntu-latest
@@ -104,6 +96,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Build documentation with Gradle
+        run: ./gradlew dokkaGeneratePublicationHtml
+
+      - name: Upload documentation artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'build/dokka/html'
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
