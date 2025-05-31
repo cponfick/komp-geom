@@ -1,4 +1,4 @@
-[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml) [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom-jvm/overview)
+[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml) [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
 
 
 # Computational Geometry in Kotlin 
@@ -14,7 +14,7 @@ Currently, following platforms are supported:
 ## Usage Example
 
 ### Kotlin
-Add `implementation("io.github.cponfick:komp-geom-kotlin:{VERSION}")` to your `build.gradle.kts` file.
+Add `implementation("io.github.cponfick:komp-geom:{VERSION}")` to your `build.gradle.kts` file.
 
 Start using the algorithms, or the core data structures, by importing the relevant classes.
 

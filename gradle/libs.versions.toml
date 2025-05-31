@@ -4,6 +4,7 @@ spotless = "7.0.4"
 kotest = "5.9.1"
 ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.32.0"
+dokka = "2.0.0"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
@@ -13,3 +14,4 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish"}
+dokka-html = { id = "org.jetbrains.dokka", version.ref = "dokka" }

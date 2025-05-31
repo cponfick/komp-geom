@@ -6,6 +6,7 @@ plugins {
   alias(libs.plugins.spotless)
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
+  alias(libs.plugins.dokka.html)
 }
 
 group = "io.github.cponfick"
@@ -81,5 +82,11 @@ mavenPublishing {
       connection = "scm:git:git://github.com/cponfick/komp-geom.git"
       developerConnection = "scm:git:ssh://github.com/cponfick/komp-geom.git"
     }
+  }
+}
+
+dokka {
+  dokkaSourceSets.commonMain {
+    sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/main") }
   }
 }
