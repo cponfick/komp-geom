@@ -15,4 +15,3 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish"}
 dokka-html = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-dokka-javadoc = { id = "org.jetbrains.dokka-javadoc", version.ref = "dokka" }
