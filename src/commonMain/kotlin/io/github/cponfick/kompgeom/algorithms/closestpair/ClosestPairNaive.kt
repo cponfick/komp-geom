@@ -2,6 +2,13 @@ package io.github.cponfick.kompgeom.algorithms.closestpair
 
 import io.github.cponfick.kompgeom.core.Point2
 
+/**
+ * Closest Pair algorithm using the Divide and Conquer approach. This implementation sorts the
+ * points by x and y coordinates and recursively finds the closest pair.
+ *
+ * @property input collection of points in 2D space.
+ * @constructor initializes the algorithm with a collection of points.
+ */
 public class ClosestPairNaive(input: Collection<Point2>) : IClosestPair {
   private val points = input.toList()
 
