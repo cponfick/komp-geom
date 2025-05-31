@@ -12,7 +12,7 @@ plugins {
 
 group = "io.github.cponfick"
 
-version = "0.1.0-rc19"
+version = "0.1.0-rc20"
 
 repositories { mavenCentral() }
 
