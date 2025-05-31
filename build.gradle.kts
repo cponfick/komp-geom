@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+import org.gradle.kotlin.dsl.dokkaPlugin
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -85,8 +86,19 @@ mavenPublishing {
   }
 }
 
+dependencies {
+  dokkaPlugin("org.jetbrains.dokka:versioning-plugin:2.0.0")
+}
+
 dokka {
   dokkaSourceSets.commonMain {
     sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/main") }
+  }
+  pluginsConfiguration {
+    versioning {
+      version.set(rootProject.version.toString())
+      olderVersionsDir.set(projectDir.resolve("docs/dokka"))
+      renderVersionsNavigationOnAllPages.set(true)
+    }
   }
 }

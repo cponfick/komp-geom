@@ -85,7 +85,7 @@ jobs:
     needs:
       - publish
     permissions:
-      contents: read
+      contents: write
       pages: write
       id-token: write
 
@@ -118,3 +118,17 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
+      - name: Copy to docs
+        run: |
+          rm -rf docs/dokka/
+          mkdir -p docs/dokka/${{github.ref_name}}
+          cp -r build/dokka/html/* docs/dokka/${{github.ref_name}}/
+
+      - name: Commit and push changes to current branch
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/dokka/${{github.ref_name}}
+          git commit -m "Update documentation for ${{github.ref_name}}"
+          git push
