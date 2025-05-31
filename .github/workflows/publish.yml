@@ -108,7 +108,7 @@ jobs:
             **/gradle-wrapper.properties
             **/gradle/libs.versions.toml
 
-      - name: Build with Gradle
+      - name: Build documentation with Gradle
         run: ./gradlew dokkaGeneratePublicationHtml
 
       - name: Upload documentation artifacts
