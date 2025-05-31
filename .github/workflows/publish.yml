@@ -138,5 +138,5 @@ jobs:
           git commit -m "docs: update documentation after ${{github.ref_name}}"
           git push origin ${{github.ref_name}}-docs
           gh pr create --title "docs: update documentation after ${{github.ref_name}}" --body "This PR updates the documentation for version ${{github.ref_name}}." --base main --head ${{github.ref_name}}-docs --label documentation
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ github.token }}
