@@ -135,7 +135,7 @@ jobs:
 
       - name: Commit, push, and create pr for documentation
         run: |
-          git add docs/dokka/${{github.ref_name}}
+          git add -a
           git commit -m "docs: update documentation after ${{github.ref_name}}"
           git push origin ${{github.ref_name}}-docs
           gh pr create --title "docs: update documentation after ${{github.ref_name}}" --body "This PR updates the documentation for version ${{github.ref_name}}." --base main --head ${{github.ref_name}}-docs --label documentation
