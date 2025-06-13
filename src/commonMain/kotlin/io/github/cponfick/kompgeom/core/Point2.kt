@@ -25,13 +25,12 @@ public class Point2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
    *
    * @return The x for index 0, y for index 1.
    */
-  public operator fun get(index: Int): Float {
-    return when (index) {
+  public operator fun get(index: Int): Float =
+    when (index) {
       0 -> this.x
       1 -> this.y
       else -> throw IndexOutOfBoundsException("Index $index out of bounds for length 2")
     }
-  }
 
   /**
    * Multiplies this point by a scalar value.
@@ -70,9 +69,13 @@ public class Point2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
     return when (angle) {
       0f,
       2 * PI.toFloat() -> Point2(x, y)
+
       PI.toFloat() / 2 -> Point2(-y, x)
+
       PI.toFloat() -> Point2(-x, -y)
+
       3 * PI.toFloat() / 2 -> Point2(y, -x)
+
       else -> {
         val cosAngle = cos(angle)
         val sinAngle = sin(angle)

@@ -87,7 +87,7 @@ jobs:
     - if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin'
       shell: bash
       run: ./gradlew clean build
-        
+
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

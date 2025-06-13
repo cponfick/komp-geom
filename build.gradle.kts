@@ -47,8 +47,21 @@ tasks {
 
 spotless {
   kotlin {
-    target("src/**/*.kt")
+    target("**/*.kt", "**/*.kts")
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
+    trimTrailingWhitespace()
+    endWithNewline()
+  }
+  kotlinGradle {
+    target("**/*.gradle.kts")
+    ktfmt(libs.versions.ktfmt.get()).googleStyle()
+    trimTrailingWhitespace()
+    endWithNewline()
+  }
+  format("misc") {
+    target("**/*.md", "**/*.yaml", "**/*.yml")
+    trimTrailingWhitespace()
+    endWithNewline()
   }
 }
 
@@ -86,9 +99,7 @@ mavenPublishing {
   }
 }
 
-dependencies {
-  dokkaPlugin("org.jetbrains.dokka:versioning-plugin:2.0.0")
-}
+dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:2.0.0") }
 
 dokka {
   dokkaSourceSets.commonMain {

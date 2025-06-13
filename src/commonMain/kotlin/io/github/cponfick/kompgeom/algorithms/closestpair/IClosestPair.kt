@@ -18,7 +18,5 @@ public class Result(public val distance: Float, public val result: Pair<Point2, 
  * collection of points in 2D space.
  */
 public interface IClosestPair : IAlgorithm<Result> {
-  override fun getGroup(): String {
-    return "Closest Pair"
-  }
+  override fun getGroup(): String = "Closest Pair"
 }

@@ -41,13 +41,12 @@ public class Vec2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
    *
    * @return The x for index 0, y for index 1.
    */
-  public operator fun get(index: Int): Float {
-    return when (index) {
+  public operator fun get(index: Int): Float =
+    when (index) {
       0 -> this.x
       1 -> this.y
       else -> throw IndexOutOfBoundsException("Index $index out of bounds for length 2")
     }
-  }
 
   /**
    * Multiplies this vector with another vector component-wise.
@@ -81,8 +80,11 @@ public class Vec2(public val x: Float = 0.0F, public val y: Float = 0.0F) {
    * @throws ArithmeticException if the scalar is zero.
    */
   public operator fun div(scalar: Float): Vec2 =
-    if (scalar != 0F) Vec2(this.x / scalar, this.y / scalar)
-    else throw ArithmeticException("Division by zero")
+    if (scalar != 0F) {
+      Vec2(this.x / scalar, this.y / scalar)
+    } else {
+      throw ArithmeticException("Division by zero")
+    }
 
   /**
    * Negates the vector, flipping its direction.

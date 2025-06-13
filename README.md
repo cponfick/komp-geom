@@ -1,7 +1,7 @@
 [![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml) [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
 
 
-# Computational Geometry in Kotlin 
+# Computational Geometry in Kotlin
 
 This repository contains a collection of algorithms and data structures for computational geometry implemented in KMP (
 Kotlin Multiplatform). The focus is on providing efficient solutions to common geometric problems on multiple platforms.
