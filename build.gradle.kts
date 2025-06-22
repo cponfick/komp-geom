@@ -99,7 +99,7 @@ mavenPublishing {
   }
 }
 
-dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:2.0.0") }
+dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:${libs.versions.dokka.get()}") }
 
 dokka {
   dokkaSourceSets.commonMain {
