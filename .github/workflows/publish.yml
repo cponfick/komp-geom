@@ -34,6 +34,9 @@ jobs:
             **/gradle-wrapper.properties
             **/gradle/libs.versions.toml
 
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Test Code Style
         run: ./gradlew spotlessCheck
 
@@ -42,6 +45,15 @@ jobs:
 
       - name: JS tests
         run: ./gradlew jsTest
+
+      - name: WebAssembly tests
+        run: ./gradlew wasmJsTest
+
+      - name: Test LinuxX64
+        run: ./gradlew linuxX64Test
+
+      - name: Test MinGwX64
+        run: ./gradlew mingwX64Test
 
   publish:
     name: Build and Publish

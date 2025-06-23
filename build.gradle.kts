@@ -18,6 +18,7 @@ version = "0.1.0-rc30"
 
 repositories { mavenCentral() }
 
+// https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 kotlin {
   explicitApi()
   jvm()
@@ -27,6 +28,8 @@ kotlin {
     browser { testTask { useKarma { useChromeHeadless() } } }
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
+  linuxX64()
+  mingwX64()
 
   sourceSets {
     val commonTest by getting {

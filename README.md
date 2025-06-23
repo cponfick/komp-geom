@@ -11,6 +11,7 @@ Currently, following platforms are supported:
 
 - JVM
 - JS
+- Wasm
 
 > [!IMPORTANT]
 > This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. Following
