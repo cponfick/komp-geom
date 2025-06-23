@@ -1,6 +1,8 @@
-import com.vanniktech.maven.publish.SonatypeHost
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -22,7 +24,9 @@ kotlin {
   js(IR) {
     binaries.library()
     nodejs()
+    browser { testTask { useKarma { useChromeHeadless() } } }
   }
+  wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
 
   sourceSets {
     val commonTest by getting {
@@ -66,7 +70,7 @@ spotless {
 }
 
 mavenPublishing {
-  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+  publishToMavenCentral()
 
   signAllPublications()
 
