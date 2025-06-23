@@ -119,12 +119,12 @@ class Vec2Test {
   }
 
   private val isNaNTestCases =
-      listOf(
-          Pair(Vec2(Double.NaN, 1.0), true),
-          Pair(Vec2(1.0, Double.NaN), true),
-          Pair(Vec2(Double.NaN, Double.NaN), true),
-          Pair(Vec2(1.0, 1.0), false),
-      )
+    listOf(
+      Pair(Vec2(Double.NaN, 1.0), true),
+      Pair(Vec2(1.0, Double.NaN), true),
+      Pair(Vec2(Double.NaN, Double.NaN), true),
+      Pair(Vec2(1.0, 1.0), false),
+    )
 
   @Test
   fun `isNaN returns expected result`() {
@@ -134,12 +134,12 @@ class Vec2Test {
   }
 
   private val isInfiniteTestCases =
-      listOf(
-          Pair(Vec2(Double.POSITIVE_INFINITY, 1.0), true),
-          Pair(Vec2(1.0, Double.NEGATIVE_INFINITY), true),
-          Pair(Vec2(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY), true),
-          Pair(Vec2(1.0, 1.0), false),
-      )
+    listOf(
+      Pair(Vec2(Double.POSITIVE_INFINITY, 1.0), true),
+      Pair(Vec2(1.0, Double.NEGATIVE_INFINITY), true),
+      Pair(Vec2(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY), true),
+      Pair(Vec2(1.0, 1.0), false),
+    )
 
   @Test
   fun `isInfinite returns expected result`() {
@@ -150,10 +150,11 @@ class Vec2Test {
 
   // input and expected output for orthogonal test cases
   private val orthogonalTestCases =
-      listOf(
-          Pair(Vec2(0.0, 1.0), Vec2(-1.0, 0.0)),
-          Pair(Vec2(0.0, -1.0), Vec2(1.0, 0.0)),
-          Pair(Vec2(2.0, 3.0), Vec2(-0.8320502943378437, 0.5547001962252291)))
+    listOf(
+      Pair(Vec2(0.0, 1.0), Vec2(-1.0, 0.0)),
+      Pair(Vec2(0.0, -1.0), Vec2(1.0, 0.0)),
+      Pair(Vec2(2.0, 3.0), Vec2(-0.8320502943378437, 0.5547001962252291)),
+    )
 
   @Test
   fun `orthogonal returns expected unit vector`() {

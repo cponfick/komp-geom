@@ -9,9 +9,7 @@ import kotlin.math.abs
  */
 public var DBL_EPSILON: Double = 2.220446049250313e-16 // 2^-52
 
-/**
- * The default double equivalence used in geometric computations.
- */
+/** The default double equivalence used in geometric computations. */
 public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = object : DoubleEquivalence {}
 
 public interface DoubleEquivalence {

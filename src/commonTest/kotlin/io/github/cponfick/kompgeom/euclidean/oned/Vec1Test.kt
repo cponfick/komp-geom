@@ -40,13 +40,13 @@ class Vec1Test {
   }
 
   private val plusTestCases =
-      listOf(
-          Triple(Vec1(1.0), Vec1(2.0), Vec1(3.0)),
-          Triple(Vec1(-1.0), Vec1(-2.0), Vec1(-3.0)),
-          Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
-          Triple(Vec1(1.5), Vec1(2.5), Vec1(4.0)),
-          Triple(Vec1(-1.5), Vec1(2.5), Vec1(1.0)),
-      )
+    listOf(
+      Triple(Vec1(1.0), Vec1(2.0), Vec1(3.0)),
+      Triple(Vec1(-1.0), Vec1(-2.0), Vec1(-3.0)),
+      Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
+      Triple(Vec1(1.5), Vec1(2.5), Vec1(4.0)),
+      Triple(Vec1(-1.5), Vec1(2.5), Vec1(1.0)),
+    )
 
   @Test
   fun `vector a plus vector b`() {
@@ -93,13 +93,13 @@ class Vec1Test {
   }
 
   private val distanceTestCases =
-      listOf(
-          Triple(Vec1(0.0), Vec1(0.0), 0.0),
-          Triple(Vec1(1.0), Vec1(2.0), 1.0),
-          Triple(Vec1(-1.0), Vec1(1.0), 2.0),
-          Triple(Vec1(3.0), Vec1(3.0), 0.0),
-          Triple(Vec1(5.0), Vec1(-5.0), 10.0),
-      )
+    listOf(
+      Triple(Vec1(0.0), Vec1(0.0), 0.0),
+      Triple(Vec1(1.0), Vec1(2.0), 1.0),
+      Triple(Vec1(-1.0), Vec1(1.0), 2.0),
+      Triple(Vec1(3.0), Vec1(3.0), 0.0),
+      Triple(Vec1(5.0), Vec1(-5.0), 10.0),
+    )
 
   @Test
   fun `distance between two Vec1`() {
@@ -110,13 +110,13 @@ class Vec1Test {
   }
 
   private val minusTestCases =
-      listOf(
-          Triple(Vec1(3.0), Vec1(2.0), Vec1(1.0)),
-          Triple(Vec1(2.0), Vec1(3.0), Vec1(-1.0)),
-          Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
-          Triple(Vec1(-2.0), Vec1(-3.0), Vec1(1.0)),
-          Triple(Vec1(-3.0), Vec1(-2.0), Vec1(-1.0)),
-      )
+    listOf(
+      Triple(Vec1(3.0), Vec1(2.0), Vec1(1.0)),
+      Triple(Vec1(2.0), Vec1(3.0), Vec1(-1.0)),
+      Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
+      Triple(Vec1(-2.0), Vec1(-3.0), Vec1(1.0)),
+      Triple(Vec1(-3.0), Vec1(-2.0), Vec1(-1.0)),
+    )
 
   @Test
   fun `vector a minus vector b`() {
@@ -176,13 +176,13 @@ class Vec1Test {
   }
 
   private val dotProductTestCases =
-      listOf(
-          Triple(Vec1(2.0), Vec1(3.0), 6.0),
-          Triple(Vec1(-2.0), Vec1(3.0), -6.0),
-          Triple(Vec1(0.0), Vec1(3.0), 0.0),
-          Triple(Vec1(2.5), Vec1(4.0), 10.0),
-          Triple(Vec1(-2.5), Vec1(-4.0), 10.0),
-      )
+    listOf(
+      Triple(Vec1(2.0), Vec1(3.0), 6.0),
+      Triple(Vec1(-2.0), Vec1(3.0), -6.0),
+      Triple(Vec1(0.0), Vec1(3.0), 0.0),
+      Triple(Vec1(2.5), Vec1(4.0), 10.0),
+      Triple(Vec1(-2.5), Vec1(-4.0), 10.0),
+    )
 
   @Test
   fun `dot product of two Vec1`() {
@@ -193,13 +193,13 @@ class Vec1Test {
   }
 
   private val timesTestCases =
-      listOf(
-          Triple(Vec1(2.0), 3.0, Vec1(6.0)),
-          Triple(Vec1(-2.0), 3.0, Vec1(-6.0)),
-          Triple(Vec1(0.0), 3.0, Vec1(0.0)),
-          Triple(Vec1(2.5), 4.0, Vec1(10.0)),
-          Triple(Vec1(-2.5), -4.0, Vec1(10.0)),
-      )
+    listOf(
+      Triple(Vec1(2.0), 3.0, Vec1(6.0)),
+      Triple(Vec1(-2.0), 3.0, Vec1(-6.0)),
+      Triple(Vec1(0.0), 3.0, Vec1(0.0)),
+      Triple(Vec1(2.5), 4.0, Vec1(10.0)),
+      Triple(Vec1(-2.5), -4.0, Vec1(10.0)),
+    )
 
   @Test
   fun `vector times scalar`() {

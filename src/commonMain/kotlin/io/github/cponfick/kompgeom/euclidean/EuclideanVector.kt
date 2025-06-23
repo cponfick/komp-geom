@@ -15,8 +15,8 @@ public abstract class EuclideanVector<V : EuclideanVector<V>> : Point<V>, Spatia
    *   [DEFAULT_DOUBLE_EQUIVALENCE]).
    */
   public abstract fun eq(
-      other: V,
-      equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+    other: V,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
   ): Boolean
 
   /**

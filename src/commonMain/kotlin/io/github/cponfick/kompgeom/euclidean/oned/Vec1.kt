@@ -21,7 +21,7 @@ public class Vec1(public val x: Double = 0.0) : EuclideanVector<Vec1>() {
   public constructor(vector: Vec1) : this(vector.x)
 
   override fun eq(other: Vec1, equivalence: DoubleEquivalence): Boolean =
-      equivalence.eq(this.x, other.x)
+    equivalence.eq(this.x, other.x)
 
   override fun lerp(other: Vec1, t: Double): Vec1 {
     return Vec1(x + (other.x - x) * t)

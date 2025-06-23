@@ -15,7 +15,7 @@ import kotlin.math.sqrt
  * @property y The y-coordinate of the vector.
  */
 public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
-    MultiDimensionalEuclideanVector<Vec2>() {
+  MultiDimensionalEuclideanVector<Vec2>() {
 
   /**
    * Creates a new vector by copying the coordinates from another vector.
@@ -45,16 +45,13 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
   }
 
   override fun eq(other: Vec2, equivalence: DoubleEquivalence): Boolean =
-      equivalence.eq(this.x, other.x) && equivalence.eq(this.y, other.y)
+    equivalence.eq(this.x, other.x) && equivalence.eq(this.y, other.y)
 
   override fun lerp(other: Vec2, t: Double): Vec2 =
-      Vec2(
-          x + (other.x - x) * t,
-          y + (other.y - y) * t,
-      )
+    Vec2(x + (other.x - x) * t, y + (other.y - y) * t)
 
   override fun distance(other: Vec2): Double =
-      sqrt((this.x - other.x).let { it * it } + (this.y - other.y).let { it * it })
+    sqrt((this.x - other.x).let { it * it } + (this.y - other.y).let { it * it })
 
   override fun dimensions(): Int = DIMENSIONS
 
@@ -86,11 +83,11 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
   override fun unaryMinus(): Vec2 = Vec2(-x, -y)
 
   override fun normalize(): Vec2 =
-      if (norm() == 0.0) {
-        throw ArithmeticException("Cannot normalize a vector with zero length.")
-      } else {
-        Vec2(x / norm(), y / norm())
-      }
+    if (norm() == 0.0) {
+      throw ArithmeticException("Cannot normalize a vector with zero length.")
+    } else {
+      Vec2(x / norm(), y / norm())
+    }
 
   override fun norm(): Double = sqrt(x * x + y * y)
 
