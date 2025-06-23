@@ -72,7 +72,7 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
 
     return when (angleUnit) {
       AngleUnit.RADIANS -> angle
-      AngleUnit.DEGREES -> angle * (180f / PI)
+      AngleUnit.DEGREES -> angle * (180.0 / PI)
     }
   }
 
