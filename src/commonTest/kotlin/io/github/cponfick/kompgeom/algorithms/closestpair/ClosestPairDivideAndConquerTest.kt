@@ -1,21 +1,19 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.core.DEFAULT_EPSILON
-import io.github.cponfick.kompgeom.core.Point2
+import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.floats.plusOrMinus
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
 class ClosestPairDivideAndConquerTest {
   @Test
   fun `calculates the closest pair of points`() {
-    val points = listOf(Point2(), Point2(1.0F, 1.0F))
+    val points = listOf(Vec2(), Vec2(1.0, 1.0))
     val closestPair = ClosestPairDivideAndConquer(points)
 
     val actual = closestPair.run()
 
-    actual.distance shouldBe (1.4142135F plusOrMinus DEFAULT_EPSILON)
+    actual.distance shouldBe 1.4142135623730951
     actual.result.first shouldBe points[0]
     actual.result.second shouldBe points[1]
   }
@@ -24,37 +22,37 @@ class ClosestPairDivideAndConquerTest {
   fun `calculates the closest pair of points 2`() {
     val points =
       listOf(
-        Point2(6.51F, 4.61F),
-        Point2(3.05F, -6.65F),
-        Point2(-7.38F, -0.83F),
-        Point2(-4.09F, 2.98F),
-        Point2(1.16F, -2.13F),
-        Point2(5.58F, -2.42F),
-        Point2(0.90F, 4.94F),
-        Point2(-5.18F, 4.76F),
-        Point2(-4.56F, -3.42F),
-        Point2(6.82F, -5.87F),
-        Point2(1.35F, -8.11F),
-        Point2(-7.74F, -4.35F),
-        Point2(-7.17F, 0.97F),
-        Point2(-2.98F, 1.02F),
-        Point2(4.58F, -7.09F),
-        Point2(-4.45F, 6.13F),
-        Point2(-6.91F, 3.31F),
-        Point2(2.87F, -2.71F),
-        Point2(2.93F, 5.65F),
-        Point2(7.11F, -4.82F),
-        Point2(3.80F, 0.93F),
-        Point2(2.24F, 3.02F),
-        Point2(-2.31F, -5.24F),
-        Point2(4.12F, -5.35F),
-        Point2(4.61F, 4.45F),
-        Point2(8.42F, -3.38F),
-        Point2(4.91F, -0.64F),
-        Point2(-7.03F, -2.60F),
-        Point2(-4.00F, -1.44F),
-        Point2(0.40F, -5.06F),
-        Point2(7.31F, 2.60F),
+        Vec2(6.51, 4.61),
+        Vec2(3.05, -6.65),
+        Vec2(-7.38, -0.83),
+        Vec2(-4.09, 2.98),
+        Vec2(1.16, -2.13),
+        Vec2(5.58, -2.42),
+        Vec2(0.90, 4.94),
+        Vec2(-5.18, 4.76),
+        Vec2(-4.56, -3.42),
+        Vec2(6.82, -5.87),
+        Vec2(1.35, -8.11),
+        Vec2(-7.74, -4.35),
+        Vec2(-7.17, 0.97),
+        Vec2(-2.98, 1.02),
+        Vec2(4.58, -7.09),
+        Vec2(-4.45, 6.13),
+        Vec2(-6.91, 3.31),
+        Vec2(2.87, -2.71),
+        Vec2(2.93, 5.65),
+        Vec2(7.11, -4.82),
+        Vec2(3.80, 0.93),
+        Vec2(2.24, 3.02),
+        Vec2(-2.31, -5.24),
+        Vec2(4.12, -5.35),
+        Vec2(4.61, 4.45),
+        Vec2(8.42, -3.38),
+        Vec2(4.91, -0.64),
+        Vec2(-7.03, -2.60),
+        Vec2(-4.00, -1.44),
+        Vec2(0.40, -5.06),
+        Vec2(7.31, 2.60),
       )
 
     // Assuming the naive implementation is correct
@@ -68,7 +66,7 @@ class ClosestPairDivideAndConquerTest {
 
   @Test
   fun `returns the correct id`() {
-    val closestPair = ClosestPairDivideAndConquer(listOf(Point2(), Point2(1.0F, 1.0F)))
+    val closestPair = ClosestPairDivideAndConquer(listOf(Vec2(), Vec2(1.0, 1.0)))
     closestPair.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
   }
 
@@ -79,6 +77,6 @@ class ClosestPairDivideAndConquerTest {
 
   @Test
   fun `throws exception on single point input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf(Point2())).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf(Vec2())).run() }
   }
 }

@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
 import io.github.cponfick.kompgeom.algorithms.IAlgorithm
-import io.github.cponfick.kompgeom.core.Point2
+import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
 /**
  * Represents the result of a closest pair algorithm.
@@ -9,7 +9,7 @@ import io.github.cponfick.kompgeom.core.Point2
  * @property distance The distance between the closest pair of points.
  * @property result A pair of points that are the closest to each other.
  */
-public class Result(public val distance: Float, public val result: Pair<Point2, Point2>)
+public class Result(public val distance: Double, public val result: Pair<Vec2, Vec2>)
 
 /**
  * Interface for closest pair algorithms.
