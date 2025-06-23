@@ -12,8 +12,8 @@ on:
       - "[0-9]+.[0-9]+.[0-9]+-rc[0-9]+"
 
 permissions:
-    contents: read
-    pull-requests: read
+  contents: read
+  pull-requests: read
 
 jobs:
   test:
@@ -35,6 +35,9 @@ jobs:
             **/gradle-wrapper.properties
             **/gradle/libs.versions.toml
 
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Test Code Style
         run: ./gradlew spotlessCheck
 
@@ -43,3 +46,12 @@ jobs:
 
       - name: JS tests
         run: ./gradlew jsTest
+
+      - name: WebAssembly tests
+        run: ./gradlew wasmJsTest
+
+      - name: Test LinuxX64
+        run: ./gradlew linuxX64Test
+
+      - name: Test MinGwX64
+        run: ./gradlew mingwX64Test

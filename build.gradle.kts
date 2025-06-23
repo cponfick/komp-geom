@@ -1,6 +1,8 @@
-import com.vanniktech.maven.publish.SonatypeHost
+@file:OptIn(ExperimentalWasmDsl::class)
+
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -16,13 +18,18 @@ version = "0.1.0-rc30"
 
 repositories { mavenCentral() }
 
+// https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 kotlin {
   explicitApi()
   jvm()
   js(IR) {
     binaries.library()
     nodejs()
+    browser { testTask { useKarma { useChromeHeadless() } } }
   }
+  wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
+  linuxX64()
+  mingwX64()
 
   sourceSets {
     val commonTest by getting {
@@ -66,7 +73,7 @@ spotless {
 }
 
 mavenPublishing {
-  publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+  publishToMavenCentral()
 
   signAllPublications()
 
