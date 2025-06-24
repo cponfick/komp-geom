@@ -3,6 +3,9 @@ name: Test Workflow
 on:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Test (${{ matrix.os }}, ${{ matrix.arch }})
