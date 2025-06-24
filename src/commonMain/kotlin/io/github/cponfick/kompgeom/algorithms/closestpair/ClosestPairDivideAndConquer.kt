@@ -8,7 +8,7 @@ import io.github.cponfick.kompgeom.euclidean.twod.Vec2
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair {
+public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair<Vec2> {
   private val sortedByX: List<Vec2> = input.sortedBy { it.x }
   private val sortedByY: List<Vec2> = input.sortedBy { it.y }
 
@@ -18,7 +18,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
     }
   }
 
-  override fun run(): Result {
+  override fun run(): Result<Vec2> {
     val closestPair = closestPair(sortedByX, sortedByY)
     val distance = closestPair.first distance closestPair.second
     return Result(distance, closestPair)
