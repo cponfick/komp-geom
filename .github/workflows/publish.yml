@@ -105,7 +105,6 @@ jobs:
 
       - name: Copy to docs
         run: |
-          rm -rf docs/dokka/
           mkdir -p docs/dokka/${{github.ref_name}}
           cp -r build/dokka/html/* docs/dokka/${{github.ref_name}}/
 
