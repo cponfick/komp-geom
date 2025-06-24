@@ -13,8 +13,6 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         arch: [x64]
         include:
-          - os: ubuntu-latest
-            arch: arm64
           - os: macos-latest
             arch: arm64
           # iOS tests (using macOS runner)
@@ -99,3 +97,8 @@ jobs:
       - name: tvOS x64 tests
         run: ./gradlew tvosX64Test
         if: matrix.os == 'macos-latest' && matrix.platform == 'ios'
+
+      # Tier 3 Native Platform Tests
+      - name: MinGw X64 tests
+        run: ./gradlew mingwX64Test
+        if: matrix.os == 'windows-latest' && matrix.arch == 'x64'
