@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
+import io.github.cponfick.kompgeom.core.Vector
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
 /**
@@ -9,7 +10,7 @@ import io.github.cponfick.kompgeom.euclidean.twod.Vec2
  * @property input collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairNaive(input: Collection<Vec2>) : IClosestPair {
+public class ClosestPairNaive(input: Collection<Vector>) : IClosestPair {
   private val points = input.toList()
 
   init {
