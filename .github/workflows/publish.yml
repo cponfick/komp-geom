@@ -107,6 +107,7 @@ jobs:
         run: |
           mkdir -p docs/dokka/${{github.ref_name}}
           cp -r build/dokka/html/* docs/dokka/${{github.ref_name}}/
+          find . -type d -name "older" -exec rm -rf {} \; 2>/dev/null || true
 
       - name: Commit, push, and create pr for documentation
         run: |
