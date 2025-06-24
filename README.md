@@ -20,11 +20,15 @@ Currently, following platforms are supported:
 
 ## Usage Example
 
-TODO: Add usage examples when the API is more stable.
+TBD
 
 ## Foundation
 
-TODO: Add documentation on the foundation of the library, including key concepts, data structures, and algorithms.
+TBD
+
+## Implemented Data Structures
+
+TBD
 
 ## Implemented Algorithms
 
