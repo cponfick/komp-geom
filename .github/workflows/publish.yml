@@ -12,48 +12,11 @@ concurrency:
 
 jobs:
   test:
-    name: Test
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/test-workflow.yml
 
     permissions:
       contents: read
       pull-requests: read
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
-            **/gradle/libs.versions.toml
-
-      - name: Install Chrome
-        uses: browser-actions/setup-chrome@v1
-
-      - name: Test Code Style
-        run: ./gradlew spotlessCheck
-
-      - name: JVM tests
-        run: ./gradlew jvmTest
-
-      - name: JS tests
-        run: ./gradlew jsTest
-
-      - name: WebAssembly tests
-        run: ./gradlew wasmJsTest
-
-      - name: Test LinuxX64
-        run: ./gradlew linuxX64Test
-
-      - name: Test MinGwX64
-        run: ./gradlew mingwX64Test
 
   publish:
     name: Build and Publish
