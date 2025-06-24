@@ -17,5 +17,5 @@ permissions:
 
 jobs:
   test:
-    name: Run Platform Tests
+    name: Test on different targets
     uses: ./.github/workflows/test-workflow.yml
