@@ -19,6 +19,7 @@ version = "0.1.0-rc30"
 repositories { mavenCentral() }
 
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
+// https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
 kotlin {
   explicitApi()
   jvm()
@@ -28,8 +29,29 @@ kotlin {
     browser { testTask { useKarma { useChromeHeadless() } } }
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
+  // Tier 1
   linuxX64()
+  macosX64()
+  macosArm64()
+  iosSimulatorArm64()
+  iosX64()
+  // Tier 2
+  linuxArm64()
+  watchosSimulatorArm64()
+  watchosX64()
+  watchosArm32()
+  watchosArm64()
+  tvosSimulatorArm64()
+  tvosX64()
+  tvosArm64()
+  iosArm64()
+  // Tier 3
+  androidNativeArm32()
+  androidNativeArm64()
+  androidNativeX86()
+  androidNativeX64()
   mingwX64()
+  watchosDeviceArm64()
 
   sourceSets {
     val commonTest by getting {
