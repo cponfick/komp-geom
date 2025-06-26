@@ -46,7 +46,7 @@ public class AffineTransformationMatrix1(public val m00: Double, public val m01:
   }
 
   public companion object {
-    /** Identity matrix for one-dimensional vectors. */
+    /** Identity matrix for transformations in one dimensional space. */
     public val IDENTITY: AffineTransformationMatrix1 = AffineTransformationMatrix1(1.0, 0.0)
   }
 }

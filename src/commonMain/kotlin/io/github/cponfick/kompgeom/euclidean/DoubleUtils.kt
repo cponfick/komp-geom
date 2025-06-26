@@ -6,3 +6,10 @@ internal fun Double.assertIsFiniteAndNotZero(): Double {
   }
   return this
 }
+
+internal fun Double.assertIsFinite(): Double {
+  if (!isFinite()) {
+    throw IllegalArgumentException("Value is not finite: $this")
+  }
+  return this
+}
