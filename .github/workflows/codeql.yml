@@ -14,8 +14,20 @@ name: "CodeQL Advanced"
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build.gradle'
+      - 'settings.gradle'
+      - 'gradle.properties'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build.gradle'
+      - 'settings.gradle'
+      - 'gradle.properties'
   schedule:
     - cron: '37 3 * * 4'
 
