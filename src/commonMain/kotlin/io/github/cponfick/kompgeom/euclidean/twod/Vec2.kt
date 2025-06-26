@@ -1,11 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
-import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.euclidean.MultiDimensionalEuclideanVector
 import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
-import kotlin.math.PI
-import kotlin.math.acos
 import kotlin.math.sqrt
 
 /**
@@ -14,7 +11,7 @@ import kotlin.math.sqrt
  * @property x The x-coordinate of the vector.
  * @property y The y-coordinate of the vector.
  */
-public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
+public class Vec2(public val x: Double, public val y: Double) :
   MultiDimensionalEuclideanVector<Vec2>() {
 
   /**
@@ -23,10 +20,6 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
    * @param vector The vector to copy.
    */
   public constructor(vector: Vec2) : this(vector.x, vector.y)
-
-  override fun orthogonal(): Vec2 = Vec2(-y, x).normalize()
-
-  override fun orthogonal(direction: Vec2): Vec2 = Vec2(-direction.y, direction.x).normalize()
 
   override fun project(base: Vec2): Vec2 {
     val scale = computeScale(base)
@@ -63,31 +56,19 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
 
   override fun plus(other: Vec2): Vec2 = Vec2(this.x + other.x, this.y + other.y)
 
-  override fun angle(other: Vec2, angleUnit: AngleUnit): Double {
-    val dotProduct = this dot other
-    val lengthsProduct = this.norm() * other.norm()
-    val cosTheta = dotProduct / lengthsProduct
-
-    val angle = acos(cosTheta)
-
-    return when (angleUnit) {
-      AngleUnit.RADIANS -> angle
-      AngleUnit.DEGREES -> angle * (180.0 / PI)
-    }
-  }
-
   override fun dot(other: Vec2): Double = this.x * other.x + this.y * other.y
 
   override fun times(scalar: Double): Vec2 = Vec2(this.x * scalar, this.y * scalar)
 
   override fun unaryMinus(): Vec2 = Vec2(-x, -y)
 
-  override fun normalize(): Vec2 =
-    if (norm() == 0.0) {
+  override fun normalize(): Vec2 {
+    val norm = norm()
+    if (norm == 0.0) {
       throw ArithmeticException("Cannot normalize a vector with zero length.")
-    } else {
-      Vec2(x / norm(), y / norm())
     }
+    return Vec2(x / norm, y / norm)
+  }
 
   override fun norm(): Double = sqrt(x * x + y * y)
 
@@ -105,21 +86,18 @@ public class Vec2(public val x: Double = 0.0, public val y: Double = 0.0) :
     return result
   }
 
-  override fun toString(): String {
-    return "Vec2(x=$x, y=$y)"
-  }
+  override fun toString(): String = "Vec2(x=$x, y=$y)"
 
   public companion object {
     private const val DIMENSIONS = 2
-  }
-}
 
-/**
- * Multiplies a scalar by a Vec1 vector.
- *
- * @param vector The Vec2 vector to multiply.
- * @return A new Vec1 vector that is the result of the multiplication.
- */
-public operator fun Double.times(vector: Vec2): Vec2 {
-  return Vec2(this * vector.x, this * vector.y)
+    /** The zero vector. */
+    public val ZERO: Vec2 = Vec2(0.0, 0.0)
+    /** Vector with all components set to positive infinity. */
+    public val POSITIVE_INFINITY: Vec2 = Vec2(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+    /** Vector with all components set to negative infinity. */
+    public val NEGATIVE_INFINITY: Vec2 = Vec2(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)
+    /** Vector with all components set to NaN. */
+    public val NaN: Vec2 = Vec2(Double.NaN, Double.NaN)
+  }
 }

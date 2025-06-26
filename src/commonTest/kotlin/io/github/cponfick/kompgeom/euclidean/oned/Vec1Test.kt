@@ -10,13 +10,6 @@ import kotlin.test.Test
 class Vec1Test {
 
   @Test
-  fun `default constructor initializes to zero`() {
-    val vector = Vec2()
-    vector.x shouldBe 0.0F
-    vector.y shouldBe 0.0F
-  }
-
-  @Test
   fun `constructor with parameters initializes correctly`() {
     val vector = Vec2(1.0, 2.0)
     vector.x shouldBe 1.0F
@@ -205,14 +198,6 @@ class Vec1Test {
   fun `vector times scalar`() {
     for ((vec, scalar, expected) in timesTestCases) {
       val actual = vec * scalar
-      actual shouldBe expected
-    }
-  }
-
-  @Test
-  fun `scalar times vector`() {
-    for ((vec, scalar, expected) in timesTestCases) {
-      val actual = scalar * vec
       actual shouldBe expected
     }
   }

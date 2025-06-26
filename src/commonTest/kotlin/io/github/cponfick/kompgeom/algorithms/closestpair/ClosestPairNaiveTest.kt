@@ -9,7 +9,7 @@ class ClosestPairNaiveTest {
 
   @Test
   fun `calculates the closest pair of points`() {
-    val points = listOf(Vec2(), Vec2(1.0, 1.0))
+    val points = listOf(Vec2.ZERO, Vec2(1.0, 1.0))
     val closestPair = ClosestPairNaive(points)
 
     val actual = closestPair.run()
@@ -21,7 +21,7 @@ class ClosestPairNaiveTest {
 
   @Test
   fun `returns the correct id`() {
-    val closestPair = ClosestPairNaive(listOf(Vec2(), Vec2(1.0, 1.0)))
+    val closestPair = ClosestPairNaive(listOf(Vec2.ZERO, Vec2(1.0, 1.0)))
     closestPair.getId() shouldBe "closest-pair:closest-pair-naive"
   }
 
@@ -32,6 +32,6 @@ class ClosestPairNaiveTest {
 
   @Test
   fun `throws exception on single point input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf(Vec2())).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf(Vec2.ZERO)).run() }
   }
 }

@@ -9,17 +9,10 @@ import kotlin.test.Test
 class Vec2Test {
 
   @Test
-  fun `default constructor initializes to zero`() {
-    val vector = Vec2()
-    vector.x shouldBe 0.0F
-    vector.y shouldBe 0.0F
-  }
-
-  @Test
   fun `constructor with parameters initializes correctly`() {
     val vector = Vec2(1.0, 2.0)
-    vector.x shouldBe 1.0F
-    vector.y shouldBe 2.0F
+    vector.x shouldBe 1.0
+    vector.y shouldBe 2.0
   }
 
   @Test
@@ -35,20 +28,34 @@ class Vec2Test {
     vector.dimensions() shouldBe 2
   }
 
+  private val angleInRadiansTestCases =
+    listOf(
+      Triple(Vec2(1.0, 0.0), Vec2(0.0, 1.0), PI / 2),
+      Triple(Vec2(1.0, 1.0), Vec2(1.0, -1.0), PI / 2),
+      Triple(Vec2(1.0, 0.0), Vec2(-1.0, 0.0), PI),
+    )
+
   @Test
   fun `angle method calculates angle between two vectors in radians`() {
-    val vector1 = Vec2(1.0, 0.0)
-    val vector2 = Vec2(0.0, 1.0)
-    val actual = vector1.angle(vector2, AngleUnit.RADIANS)
-    actual shouldBe PI / 2
+    for ((vector1, vector2, expected) in angleInRadiansTestCases) {
+      val actual = vector1.angle(vector2, AngleUnit.RADIANS)
+      actual shouldBe expected
+    }
   }
+
+  private val angleInDegreesTestCases =
+    listOf(
+      Triple(Vec2(1.0, 0.0), Vec2(0.0, 1.0), 90.0),
+      Triple(Vec2(1.0, 1.0), Vec2(1.0, -1.0), 90.0),
+      Triple(Vec2(1.0, 0.0), Vec2(-1.0, 0.0), 180.0),
+    )
 
   @Test
   fun `angle method calculates angle between two vectors in degrees`() {
-    val vector1 = Vec2(1.0, 0.0)
-    val vector2 = Vec2(0.0, 1.0)
-    val actual = vector1.angle(vector2, AngleUnit.DEGREES)
-    actual shouldBe 90.0
+    for ((vector1, vector2, expected) in angleInDegreesTestCases) {
+      val actual = vector1.angle(vector2, AngleUnit.DEGREES)
+      actual shouldBe expected
+    }
   }
 
   @Test
@@ -75,14 +82,6 @@ class Vec2Test {
   }
 
   @Test
-  fun `scalar times operator multiplies scalar by vector`() {
-    val vector = Vec2(1.0, 2.0)
-    val scalar = 3.0
-    val actual = scalar * vector
-    actual shouldBe Vec2(3.0, 6.0)
-  }
-
-  @Test
   fun `minus operator subtracts two vectors`() {
     val vector1 = Vec2(5.0, 6.0)
     val vector2 = Vec2(3.0, 4.0)
@@ -99,8 +98,7 @@ class Vec2Test {
 
   @Test
   fun `normalize method throws exception for zero vector`() {
-    val vector = Vec2(0.0, 0.0)
-    shouldThrow<ArithmeticException> { vector.normalize() }
+    shouldThrow<ArithmeticException> { Vec2.ZERO.normalize() }
   }
 
   @Test
@@ -148,28 +146,6 @@ class Vec2Test {
     }
   }
 
-  // input and expected output for orthogonal test cases
-  private val orthogonalTestCases =
-    listOf(
-      Pair(Vec2(0.0, 1.0), Vec2(-1.0, 0.0)),
-      Pair(Vec2(0.0, -1.0), Vec2(1.0, 0.0)),
-      Pair(Vec2(2.0, 3.0), Vec2(-0.8320502943378437, 0.5547001962252291)),
-    )
-
-  @Test
-  fun `orthogonal returns expected unit vector`() {
-    for ((vector1, expected) in orthogonalTestCases) {
-      val actual = vector1.orthogonal()
-      actual shouldBe expected
-    }
-  }
-
-  @Test
-  fun `orthogonal throws exception for zero vector`() {
-    val zeroVector = Vec2()
-    shouldThrow<ArithmeticException> { zeroVector.orthogonal() }
-  }
-
   @Test
   fun `project returns expected projection of vector onto another vector`() {
     val vector1 = Vec2(3.0, 4.0)
@@ -181,8 +157,7 @@ class Vec2Test {
   @Test
   fun `project throws exception for zero vector`() {
     val vector1 = Vec2(3.0, 4.0)
-    val zeroVector = Vec2()
-    shouldThrow<IllegalArgumentException> { vector1.project(zeroVector) }
+    shouldThrow<IllegalArgumentException> { vector1.project(Vec2.ZERO) }
   }
 
   @Test
@@ -210,15 +185,13 @@ class Vec2Test {
   @Test
   fun `reject throws exception for zero vector`() {
     val vector1 = Vec2(3.0, 4.0)
-    val zeroVector = Vec2()
-    shouldThrow<IllegalArgumentException> { vector1.reject(zeroVector) }
+    shouldThrow<IllegalArgumentException> { vector1.reject(Vec2.ZERO) }
   }
 
   @Test
   fun `reject throws exception for NaN vector`() {
     val vector1 = Vec2(3.0, 4.0)
-    val nanVector = Vec2(Double.NaN, Double.NaN)
-    shouldThrow<IllegalArgumentException> { vector1.reject(nanVector) }
+    shouldThrow<IllegalArgumentException> { vector1.reject(Vec2.NaN) }
   }
 
   @Test
