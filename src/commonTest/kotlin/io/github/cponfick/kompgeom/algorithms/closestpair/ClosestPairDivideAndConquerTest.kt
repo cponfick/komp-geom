@@ -8,7 +8,7 @@ import kotlin.test.Test
 class ClosestPairDivideAndConquerTest {
   @Test
   fun `calculates the closest pair of points`() {
-    val points = listOf(Vec2(), Vec2(1.0, 1.0))
+    val points = listOf(Vec2.ZERO, Vec2(1.0, 1.0))
     val closestPair = ClosestPairDivideAndConquer(points)
 
     val actual = closestPair.run()
@@ -66,7 +66,7 @@ class ClosestPairDivideAndConquerTest {
 
   @Test
   fun `returns the correct id`() {
-    val closestPair = ClosestPairDivideAndConquer(listOf(Vec2(), Vec2(1.0, 1.0)))
+    val closestPair = ClosestPairDivideAndConquer(listOf(Vec2.ZERO, Vec2(1.0, 1.0)))
     closestPair.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
   }
 
@@ -77,6 +77,6 @@ class ClosestPairDivideAndConquerTest {
 
   @Test
   fun `throws exception on single point input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf(Vec2())).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf(Vec2.ZERO)).run() }
   }
 }

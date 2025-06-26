@@ -1,22 +1,11 @@
 package io.github.cponfick.kompgeom.euclidean
 
+import io.github.cponfick.kompgeom.core.AngleUnit
+import kotlin.math.PI
+import kotlin.math.acos
+
 public abstract class MultiDimensionalEuclideanVector<V : MultiDimensionalEuclideanVector<V>> :
   EuclideanVector<V>() {
-
-  /**
-   * Calculate the orthogonal vector to this vector.
-   *
-   * @return The unit vector that is orthogonal to this vector.
-   */
-  public abstract fun orthogonal(): V
-
-  /**
-   * Calculate the orthogonal vector to this vector in the specified direction.
-   *
-   * @param direction The direction in which to calculate the orthogonal vector.
-   * @return The unit vector that is orthogonal to this vector in the specified direction.
-   */
-  public abstract fun orthogonal(direction: V): V
 
   /**
    * Calculate the projection of this vector onto another vector.
@@ -33,4 +22,21 @@ public abstract class MultiDimensionalEuclideanVector<V : MultiDimensionalEuclid
    * @return The rejection of this vector from the other vector.
    */
   public abstract fun reject(base: V): V
+
+  override fun angle(other: V, angleUnit: AngleUnit): Double {
+    val dotProduct = this dot other
+    val lengthsProduct = (this.norm() * other.norm()).assertIsFiniteAndNotZero()
+    val cosAlpha = dotProduct / lengthsProduct
+
+    val angle = acos(cosAlpha)
+
+    return when (angleUnit) {
+      AngleUnit.RADIANS -> angle
+      AngleUnit.DEGREES -> angle * RADIANS_TO_DEGREES
+    }
+  }
+
+  private companion object {
+    private const val RADIANS_TO_DEGREES: Double = 180.0 / PI
+  }
 }

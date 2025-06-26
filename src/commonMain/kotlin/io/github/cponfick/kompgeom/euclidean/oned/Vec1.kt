@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
  *
  * @property x The x-coordinate of the vector.
  */
-public class Vec1(public val x: Double = 0.0) : EuclideanVector<Vec1>() {
+public class Vec1(public val x: Double) : EuclideanVector<Vec1>() {
   /**
    * Creates a new vector by copying the coordinates from another vector.
    *
@@ -83,15 +83,14 @@ public class Vec1(public val x: Double = 0.0) : EuclideanVector<Vec1>() {
 
   public companion object {
     private const val DIMENSIONS = 1
-  }
-}
 
-/**
- * Multiplies a scalar by a Vec1 vector.
- *
- * @param vector The Vec1 vector to multiply.
- * @return A new Vec1 vector that is the result of the multiplication.
- */
-public operator fun Double.times(vector: Vec1): Vec1 {
-  return Vec1(this * vector.x)
+    /** The zero vector. */
+    public val ZERO: Vec1 = Vec1(0.0)
+    /** Vector with all components set to positive infinity. */
+    public val POSITIVE_INFINITY: Vec1 = Vec1(Double.POSITIVE_INFINITY)
+    /** Vector with all components set to negative infinity. */
+    public val NEGATIVE_INFINITY: Vec1 = Vec1(Double.NEGATIVE_INFINITY)
+    /** Vector with all components set to NaN. */
+    public val NaN: Vec1 = Vec1(Double.NaN)
+  }
 }
