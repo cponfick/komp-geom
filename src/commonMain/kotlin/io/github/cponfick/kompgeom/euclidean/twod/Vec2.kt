@@ -65,7 +65,7 @@ public class Vec2(public val x: Double, public val y: Double) :
   override fun normalize(): Vec2 {
     val norm = norm()
     if (norm == 0.0) {
-      throw ArithmeticException("Cannot normalize a vector with zero length.")
+      throw ArithmeticException("Cannot normalize a vector with a magnitude of zero.")
     }
     return Vec2(x / norm, y / norm)
   }
