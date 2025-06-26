@@ -7,7 +7,7 @@ class AffineTransformationMatrix1Test {
 
   @Test
   fun `toArray returns the expected array representation`() {
-    AffineTransformationMatrix1(2.0, 3.0).toArray() shouldBe doubleArrayOf(2.0, 3.0, 0.0, 1.0)
+    AffineTransformationMatrix1(2.0, 3.0).toArray() shouldBe doubleArrayOf(2.0, 3.0)
   }
 
   @Test

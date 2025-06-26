@@ -7,21 +7,19 @@ import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
 /**
  * Affine transformation matrix for one-dimensional Euclidean vectors.
  *
- * @property scalingFactor The scaling factor for the x-coordinate.
- * @property translationFactor The translation factor for the x-coordinate.
+ * @property m00 The scaling factor for the x-coordinate.
+ * @property m01 The translation factor for the x-coordinate.
  */
-public class AffineTransformationMatrix1(
-    public val scalingFactor: Double,
-    public val translationFactor: Double
-) : AffineTransformationMatrix<Vec1, AffineTransformationMatrix1>() {
-  override fun determinant(): Double = scalingFactor
+public class AffineTransformationMatrix1(public val m00: Double, public val m01: Double) :
+    AffineTransformationMatrix<Vec1, AffineTransformationMatrix1>() {
+  override fun determinant(): Double = m00
 
-  override fun apply(point: Vec1): Vec1 = Vec1(scalingFactor * point.x + translationFactor)
+  override fun apply(point: Vec1): Vec1 = Vec1(m00 * point.x + m01)
 
   override fun inverse(): Transformer<Vec1> {
     val det = determinant().assertIsFiniteAndNotZero()
     val inverseDet = 1.0 / det
-    return AffineTransformationMatrix1(inverseDet, -(translationFactor * inverseDet))
+    return AffineTransformationMatrix1(inverseDet, -(m01 * inverseDet))
   }
 
   /**
@@ -29,22 +27,22 @@ public class AffineTransformationMatrix1(
    * row-major order.
    */
   public fun toArray(): DoubleArray {
-    return doubleArrayOf(scalingFactor, translationFactor, 0.0, 1.0)
+    return doubleArrayOf(m00, m01)
   }
 
   override fun equals(other: Any?): Boolean {
     if (other !is AffineTransformationMatrix1) return false
-    return scalingFactor == other.scalingFactor && translationFactor == other.translationFactor
+    return m00 == other.m00 && m01 == other.m01
   }
 
   override fun hashCode(): Int {
-    var result = scalingFactor.hashCode()
-    result = 31 * result + translationFactor.hashCode()
+    var result = m00.hashCode()
+    result = 31 * result + m01.hashCode()
     return result
   }
 
   override fun toString(): String {
-    return "[$scalingFactor, $translationFactor | 0.0, 1.0]"
+    return "[$m00, $m01 | 0.0, 1.0]"
   }
 
   public companion object {
