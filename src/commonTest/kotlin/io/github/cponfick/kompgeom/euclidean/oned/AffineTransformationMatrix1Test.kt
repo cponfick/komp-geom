@@ -21,10 +21,10 @@ class AffineTransformationMatrix1Test {
   }
 
   private val applyTestCases =
-      listOf(
-          Triple(Vec1(3.0), AffineTransformationMatrix1(2.0, 3.0), Vec1(9.0)),
-          Triple(Vec1(3.0), AffineTransformationMatrix1(0.5, -2.5), Vec1(-1.0)),
-      )
+    listOf(
+      Triple(Vec1(3.0), AffineTransformationMatrix1(2.0, 3.0), Vec1(9.0)),
+      Triple(Vec1(3.0), AffineTransformationMatrix1(0.5, -2.5), Vec1(-1.0)),
+    )
 
   @Test
   fun `apply transforms a point correctly`() {

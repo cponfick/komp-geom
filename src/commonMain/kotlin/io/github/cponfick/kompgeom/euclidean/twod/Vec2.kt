@@ -2,7 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.euclidean.MultiDimensionalEuclideanVector
-import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.sqrt
 
 /**

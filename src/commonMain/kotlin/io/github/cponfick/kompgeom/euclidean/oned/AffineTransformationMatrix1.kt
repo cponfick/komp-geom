@@ -1,8 +1,9 @@
 package io.github.cponfick.kompgeom.euclidean.oned
 
+import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Transformer
 import io.github.cponfick.kompgeom.euclidean.AffineTransformationMatrix
-import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 
 /**
  * Affine transformation matrix for one-dimensional Euclidean vectors.
@@ -11,8 +12,11 @@ import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
  * @property m01 The translation factor for the x-coordinate.
  */
 public class AffineTransformationMatrix1(public val m00: Double, public val m01: Double) :
-    AffineTransformationMatrix<Vec1, AffineTransformationMatrix1>() {
+  AffineTransformationMatrix<Vec1, AffineTransformationMatrix1>() {
   override fun determinant(): Double = m00
+
+  override fun eq(other: AffineTransformationMatrix1, equivalence: DoubleEquivalence): Boolean =
+    equivalence.eq(m00, other.m00) && equivalence.eq(m01, other.m01)
 
   override fun apply(point: Vec1): Vec1 = Vec1(m00 * point.x + m01)
 
@@ -35,11 +39,7 @@ public class AffineTransformationMatrix1(public val m00: Double, public val m01:
     return m00 == other.m00 && m01 == other.m01
   }
 
-  override fun hashCode(): Int {
-    var result = m00.hashCode()
-    result = 31 * result + m01.hashCode()
-    return result
-  }
+  override fun hashCode(): Int = toArray().hashCode()
 
   override fun toString(): String {
     return "[$m00, $m01 | 0.0, 1.0]"

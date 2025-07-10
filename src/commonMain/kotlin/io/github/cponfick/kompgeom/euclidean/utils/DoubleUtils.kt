@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.euclidean
+package io.github.cponfick.kompgeom.euclidean.utils
 
 internal fun Double.assertIsFiniteAndNotZero(): Double {
   if (!isFinite() || this == 0.0) {

@@ -3,7 +3,7 @@ package io.github.cponfick.kompgeom.euclidean.oned
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.euclidean.EuclideanVector
-import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.PI
 import kotlin.math.absoluteValue
 

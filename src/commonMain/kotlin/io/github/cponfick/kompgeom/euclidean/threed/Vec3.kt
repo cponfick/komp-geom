@@ -2,7 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.euclidean.MultiDimensionalEuclideanVector
-import io.github.cponfick.kompgeom.euclidean.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.sqrt
 
 public class Vec3(public val x: Double, public val y: Double, public val z: Double) :
