@@ -30,10 +30,10 @@ jobs:
             **/gradle/libs.versions.toml
 
       - name: Install Chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
 
       - name: Install Chrome (Windows)
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
         if: matrix.os == 'ubuntu-latest'
 
       - name: Test Code Style
