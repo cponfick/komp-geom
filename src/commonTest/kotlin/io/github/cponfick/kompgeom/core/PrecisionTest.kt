@@ -4,8 +4,106 @@ import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
 class PrecisionTest {
-  private val equivalenceTestImpl =
-    object : DoubleEquivalence {
+  private val equivalence = TestDoubleEquivalence()
+
+  @Test
+  fun `a equal to b`() {
+    val a = 1.0
+    val b = 1.0
+    equivalence.eq(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a not equal to b`() {
+    val a = 1.0
+    val b = 2.0
+    equivalence.eq(a, b) shouldBe false
+  }
+
+  @Test
+  fun `a equal to zero`() {
+    val a = 0.0
+    equivalence.eqZero(a) shouldBe true
+  }
+
+  @Test
+  fun `a not equal to zero`() {
+    val a = 1.0
+    equivalence.eqZero(a) shouldBe false
+  }
+
+  @Test
+  fun `a is less than b`() {
+    val a = 1.0
+    val b = 2.0
+    equivalence.lt(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a is not less than b`() {
+    val a = 2.0
+    val b = 1.0
+    equivalence.lt(a, b) shouldBe false
+  }
+
+  @Test
+  fun `a is less than or equal to b`() {
+    val a = 1.0
+    val b = 2.0
+    equivalence.lte(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a is not less than or equal to b`() {
+    val a = 2.0
+    val b = 1.0
+    equivalence.lte(a, b) shouldBe false
+  }
+
+  @Test
+  fun `a is greater than b`() {
+    val a = 2.0
+    val b = 1.0
+    equivalence.gt(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a is not greater than b`() {
+    val a = 1.0
+    val b = 2.0
+    equivalence.gt(a, b) shouldBe false
+  }
+
+  @Test
+  fun `a is greater than or equal to b`() {
+    val a = 2.0
+    val b = 1.0
+    equivalence.gte(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a is not greater than or equal to b`() {
+    val a = 1.0
+    val b = 2.0
+    equivalence.gte(a, b) shouldBe false
+  }
+
+  @Test
+  fun `a is greater than b with equal a and b`() {
+    val a = 1.0
+    val b = 1.0
+    equivalence.gte(a, b) shouldBe true
+  }
+
+  @Test
+  fun `a is less than b with equal a and b`() {
+    val a = 1.0
+    val b = 1.0
+    equivalence.lte(a, b) shouldBe true
+  }
+
+  private companion object {
+    private class TestDoubleEquivalence : DoubleEquivalence() {
       override fun compare(a: Double, b: Double): Int {
         return when {
           a < b -> -1
@@ -14,100 +112,5 @@ class PrecisionTest {
         }
       }
     }
-
-  @Test
-  fun `a equal to b`() {
-    val a = 1.0
-    val b = 1.0
-    equivalenceTestImpl.eq(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a not equal to b`() {
-    val a = 1.0
-    val b = 2.0
-    equivalenceTestImpl.eq(a, b) shouldBe false
-  }
-
-  @Test
-  fun `a equal to zero`() {
-    val a = 0.0
-    equivalenceTestImpl.eqZero(a) shouldBe true
-  }
-
-  @Test
-  fun `a not equal to zero`() {
-    val a = 1.0
-    equivalenceTestImpl.eqZero(a) shouldBe false
-  }
-
-  @Test
-  fun `a is less than b`() {
-    val a = 1.0
-    val b = 2.0
-    equivalenceTestImpl.lt(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a is not less than b`() {
-    val a = 2.0
-    val b = 1.0
-    equivalenceTestImpl.lt(a, b) shouldBe false
-  }
-
-  @Test
-  fun `a is less than or equal to b`() {
-    val a = 1.0
-    val b = 2.0
-    equivalenceTestImpl.lte(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a is not less than or equal to b`() {
-    val a = 2.0
-    val b = 1.0
-    equivalenceTestImpl.lte(a, b) shouldBe false
-  }
-
-  @Test
-  fun `a is greater than b`() {
-    val a = 2.0
-    val b = 1.0
-    equivalenceTestImpl.gt(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a is not greater than b`() {
-    val a = 1.0
-    val b = 2.0
-    equivalenceTestImpl.gt(a, b) shouldBe false
-  }
-
-  @Test
-  fun `a is greater than or equal to b`() {
-    val a = 2.0
-    val b = 1.0
-    equivalenceTestImpl.gte(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a is not greater than or equal to b`() {
-    val a = 1.0
-    val b = 2.0
-    equivalenceTestImpl.gte(a, b) shouldBe false
-  }
-
-  @Test
-  fun `a is greater than b with equal a and b`() {
-    val a = 1.0
-    val b = 1.0
-    equivalenceTestImpl.gte(a, b) shouldBe true
-  }
-
-  @Test
-  fun `a is less than b with equal a and b`() {
-    val a = 1.0
-    val b = 1.0
-    equivalenceTestImpl.lte(a, b) shouldBe true
   }
 }

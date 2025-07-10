@@ -80,6 +80,7 @@ spotless {
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     trimTrailingWhitespace()
     endWithNewline()
+    toggleOffOn()
   }
   kotlinGradle {
     target("**/*.gradle.kts")

@@ -1,6 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.PI
 import kotlin.math.acos
 

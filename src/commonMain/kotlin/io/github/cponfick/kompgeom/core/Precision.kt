@@ -10,9 +10,17 @@ import kotlin.math.abs
 public var DBL_EPSILON: Double = 2.220446049250313e-16 // 2^-52
 
 /** The default double equivalence used in geometric computations. */
-public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = object : DoubleEquivalence {}
+public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = DoubleEquivalence()
 
-public interface DoubleEquivalence {
+/**
+ * A class that provides methods for comparing double values with a specified precision.
+ *
+ * This class is used to determine the equality and order of double values while considering
+ * floating-point precision errors.
+ *
+ * @property epsilon The precision threshold for comparing double values. Defaults to [DBL_EPSILON].
+ */
+public open class DoubleEquivalence(public val epsilon: Double = DBL_EPSILON) {
   /**
    * Indicates if given double values are equal.
    *
@@ -73,9 +81,9 @@ public interface DoubleEquivalence {
    * @return An integer indicating the comparison result: 0 for equality, -1 if `a` is less than
    *   `b`, and 1 if `a` is greater than `b`.
    */
-  public fun compare(a: Double, b: Double): Int {
+  public open fun compare(a: Double, b: Double): Int {
     val diff = abs(a - b)
-    val tolerance = DBL_EPSILON * maxOf(1.0, abs(a), abs(b))
+    val tolerance = epsilon * maxOf(1.0, abs(a), abs(b))
     return when {
       diff <= tolerance -> 0
       a < b -> -1
