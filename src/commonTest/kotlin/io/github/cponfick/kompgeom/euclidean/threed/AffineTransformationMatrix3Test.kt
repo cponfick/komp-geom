@@ -17,8 +17,8 @@ class AffineTransformationMatrix3Test {
   @Test
   fun `toString returns correct string representation`() {
     val matrix =
-      AffineTransformationMatrix3(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10, 11.11, 12.12)
-    val expected = "[1.1, 2.2, 3.3, 4.4 | 5.5, 6.6, 7.7, 8.8 | 9.9, 10.10, 11.11, 12.11]"
+      AffineTransformationMatrix3(1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.1, 11.11, 12.12)
+    val expected = "[1.1, 2.2, 3.3, 4.4 | 5.5, 6.6, 7.7, 8.8 | 9.9, 10.1, 11.11, 12.12]"
     matrix.toString() shouldBe expected
   }
 
