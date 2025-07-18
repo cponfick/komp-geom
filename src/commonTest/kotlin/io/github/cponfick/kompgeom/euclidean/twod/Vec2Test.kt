@@ -91,9 +91,9 @@ class Vec2Test {
 
   @Test
   fun `normalize method normalizes vector`() {
-    val vector = Vec2(3.0, 4.0)
+    val vector = Vec2(0.0, 10.0)
     val actual = vector.normalize()
-    actual shouldBe Vec2(0.6, 0.8)
+    actual shouldBe Vec2(0.0, 1.0)
   }
 
   @Test
@@ -266,5 +266,37 @@ class Vec2Test {
   fun `toString returns expected format`() {
     val vector = Vec2(1.1, 2.1)
     vector.toString() shouldBe "Vec2(x=1.1, y=2.1)"
+  }
+
+  @Test
+  fun `create unit vector from vec2`() {
+    val unitVector = Vec2.Unit.from(Vec2(10.0, 0.0))
+    unitVector shouldBe Vec2(1.0, 0.0)
+  }
+
+  @Test
+  fun `create unit vector from x and y coordinates`() {
+    val unitVector = Vec2.Unit.from(0.0, 10.0)
+    unitVector shouldBe Vec2(0.0, 1.0)
+  }
+
+  @Test
+  fun `unit vector norm is always 1`() {
+    val unitVector = Vec2.Unit.from(3.0, 4.0)
+    unitVector.norm() shouldBe 1.0
+  }
+
+  @Test
+  fun `unit vector normalize returns itself`() {
+    val unitVector = Vec2.Unit.from(3.0, 4.0)
+    unitVector.normalize() shouldBe unitVector
+  }
+
+  @Test
+  fun `unit vector unary minus negates the vector`() {
+    val unitVector = Vec2.Unit.from(1.0, 2.0)
+    val negatedVector = -unitVector
+    negatedVector.x shouldBe -unitVector.x
+    negatedVector.y shouldBe -unitVector.y
   }
 }

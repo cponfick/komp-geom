@@ -5,7 +5,7 @@ import io.github.cponfick.kompgeom.euclidean.MultiDimensionalEuclideanVector
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.sqrt
 
-public class Vec3(public val x: Double, public val y: Double, public val z: Double) :
+public open class Vec3(public val x: Double, public val y: Double, public val z: Double) :
   MultiDimensionalEuclideanVector<Vec3>() {
 
   /**
@@ -75,13 +75,7 @@ public class Vec3(public val x: Double, public val y: Double, public val z: Doub
 
   override fun unaryMinus(): Vec3 = Vec3(-x, -y, -z)
 
-  override fun normalize(): Vec3 {
-    val norm = norm()
-    if (norm == 0.0) {
-      throw ArithmeticException("Cannot normalize a zero vector")
-    }
-    return Vec3(x / norm, y / norm, z / norm)
-  }
+  override fun normalize(): Vec3 = Unit.from(x, y, z)
 
   override fun norm(): Double = sqrt(x * x + y * y + z * z)
 
@@ -115,5 +109,46 @@ public class Vec3(public val x: Double, public val y: Double, public val z: Doub
       Vec3(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)
     /** Vector with all components set to NaN. */
     public val NaN: Vec3 = Vec3(Double.NaN, Double.NaN, Double.NaN)
+  }
+
+  public class Unit(x: Double, y: Double, z: Double) : Vec3(x, y, z) {
+    override fun norm(): Double = 1.0
+
+    override fun normalize(): Unit = this
+
+    override fun unaryMinus(): Unit = Unit(-x, -y, -z)
+
+    public companion object {
+      /**
+       * Creates a unit vector from the given coordinates.
+       *
+       * @param x The x coordinate.
+       * @param y The y coordinate.
+       * @param z The z coordinate.
+       * @return A new unit vector with the specified coordinates.
+       * @throws ArithmeticException if the input vector is a zero vector.
+       */
+      public fun from(x: Double, y: Double, z: Double): Unit {
+        val norm = sqrt(x * x + y * y + z * z)
+        val inverseNorm = 1.0 / norm
+        if (norm == 0.0) {
+          throw ArithmeticException("Cannot create a unit vector from a zero vector")
+        }
+        return Unit(x * inverseNorm, y * inverseNorm, z * inverseNorm)
+      }
+
+      /**
+       * Creates a unit vector from another vector.
+       *
+       * @param vector The vector to convert to a unit vector.
+       * @return A new unit vector with the same direction as the input vector.
+       * @throws ArithmeticException if the input vector is a zero vector.
+       */
+      public fun from(vector: Vec3): Unit =
+        when (vector) {
+          is Unit -> vector
+          else -> from(vector.x, vector.y, vector.z)
+        }
+    }
   }
 }

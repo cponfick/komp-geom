@@ -1,14 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.utils
 
-/**
- * Utility for matrix operations.
- *
- * This object provides static methods and only exists to prevent importing functions into context
- * where the methods might be ambiguous.
- *
- * Hence, the code becomes more readable if we use `MatrixUtil.determinant(...)` instead of
- * `io.github.cponfick.kompgeom.euclidean.utils.determinant(...)`.
- */
+/** Utility for matrix operations. */
 public object MatrixUtil {
 
   /**

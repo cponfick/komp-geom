@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.euclidean.MultiDimensionalEuclideanVector
+import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.sqrt
 
@@ -11,7 +12,7 @@ import kotlin.math.sqrt
  * @property x The x-coordinate of the vector.
  * @property y The y-coordinate of the vector.
  */
-public class Vec2(public val x: Double, public val y: Double) :
+public open class Vec2(public val x: Double, public val y: Double) :
   MultiDimensionalEuclideanVector<Vec2>() {
 
   /**
@@ -62,15 +63,9 @@ public class Vec2(public val x: Double, public val y: Double) :
 
   override fun unaryMinus(): Vec2 = Vec2(-x, -y)
 
-  override fun normalize(): Vec2 {
-    val norm = norm()
-    if (norm == 0.0) {
-      throw ArithmeticException("Cannot normalize a vector with a magnitude of zero.")
-    }
-    return Vec2(x / norm, y / norm)
-  }
+  override fun normalize(): Unit = Unit.from(x, y)
 
-  override fun norm(): Double = sqrt(x * x + y * y)
+  override fun norm(): Double = VectorUtil.norm(x, y)
 
   override fun minus(other: Vec2): Vec2 = Vec2(this.x - other.x, this.y - other.y)
 
@@ -99,5 +94,44 @@ public class Vec2(public val x: Double, public val y: Double) :
     public val NEGATIVE_INFINITY: Vec2 = Vec2(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)
     /** Vector with all components set to NaN. */
     public val NaN: Vec2 = Vec2(Double.NaN, Double.NaN)
+  }
+
+  public class Unit(x: Double, y: Double) : Vec2(x, y) {
+    override fun norm(): Double = 1.0
+
+    override fun normalize(): Unit = this
+
+    override operator fun unaryMinus(): Unit = Unit(-x, -y)
+
+    public companion object {
+
+      /**
+       * Creates a unit vector from the given x and y coordinates.
+       *
+       * @param x The x-coordinate of the vector.
+       * @param y The y-coordinate of the vector.
+       * @throws ArithmeticException If the vector is a zero vector (norm is zero).
+       */
+      public fun from(x: Double, y: Double): Unit {
+        val norm = VectorUtil.norm(x, y)
+        val inverseNorm = 1.0 / norm
+        if (norm == 0.0) {
+          throw ArithmeticException("Cannot create a unit vector from a zero vector.")
+        }
+        return Unit(x * inverseNorm, y * inverseNorm)
+      }
+
+      /**
+       * Creates a unit vector from another vector.
+       *
+       * @param v The vector to convert to a unit vector.
+       * @throws ArithmeticException If the vector is a zero vector (norm is zero).
+       */
+      public fun from(v: Vec2): Unit =
+        when (v) {
+          is Unit -> v
+          else -> from(v.x, v.y)
+        }
+    }
   }
 }

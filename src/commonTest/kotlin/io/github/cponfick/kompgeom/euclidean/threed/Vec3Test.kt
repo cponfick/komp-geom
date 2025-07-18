@@ -322,4 +322,43 @@ class Vec3Test {
       actual shouldBe expected
     }
   }
+
+  @Test
+  fun `create unit vector from vec2`() {
+    val vector = Vec3(10.0, 0.0, 0.0)
+    val unitVector = Vec3.Unit.from(vector)
+    unitVector shouldBe Vec3.Unit(1.0, 0.0, 0.0)
+  }
+
+  @Test
+  fun `create unit vector from coordinates`() {
+    val unitVector = Vec3.Unit.from(10.0, 0.0, 0.0)
+    unitVector shouldBe Vec3.Unit(1.0, 0.0, 0.0)
+  }
+
+  @Test
+  fun `create unit vector throws exception for zero vector`() {
+    shouldThrow<ArithmeticException> { Vec3.Unit.from(0.0, 0.0, 0.0) }
+  }
+
+  @Test
+  fun `unit vector norm is always 1`() {
+    val unitVector = Vec3.Unit(1.0, 0.0, 0.0)
+    unitVector.norm() shouldBe 1.0
+  }
+
+  @Test
+  fun `unit vector normalize returns itself`() {
+    val unitVector = Vec3.Unit(1.0, 0.0, 0.0)
+    unitVector.normalize() shouldBe unitVector
+  }
+
+  @Test
+  fun `unit vector unary minus returns correct vector`() {
+    val unitVector = Vec3.Unit(1.0, 0.0, 0.0)
+    val negatedVector = -unitVector
+    negatedVector.x shouldBe -1.0
+    negatedVector.y shouldBe -0.0
+    negatedVector.z shouldBe -0.0
+  }
 }
