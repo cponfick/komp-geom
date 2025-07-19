@@ -55,14 +55,14 @@ jobs:
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
           echo "Coverage: $COVERAGE%"
 
-      - name: Create directory for badges
-        run: mkdir -p .github/badges
-
-      - name: Generate coverage badge
-        uses: emibcn/badge-action@v2.0.3
+      - name: Update dynamic badge gist
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
-          label: 'Coverage'
-          status: '${{ steps.coverage.outputs.coverage }}%'
+          auth: ${{secrets.GIST_SECRET}}
+          gistID: 459bdccf80e8da31dbb845b91488f8e1
+          filename: komp-geom-coverage-badge.svg
+          label: coverage
+          message: ${{steps.coverage.outputs.coverage}}
           color: >-
             ${{
               steps.coverage.outputs.coverage > 90 && 'green'              ||
@@ -70,13 +70,3 @@ jobs:
               steps.coverage.outputs.coverage > 70 && 'orange'             ||
               'red'
             }}
-          path: '.github/badges/coverage.svg'
-
-      - name: Commit badge
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .github/badges/coverage.svg
-          git diff --staged --quiet || git commit -m "Update coverage badge"
-          git pull --rebase origin ${{ github.head_ref || github.ref_name }}
-          git push origin HEAD:${{ github.head_ref || github.ref_name }}
