@@ -22,12 +22,6 @@ class Vec2Test {
     original shouldBe copy
   }
 
-  @Test
-  fun `dimensions returns 2`() {
-    val vector = Vec2(1.0, 2.0)
-    vector.dimensions() shouldBe 2
-  }
-
   private val angleInRadiansTestCases =
     listOf(
       Triple(Vec2(1.0, 0.0), Vec2(0.0, 1.0), PI / 2),
@@ -266,38 +260,6 @@ class Vec2Test {
   fun `toString returns expected format`() {
     val vector = Vec2(1.1, 2.1)
     vector.toString() shouldBe "Vec2(x=1.1, y=2.1)"
-  }
-
-  @Test
-  fun `create unit vector from vec2`() {
-    val unitVector = Vec2.Unit.from(Vec2(10.0, 0.0))
-    unitVector shouldBe Vec2(1.0, 0.0)
-  }
-
-  @Test
-  fun `create unit vector from x and y coordinates`() {
-    val unitVector = Vec2.Unit.from(0.0, 10.0)
-    unitVector shouldBe Vec2(0.0, 1.0)
-  }
-
-  @Test
-  fun `unit vector norm is always 1`() {
-    val unitVector = Vec2.Unit.from(3.0, 4.0)
-    unitVector.norm() shouldBe 1.0
-  }
-
-  @Test
-  fun `unit vector normalize returns itself`() {
-    val unitVector = Vec2.Unit.from(3.0, 4.0)
-    unitVector.normalize() shouldBe unitVector
-  }
-
-  @Test
-  fun `unit vector unary minus negates the vector`() {
-    val unitVector = Vec2.Unit.from(1.0, 2.0)
-    val negatedVector = -unitVector
-    negatedVector.x shouldBe -unitVector.x
-    negatedVector.y shouldBe -unitVector.y
   }
 
   @Test

@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.core
 
 /** This interface represents a vector in a multi-dimensional space. */
-public interface Vector<V : Vector<V>> : Spatial {
+public interface Vector<V : Vector<V>> {
   /** Add a vector to this vector. */
   public operator fun plus(other: V): V
 

@@ -1,8 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
+import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Transformer
-import io.github.cponfick.kompgeom.euclidean.AffineTransformationMatrix
 import io.github.cponfick.kompgeom.euclidean.utils.MatrixUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 
@@ -22,13 +22,13 @@ import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
  * @property m22 The element at row 2, column 2.
  * @property m23 The element at row 2, column 3.
  */
-public class AffineTransformationMatrix3(
+public data class AffineTransformationMatrix3(
   // spotless:off
   public val m00: Double, public val m01: Double, public val m02: Double, public val m03: Double,
   public val m10: Double, public val m11: Double, public val m12: Double, public val m13: Double,
   public val m20: Double, public val m21: Double, public val m22: Double, public val m23: Double,
   // spotless:on
-) : AffineTransformationMatrix<Vec3, AffineTransformationMatrix3>() {
+) : Transformer<Vec3> {
 
   /**
    * Get the array representation of the transformation matrix.
@@ -38,31 +38,25 @@ public class AffineTransformationMatrix3(
   public fun toArray(): DoubleArray =
     doubleArrayOf(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23)
 
-  override fun equals(other: Any?): Boolean {
-    if (other !is AffineTransformationMatrix3) return false
-    return m00 == other.m00 &&
-      m01 == other.m01 &&
-      m02 == other.m02 &&
-      m03 == other.m03 &&
-      m10 == other.m10 &&
-      m11 == other.m11 &&
-      m12 == other.m12 &&
-      m13 == other.m13 &&
-      m20 == other.m20 &&
-      m21 == other.m21 &&
-      m22 == other.m22 &&
-      m23 == other.m23
-  }
-
-  override fun toString(): String =
-    "[$m00, $m01, $m02, $m03 | $m10, $m11, $m12, $m13 | $m20, $m21, $m22, $m23]"
-
-  override fun hashCode(): Int = toArray().hashCode()
-
-  override fun determinant(): Double =
+  /**
+   * Returns a string representation of the transformation matrix.
+   *
+   * @return The determinant of the transformation matrix.
+   */
+  public fun determinant(): Double =
     MatrixUtil.determinant(m00, m01, m02, m10, m11, m12, m20, m21, m22)
 
-  override fun eq(other: AffineTransformationMatrix3, equivalence: DoubleEquivalence): Boolean =
+  /**
+   * Tests if two affine transformation matrices are approximately equal.
+   *
+   * @param other The other affine transformation matrix to compare with.
+   * @param equivalence The equivalence used to compare the double values. Defaults to
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
+   */
+  public fun eq(
+    other: AffineTransformationMatrix3,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Boolean =
     equivalence.eq(m00, other.m00) &&
       equivalence.eq(m01, other.m01) &&
       equivalence.eq(m02, other.m02) &&
@@ -76,18 +70,14 @@ public class AffineTransformationMatrix3(
       equivalence.eq(m22, other.m22) &&
       equivalence.eq(m23, other.m23)
 
-  override fun apply(point: Vec3): Vec3 =
+  override fun apply(obj: Vec3): Vec3 =
     Vec3(
-      m00 * point.x + m01 * point.y + m02 * point.z + m03,
-      m10 * point.x + m11 * point.y + m12 * point.z + m13,
-      m20 * point.x + m21 * point.y + m22 * point.z + m23,
+      m00 * obj.x + m01 * obj.y + m02 * obj.z + m03,
+      m10 * obj.x + m11 * obj.y + m12 * obj.z + m13,
+      m20 * obj.x + m21 * obj.y + m22 * obj.z + m23,
     )
 
-  /**
-   * Checks if the transformation preserves orientation. For more information, see:
-   * [Wikipedia](https://en.wikipedia.org/wiki/Minor_(linear_algebra)#Inverse_of_a_matrix)
-   */
-  override fun inverse(): Transformer<Vec3> {
+  override fun inverse(): AffineTransformationMatrix3 {
     val invDet = 1.0 / determinant().assertIsFiniteAndNotZero()
 
     val c00 = invDet * MatrixUtil.determinant(m11, m12, m21, m22)
@@ -113,6 +103,8 @@ public class AffineTransformationMatrix3(
       // spotless:on
     )
   }
+
+  override fun preserveOrientation(): Boolean = determinant() > 0.0
 
   public companion object {
     /** The identity transformation matrix. */
