@@ -54,7 +54,7 @@ class Line2Test {
   }
 
   @Test
-  fun `offest returns zero for point on line`() {
+  fun `offset returns zero for point on line`() {
     val direction = Vec2.Unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val pointOnLine = Vec2(5.0, 0.0)
