@@ -21,11 +21,6 @@ Currently, following platforms are supported:
 > This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. Following
 > the 1.0.0 release versioning will obey semantic versioning principles.
 
-## Contributing
-
-Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get started.
-Feel free to open issues for bugs, feature requests, or general questions.
-
 ## Installation
 
 To add the library to your multiplatform project include following dependency:
@@ -58,6 +53,10 @@ implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
 </dependency>
 ```
 
+## Usage Examples
+
+Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
+
 ## Core Components
 
 This section provides an overview of the core components of the library, which are designed to be used as building blocks for implementing geometric algorithms.
@@ -68,10 +67,6 @@ Currently, the library provides the following geometric elements:
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 
-## Usage Example
-
-Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
-
 ## Implemented Algorithms
 
 Following a list of implemented algorithms.
@@ -81,4 +76,8 @@ Following a list of implemented algorithms.
 | Closest Pair | Naive              | O(n^2)             | O(1)             |
 | Closest Pair | Divide and Conquer | O(n log n)         | O(n)             |
 
-If you are interested in contributing algorithms, please check the [contributing guidelines](CONTRIBUTING.md).
+
+## Contributing
+
+Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get started.
+Feel free to open issues for bugs, feature requests, or general questions.
