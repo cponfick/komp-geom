@@ -21,6 +21,53 @@ Currently, following platforms are supported:
 > This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. Following
 > the 1.0.0 release versioning will obey semantic versioning principles.
 
+## Contributing
+
+Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get started.
+Feel free to open issues for bugs, feature requests, or general questions.
+
+## Installation
+
+To add the library to your multiplatform project include following dependency:
+
+**Gradle:**
+```kotlin
+implementation("io.github.cponfick:komp-geom:{VERSION}")
+```
+**Maven:**
+```xml
+<dependency>
+    <groupId>io.github.cponfick</groupId>
+    <artifactId>komp-geom</artifactId>
+    <version>{VERSION}</version>
+</dependency>
+```
+
+It is also possible to use the java library directly in a JVM project by adding the dependency:
+
+**Gradle:**
+```kotlin
+implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
+```
+**Maven:**
+```xml
+<dependency>
+    <groupId>io.github.cponfick</groupId>
+    <artifactId>komp-geom-jvm</artifactId>
+    <version>{VERSION}</version>
+</dependency>
+```
+
+## Core Components
+
+This section provides an overview of the core components of the library, which are designed to be used as building blocks for implementing geometric algorithms.
+
+Currently, the library provides the following geometric elements:
+
+- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations like addition, subtraction, and dot product.
+- **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
+- **Polar Coordinates**: Implementation of polar coordinates in 2D space.
+
 ## Usage Example
 
 Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
