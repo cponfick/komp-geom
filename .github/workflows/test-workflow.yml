@@ -148,4 +148,3 @@ jobs:
           git add .github/badges/coverage.svg
           git diff --staged --quiet || git commit -m "Update coverage badge"
           git push
-
