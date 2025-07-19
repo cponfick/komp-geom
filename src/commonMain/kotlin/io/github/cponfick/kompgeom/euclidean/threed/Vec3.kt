@@ -111,6 +111,13 @@ public open class Vec3(public val x: Double, public val y: Double, public val z:
     public val NaN: Vec3 = Vec3(Double.NaN, Double.NaN, Double.NaN)
   }
 
+  /**
+   * Represents a unit vector in 3D space.
+   *
+   * @property x The x-coordinate of the unit vector.
+   * @property y The y-coordinate of the unit vector.
+   * @property z The z-coordinate of the unit vector.
+   */
   public class Unit(x: Double, y: Double, z: Double) : Vec3(x, y, z) {
     override fun norm(): Double = 1.0
 

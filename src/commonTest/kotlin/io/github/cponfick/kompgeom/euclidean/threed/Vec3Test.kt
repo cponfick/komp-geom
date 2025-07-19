@@ -324,7 +324,7 @@ class Vec3Test {
   }
 
   @Test
-  fun `create unit vector from vec2`() {
+  fun `create unit vector from vec3`() {
     val vector = Vec3(10.0, 0.0, 0.0)
     val unitVector = Vec3.Unit.from(vector)
     unitVector shouldBe Vec3.Unit(1.0, 0.0, 0.0)

@@ -96,6 +96,12 @@ public open class Vec2(public val x: Double, public val y: Double) :
     public val NaN: Vec2 = Vec2(Double.NaN, Double.NaN)
   }
 
+  /**
+   * Represents a unit vector in two-dimensional space.
+   *
+   * @property x The x-coordinate of the unit vector.
+   * @property y The y-coordinate of the unit vector.
+   */
   public class Unit(x: Double, y: Double) : Vec2(x, y) {
     override fun norm(): Double = 1.0
 

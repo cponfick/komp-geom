@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
  *
  * @property x The x-coordinate of the vector.
  */
-public class Vec1(public val x: Double) : EuclideanVector<Vec1>() {
+public open class Vec1(public val x: Double) : EuclideanVector<Vec1>() {
   /**
    * Creates a new vector by copying the coordinates from another vector.
    *
@@ -92,5 +92,47 @@ public class Vec1(public val x: Double) : EuclideanVector<Vec1>() {
     public val NEGATIVE_INFINITY: Vec1 = Vec1(Double.NEGATIVE_INFINITY)
     /** Vector with all components set to NaN. */
     public val NaN: Vec1 = Vec1(Double.NaN)
+  }
+
+  /**
+   * Represents a unit vector in one-dimensional space.
+   *
+   * @property x The x-coordinate of the unit vector.
+   */
+  public class Unit(x: Double) : Vec1(x) {
+    override fun norm(): Double = 1.0
+
+    override fun normalize(): Unit = this
+
+    override operator fun unaryMinus(): Unit = Unit(-x)
+
+    public companion object {
+      /**
+       * Creates a unit vector from a given scalar value.
+       *
+       * @param x The scalar value to create the unit vector from.
+       * @return A unit vector with the same direction as the scalar value.
+       * @throws ArithmeticException if the scalar value is zero.
+       */
+      public fun from(x: Double): Unit {
+        return if (x == 0.0) {
+          throw ArithmeticException("Cannot create a unit vector from zero.")
+        } else {
+          Unit(x / x.absoluteValue)
+        }
+      }
+
+      /**
+       * Creates a unit vector from another vector.
+       *
+       * @param vector The vector to create the unit vector from.
+       * @return A unit vector with the same direction as the input vector.
+       * @throws ArithmeticException if the input vector is a zero vector.
+       */
+      public fun from(vector: Vec1): Unit {
+        vector.x.assertIsFiniteAndNotZero()
+        return from(vector.x)
+      }
+    }
   }
 }

@@ -293,4 +293,46 @@ class Vec1Test {
     val actual = vec1.toString()
     actual shouldBe "Vec1(x=3.1)"
   }
+
+  @Test
+  fun `create unit vector from vec1`() {
+    val unitVector = Vec1.Unit.from(Vec1(10.0))
+    unitVector shouldBe Vec1(1.0)
+
+    val unitVectorNegative = Vec1.Unit.from(Vec1(-10.0))
+    unitVectorNegative shouldBe Vec1(-1.0)
+  }
+
+  @Test
+  fun `create unit vector from x coordinate`() {
+    val unitVector = Vec1.Unit.from(10.0)
+    unitVector shouldBe Vec1(1.0)
+
+    val unitVectorNegative = Vec1.Unit.from(-10.0)
+    unitVectorNegative shouldBe Vec1(-1.0)
+  }
+
+  @Test
+  fun `unit vector norm is always 1`() {
+    val unitVector = Vec1.Unit.from(3.0)
+    unitVector.norm() shouldBe 1.0
+  }
+
+  @Test
+  fun `unit vector throws exception for zero value`() {
+    shouldThrow<ArithmeticException> { Vec1.Unit.from(0.0) }
+  }
+
+  @Test
+  fun `unit vector normalize returns itself`() {
+    val unitVector = Vec1.Unit.from(3.0)
+    unitVector.normalize() shouldBe unitVector
+  }
+
+  @Test
+  fun `unit vector unary minus returns negated vector`() {
+    val unitVector = Vec1.Unit.from(3.0)
+    val negated = -unitVector
+    negated shouldBe Vec1(-1.0)
+  }
 }
