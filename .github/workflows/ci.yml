@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/test-workflow.yml
 
   coverage:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    if : github.ref == 'refs/heads/main'
     name: Generate Coverage Badge
     runs-on: ubuntu-latest
     needs: test
@@ -60,7 +60,7 @@ jobs:
         with:
           auth: ${{secrets.GIST_SECRET}}
           gistID: 459bdccf80e8da31dbb845b91488f8e1
-          filename: komp-geom-coverage-badge.svg
+          filename: komp-geom-coverage-badge.json
           label: coverage
           message: ${{steps.coverage.outputs.coverage}}
           valColorRange: ${{steps.coverage.outputs.coverage}}
