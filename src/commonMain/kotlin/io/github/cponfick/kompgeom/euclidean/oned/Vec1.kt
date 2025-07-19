@@ -67,6 +67,8 @@ public open class Vec1(public val x: Double) : EuclideanVector<Vec1>() {
     return Vec1(this.x - other.x)
   }
 
+  override fun zero(): Vec1 = ZERO
+
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (other !is Vec1) return false

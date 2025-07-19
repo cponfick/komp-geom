@@ -81,6 +81,8 @@ public open class Vec3(public val x: Double, public val y: Double, public val z:
 
   override fun minus(other: Vec3): Vec3 = Vec3(this.x - other.x, this.y - other.y, this.z - other.z)
 
+  override fun zero(): Vec3 = ZERO
+
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (other !is Vec3) return false

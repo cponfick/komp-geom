@@ -69,6 +69,8 @@ public open class Vec2(public val x: Double, public val y: Double) :
 
   override fun minus(other: Vec2): Vec2 = Vec2(this.x - other.x, this.y - other.y)
 
+  override fun zero(): Vec2 = ZERO
+
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
     if (other !is Vec2) return false
@@ -80,6 +82,14 @@ public open class Vec2(public val x: Double, public val y: Double) :
     result = 31 * result + y.hashCode()
     return result
   }
+
+  /**
+   * Computes the signed area of the parallelogram formed by this vector and another vector.
+   *
+   * @param other The other vector.
+   * @return The signed area of the parallelogram.
+   */
+  public fun signedArea(other: Vec2): Double = VectorUtil.linearCombination(x, other.y, -y, other.x)
 
   override fun toString(): String = "Vec2(x=$x, y=$y)"
 

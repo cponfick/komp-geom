@@ -102,6 +102,36 @@ class PrecisionTest {
     equivalence.lte(a, b) shouldBe true
   }
 
+  @Test
+  fun `signum of a is zero`() {
+    val a = 0.0
+    equivalence.signum(a) shouldBe 0.0
+  }
+
+  @Test
+  fun `signum of a is positive`() {
+    val a = 1.0
+    equivalence.signum(a) shouldBe 1.0
+  }
+
+  @Test
+  fun `signum of a is negative`() {
+    val a = -1.0
+    equivalence.signum(a) shouldBe -1.0
+  }
+
+  @Test
+  fun `signum of a is NaN`() {
+    val a = Double.NaN
+    equivalence.signum(a).isNaN() shouldBe true
+  }
+
+  @Test
+  fun `signum of a is negative zero`() {
+    val a = -0.0
+    equivalence.signum(a) shouldBe -0.0
+  }
+
   private companion object {
     private class TestDoubleEquivalence : DoubleEquivalence() {
       override fun compare(a: Double, b: Double): Int {

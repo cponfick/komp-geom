@@ -53,4 +53,11 @@ public interface Vector<V : Vector<V>> : Spatial {
    * @return A new vector representing the result of the subtraction.
    */
   public operator fun minus(other: V): V
+
+  /**
+   * Get Zero vector.
+   *
+   * @return A zero vector of the same type as this vector.
+   */
+  public fun zero(): V
 }
