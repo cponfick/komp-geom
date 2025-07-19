@@ -1,5 +1,6 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
+import javax.xml.parsers.DocumentBuilderFactory
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -132,15 +133,6 @@ mavenPublishing {
 
 dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:${libs.versions.dokka.get()}") }
 
-kover {
-  reports {
-    total {
-      xml { onCheck = true }
-      html { onCheck = true }
-    }
-  }
-}
-
 dokka {
   dokkaSourceSets.commonMain {
     sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/main") }
@@ -153,5 +145,39 @@ dokka {
       olderVersionsDir.set(projectDir.resolve("docs/dokka"))
       renderVersionsNavigationOnAllPages.set(true)
     }
+  }
+}
+
+tasks.register("printLineCoverage") {
+  group = "verification" // Put into the same group as the `kover` tasks
+  dependsOn("koverXmlReport")
+  doLast {
+    val report = file("${layout.buildDirectory.get()}/reports/kover/report.xml")
+
+    val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(report)
+    val rootNode = doc.firstChild
+    var childNode = rootNode.firstChild
+
+    var coveragePercent = 0.0
+
+    while (childNode != null) {
+      if (childNode.nodeName == "counter") {
+        val typeAttr = childNode.attributes.getNamedItem("type")
+        if (typeAttr.textContent == "LINE") {
+          val missedAttr = childNode.attributes.getNamedItem("missed")
+          val coveredAttr = childNode.attributes.getNamedItem("covered")
+
+          val missed = missedAttr.textContent.toLong()
+          val covered = coveredAttr.textContent.toLong()
+
+          coveragePercent = (covered * 100.0) / (missed + covered)
+
+          break
+        }
+      }
+      childNode = childNode.nextSibling
+    }
+
+    println("%.1f".format(coveragePercent))
   }
 }

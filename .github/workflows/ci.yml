@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/test-workflow.yml
 
   coverage:
-    if: github.ref == 'refs/heads/main'
+    if : github.ref == 'refs/heads/main'
     name: Generate Coverage Badge
     runs-on: ubuntu-latest
     needs: test
@@ -51,32 +51,18 @@ jobs:
       - name: Extract coverage percentage
         id: coverage
         run: |
-          # Extract coverage from kover XML report
-          COVERAGE=$(grep -o 'line-rate="[0-9.]*"' build/reports/kover/report.xml | head -1 | grep -o '[0-9.]*' | awk '{printf "%.0f", $1 * 100}')
+          COVERAGE=$(./gradlew -q printLineCoverage)
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
           echo "Coverage: $COVERAGE%"
 
-      - name: Create directory for badges
-        run: mkdir -p .github/badges
-
-      - name: Generate coverage badge
-        uses: emibcn/badge-action@v2.0.3
+      - name: Update dynamic badge gist
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
-          label: 'Coverage'
-          status: '${{ steps.coverage.outputs.coverage }}%'
-          color: >-
-            ${{
-              steps.coverage.outputs.coverage > 90 && 'green'              ||
-              steps.coverage.outputs.coverage > 80 && 'yellow'             ||
-              steps.coverage.outputs.coverage > 70 && 'orange'             ||
-              'red'
-            }}
-          path: '.github/badges/coverage.svg'
-
-      - name: Commit badge
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .github/badges/coverage.svg
-          git diff --staged --quiet || git commit -m "Update coverage badge"
-          git push
+          auth: ${{secrets.GIST_SECRET}}
+          gistID: 459bdccf80e8da31dbb845b91488f8e1
+          filename: komp-geom-coverage-badge.json
+          label: coverage
+          message: ${{steps.coverage.outputs.coverage}}
+          valColorRange: ${{steps.coverage.outputs.coverage}}
+          maxColorRange: 100
+          minColorRange: 0
