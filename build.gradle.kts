@@ -134,6 +134,8 @@ dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:${libs.version
 dokka {
   dokkaSourceSets.commonMain {
     sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/main") }
+    includes.from("src/commonMain/kotlin/io/github/cponfick/kompgeom/kompgeom.md")
+    moduleName.set("Kotlin Computational Geometry")
   }
   pluginsConfiguration {
     versioning {
