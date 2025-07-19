@@ -1,7 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.oned
 
 import io.github.cponfick.kompgeom.core.AngleUnit
-import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -10,39 +9,13 @@ import kotlin.test.Test
 class Vec1Test {
 
   @Test
-  fun `constructor with parameters initializes correctly`() {
-    val vector = Vec2(1.0, 2.0)
-    vector.x shouldBe 1.0F
-    vector.y shouldBe 2.0F
+  fun `constructor with parameter initializes correctly`() {
+    val vector = Vec1(5.0)
+    vector.x shouldBe 5.0
   }
 
   @Test
-  fun `copy constructor creates an identical vector`() {
-    val original = Vec2(3.0, 4.0)
-    val copy = Vec2(original)
-    original shouldBe copy
-  }
-
-  @Test
-  fun `dimensions is one`() {
-    val vec1 = Vec1(3.0)
-
-    val dimensions = vec1.dimensions()
-
-    dimensions shouldBe 1
-  }
-
-  private val plusTestCases =
-    listOf(
-      Triple(Vec1(1.0), Vec1(2.0), Vec1(3.0)),
-      Triple(Vec1(-1.0), Vec1(-2.0), Vec1(-3.0)),
-      Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
-      Triple(Vec1(1.5), Vec1(2.5), Vec1(4.0)),
-      Triple(Vec1(-1.5), Vec1(2.5), Vec1(1.0)),
-    )
-
-  @Test
-  fun `vector a plus vector b`() {
+  fun `addition of two vectors`() {
     for ((a, b, expected) in plusTestCases) {
       val actual = a + b
       actual shouldBe expected
@@ -50,69 +23,7 @@ class Vec1Test {
   }
 
   @Test
-  fun `vector is NaN when x is NaN`() {
-    val vec1 = Vec1(Double.NaN)
-    vec1.isNaN() shouldBe true
-  }
-
-  @Test
-  fun `vector is not NaN when x is a number`() {
-    val vec1 = Vec1(3.0)
-    vec1.isNaN() shouldBe false
-  }
-
-  @Test
-  fun `vector is finite when x is finite`() {
-    val vec1 = Vec1(3.0)
-    vec1.isFinite() shouldBe true
-  }
-
-  @Test
-  fun `vector is not finite when x is infinite`() {
-    val vec1 = Vec1(Double.POSITIVE_INFINITY)
-    vec1.isFinite() shouldBe false
-  }
-
-  @Test
-  fun `vector is infinite when x is infinite`() {
-    val vec1 = Vec1(Double.POSITIVE_INFINITY)
-    vec1.isInfinite() shouldBe true
-  }
-
-  @Test
-  fun `vector is not infinite when x is finite`() {
-    val vec1 = Vec1(3.0)
-    vec1.isInfinite() shouldBe false
-  }
-
-  private val distanceTestCases =
-    listOf(
-      Triple(Vec1(0.0), Vec1(0.0), 0.0),
-      Triple(Vec1(1.0), Vec1(2.0), 1.0),
-      Triple(Vec1(-1.0), Vec1(1.0), 2.0),
-      Triple(Vec1(3.0), Vec1(3.0), 0.0),
-      Triple(Vec1(5.0), Vec1(-5.0), 10.0),
-    )
-
-  @Test
-  fun `distance between two Vec1`() {
-    for ((a, b, expected) in distanceTestCases) {
-      val actual = a.distance(b)
-      actual shouldBe expected
-    }
-  }
-
-  private val minusTestCases =
-    listOf(
-      Triple(Vec1(3.0), Vec1(2.0), Vec1(1.0)),
-      Triple(Vec1(2.0), Vec1(3.0), Vec1(-1.0)),
-      Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
-      Triple(Vec1(-2.0), Vec1(-3.0), Vec1(1.0)),
-      Triple(Vec1(-3.0), Vec1(-2.0), Vec1(-1.0)),
-    )
-
-  @Test
-  fun `vector a minus vector b`() {
+  fun `subtraction of two vectors`() {
     for ((a, b, expected) in minusTestCases) {
       val actual = a - b
       actual shouldBe expected
@@ -120,97 +31,110 @@ class Vec1Test {
   }
 
   @Test
-  fun `hash code of NaN should be consistent`() {
-    val vec1 = Vec1(Double.NaN)
-    val hashCode1 = vec1.hashCode()
-    val hashCode2 = vec1.hashCode()
-    hashCode1 shouldBe hashCode2
-  }
-
-  @Test
-  fun `normalize of positive x value`() {
-    val vec1 = Vec1(3.0)
-    val normalized = vec1.normalize()
-    normalized shouldBe Vec1(1.0)
-  }
-
-  @Test
-  fun `normalize of negative x value`() {
-    val vec1 = Vec1(-3.0)
-    val normalized = vec1.normalize()
-    normalized shouldBe Vec1(-1.0)
-  }
-
-  @Test
-  fun `normalize of zero x value throws exception`() {
-    val vec1 = Vec1(0.0)
-    shouldThrow<ArithmeticException> { vec1.normalize() }
-  }
-
-  @Test
-  fun `negate positive x value`() {
-    val vec1 = Vec1(3.0)
-    val actual = -vec1
-    actual shouldBe Vec1(-3.0)
-  }
-
-  @Test
-  fun `negate negative x value`() {
-    val vec1 = Vec1(-3.0)
-    val actual = -vec1
-    actual shouldBe Vec1(3.0)
-  }
-
-  @Test
-  fun `negate NaN x value`() {
-    val vec1 = Vec1(Double.NaN)
-    val actual = -vec1
-    actual shouldBe Vec1(Double.NaN)
-  }
-
-  private val dotProductTestCases =
-    listOf(
-      Triple(Vec1(2.0), Vec1(3.0), 6.0),
-      Triple(Vec1(-2.0), Vec1(3.0), -6.0),
-      Triple(Vec1(0.0), Vec1(3.0), 0.0),
-      Triple(Vec1(2.5), Vec1(4.0), 10.0),
-      Triple(Vec1(-2.5), Vec1(-4.0), 10.0),
-    )
-
-  @Test
-  fun `dot product of two Vec1`() {
-    for ((a, b, expected) in dotProductTestCases) {
-      val actual = a dot b
-      actual shouldBe expected
-    }
-  }
-
-  private val timesTestCases =
-    listOf(
-      Triple(Vec1(2.0), 3.0, Vec1(6.0)),
-      Triple(Vec1(-2.0), 3.0, Vec1(-6.0)),
-      Triple(Vec1(0.0), 3.0, Vec1(0.0)),
-      Triple(Vec1(2.5), 4.0, Vec1(10.0)),
-      Triple(Vec1(-2.5), -4.0, Vec1(10.0)),
-    )
-
-  @Test
-  fun `vector times scalar`() {
-    for ((vec, scalar, expected) in timesTestCases) {
+  fun `scalar multiplication`() {
+    for ((vec, scalar, expected) in scalarMultiplicationTestCases) {
       val actual = vec * scalar
       actual shouldBe expected
     }
   }
 
   @Test
-  fun `eq returns true for equal Vec1`() {
+  fun `dot product of two vectors`() {
+    for ((a, b, expected) in dotProductTestCases) {
+      val actual = a dot b
+      actual shouldBe expected
+    }
+  }
+
+  @Test
+  fun `negation of vector`() {
+    val positiveVec = Vec1(3.0)
+    val negativeVec = Vec1(-3.0)
+
+    -positiveVec shouldBe Vec1(-3.0)
+    -negativeVec shouldBe Vec1(3.0)
+  }
+
+  @Test
+  fun `isNaN returns true when x is NaN`() {
+    val vec = Vec1(Double.NaN)
+    vec.isNaN() shouldBe true
+  }
+
+  @Test
+  fun `isNaN returns false when x is a number`() {
+    val vec = Vec1(3.0)
+    vec.isNaN() shouldBe false
+  }
+
+  @Test
+  fun `isFinite returns true when x is finite`() {
+    val vec = Vec1(3.0)
+    vec.isFinite() shouldBe true
+  }
+
+  @Test
+  fun `isFinite returns false when x is infinite`() {
+    val vec = Vec1(Double.POSITIVE_INFINITY)
+    vec.isFinite() shouldBe false
+  }
+
+  @Test
+  fun `isInfinite returns true when x is infinite`() {
+    val vec = Vec1(Double.POSITIVE_INFINITY)
+    vec.isInfinite() shouldBe true
+  }
+
+  @Test
+  fun `isInfinite returns false when x is finite`() {
+    val vec = Vec1(3.0)
+    vec.isInfinite() shouldBe false
+  }
+
+  @Test
+  fun `distance between two vectors`() {
+    for ((a, b, expected) in distanceTestCases) {
+      val actual = a.distance(b)
+      actual shouldBe expected
+    }
+  }
+
+  @Test
+  fun `norm calculation`() {
+    val vec = Vec1(3.0)
+    val actual = vec.norm()
+    actual shouldBe 3.0
+  }
+
+  @Test
+  fun `normalize positive value`() {
+    val vec = Vec1(3.0)
+    val normalized = vec.normalize()
+    normalized shouldBe Vec1(1.0)
+  }
+
+  @Test
+  fun `normalize negative value`() {
+    val vec = Vec1(-3.0)
+    val normalized = vec.normalize()
+    normalized shouldBe Vec1(-1.0)
+  }
+
+  @Test
+  fun `normalize zero value throws exception`() {
+    val vec = Vec1(0.0)
+    shouldThrow<ArithmeticException> { vec.normalize() }
+  }
+
+  @Test
+  fun `eq returns true for equal vectors`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(1.0)
     vec1.eq(vec2) shouldBe true
   }
 
   @Test
-  fun `eq returns false for different Vec1`() {
+  fun `eq returns false for different vectors`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(2.0)
     vec1.eq(vec2) shouldBe false
@@ -231,7 +155,15 @@ class Vec1Test {
   }
 
   @Test
-  fun `angle between two vectors`() {
+  fun `hashCode consistency for NaN values`() {
+    val vec = Vec1(Double.NaN)
+    val hashCode1 = vec.hashCode()
+    val hashCode2 = vec.hashCode()
+    hashCode1 shouldBe hashCode2
+  }
+
+  @Test
+  fun `angle between two vectors in radians and degrees`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(2.0)
 
@@ -240,7 +172,7 @@ class Vec1Test {
   }
 
   @Test
-  fun `angle throws exception for NaN values`() {
+  fun `angle calculation throws exception for NaN values`() {
     val vec1 = Vec1(Double.NaN)
     val vec2 = Vec1(2.0)
 
@@ -248,91 +180,86 @@ class Vec1Test {
   }
 
   @Test
-  fun `norm of Vec1`() {
-    val vec1 = Vec1(3.0)
-    val actual = vec1.norm()
-    actual shouldBe 9.0
-  }
-
-  @Test
-  fun `compute the correct lerp`() {
+  fun `lerp computes correct interpolation`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(3.0)
     val t = 0.5
 
     val actual = vec1.lerp(vec2, t)
-
     actual shouldBe Vec1(2.0)
   }
 
   @Test
-  fun `lerp with t=0 returns the first vector`() {
+  fun `lerp with t=0 returns first vector`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(3.0)
     val t = 0.0
 
     val actual = vec1.lerp(vec2, t)
-
     actual shouldBe vec1
   }
 
   @Test
-  fun `lerp with t=1 returns the second vector`() {
+  fun `lerp with t=1 returns second vector`() {
     val vec1 = Vec1(1.0)
     val vec2 = Vec1(3.0)
     val t = 1.0
 
     val actual = vec1.lerp(vec2, t)
-
     actual shouldBe vec2
   }
 
   @Test
   fun `toString returns correct format`() {
-    val vec1 = Vec1(3.1)
-    val actual = vec1.toString()
+    val vec = Vec1(3.1)
+    val actual = vec.toString()
     actual shouldBe "Vec1(x=3.1)"
   }
 
-  @Test
-  fun `create unit vector from vec1`() {
-    val unitVector = Vec1.Unit.from(Vec1(10.0))
-    unitVector shouldBe Vec1(1.0)
+  companion object {
+    private val plusTestCases =
+      listOf(
+        Triple(Vec1(1.0), Vec1(2.0), Vec1(3.0)),
+        Triple(Vec1(-1.0), Vec1(-2.0), Vec1(-3.0)),
+        Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
+        Triple(Vec1(1.5), Vec1(2.5), Vec1(4.0)),
+        Triple(Vec1(-1.5), Vec1(2.5), Vec1(1.0)),
+      )
 
-    val unitVectorNegative = Vec1.Unit.from(Vec1(-10.0))
-    unitVectorNegative shouldBe Vec1(-1.0)
-  }
+    private val minusTestCases =
+      listOf(
+        Triple(Vec1(3.0), Vec1(2.0), Vec1(1.0)),
+        Triple(Vec1(2.0), Vec1(3.0), Vec1(-1.0)),
+        Triple(Vec1(0.0), Vec1(0.0), Vec1(0.0)),
+        Triple(Vec1(-2.0), Vec1(-3.0), Vec1(1.0)),
+        Triple(Vec1(-3.0), Vec1(-2.0), Vec1(-1.0)),
+      )
 
-  @Test
-  fun `create unit vector from x coordinate`() {
-    val unitVector = Vec1.Unit.from(10.0)
-    unitVector shouldBe Vec1(1.0)
+    private val distanceTestCases =
+      listOf(
+        Triple(Vec1(0.0), Vec1(0.0), 0.0),
+        Triple(Vec1(1.0), Vec1(2.0), 1.0),
+        Triple(Vec1(-1.0), Vec1(1.0), 2.0),
+        Triple(Vec1(3.0), Vec1(3.0), 0.0),
+        Triple(Vec1(5.0), Vec1(-5.0), 10.0),
+      )
 
-    val unitVectorNegative = Vec1.Unit.from(-10.0)
-    unitVectorNegative shouldBe Vec1(-1.0)
-  }
+    private val dotProductTestCases =
+      listOf(
+        Triple(Vec1(2.0), Vec1(3.0), 6.0),
+        Triple(Vec1(-2.0), Vec1(3.0), -6.0),
+        Triple(Vec1(0.0), Vec1(3.0), 0.0),
+        Triple(Vec1(2.5), Vec1(4.0), 10.0),
+        Triple(Vec1(-2.5), Vec1(-4.0), 10.0),
+      )
 
-  @Test
-  fun `unit vector norm is always 1`() {
-    val unitVector = Vec1.Unit.from(3.0)
-    unitVector.norm() shouldBe 1.0
-  }
-
-  @Test
-  fun `unit vector throws exception for zero value`() {
-    shouldThrow<ArithmeticException> { Vec1.Unit.from(0.0) }
-  }
-
-  @Test
-  fun `unit vector normalize returns itself`() {
-    val unitVector = Vec1.Unit.from(3.0)
-    unitVector.normalize() shouldBe unitVector
-  }
-
-  @Test
-  fun `unit vector unary minus returns negated vector`() {
-    val unitVector = Vec1.Unit.from(3.0)
-    val negated = -unitVector
-    negated shouldBe Vec1(-1.0)
+    private val scalarMultiplicationTestCases =
+      listOf(
+        Triple(Vec1(2.0), 3.0, Vec1(6.0)),
+        Triple(Vec1(-2.0), 3.0, Vec1(-6.0)),
+        Triple(Vec1(0.0), 3.0, Vec1(0.0)),
+        Triple(Vec1(2.5), 4.0, Vec1(10.0)),
+        Triple(Vec1(-2.5), -4.0, Vec1(10.0)),
+      )
   }
 }

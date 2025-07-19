@@ -10,6 +10,7 @@ plugins {
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
   alias(libs.plugins.dokka.html)
+  alias(libs.plugins.kotlinx.kover)
 }
 
 group = "io.github.cponfick"
@@ -130,6 +131,15 @@ mavenPublishing {
 }
 
 dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:${libs.versions.dokka.get()}") }
+
+kover {
+  reports {
+    total {
+      xml { onCheck = true }
+      html { onCheck = true }
+    }
+  }
+}
 
 dokka {
   dokkaSourceSets.commonMain {

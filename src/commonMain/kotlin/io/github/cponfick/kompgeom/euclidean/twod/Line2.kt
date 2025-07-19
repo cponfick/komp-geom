@@ -3,37 +3,35 @@ package io.github.cponfick.kompgeom.euclidean.twod
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.partitioning.Hyperplane
+import io.github.cponfick.kompgeom.core.partitioning.Location
 import kotlin.math.abs
 
-public class Line2(
-  public val direction: Vec2.Unit,
+public data class Line2(
+  public val direction: Vec2,
   public val originOffSet: Double,
-  precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
-) : Hyperplane<Vec2>(precision) {
-
-  override fun distance(point: Vec2): Double = abs(offset(point))
-
-  override fun offset(point: Vec2): Double = originOffSet - direction.signedArea(point)
-
-  override fun reverse(): Hyperplane<Vec2> = Line2(-direction, -originOffSet, precision)
-
-  override fun hashCode(): Int {
-    var result = direction.hashCode()
-    result = 31 * result + originOffSet.hashCode()
-    result = 31 * result + precision.hashCode()
-    return result
+  public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+) : Hyperplane<Vec2> {
+  init {
+    require(precision.compare(1.0, direction.norm()) == 0) {
+      "Direction vector must be a unit vector."
+    }
   }
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is Line2) return false
+  override fun distance(obj: Vec2): Double = abs(offset(obj))
 
-    return direction == other.direction &&
-      originOffSet == other.originOffSet &&
-      precision == other.precision
+  override fun offset(obj: Vec2): Double = originOffSet - direction.signedArea(obj)
+
+  override fun reverse(): Line2 = Line2(-direction, -originOffSet, precision)
+
+  override fun location(obj: Vec2): Location {
+    val distance = distance(obj)
+    val signum = precision.signum(distance)
+    return when {
+      signum > 0 -> Location.PLUS
+      signum < 0 -> Location.MINUS
+      else -> Location.ON
+    }
   }
-
-  override fun toString(): String = "Line2(direction=$direction, originOffSet=$originOffSet)"
 
   public companion object {
     /**
@@ -51,7 +49,7 @@ public class Line2(
       direction: Vec2,
       precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
     ): Line2 {
-      if (direction.isZero(precision)) {
+      if (direction.eq(Vec2.ZERO, precision)) {
         throw IllegalArgumentException("Direction vector cannot be zero.")
       }
 

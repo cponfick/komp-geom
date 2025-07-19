@@ -9,7 +9,7 @@ class Line2Test {
 
   @Test
   fun `constructor initializes correctly`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val originOffset = 5.0
     val line = Line2(direction, originOffset)
 
@@ -19,7 +19,7 @@ class Line2Test {
 
   @Test
   fun `distance returns correct result for point on line`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val pointOnLine = Vec2(5.0, 0.0)
 
@@ -28,7 +28,7 @@ class Line2Test {
 
   @Test
   fun `distance returns correct result for point off line`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val pointOffLine = Vec2(3.0, 4.0)
 
@@ -37,7 +37,7 @@ class Line2Test {
 
   @Test
   fun `offset returns correct result for positive side`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val point = Vec2(0.0, 2.0)
 
@@ -46,7 +46,7 @@ class Line2Test {
 
   @Test
   fun `offset returns correct result for negative side`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val point = Vec2(0.0, -2.0)
 
@@ -55,7 +55,7 @@ class Line2Test {
 
   @Test
   fun `offset returns zero for point on line`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0)
     val pointOnLine = Vec2(5.0, 0.0)
 
@@ -64,11 +64,11 @@ class Line2Test {
 
   @Test
   fun `reverse creates line with opposite direction and offset`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val originOffset = 3.0
     val line = Line2(direction, originOffset)
 
-    val reversed = line.reverse() as Line2
+    val reversed = line.reverse()
 
     reversed.direction shouldBe -direction
     reversed.originOffSet shouldBe -originOffset
@@ -76,7 +76,7 @@ class Line2Test {
 
   @Test
   fun `equals returns true for identical lines`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val originOffset = 2.5
     val line1 = Line2(direction, originOffset)
     val line2 = Line2(direction, originOffset)
@@ -86,15 +86,15 @@ class Line2Test {
 
   @Test
   fun `equals returns false for different directions`() {
-    val line1 = Line2(Vec2.Unit(1.0, 0.0), 2.5)
-    val line2 = Line2(Vec2.Unit(0.0, 1.0), 2.5)
+    val line1 = Line2(Vec2.unit(1.0, 0.0), 2.5)
+    val line2 = Line2(Vec2.unit(0.0, 1.0), 2.5)
 
     (line1 == line2) shouldBe false
   }
 
   @Test
   fun `equals returns false for different offsets`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line1 = Line2(direction, 2.5)
     val line2 = Line2(direction, 3.0)
 
@@ -103,7 +103,7 @@ class Line2Test {
 
   @Test
   fun `hashCode is consistent with equals`() {
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val originOffset = 2.5
     val line1 = Line2(direction, originOffset)
     val line2 = Line2(direction, originOffset)
@@ -138,19 +138,9 @@ class Line2Test {
   }
 
   @Test
-  fun `toString returns expected format`() {
-    val direction = Vec2.Unit(1.0, 0.0)
-    val originOffset = 2.5
-    val line = Line2(direction, originOffset)
-
-    val expected = "Line2(direction=$direction, originOffSet=$originOffset)"
-    line.toString() shouldBe expected
-  }
-
-  @Test
   fun `custom precision is respected in constructor`() {
     val customPrecision = DoubleEquivalence(1e-10)
-    val direction = Vec2.Unit(1.0, 0.0)
+    val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0, customPrecision)
 
     line.precision shouldBe customPrecision

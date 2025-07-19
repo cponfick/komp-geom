@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.euclidean.EuclideanVector
+import io.github.cponfick.kompgeom.core.Vector
 
 /**
  * Closest Pair algorithm using the Divide and Conquer approach. This implementation sorts the
@@ -9,7 +9,7 @@ import io.github.cponfick.kompgeom.euclidean.EuclideanVector
  * @property input collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairNaive<V : EuclideanVector<V>>(input: Collection<V>) : IClosestPair<V> {
+public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPair<V> {
   private val points = input.toList()
 
   init {

@@ -1,8 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
+import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Transformer
-import io.github.cponfick.kompgeom.euclidean.AffineTransformationMatrix
 import io.github.cponfick.kompgeom.euclidean.utils.MatrixUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 
@@ -16,14 +16,14 @@ import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
  * @property m11 The element at row 1, column 1.
  * @property m12 The element at row 1, column 2.
  */
-public class AffineTransformationMatrix2(
+public data class AffineTransformationMatrix2(
   public val m00: Double,
   public val m01: Double,
   public val m02: Double,
   public val m10: Double,
   public val m11: Double,
   public val m12: Double,
-) : AffineTransformationMatrix<Vec2, AffineTransformationMatrix2>() {
+) : Transformer<Vec2> {
 
   /**
    * Get the array representation of the transformation matrix.
@@ -32,25 +32,27 @@ public class AffineTransformationMatrix2(
    */
   public fun toArray(): DoubleArray = doubleArrayOf(m00, m01, m02, m10, m11, m12)
 
-  override fun equals(other: Any?): Boolean {
-    if (other !is AffineTransformationMatrix2) return false
-    return m00 == other.m00 &&
-      m01 == other.m01 &&
-      m02 == other.m02 &&
-      m10 == other.m10 &&
-      m11 == other.m11 &&
-      m12 == other.m12
-  }
+  /**
+   * Computes the determinant of the affine transformation matrix.
+   *
+   * The determinant is calculated as: `det = m00 * m11 - m01 * m10`
+   *
+   * @return The determinant of the matrix.
+   */
+  public fun determinant(): Double = MatrixUtil.determinant(m00, m01, m10, m11)
 
-  override fun hashCode(): Int = toArray().hashCode()
-
-  override fun toString(): String {
-    return "[$m00, $m01, $m02 | $m10, $m11, $m12]"
-  }
-
-  override fun determinant(): Double = MatrixUtil.determinant(m00, m01, m10, m11)
-
-  override fun eq(other: AffineTransformationMatrix2, equivalence: DoubleEquivalence): Boolean =
+  /**
+   * Tests if two affine transformation matrices are approximately equal.
+   *
+   * @param other The other affine transformation matrix to compare with.
+   * @param equivalence The equivalence used to compare the double values. Defaults to
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
+   * @return True if the matrices are approximately equal, false otherwise.
+   */
+  public fun eq(
+    other: AffineTransformationMatrix2,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Boolean =
     equivalence.eq(m00, other.m00) &&
       equivalence.eq(m01, other.m01) &&
       equivalence.eq(m02, other.m02) &&
@@ -58,14 +60,10 @@ public class AffineTransformationMatrix2(
       equivalence.eq(m11, other.m11) &&
       equivalence.eq(m12, other.m12)
 
-  override fun apply(point: Vec2): Vec2 =
-    Vec2(m00 * point.x + m01 * point.y + m02, m10 * point.x + m11 * point.y + m12)
+  override fun apply(obj: Vec2): Vec2 =
+    Vec2(m00 * obj.x + m01 * obj.y + m02, m10 * obj.x + m11 * obj.y + m12)
 
-  /**
-   * Checks if the transformation preserves orientation. For more information, see:
-   * [Wikipedia](https://en.wikipedia.org/wiki/Minor_(linear_algebra)#Inverse_of_a_matrix)
-   */
-  override fun inverse(): Transformer<Vec2> {
+  override fun inverse(): AffineTransformationMatrix2 {
     val invDet = 1.0 / determinant().assertIsFiniteAndNotZero()
 
     val c00 = invDet * m11
@@ -78,6 +76,8 @@ public class AffineTransformationMatrix2(
 
     return AffineTransformationMatrix2(c00, c01, c02, c10, c11, c12)
   }
+
+  override fun preserveOrientation(): Boolean = determinant() > 0.0
 
   public companion object {
     /** Identity matrix for transformations in one dimensional space. */
