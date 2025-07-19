@@ -51,8 +51,7 @@ jobs:
       - name: Extract coverage percentage
         id: coverage
         run: |
-          # Extract coverage from kover XML report
-          COVERAGE=$(grep -o 'line-rate="[0-9.]*"' build/reports/kover/report.xml | head -1 | grep -o '[0-9.]*' | awk '{printf "%.0f", $1 * 100}')
+          COVERAGE=$(./gradlew -q printLineCoverage)
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
           echo "Coverage: $COVERAGE%"
 
