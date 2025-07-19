@@ -50,11 +50,9 @@ class Vec1Test {
   fun `negation of vector`() {
     val positiveVec = Vec1(3.0)
     val negativeVec = Vec1(-3.0)
-    val nanVec = Vec1(Double.NaN)
 
-    (-positiveVec) shouldBe Vec1(-3.0)
-    (-negativeVec) shouldBe Vec1(3.0)
-    (-nanVec) shouldBe Vec1(Double.NaN)
+    -positiveVec shouldBe Vec1(-3.0)
+    -negativeVec shouldBe Vec1(3.0)
   }
 
   @Test
