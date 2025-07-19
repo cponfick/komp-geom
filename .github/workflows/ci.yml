@@ -46,7 +46,7 @@ jobs:
           cache: 'gradle'
 
       - name: Run tests and generate coverage
-        run: ./gradlew jvmTest koverXmlReport
+        run: ./gradlew koverXmlReport
 
       - name: Extract coverage percentage
         id: coverage
