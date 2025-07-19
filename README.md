@@ -1,4 +1,7 @@
-[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml) ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/cponfick/459bdccf80e8da31dbb845b91488f8e1/raw/komp-geom-coverage-badge.json) [![CodeQL Advanced](https://github.com/cponfick/komp-geom/actions/workflows/codeql.yml/badge.svg)](https://github.com/cponfick/komp-geom/actions/workflows/codeql.yml) [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
+[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml) 
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/cponfick/459bdccf80e8da31dbb845b91488f8e1/raw/komp-geom-coverage-badge.json) 
+[![CodeQL Advanced](https://github.com/cponfick/komp-geom/actions/workflows/codeql.yml/badge.svg)](https://github.com/cponfick/komp-geom/actions/workflows/codeql.yml) 
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
 
 # Computational Geometry in Kotlin
 
