@@ -26,4 +26,8 @@ public abstract class EuclideanVector<V : EuclideanVector<V>> : Point<V>, Spatia
    * @param t The interpolation factor, where 0.0 is this vector and 1.0 is the other vector.
    */
   public abstract fun lerp(other: V, t: Double): V
+
+  public fun isZero(equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE): Boolean {
+    return eq(zero(), equivalence)
+  }
 }

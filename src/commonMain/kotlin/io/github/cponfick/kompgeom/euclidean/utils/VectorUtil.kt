@@ -22,4 +22,35 @@ public object VectorUtil {
    * @return The Euclidean norm of the vector.
    */
   public fun norm(x: Double, y: Double, z: Double): Double = sqrt(x * x + y * y + z * z)
+
+  /**
+   * Computes the linear combination a1 * b1 + a2 * b2 of two pairs of doubles.
+   *
+   * @param a1 The first value of the first pair.
+   * @param b1 The second value of the first pair.
+   * @param a2 The first value of the second pair.
+   * @param b2 The second value of the second pair.
+   * @return The result of the linear combination.
+   */
+  public fun linearCombination(a1: Double, b1: Double, a2: Double, b2: Double): Double =
+    a1 * b1 + a2 * b2
+
+  /**
+   * Computes the linear combination a1 * b1 + a2 * b2 + a3 * b3 of three pairs of doubles.
+   *
+   * @param a1 The first value of the first pair.
+   * @param b1 The second value of the first pair.
+   * @param a2 The first value of the second pair.
+   * @param b2 The second value of the second pair.
+   * @param a3 The first value of the third pair.
+   * @param b3 The second value of the third pair.
+   */
+  public fun linearCombination(
+    a1: Double,
+    b1: Double,
+    a2: Double,
+    b2: Double,
+    a3: Double,
+    b3: Double,
+  ): Double = a1 * b1 + a2 * b2 + a3 * b3
 }

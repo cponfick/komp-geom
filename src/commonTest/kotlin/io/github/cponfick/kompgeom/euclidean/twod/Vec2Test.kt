@@ -299,4 +299,22 @@ class Vec2Test {
     negatedVector.x shouldBe -unitVector.x
     negatedVector.y shouldBe -unitVector.y
   }
+
+  @Test
+  fun `signedArea returns expected value for two vectors`() {
+    val vector1 = Vec2(1.0, 0.0)
+    val vector2 = Vec2(0.0, 1.0)
+
+    vector1.signedArea(vector2) shouldBe 1.0
+    vector2.signedArea(vector1) shouldBe -1.0
+  }
+
+  @Test
+  fun `signedArea returns zero for collinear vectors`() {
+    val vector1 = Vec2(1.0, 2.0)
+    val vector2 = Vec2(2.0, 4.0)
+
+    vector1.signedArea(vector2) shouldBe 0.0
+    vector2.signedArea(vector1) shouldBe 0.0
+  }
 }

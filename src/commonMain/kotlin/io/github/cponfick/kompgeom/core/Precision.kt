@@ -74,6 +74,30 @@ public open class DoubleEquivalence(public val epsilon: Double = DBL_EPSILON) {
   public fun gte(a: Double, b: Double): Boolean = compare(a, b) >= 0
 
   /**
+   * Returns the sign of a double value.
+   * - -0.0 if the value is considered zero and negatively signed,
+   * - +0.0 if the value is considered zero and positively signed,
+   * - -1.0 if the value is considered less than zero,
+   * - +1.0 if the value is considered greater than zero.
+   *
+   * @param a The double value to check.
+   * @return -1.0 if `a` is negative, 0.0 if `a` is zero, and 1.0 if `a` is positive.
+   */
+  public fun signum(a: Double): Double {
+    if (a == 0.0 || a.isNaN()) {
+      return a
+    }
+
+    // TODO: optimization can be done here for example by using copySign in java.
+    //  This has to be done for every platform. Take a look at a later point in time.
+    return if (eqZero(a)) {
+      if (a < 0.0) -0.0 else 0.0
+    } else {
+      if (a < 0.0) -1.0 else 1.0
+    }
+  }
+
+  /**
    * Compares two double values.
    *
    * @param a The first double value to compare.
