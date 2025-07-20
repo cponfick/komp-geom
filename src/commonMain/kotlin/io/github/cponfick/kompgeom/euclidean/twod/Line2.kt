@@ -6,6 +6,14 @@ import io.github.cponfick.kompgeom.core.partitioning.Hyperplane
 import io.github.cponfick.kompgeom.core.partitioning.Location
 import kotlin.math.abs
 
+/**
+ * Represents a line in 2D space defined by a direction vector and an offset from the origin.
+ *
+ * @property direction The direction of the line, which must be a unit vector.
+ * @property originOffSet The offset of the line from the origin.
+ * @property precision The precision used for geometric computations, defaulting to
+ *   [DEFAULT_DOUBLE_EQUIVALENCE].
+ */
 public data class Line2(
   public val direction: Vec2,
   public val originOffSet: Double,
