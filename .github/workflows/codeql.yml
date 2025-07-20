@@ -30,6 +30,7 @@ on:
       - 'gradle.properties'
   schedule:
     - cron: '37 3 * * 4'
+  workflow_dispatch:
 
 jobs:
   analyze:
