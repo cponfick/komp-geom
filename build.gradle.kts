@@ -12,6 +12,7 @@ plugins {
   alias(libs.plugins.maven.publish)
   alias(libs.plugins.dokka.html)
   alias(libs.plugins.kotlinx.kover)
+  alias(libs.plugins.sonarqube)
 }
 
 group = "io.github.cponfick"
@@ -145,6 +146,14 @@ dokka {
       olderVersionsDir.set(projectDir.resolve("docs/dokka"))
       renderVersionsNavigationOnAllPages.set(true)
     }
+  }
+}
+
+sonar {
+  properties {
+    property("sonar.projectKey", "cponfick_komp-geom")
+    property("sonar.organization", "cponfick")
+    property("sonar.host.url", "https://sonarcloud.io")
   }
 }
 

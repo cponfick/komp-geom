@@ -23,11 +23,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-          cache: 'gradle'
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
-            **/gradle/libs.versions.toml
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
 
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v2
