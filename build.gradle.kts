@@ -158,6 +158,7 @@ sonar {
 }
 
 tasks.register("printLineCoverage") {
+  description = "Prints line coverage percentage from Kover XML report"
   group = "verification" // Put into the same group as the `kover` tasks
   dependsOn("koverXmlReport")
   doLast {

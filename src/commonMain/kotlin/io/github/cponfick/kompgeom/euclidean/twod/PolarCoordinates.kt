@@ -45,11 +45,10 @@ public class PolarCoordinates(radius: Double, azimuth: Double) : Spatial {
   override fun hashCode(): Int {
     if (isNaN()) {
       return 0
-    } else {
-      var result = radius.hashCode()
-      result = 31 * result + azimuth.hashCode()
-      return result
     }
+    var result = radius.hashCode()
+    result = 31 * result + azimuth.hashCode()
+    return result
   }
 
   override fun equals(other: Any?): Boolean {

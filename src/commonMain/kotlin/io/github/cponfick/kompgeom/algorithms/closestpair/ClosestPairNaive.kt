@@ -13,9 +13,7 @@ public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPai
   private val points = input.toList()
 
   init {
-    if (input.size < 2) {
-      throw IllegalArgumentException("Input must contain at least 2 elements")
-    }
+    require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
   override fun run(): Result<V> {
