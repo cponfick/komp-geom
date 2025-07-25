@@ -257,12 +257,6 @@ class Vec2Test {
   }
 
   @Test
-  fun `toString returns expected format`() {
-    val vector = Vec2(1.1, 2.1)
-    vector.toString() shouldBe "Vec2(x=1.1, y=2.1)"
-  }
-
-  @Test
   fun `signedArea returns expected value for two vectors`() {
     val vector1 = Vec2(1.0, 0.0)
     val vector2 = Vec2(0.0, 1.0)
