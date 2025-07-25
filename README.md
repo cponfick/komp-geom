@@ -1,6 +1,7 @@
 [![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=bugs)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
