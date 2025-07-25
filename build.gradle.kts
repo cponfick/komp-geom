@@ -1,6 +1,5 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
-import javax.xml.parsers.DocumentBuilderFactory
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
@@ -154,39 +153,13 @@ sonar {
     property("sonar.projectKey", "cponfick_komp-geom")
     property("sonar.organization", "cponfick")
     property("sonar.host.url", "https://sonarcloud.io")
-  }
-}
-
-tasks.register("printLineCoverage") {
-  group = "verification" // Put into the same group as the `kover` tasks
-  dependsOn("koverXmlReport")
-  doLast {
-    val report = file("${layout.buildDirectory.get()}/reports/kover/report.xml")
-
-    val doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(report)
-    val rootNode = doc.firstChild
-    var childNode = rootNode.firstChild
-
-    var coveragePercent = 0.0
-
-    while (childNode != null) {
-      if (childNode.nodeName == "counter") {
-        val typeAttr = childNode.attributes.getNamedItem("type")
-        if (typeAttr.textContent == "LINE") {
-          val missedAttr = childNode.attributes.getNamedItem("missed")
-          val coveredAttr = childNode.attributes.getNamedItem("covered")
-
-          val missed = missedAttr.textContent.toLong()
-          val covered = coveredAttr.textContent.toLong()
-
-          coveragePercent = (covered * 100.0) / (missed + covered)
-
-          break
+    val koverReport =
+      allprojects
+        .mapNotNull { project ->
+          val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
+          if (File(reportPath).exists()) reportPath else null
         }
-      }
-      childNode = childNode.nextSibling
-    }
-
-    println("%.1f".format(coveragePercent))
+        .joinToString(",")
+    property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
   }
 }

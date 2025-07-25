@@ -13,9 +13,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
   private val sortedByY: List<Vec2> = input.sortedBy { it.y }
 
   init {
-    if (input.size < 2) {
-      throw IllegalArgumentException("Input must contain at least 2 elements")
-    }
+    require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
   override fun run(): Result<Vec2> {

@@ -57,9 +57,7 @@ public data class Line2(
       direction: Vec2,
       precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
     ): Line2 {
-      if (direction.eq(Vec2.ZERO, precision)) {
-        throw IllegalArgumentException("Direction vector cannot be zero.")
-      }
+      require(!(direction.eq(Vec2.ZERO, precision))) { "Direction vector cannot be zero." }
 
       val unitDirection = direction.normalize()
       val originOffset = unitDirection.signedArea(point)
