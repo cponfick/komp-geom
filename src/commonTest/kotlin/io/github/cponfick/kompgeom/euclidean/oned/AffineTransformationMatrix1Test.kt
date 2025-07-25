@@ -70,6 +70,39 @@ class AffineTransformationMatrix1Test {
     actual shouldBe Vec1(8.0)
   }
 
+  @Test
+  fun `eq checks approximate equality of matrices`() {
+    val matrix1 = AffineTransformationMatrix1(0.0, 3.0)
+    val matrix2 = AffineTransformationMatrix1(0.0, 3.0)
+    val matrix3 = AffineTransformationMatrix1(0.0000000000000000001, 3.0)
+
+    matrix1.eq(matrix2) shouldBe true
+    matrix1.eq(matrix3) shouldBe true
+    matrix1.eq(AffineTransformationMatrix1(2.0, 4.0)) shouldBe false
+  }
+
+  @Test
+  fun `preserveOrientation returns true for positive determinant`() {
+    val matrix = AffineTransformationMatrix1(2.0, 3.0)
+    matrix.preserveOrientation() shouldBe true
+  }
+
+  @Test
+  fun `preserveOrientation returns false for negative determinant`() {
+    val matrix = AffineTransformationMatrix1(-2.0, 3.0)
+    matrix.preserveOrientation() shouldBe false
+  }
+
+  @Test
+  fun `times multiplies two matrices correctly`() {
+    val matrix1 = AffineTransformationMatrix1(2.0, 3.0)
+    val matrix2 = AffineTransformationMatrix1(4.0, 5.0)
+
+    val actual = matrix1 * matrix2
+
+    actual shouldBe AffineTransformationMatrix1(8.0, 13.0)
+  }
+
   companion object {
     private val applyTestCases =
       listOf(

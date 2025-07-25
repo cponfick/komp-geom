@@ -1,6 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.partitioning.Location
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
@@ -15,6 +16,14 @@ class Line2Test {
 
     line.direction shouldBe direction
     line.originOffSet shouldBe originOffset
+  }
+
+  @Test
+  fun `constructor throws exception for non-unit direction`() {
+    val direction = Vec2(2.0, 0.0)
+    val originOffset = 5.0
+
+    shouldThrow<IllegalArgumentException> { Line2(direction, originOffset) }
   }
 
   @Test
@@ -144,5 +153,32 @@ class Line2Test {
     val line = Line2(direction, 0.0, customPrecision)
 
     line.precision shouldBe customPrecision
+  }
+
+  @Test
+  fun `location returns correct side for point on positive side`() {
+    val direction = Vec2.unit(1.0, 0.0)
+    val line = Line2(direction, 0.0)
+    val point = Vec2(0.0, 1.0)
+
+    line.location(point) shouldBe Location.MINUS
+  }
+
+  @Test
+  fun `location returns correct side for point on negative side`() {
+    val direction = Vec2.unit(1.0, 0.0)
+    val line = Line2(direction, 0.0)
+    val point = Vec2(0.0, -10.0)
+
+    line.location(point) shouldBe Location.PLUS
+  }
+
+  @Test
+  fun `location returns ON for point on line`() {
+    val direction = Vec2.unit(1.0, 0.0)
+    val line = Line2(direction, 0.0)
+    val pointOnLine = Vec2(5.0, 0.0)
+
+    line.location(pointOnLine) shouldBe Location.ON
   }
 }

@@ -62,38 +62,8 @@ public data class AffineTransformationMatrix1(public val m00: Double, public val
    */
   public fun toArray(): DoubleArray = doubleArrayOf(m00, m01)
 
-  override fun toString(): String = "[$m00, $m01 | 0.0, 1.0]"
-
   public companion object {
     /** Identity matrix for transformations in one dimensional space. */
     public val IDENTITY: AffineTransformationMatrix1 = AffineTransformationMatrix1(1.0, 0.0)
-
-    /**
-     * Creates a scaling transformation matrix for one-dimensional space. The matrix scales the
-     * x-coordinate by the given factor.
-     *
-     * @param factor The scaling factor.
-     * @return An affine transformation matrix that scales the x-coordinate by the factor.
-     */
-    public fun scaling1D(factor: Double): AffineTransformationMatrix1 =
-      AffineTransformationMatrix1(factor, 0.0)
-
-    /**
-     * Creates a translation transformation matrix for one-dimensional space. The matrix translates
-     * the x-coordinate by the given offset.
-     *
-     * @param offset The translation offset.
-     * @return An affine transformation matrix that translates the x-coordinate by the offset.
-     */
-    public fun translation1D(offset: Double): AffineTransformationMatrix1 =
-      AffineTransformationMatrix1(1.0, offset)
-
-    /**
-     * Creates a reflection transformation matrix for one-dimensional space. The matrix reflects the
-     * x-coordinate across the origin.
-     *
-     * @return An affine transformation matrix that reflects the x-coordinate.
-     */
-    public fun reflection1D(): AffineTransformationMatrix1 = AffineTransformationMatrix1(-1.0, 0.0)
   }
 }

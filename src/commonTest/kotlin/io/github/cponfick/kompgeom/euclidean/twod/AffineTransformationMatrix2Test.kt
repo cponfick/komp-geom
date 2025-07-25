@@ -92,4 +92,44 @@ class AffineTransformationMatrix2Test {
     val vector = Vec2(1.0, 0.0)
     rotationMatrix.apply(vector) shouldBe Vec2(cosTheta, sinTheta)
   }
+
+  @Test
+  fun `preserveOrientation returns true for positive determinant`() {
+    AffineTransformationMatrix2.IDENTITY.preserveOrientation() shouldBe true
+  }
+
+  @Test
+  fun `preserveOrientation returns false for negative determinant`() {
+    val matrix = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    matrix.preserveOrientation() shouldBe false
+  }
+
+  @Test
+  fun `eq returns true for equal matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    matrix1.eq(matrix2, testEquivalence) shouldBe true
+  }
+
+  @Test
+  fun `eq returns false for different matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 7.0)
+    matrix1.eq(matrix2, testEquivalence) shouldBe false
+  }
+
+  @Test
+  fun `eq returns true for approximately equal matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 =
+      AffineTransformationMatrix2(
+        1.0 + 1e-13,
+        2.0 + 1e-13,
+        3.0 + 1e-13,
+        4.0 + 1e-13,
+        5.0 + 1e-13,
+        6.0 + 1e-13,
+      )
+    matrix1.eq(matrix2, testEquivalence) shouldBe true
+  }
 }

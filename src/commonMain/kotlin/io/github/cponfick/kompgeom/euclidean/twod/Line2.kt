@@ -32,8 +32,8 @@ public data class Line2(
   override fun reverse(): Line2 = Line2(-direction, -originOffSet, precision)
 
   override fun location(obj: Vec2): Location {
-    val distance = distance(obj)
-    val signum = precision.signum(distance)
+    val offset = offset(obj)
+    val signum = precision.signum(offset)
     return when {
       signum > 0 -> Location.PLUS
       signum < 0 -> Location.MINUS
