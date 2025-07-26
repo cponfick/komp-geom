@@ -2,7 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.partitioning.Hyperplane
+import io.github.cponfick.kompgeom.core.partitioning.Line
 import io.github.cponfick.kompgeom.core.partitioning.Location
 import kotlin.math.abs
 
@@ -18,21 +18,21 @@ public data class Line2(
   public val direction: Vec2,
   public val originOffSet: Double,
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
-) : Hyperplane<Vec2> {
+) : Line<Vec2> {
   init {
     require(precision.compare(1.0, direction.norm()) == 0) {
       "Direction vector must be a unit vector."
     }
   }
 
-  override fun distance(obj: Vec2): Double = abs(offset(obj))
+  override fun distance(vec: Vec2): Double = abs(offset(vec))
 
-  override fun offset(obj: Vec2): Double = originOffSet - direction.signedArea(obj)
+  override fun offset(vec: Vec2): Double = originOffSet - direction.signedArea(vec)
 
   override fun reverse(): Line2 = Line2(-direction, -originOffSet, precision)
 
-  override fun location(obj: Vec2): Location {
-    val offset = offset(obj)
+  override fun location(vec: Vec2): Location {
+    val offset = offset(vec)
     val signum = precision.signum(offset)
     return when {
       signum > 0 -> Location.PLUS
