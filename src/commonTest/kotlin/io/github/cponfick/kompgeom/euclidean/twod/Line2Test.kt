@@ -181,4 +181,13 @@ class Line2Test {
 
     line.location(pointOnLine) shouldBe Location.ON
   }
+
+  @Test
+  fun `contains is true for point on line`() {
+    val direction = Vec2.unit(1.0, 0.0)
+    val line = Line2(direction, 0.0)
+    val pointOnLine = Vec2(5.0, 0.0)
+
+    line.contains(pointOnLine) shouldBe true
+  }
 }

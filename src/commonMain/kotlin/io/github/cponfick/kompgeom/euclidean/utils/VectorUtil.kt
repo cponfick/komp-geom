@@ -13,7 +13,7 @@ public object VectorUtil {
    * @param y The y component of the vector.
    * @return The Euclidean norm of the vector.
    */
-  public fun norm(x: Double, y: Double): Double = sqrt(x * x + y * y)
+  internal fun norm(x: Double, y: Double): Double = sqrt(x * x + y * y)
 
   /**
    * Computes the Euclidean norm (magnitude) of a vector defined by its x, y, and z components.
@@ -23,7 +23,7 @@ public object VectorUtil {
    * @param z The z component of the vector.
    * @return The Euclidean norm of the vector.
    */
-  public fun norm(x: Double, y: Double, z: Double): Double = sqrt(x * x + y * y + z * z)
+  internal fun norm(x: Double, y: Double, z: Double): Double = sqrt(x * x + y * y + z * z)
 
   /**
    * Computes the linear combination a1 * b1 + a2 * b2 of two pairs of doubles.
@@ -34,7 +34,7 @@ public object VectorUtil {
    * @param b2 The second value of the second pair.
    * @return The result of the linear combination.
    */
-  public fun linearCombination(a1: Double, b1: Double, a2: Double, b2: Double): Double =
+  internal fun linearCombination(a1: Double, b1: Double, a2: Double, b2: Double): Double =
     a1 * b1 + a2 * b2
 
   /**
@@ -47,7 +47,7 @@ public object VectorUtil {
    * @param a3 The first value of the third pair.
    * @param b3 The second value of the third pair.
    */
-  public fun linearCombination(
+  internal fun linearCombination(
     a1: Double,
     b1: Double,
     a2: Double,
@@ -65,7 +65,7 @@ public object VectorUtil {
    * @param angleUnit The unit of the angle to return (radians or degrees).
    * @return The angle between the two vectors in the specified unit.
    */
-  public fun calculateAngle(
+  internal fun calculateAngle(
     dotProduct: Double,
     norm1: Double,
     norm2: Double,
