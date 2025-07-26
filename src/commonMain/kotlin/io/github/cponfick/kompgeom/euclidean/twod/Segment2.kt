@@ -19,5 +19,5 @@ public data class Segment2(public override val start: Vec2, public override val 
     return Segment2(transformedStart, transformedEnd)
   }
 
-  override fun reverse(): Segment<Vec2> = Segment2(end, start)
+  override fun reverse(): Segment2 = Segment2(end, start)
 }
