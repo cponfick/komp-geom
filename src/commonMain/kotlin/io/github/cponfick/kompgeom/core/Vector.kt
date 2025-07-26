@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.core
 
 /** This interface represents a vector in a multi-dimensional space. */
-public interface Vector<V : Vector<V>> {
+public interface Vector<V : Vector<V>> : Spatial, Distanceable<V> {
   /** Add a vector to this vector. */
   public operator fun plus(other: V): V
 
@@ -13,14 +13,6 @@ public interface Vector<V : Vector<V>> {
    * @return The angle in the specified unit.
    */
   public fun angle(other: V, angleUnit: AngleUnit = AngleUnit.RADIANS): Double
-
-  /**
-   * Calculate the distance between this vector and another vector.
-   *
-   * @param other The other vector to calculate the distance to.
-   * @return The distance between the two vectors.
-   */
-  public infix fun distance(other: V): Double
 
   /** Calculate the dot product of this vector with another vector. */
   public infix fun dot(other: V): Double

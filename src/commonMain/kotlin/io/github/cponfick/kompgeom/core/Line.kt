@@ -1,6 +1,4 @@
-package io.github.cponfick.kompgeom.core.partitioning
-
-import io.github.cponfick.kompgeom.core.Vector
+package io.github.cponfick.kompgeom.core
 
 /**
  * Represents a line in a vector space.
@@ -10,17 +8,7 @@ import io.github.cponfick.kompgeom.core.Vector
  *
  * @param V The type of vector that defines the space in which the line exists.
  */
-public interface Line<V : Vector<V>> {
-  /**
-   * Get the distance from a point to this line.
-   *
-   * The distance is the shortest distance from the point to the line, which is the absolute value
-   * of the offset of the point from the line.
-   *
-   * @param vec The point to measure the distance from.
-   * @return The distance from the point to the line.
-   */
-  public fun distance(vec: V): Double
+public interface Line<V : Vector<V>> : Distanceable<V> {
 
   /**
    * Get the offset of a point from this line.

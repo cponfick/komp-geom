@@ -2,9 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.Distanceable
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Spatial
 import io.github.cponfick.kompgeom.core.Vector
 import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
@@ -16,8 +14,7 @@ import kotlin.math.sqrt
  * @property x The x-coordinate of the vector.
  * @property y The y-coordinate of the vector.
  */
-public data class Vec2(public val x: Double, public val y: Double) :
-  Spatial, Distanceable<Vec2>, Vector<Vec2> {
+public data class Vec2(public val x: Double, public val y: Double) : Vector<Vec2> {
 
   /**
    * Creates a new vector by copying the coordinates from another vector.

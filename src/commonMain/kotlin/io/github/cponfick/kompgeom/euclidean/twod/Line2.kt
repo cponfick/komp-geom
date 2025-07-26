@@ -2,8 +2,8 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.partitioning.Line
-import io.github.cponfick.kompgeom.core.partitioning.Location
+import io.github.cponfick.kompgeom.core.Line
+import io.github.cponfick.kompgeom.core.Location
 import kotlin.math.abs
 
 /**
@@ -25,7 +25,7 @@ public data class Line2(
     }
   }
 
-  override fun distance(vec: Vec2): Double = abs(offset(vec))
+  override fun distance(other: Vec2): Double = abs(offset(other))
 
   override fun offset(vec: Vec2): Double = originOffSet - direction.signedArea(vec)
 
