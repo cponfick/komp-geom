@@ -273,4 +273,32 @@ class Vec2Test {
     vector1.signedArea(vector2) shouldBe 0.0
     vector2.signedArea(vector1) shouldBe 0.0
   }
+
+  @Test
+  fun `dimensions returns`() {
+    val vector = Vec2(1.0, 2.0)
+    vector.dimensions() shouldBe 2
+  }
+
+  @Test
+  fun `isFinite returns true for finite vector`() {
+    val vector = Vec2(1.0, 2.0)
+    vector.isFinite() shouldBe true
+  }
+
+  @Test
+  fun `isFinite returns false for vector with NaN or Infinite values`() {
+    val vectorNaN = Vec2(Double.NaN, 2.0)
+    val vectorInfinite = Vec2(Double.POSITIVE_INFINITY, 2.0)
+    val vectorMixed = Vec2(1.0, Double.NEGATIVE_INFINITY)
+
+    vectorNaN.isFinite() shouldBe false
+    vectorInfinite.isFinite() shouldBe false
+    vectorMixed.isFinite() shouldBe false
+  }
+
+  @Test
+  fun `zero returns the zero vector`() {
+    Vec2.ZERO shouldBe Vec2(0.0, 0.0)
+  }
 }
