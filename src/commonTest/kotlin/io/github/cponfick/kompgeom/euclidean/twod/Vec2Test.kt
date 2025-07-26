@@ -275,7 +275,7 @@ class Vec2Test {
   }
 
   @Test
-  fun `dimensions returns`() {
+  fun `dimensions returns the correct value`() {
     val vector = Vec2(1.0, 2.0)
     vector.dimensions() shouldBe 2
   }
