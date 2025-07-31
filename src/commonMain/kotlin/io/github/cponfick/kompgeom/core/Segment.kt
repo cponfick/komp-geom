@@ -1,5 +1,7 @@
 package io.github.cponfick.kompgeom.core
 
+import io.github.cponfick.kompgeom.euclidean.utils.IntersectionData
+
 /**
  * Represents a geometric segment defined by a start and an endpoint.
  *
@@ -41,4 +43,18 @@ public interface Segment<V : Vector<V>> {
    * @return The end point of the segment.
    */
   public val end: V
+
+  /**
+   * Compute the intersection of this segment with another segment.
+   *
+   * @param other The other segment to intersect with.
+   * @param equivalence The equivalence to use for comparing floating-point values. Defaults to
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
+   * @return A new segment representing the intersection, or null if there is no intersection/ the
+   *   produce an infinite amount of intersections.
+   */
+  public fun intersection(
+    other: Segment<V>,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): IntersectionData<V>
 }
