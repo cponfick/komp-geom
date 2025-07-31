@@ -1,6 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Orientation
 import io.github.cponfick.kompgeom.core.Segment
 import io.github.cponfick.kompgeom.core.Transformer
 import io.github.cponfick.kompgeom.euclidean.utils.IntersectionData
@@ -91,25 +92,6 @@ private fun isOnSegment(p: Vec2, q: Vec2, r: Vec2, equivalence: DoubleEquivalenc
     equivalence.lte(r.x, maxOf(p.x, q.x)) &&
     equivalence.gte(r.y, minOf(p.y, q.y)) &&
     equivalence.lte(r.y, maxOf(p.y, q.y))
-
-/**
- * Represents the orientation of three points in a 2D plane.
- *
- * The orientation can be:
- * - [COLLINEAR]: The points are collinear.
- * - [CLOCKWISE]: The points are oriented clockwise.
- * - [COUNTERCLOCKWISE]: The points are oriented counterclockwise.
- */
-private enum class Orientation {
-  /** The points are collinear. */
-  COLLINEAR,
-
-  /** The points are oriented clockwise. */
-  CLOCKWISE,
-
-  /** The points are oriented counterclockwise. */
-  COUNTERCLOCKWISE,
-}
 
 private fun orientation(p: Vec2, q: Vec2, r: Vec2, equivalence: DoubleEquivalence): Orientation {
   val value = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y)
