@@ -121,9 +121,7 @@ public fun computeIntersection(segment1: Segment<Vec2>, segment2: Segment<Vec2>)
   val y4 = segment2.end.y
 
   val denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
-  if (denominator == 0.0) {
-    throw IllegalArgumentException("Segments do not intersect or are collinear.")
-  }
+  require(denominator != 0.0) { "Segments do not intersect or are collinear." }
 
   val t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator
   return Vec2(x1 + t * (x2 - x1), y1 + t * (y2 - y1))

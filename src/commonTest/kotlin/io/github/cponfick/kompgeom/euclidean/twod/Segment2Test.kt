@@ -54,14 +54,37 @@ class Segment2Test {
     }
   }
 
+  private val pointIntersectionExpectations =
+    listOf(
+      Triple(
+        Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
+        Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
+        Vec2(0.0, 0.0),
+      ),
+      Triple(
+        Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
+        Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
+        Vec2(0.0, 0.0),
+      ),
+      Triple(
+        Segment2(Vec2(0.0, 0.0), Vec2(2.0, 2.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Vec2(0.0, 0.0),
+      ),
+      Triple(
+        Segment2(Vec2(0.0, 0.0), Vec2(0.0, 2.0)),
+        Segment2(Vec2(0.0, 1.0), Vec2(2.0, 1.0)),
+        Vec2(0.0, 1.0),
+      ),
+    )
+
   @Test
   fun `intersection returns POINT for segments intersecting at a single point`() {
-    val segment1 = Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0))
-    val segment2 = Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0))
-
-    val intersection = segment1.intersection(segment2)
-    intersection.type shouldBe IntersectionType.POINT
-    intersection.point shouldBe Vec2(0.0, 0.0)
+    for ((segment1, segment2, expectedPoint) in pointIntersectionExpectations) {
+      val intersection = segment1.intersection(segment2)
+      intersection.type shouldBe IntersectionType.POINT
+      intersection.point shouldBe expectedPoint
+    }
   }
 
   private val overLappingSegmentsExpectations =
