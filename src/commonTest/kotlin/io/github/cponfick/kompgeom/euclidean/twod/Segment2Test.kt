@@ -1,6 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.euclidean.utils.IntersectionType
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
@@ -36,5 +37,68 @@ class Segment2Test {
 
     reversed.start shouldBe segment.end
     reversed.end shouldBe segment.start
+  }
+
+  private val nonIntersectingSegmentPairs =
+    listOf(
+      Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Segment2(Vec2(0.0, 1.0), Vec2(1.0, 1.0)),
+      Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Segment2(Vec2(2.0, 0.0), Vec2(3.0, 0.0)),
+      Segment2(Vec2(0.0, 0.0), Vec2(0.0, 1.0)) to Segment2(Vec2(1.0, 0.0), Vec2(1.0, 1.0)),
+    )
+
+  @Test
+  fun `intersection returns NONE for non-intersecting segments`() {
+    for ((segment1, segment2) in nonIntersectingSegmentPairs) {
+      val intersection = segment1.intersection(segment2)
+      intersection.type shouldBe IntersectionType.NONE
+    }
+  }
+
+  @Test
+  fun `intersection returns POINT for segments intersecting at a single point`() {
+    val segment1 = Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0))
+    val segment2 = Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0))
+
+    val intersection = segment1.intersection(segment2)
+    intersection.type shouldBe IntersectionType.POINT
+    intersection.point shouldBe Vec2(0.0, 0.0)
+  }
+
+  private val overLappingSegmentsExpectations =
+    listOf(
+      Triple(
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
+        Segment2(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
+      ),
+      Triple(
+        Segment2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
+      ),
+      Triple(
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+      ),
+      Triple(
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
+      ),
+      Triple(
+        Segment2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Segment2(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
+      ),
+    )
+
+  @Test
+  fun `intersection returns OVERLAP for overlapping segments`() {
+    for ((segment1, segment2, expectedOverlap) in overLappingSegmentsExpectations) {
+      val intersection = segment1.intersection(segment2)
+      intersection.type shouldBe IntersectionType.OVERLAP
+      intersection.segment shouldBe expectedOverlap
+    }
   }
 }
