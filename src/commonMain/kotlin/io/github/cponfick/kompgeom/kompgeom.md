@@ -1,6 +1,6 @@
 # Module Kotlin Computational Geometry
 
-## Usage Example
+## Usage Examples
 
 Here are practical examples showing how to use KompGeom for common geometric tasks:
 
