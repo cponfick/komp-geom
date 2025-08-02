@@ -62,8 +62,55 @@ public data class AffineTransformationMatrix1(public val m00: Double, public val
    */
   public fun toArray(): DoubleArray = doubleArrayOf(m00, m01)
 
+  /**
+   * Translates the transformation matrix by a given distance.
+   *
+   * @param translation The distance to translate the matrix.
+   * @return A new affine transformation matrix with the translation applied.
+   */
+  public fun translate(translation: Double): AffineTransformationMatrix1 =
+    AffineTransformationMatrix1(m00, m01 + translation)
+
+  /**
+   * Translates the transformation matrix by a given vector.
+   *
+   * @param translation The vector to translate the matrix.
+   * @return A new affine transformation matrix with the translation applied.
+   */
+  public fun translate(translation: Vec1): AffineTransformationMatrix1 = translate(translation.x)
+
+  /**
+   * Scales the transformation matrix by a given factor.
+   *
+   * @param factor The scaling factor.
+   * @return A new affine transformation matrix with the scaling applied.
+   */
+  public fun scale(factor: Double): AffineTransformationMatrix1 =
+    AffineTransformationMatrix1(m00 * factor, m01)
+
+  /**
+   * Scales the transformation matrix by a given vector.
+   *
+   * @param factor The vector containing the scaling factor for the x-coordinate.
+   * @return A new affine transformation matrix with the scaling applied.
+   */
+  public fun scale(factor: Vec1): AffineTransformationMatrix1 = scale(factor.x)
+
   public companion object {
     /** Identity matrix for transformations in one dimensional space. */
     public val IDENTITY: AffineTransformationMatrix1 = AffineTransformationMatrix1(1.0, 0.0)
+
+    /**
+     * Creates a translation transformation matrix.
+     *
+     * @param translation The distance to translate the matrix.
+     * @return A new affine transformation matrix representing the translation.
+     */
+    public fun createTranslation(translation: Double): AffineTransformationMatrix1 =
+      AffineTransformationMatrix1(1.0, translation)
+
+    /** Create a scaling transformation matrix. */
+    public fun createScaling(factor: Double): AffineTransformationMatrix1 =
+      AffineTransformationMatrix1(factor, 0.0)
   }
 }
