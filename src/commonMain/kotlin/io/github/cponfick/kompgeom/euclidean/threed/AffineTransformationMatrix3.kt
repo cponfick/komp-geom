@@ -1,10 +1,15 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
+import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.euclidean.utils.DEGREES_TO_RADIANS
 import io.github.cponfick.kompgeom.euclidean.utils.MatrixUtil
+import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Represents a 3D affine transformation matrix.
@@ -104,6 +109,139 @@ public data class AffineTransformationMatrix3(
     )
   }
 
+  /**
+   * Translates the transformation matrix by the specified x, y, and z values.
+   *
+   * @param x The translation along the x-axis.
+   * @param y The translation along the y-axis.
+   * @param z The translation along the z-axis.
+   * @return A new [AffineTransformationMatrix3] that represents the translation.
+   */
+  public fun translate(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
+    AffineTransformationMatrix3(
+      // spotless:off
+      m00, m01, m02, m03 + x,
+      m10, m11, m12, m13 + y,
+      m20, m21, m22, m23 + z
+      // spotless:on
+    )
+
+  /**
+   * Translates the transformation matrix by the specified translation vector.
+   *
+   * @param translation The translation vector containing x, y, and z components.
+   * @return A new [AffineTransformationMatrix3] that represents the translation.
+   */
+  public fun translate(translation: Vec3): AffineTransformationMatrix3 =
+    translate(translation.x, translation.y, translation.z)
+
+  public fun scale(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
+    AffineTransformationMatrix3(
+      // spotless:off
+      m00 * x, m01 * x, m02 * x, m03 * x,
+      m10 * y, m11 * y, m12 * y, m13 * y,
+      m20 * z, m21 * z, m22 * z, m23 * z
+      // spotless:on
+    )
+
+  /**
+   * Scales the transformation matrix by the specified scale vector.
+   *
+   * @param scale The scale vector containing x, y, and z components.
+   * @return A new [AffineTransformationMatrix3] that represents the scaling.
+   */
+  public fun scale(scale: Vec3): AffineTransformationMatrix3 = scale(scale.x, scale.y, scale.z)
+
+  /**
+   * Scales the transformation matrix by the specified factor.
+   *
+   * @param factor The scaling factor to apply uniformly along all axes.
+   * @return A new [AffineTransformationMatrix3] that represents the scaling.
+   */
+  public fun scale(factor: Double): AffineTransformationMatrix3 = scale(factor, factor, factor)
+
+  /**
+   * Rotates the transformation matrix around the X-axis by a specified angle.
+   *
+   * @param angle The angle to rotate around the X-axis.
+   * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+   * @return A new affine transformation matrix with the rotation applied.
+   */
+  public fun rotateX(
+    angle: Double,
+    angleUnit: AngleUnit = AngleUnit.RADIANS,
+  ): AffineTransformationMatrix3 = this * createRotationX(angle, angleUnit)
+
+  /**
+   * Rotates the transformation matrix around the Y-axis by a specified angle.
+   *
+   * @param angle The angle to rotate around the Y-axis.
+   * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+   * @return A new affine transformation matrix with the rotation applied.
+   */
+  public fun rotateY(
+    angle: Double,
+    angleUnit: AngleUnit = AngleUnit.RADIANS,
+  ): AffineTransformationMatrix3 = this * createRotationY(angle, angleUnit)
+
+  /**
+   * Rotates the transformation matrix around the Z-axis by a specified angle.
+   *
+   * @param angle The angle to rotate around the Z-axis.
+   * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+   * @return A new affine transformation matrix with the rotation applied.
+   */
+  public fun rotateZ(
+    angle: Double,
+    angleUnit: AngleUnit = AngleUnit.RADIANS,
+  ): AffineTransformationMatrix3 = this * createRotationZ(angle, angleUnit)
+
+  /**
+   * Multiplies this affine transformation matrix by another affine transformation matrix.
+   *
+   * @param other The other affine transformation matrix to multiply with.
+   * @return A new [AffineTransformationMatrix3] that is the result of the multiplication.
+   */
+  public operator fun times(other: AffineTransformationMatrix3): AffineTransformationMatrix3 {
+    val c00 =
+      VectorUtil.linearCombination(this.m00, other.m00, this.m01, other.m10, this.m02, other.m20)
+    val c01 =
+      VectorUtil.linearCombination(this.m00, other.m01, this.m01, other.m11, this.m02, other.m21)
+    val c02 =
+      VectorUtil.linearCombination(this.m00, other.m02, this.m01, other.m12, this.m02, other.m22)
+    val c03 =
+      VectorUtil.linearCombination(this.m00, other.m03, this.m01, other.m13, this.m02, other.m23) +
+        this.m03
+
+    val c10 =
+      VectorUtil.linearCombination(this.m10, other.m00, this.m11, other.m10, this.m12, other.m20)
+    val c11 =
+      VectorUtil.linearCombination(this.m10, other.m01, this.m11, other.m11, this.m12, other.m21)
+    val c12 =
+      VectorUtil.linearCombination(this.m10, other.m02, this.m11, other.m12, this.m12, other.m22)
+    val c13 =
+      VectorUtil.linearCombination(this.m10, other.m03, this.m11, other.m13, this.m12, other.m23) +
+        this.m13
+
+    val c20 =
+      VectorUtil.linearCombination(this.m20, other.m00, this.m21, other.m10, this.m22, other.m20)
+    val c21 =
+      VectorUtil.linearCombination(this.m20, other.m01, this.m21, other.m11, this.m22, other.m21)
+    val c22 =
+      VectorUtil.linearCombination(this.m20, other.m02, this.m21, other.m12, this.m22, other.m22)
+    val c23 =
+      VectorUtil.linearCombination(this.m20, other.m03, this.m21, other.m13, this.m22, other.m23) +
+        this.m23
+
+    return AffineTransformationMatrix3(
+      // spotless:off
+      c00, c01, c02, c03,
+      c10, c11, c12, c13,
+      c20, c21, c22, c23
+      // spotless:on
+    )
+  }
+
   override fun preserveOrientation(): Boolean = determinant() > 0.0
 
   public companion object {
@@ -116,5 +254,153 @@ public data class AffineTransformationMatrix3(
         0.0, 0.0, 1.0, 0.0
         // spotless:on
       )
+
+    /**
+     * Creates a translation transformation matrix.
+     *
+     * @param x The translation along the x-axis.
+     * @param y The translation along the y-axis.
+     * @param z The translation along the z-axis.
+     * @return A new [AffineTransformationMatrix3] representing the translation.
+     */
+    public fun createTranslation(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
+      AffineTransformationMatrix3(
+        // spotless:off
+        1.0, 0.0, 0.0, x,
+        0.0, 1.0, 0.0, y,
+        0.0, 0.0, 1.0, z
+        // spotless:on
+      )
+
+    /**
+     * Creates a translation transformation matrix from a vector.
+     *
+     * @param translation The translation vector containing x, y, and z components.
+     * @return A new [AffineTransformationMatrix3] representing the translation.
+     */
+    public fun createTranslation(translation: Vec3): AffineTransformationMatrix3 =
+      createTranslation(translation.x, translation.y, translation.z)
+
+    /**
+     * Creates a scaling transformation matrix.
+     *
+     * @param x The scaling factor along the x-axis.
+     * @param y The scaling factor along the y-axis.
+     * @param z The scaling factor along the z-axis.
+     * @return A new [AffineTransformationMatrix3] representing the scaling.
+     */
+    public fun createScaling(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
+      AffineTransformationMatrix3(
+        // spotless:off
+        x, 0.0, 0.0, 0.0,
+        0.0, y, 0.0, 0.0,
+        0.0, 0.0, z, 0.0
+        // spotless:on
+      )
+
+    /**
+     * Creates a scaling transformation matrix from a vector.
+     *
+     * @param scale The scale vector containing x, y, and z components.
+     * @return A new [AffineTransformationMatrix3] representing the scaling.
+     */
+    public fun createScaling(scale: Vec3): AffineTransformationMatrix3 =
+      createScaling(scale.x, scale.y, scale.z)
+
+    /**
+     * Creates a uniform scaling transformation matrix.
+     *
+     * @param factor The scaling factor to apply uniformly along all axes.
+     * @return A new [AffineTransformationMatrix3] representing the uniform scaling.
+     */
+    public fun createScaling(factor: Double): AffineTransformationMatrix3 =
+      createScaling(factor, factor, factor)
+
+    /**
+     * Creates a rotation transformation matrix around the X-axis.
+     *
+     * @param angle The angle to rotate around the X-axis.
+     * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+     * @return A new [AffineTransformationMatrix3] representing the rotation.
+     */
+    public fun createRotationX(
+      angle: Double,
+      angleUnit: AngleUnit = AngleUnit.RADIANS,
+    ): AffineTransformationMatrix3 {
+      val rad =
+        when (angleUnit) {
+          AngleUnit.DEGREES -> angle * DEGREES_TO_RADIANS
+          AngleUnit.RADIANS -> angle
+        }
+
+      val c = cos(rad)
+      val s = sin(rad)
+
+      return AffineTransformationMatrix3(
+        // spotless:off
+        1.0, 0.0, 0.0, 0.0,
+        0.0, c, -s, 0.0,
+        0.0, s, c, 0.0
+        // spotless:on
+      )
+    }
+
+    /**
+     * Creates a rotation transformation matrix around the Y-axis.
+     *
+     * @param angle The angle to rotate around the Y-axis.
+     * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+     * @return A new [AffineTransformationMatrix3] representing the rotation.
+     */
+    public fun createRotationY(
+      angle: Double,
+      angleUnit: AngleUnit = AngleUnit.RADIANS,
+    ): AffineTransformationMatrix3 {
+      val rad =
+        when (angleUnit) {
+          AngleUnit.DEGREES -> angle * DEGREES_TO_RADIANS
+          AngleUnit.RADIANS -> angle
+        }
+
+      val c = cos(rad)
+      val s = sin(rad)
+
+      return AffineTransformationMatrix3(
+        // spotless:off
+        c, 0.0, s, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        -s, 0.0, c, 0.0
+        // spotless:on
+      )
+    }
+
+    /**
+     * Creates a rotation transformation matrix around the Z-axis.
+     *
+     * @param angle The angle to rotate around the Z-axis.
+     * @param angleUnit The unit of the angle, defaults to [AngleUnit.RADIANS].
+     * @return A new [AffineTransformationMatrix3] representing the rotation.
+     */
+    public fun createRotationZ(
+      angle: Double,
+      angleUnit: AngleUnit = AngleUnit.RADIANS,
+    ): AffineTransformationMatrix3 {
+      val rad =
+        when (angleUnit) {
+          AngleUnit.DEGREES -> angle * DEGREES_TO_RADIANS
+          AngleUnit.RADIANS -> angle
+        }
+
+      val c = cos(rad)
+      val s = sin(rad)
+
+      return AffineTransformationMatrix3(
+        // spotless:off
+        c, -s, 0.0, 0.0,
+        s, c, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0
+        // spotless:on
+      )
+    }
   }
 }

@@ -103,6 +103,36 @@ class AffineTransformationMatrix1Test {
     actual shouldBe AffineTransformationMatrix1(8.0, 13.0)
   }
 
+  @Test
+  fun `translate applies translation correctly`() {
+    val matrix = AffineTransformationMatrix1(2.0, 3.0)
+    val expected = AffineTransformationMatrix1(2.0, 8.0)
+
+    matrix.translate(5.0) shouldBe expected
+    matrix.translate(Vec1(5.0)) shouldBe expected
+  }
+
+  @Test
+  fun `scale applies scaling correctly`() {
+    val matrix = AffineTransformationMatrix1(2.0, 3.0)
+    val expected = AffineTransformationMatrix1(4.0, 3.0)
+
+    matrix.scale(2.0) shouldBe expected
+    matrix.scale(Vec1(2.0)) shouldBe expected
+  }
+
+  @Test
+  fun `createTranslation creates a translation matrix`() {
+    val translationMatrix = AffineTransformationMatrix1.createTranslation(5.0)
+    translationMatrix shouldBe AffineTransformationMatrix1(1.0, 5.0)
+  }
+
+  @Test
+  fun `createScaling creates a scaling matrix`() {
+    val scalingMatrix = AffineTransformationMatrix1.createScaling(2.0)
+    scalingMatrix shouldBe AffineTransformationMatrix1(2.0, 0.0)
+  }
+
   companion object {
     private val applyTestCases =
       listOf(
