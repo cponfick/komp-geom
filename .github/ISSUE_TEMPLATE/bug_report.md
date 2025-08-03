@@ -7,21 +7,21 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+## Description
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+## Reproduction Steps
 Steps to reproduce the behavior.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Unit Test**
+### Unit Test
 If possible a unit test or code snipptet that helps us to reproduce the bug.
 
-**Desktop (please complete the following information):**
+## Expected behavior
+A clear and concise description of what you expected to happen.
+
+## Additional Information
  - Platform: [e.g. Linux]
  - Version [e.g. 0.3.0]
 
-**Additional context**
+## Additional context
 Add any other context about the problem here.

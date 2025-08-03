@@ -7,11 +7,11 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
+## Problem
 A clear and concise description of what the problem is.
 
-**Describe the solution you'd like**
+## Propose Solution
 A clear and concise description of what you want to happen.
 
-**Describe the benefits of your solution**
-A clear and concise description of any alternative solutions or features you've considered.
+### Benefits
+Describe what benefits the solutions provides. For example: "Performance improvement, because it handles foo better."
