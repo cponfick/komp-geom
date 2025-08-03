@@ -336,26 +336,53 @@ class AffineTransformationMatrix3Test {
 
   @Test
   fun `rotateX instance method applies rotation correctly`() {
-    val matrix = AffineTransformationMatrix3.IDENTITY
-    val rotated = matrix.rotateX(90.0, AngleUnit.DEGREES)
-    val expected = AffineTransformationMatrix3.createRotationX(90.0, AngleUnit.DEGREES)
-    rotated.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    val expected =
+      AffineTransformationMatrix3(
+        // spotless:off
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, -1.0, 0.0,
+        0.0, 1.0, 0.0, 0.0
+        // spotless:on
+      )
+    val identityMatrix = AffineTransformationMatrix3.IDENTITY
+
+    val actualRad = identityMatrix.rotateX(PI / 2)
+    val actualDeg = identityMatrix.rotateX(90.0, AngleUnit.DEGREES)
+
+    actualRad.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actualDeg.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
   fun `rotateY instance method applies rotation correctly`() {
-    val matrix = AffineTransformationMatrix3.IDENTITY
-    val rotated = matrix.rotateY(PI / 2)
-    val expected = AffineTransformationMatrix3.createRotationY(PI / 2)
-    rotated.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    val expected =
+      AffineTransformationMatrix3(
+        // spotless:off
+        0.0, 0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        -1.0, 0.0, 0.0, 0.0
+        // spotless:on
+      )
+    val identityMatrix = AffineTransformationMatrix3.IDENTITY
+    identityMatrix.rotateY(PI / 2).eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    identityMatrix.rotateY(90.0, AngleUnit.DEGREES).eq(expected, DoubleEquivalence(1e-10)) shouldBe
+      true
   }
 
   @Test
   fun `rotateZ instance method applies rotation correctly`() {
-    val matrix = AffineTransformationMatrix3.IDENTITY
-    val rotated = matrix.rotateZ(45.0, AngleUnit.DEGREES)
-    val expected = AffineTransformationMatrix3.createRotationZ(45.0, AngleUnit.DEGREES)
-    rotated.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    val expected =
+      AffineTransformationMatrix3(
+        // spotless:off
+        0.0, -1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0
+        // spotless:on
+      )
+    val identityMatrix = AffineTransformationMatrix3.IDENTITY
+    identityMatrix.rotateZ(PI / 2).eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    identityMatrix.rotateZ(90.0, AngleUnit.DEGREES).eq(expected, DoubleEquivalence(1e-10)) shouldBe
+      true
   }
 
   @Test
