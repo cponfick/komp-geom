@@ -1,4 +1,4 @@
-[![Continuous Integration](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
+[![tests](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
@@ -29,11 +29,15 @@ Currently, following platforms are supported:
 To add the library to your multiplatform project include following dependency:
 
 **Gradle:**
+
 ```kotlin
 implementation("io.github.cponfick:komp-geom:{VERSION}")
 ```
+
 **Maven:**
+
 ```xml
+
 <dependency>
     <groupId>io.github.cponfick</groupId>
     <artifactId>komp-geom</artifactId>
@@ -44,11 +48,15 @@ implementation("io.github.cponfick:komp-geom:{VERSION}")
 It is also possible to use the java library directly in a JVM project by adding the dependency:
 
 **Gradle:**
+
 ```kotlin
 implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
 ```
+
 **Maven:**
+
 ```xml
+
 <dependency>
     <groupId>io.github.cponfick</groupId>
     <artifactId>komp-geom-jvm</artifactId>
@@ -62,25 +70,28 @@ Usage examples are provided inside the [documentation](https://cponfick.github.i
 
 ## Core Components
 
-This section provides an overview of the core components of the library, which are designed to be used as building blocks for implementing geometric algorithms.
+This section provides an overview of the core components of the library, which are designed to be used as building
+blocks for implementing geometric algorithms.
 
 Currently, the library provides the following geometric elements:
 
-- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations like addition, subtraction, and dot product.
+- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations like addition, subtraction, and dot
+  product.
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 
-## Implemented Algorithms
+## Algorithms
 
-Following a list of implemented algorithms.
+Following a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or contribute a
+pull request.
 
 | Algorithm    | Implementation     | Runtime Complexity | Space Complexity |
 |--------------|--------------------|--------------------|------------------|
 | Closest Pair | Naive              | O(n^2)             | O(1)             |
 | Closest Pair | Divide and Conquer | O(n log n)         | O(n)             |
 
-
 ## Contributing
 
-Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get started.
+Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get
+started.
 Feel free to open issues for bugs, feature requests, or general questions.
