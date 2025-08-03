@@ -117,11 +117,7 @@ public data class AffineTransformationMatrix3(
    * @param z The translation along the z-axis.
    * @return A new [AffineTransformationMatrix3] that represents the translation.
    */
-  public fun translate(
-    x: Double = 0.0,
-    y: Double = 0.0,
-    z: Double = 0.0,
-  ): AffineTransformationMatrix3 =
+  public fun translate(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
     AffineTransformationMatrix3(
       // spotless:off
       m00, m01, m02, m03 + x,
@@ -270,10 +266,10 @@ public data class AffineTransformationMatrix3(
     public fun createTranslation(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
       AffineTransformationMatrix3(
         // spotless:off
-      1.0, 0.0, 0.0, x,
-      0.0, 1.0, 0.0, y,
-      0.0, 0.0, 1.0, z
-      // spotless:on
+        1.0, 0.0, 0.0, x,
+        0.0, 1.0, 0.0, y,
+        0.0, 0.0, 1.0, z
+        // spotless:on
       )
 
     /**
@@ -296,10 +292,10 @@ public data class AffineTransformationMatrix3(
     public fun createScaling(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
       AffineTransformationMatrix3(
         // spotless:off
-      x, 0.0, 0.0, 0.0,
-      0.0, y, 0.0, 0.0,
-      0.0, 0.0, z, 0.0
-      // spotless:on
+        x, 0.0, 0.0, 0.0,
+        0.0, y, 0.0, 0.0,
+        0.0, 0.0, z, 0.0
+        // spotless:on
       )
 
     /**
