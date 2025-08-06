@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
+import io.github.cponfick.kompgeom.algorithms.IAlgorithm
 import io.github.cponfick.kompgeom.core.Vector
 
 /**
@@ -32,5 +33,13 @@ public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPai
     return Result(closestDistance, closestPair)
   }
 
-  override fun getName(): String = "Closest Pair Naive"
+  public companion object : IAlgorithm.IAlgorithmInfo {
+    override fun getGroup(): String = "Closest Pair"
+
+    override fun getName(): String = "Closest Pair Naive"
+
+    override fun getTimeComplexity(): String = "O(n^2)"
+
+    override fun getSpaceComplexity(): String = "O(1)"
+  }
 }

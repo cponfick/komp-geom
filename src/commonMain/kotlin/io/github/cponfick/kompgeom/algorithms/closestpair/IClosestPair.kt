@@ -17,6 +17,4 @@ public class Result<V : Vector<V>>(public val distance: Double, public val resul
  * This interface defines the contract for algorithms that find the closest pair of points in a
  * collection of points in 2D space.
  */
-public interface IClosestPair<V : Vector<V>> : IAlgorithm<Result<V>> {
-  override fun getGroup(): String = "Closest Pair"
-}
+public interface IClosestPair<V : Vector<V>> : IAlgorithm<Result<V>>

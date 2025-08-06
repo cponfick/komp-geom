@@ -20,9 +20,18 @@ class ClosestPairNaiveTest {
   }
 
   @Test
-  fun `returns the correct id`() {
-    val closestPair = ClosestPairNaive(listOf(Vec2.ZERO, Vec2(1.0, 1.0)))
-    closestPair.getId() shouldBe "closest-pair:closest-pair-naive"
+  fun `getId the correct id`() {
+    ClosestPairNaive.getId() shouldBe "closest-pair:closest-pair-naive"
+  }
+
+  @Test
+  fun `getTimeComplexity returns O(n^2)`() {
+    ClosestPairNaive.getTimeComplexity() shouldBe "O(n^2)"
+  }
+
+  @Test
+  fun `getSpaceComplexity returns O(1)`() {
+    ClosestPairNaive.getSpaceComplexity() shouldBe "O(1)"
   }
 
   @Test

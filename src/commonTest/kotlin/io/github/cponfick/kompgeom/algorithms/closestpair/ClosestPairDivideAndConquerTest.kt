@@ -65,9 +65,18 @@ class ClosestPairDivideAndConquerTest {
   }
 
   @Test
-  fun `returns the correct id`() {
-    val closestPair = ClosestPairDivideAndConquer(listOf(Vec2.ZERO, Vec2(1.0, 1.0)))
-    closestPair.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
+  fun `getId the correct id`() {
+    ClosestPairDivideAndConquer.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
+  }
+
+  @Test
+  fun `getTimeComplexity returns O(n log n)`() {
+    ClosestPairDivideAndConquer.getTimeComplexity() shouldBe "O(n log n)"
+  }
+
+  @Test
+  fun `getSpaceComplexity returns O(n)`() {
+    ClosestPairDivideAndConquer.getSpaceComplexity() shouldBe "O(n)"
   }
 
   @Test

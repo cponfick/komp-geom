@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
+import io.github.cponfick.kompgeom.algorithms.IAlgorithm
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
 /**
@@ -71,5 +72,13 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
     }
   }
 
-  override fun getName(): String = "Closest Pair Divide and Conquer"
+  public companion object : IAlgorithm.IAlgorithmInfo {
+    override fun getGroup(): String = "Closest Pair"
+
+    override fun getName(): String = "Closest Pair Divide and Conquer"
+
+    override fun getTimeComplexity(): String = "O(n log n)"
+
+    override fun getSpaceComplexity(): String = "O(n)"
+  }
 }
