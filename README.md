@@ -24,6 +24,15 @@ Currently, following platforms are supported:
 > This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. Following
 > the 1.0.0 release versioning will obey semantic versioning principles.
 
+## Usage Examples
+
+Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
+
+## Demo Application
+
+A demo application is provided at [komp-geom-visualization](https://github.com/cponfick/komp-geom-visualizer). It allows
+you to visualize the algorithms and data structures implemented in this library. The aim is to provide most, if not all, algorithms and data structures implemented in this library with a visual representation.
+
 ## Installation
 
 To add the library to your multiplatform project include following dependency:
@@ -63,10 +72,6 @@ implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
     <version>{VERSION}</version>
 </dependency>
 ```
-
-## Usage Examples
-
-Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
 
 ## Core Components
 
