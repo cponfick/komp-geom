@@ -31,7 +31,7 @@ Usage examples are provided inside the [documentation](https://cponfick.github.i
 ## Demo Application
 
 A demo application is provided at [komp-geom-visualization](https://github.com/cponfick/komp-geom-visualizer). It allows
-you to visualize the algorithms and data structures implemented in this library. The aim is to provide most, if not all, algorithms and data structures implemented in this library with a visual representation.
+you to visualize the algorithms and data structures implemented in this library. The aim is to provide most, if not all, algorithms and data structures with a visual representation.
 
 ## Installation
 
