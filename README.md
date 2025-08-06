@@ -8,12 +8,9 @@
 
 # Computational Geometry in Kotlin
 
-This repository contains a collection of algorithms and data structures for computational geometry implemented in KMP (
-Kotlin Multiplatform). The focus is on providing efficient solutions to common geometric problems on multiple platforms.
-Further, it aims to provide a solid foundation for building more complex geometric algorithms and applications, while
-providing kotlin idiomatic APIs.
+This repository contains a collection of algorithms and data structures for computational geometry implemented in Kotlin Multiplatform (KMP). The library focuses on providing efficient solutions to common geometric problems across multiple platforms. It aims to provide a solid foundation for building complex geometric algorithms and applications while offering idiomatic Kotlin APIs.
 
-Currently, following platforms are supported:
+The following platforms are currently supported:
 
 - JVM
 - JS
@@ -21,8 +18,8 @@ Currently, following platforms are supported:
 - Native (iOS, Linux, Windows, macOS)
 
 > [!IMPORTANT]
-> This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. Following
-> the 1.0.0 release versioning will obey semantic versioning principles.
+> This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. After
+> the 1.0.0 release, versioning will follow semantic versioning principles.
 
 ## Usage Examples
 
@@ -30,12 +27,11 @@ Usage examples are provided inside the [documentation](https://cponfick.github.i
 
 ## Demo Application
 
-A demo application is provided at [komp-geom-visualization](https://github.com/cponfick/komp-geom-visualizer). It allows
-you to visualize the algorithms and data structures implemented in this library. The aim is to provide most, if not all, algorithms and data structures with a visual representation.
+A demo application is available at [komp-geom-visualization](https://github.com/cponfick/komp-geom-visualizer). It allows you to visualize the algorithms and data structures implemented in this library. The goal is to provide visual representations for most, if not all, algorithms and data structures.
 
 ## Installation
 
-To add the library to your multiplatform project include following dependency:
+To add the library to your multiplatform project, include the following dependency:
 
 **Gradle:**
 
@@ -54,7 +50,7 @@ implementation("io.github.cponfick:komp-geom:{VERSION}")
 </dependency>
 ```
 
-It is also possible to use the java library directly in a JVM project by adding the dependency:
+You can also use the library directly in a JVM-only project by adding the following dependency:
 
 **Gradle:**
 
@@ -75,20 +71,17 @@ implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
 
 ## Core Components
 
-This section provides an overview of the core components of the library, which are designed to be used as building
-blocks for implementing geometric algorithms.
+This section provides an overview of the core components of the library, which are designed to serve as building blocks for implementing geometric algorithms.
 
-Currently, the library provides the following geometric elements:
+The library currently provides the following geometric elements:
 
-- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations like addition, subtraction, and dot
-  product.
+- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations such as addition, subtraction, and dot product.
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 
 ## Algorithms
 
-Following a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or contribute a
-pull request.
+The following is a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or contribute a pull request.
 
 | Algorithm    | Implementation     | Runtime Complexity | Space Complexity |
 |--------------|--------------------|--------------------|------------------|
@@ -97,6 +90,5 @@ pull request.
 
 ## Contributing
 
-Contributions are welcome! Check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get
-started.
+Contributions are welcome! Please check the [contributing guidelines](CONTRIBUTING.md) for more information on how to get started.
 Feel free to open issues for bugs, feature requests, or general questions.
