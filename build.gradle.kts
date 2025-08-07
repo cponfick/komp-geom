@@ -16,7 +16,7 @@ plugins {
 
 group = "io.github.cponfick"
 
-version = "0.3.0-rc3"
+version = "0.3.0-rc4"
 
 repositories { mavenCentral() }
 
