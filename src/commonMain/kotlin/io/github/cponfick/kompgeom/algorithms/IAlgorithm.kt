@@ -5,14 +5,14 @@ package io.github.cponfick.kompgeom.algorithms
  *
  * @param Output The type of output produced by the algorithm.
  */
-public interface IAlgorithm<Output> {
+public fun interface IAlgorithm<Output> {
 
   /**
-   * Runs the algorithm and returns the output.
+   * Execute the algorithm and returns the output.
    *
    * @return The output of the algorithm.
    */
-  public fun run(): Output
+  public fun execute(): Output
 
   /**
    * Companion interface that defines static-like functions that implementations should provide.

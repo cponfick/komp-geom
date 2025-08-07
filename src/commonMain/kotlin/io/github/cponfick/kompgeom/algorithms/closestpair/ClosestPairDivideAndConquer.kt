@@ -17,7 +17,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
     require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
-  override fun run(): Result<Vec2> {
+  override fun execute(): Result<Vec2> {
     val closestPair = closestPair(sortedByX, sortedByY)
     val distance = closestPair.first distance closestPair.second
     return Result(distance, closestPair)
@@ -46,7 +46,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
 
   private fun closestPair(px: List<Vec2>, py: List<Vec2>): Pair<Vec2, Vec2> {
     if (px.size <= 3) {
-      return ClosestPairNaive(px).run().result
+      return ClosestPairNaive(px).execute().result
     }
 
     val mid = px.size / 2

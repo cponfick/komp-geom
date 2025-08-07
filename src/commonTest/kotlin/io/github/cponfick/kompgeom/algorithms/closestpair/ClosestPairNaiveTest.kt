@@ -12,7 +12,7 @@ class ClosestPairNaiveTest {
     val points = listOf(Vec2.ZERO, Vec2(1.0, 1.0))
     val closestPair = ClosestPairNaive(points)
 
-    val actual = closestPair.run()
+    val actual = closestPair.execute()
 
     actual.distance shouldBe 1.4142135623730951
     actual.result.first shouldBe points[0]
@@ -36,11 +36,11 @@ class ClosestPairNaiveTest {
 
   @Test
   fun `throws exception on empty input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf()).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf()).execute() }
   }
 
   @Test
   fun `throws exception on single point input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf(Vec2.ZERO)).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairNaive(listOf(Vec2.ZERO)).execute() }
   }
 }

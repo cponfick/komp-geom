@@ -17,7 +17,7 @@ public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPai
     require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
-  override fun run(): Result<V> {
+  override fun execute(): Result<V> {
     var closestPair = Pair(points[0], points[1])
     var closestDistance = Double.POSITIVE_INFINITY
 
