@@ -70,12 +70,12 @@ class ClosestPairDivideAndConquerTest {
   }
 
   @Test
-  fun `getTimeComplexity returns O(n log n)`() {
+  fun `getTimeComplexity returns correct result`() {
     ClosestPairDivideAndConquer.getTimeComplexity() shouldBe "O(n log n)"
   }
 
   @Test
-  fun `getSpaceComplexity returns O(n)`() {
+  fun `getSpaceComplexity returns correct result`() {
     ClosestPairDivideAndConquer.getSpaceComplexity() shouldBe "O(n)"
   }
 

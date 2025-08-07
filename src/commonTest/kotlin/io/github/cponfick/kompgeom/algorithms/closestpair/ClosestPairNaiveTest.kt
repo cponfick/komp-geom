@@ -25,12 +25,12 @@ class ClosestPairNaiveTest {
   }
 
   @Test
-  fun `getTimeComplexity returns O(n^2)`() {
+  fun `getTimeComplexity returns correct result`() {
     ClosestPairNaive.getTimeComplexity() shouldBe "O(n^2)"
   }
 
   @Test
-  fun `getSpaceComplexity returns O(1)`() {
+  fun `getSpaceComplexity returns correct result`() {
     ClosestPairNaive.getSpaceComplexity() shouldBe "O(1)"
   }
 
