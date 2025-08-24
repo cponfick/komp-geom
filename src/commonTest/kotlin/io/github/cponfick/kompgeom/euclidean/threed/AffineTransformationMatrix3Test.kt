@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.euclidean.utils.DEGREES_TO_RADIANS
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -603,6 +604,54 @@ class AffineTransformationMatrix3Test {
       AffineTransformationMatrix3.createRotationZ(angle1) *
         AffineTransformationMatrix3.createRotationY(angle2) *
         AffineTransformationMatrix3.createRotationX(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `createRotation with degrees`() {
+    val angle1Deg = 30.0
+    val angle2Deg = 45.0
+    val angle3Deg = 60.0
+
+    val actualDeg =
+      AffineTransformationMatrix3.createRotation(
+        angle1Deg,
+        angle2Deg,
+        angle3Deg,
+        RotationSequence.XYZ,
+        AngleUnit.DEGREES,
+      )
+
+    val actualRad =
+      AffineTransformationMatrix3.createRotation(
+        angle1Deg * DEGREES_TO_RADIANS,
+        angle2Deg * DEGREES_TO_RADIANS,
+        angle3Deg * DEGREES_TO_RADIANS,
+        RotationSequence.XYZ,
+      )
+
+    actualDeg.eq(actualRad) shouldBe true
+  }
+
+  @Test
+  fun `instance rotate method with degrees`() {
+    val baseMatrix = AffineTransformationMatrix3.createScaling(2.0, 2.0, 2.0)
+    val angle1Deg = 30.0
+    val angle2Deg = 45.0
+    val angle3Deg = 60.0
+
+    val actual =
+      baseMatrix.rotate(angle1Deg, angle2Deg, angle3Deg, RotationSequence.YXZ, AngleUnit.DEGREES)
+    val expected =
+      baseMatrix *
+        AffineTransformationMatrix3.createRotation(
+          angle1Deg,
+          angle2Deg,
+          angle3Deg,
+          RotationSequence.YXZ,
+          AngleUnit.DEGREES,
+        )
 
     actual.eq(expected) shouldBe true
   }
