@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.euclidean.utils.DEGREES_TO_RADIANS
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -420,5 +421,238 @@ class AffineTransformationMatrix3Test {
     rotX.eq(identity, tolerance) shouldBe true
     rotY.eq(identity, tolerance) shouldBe true
     rotZ.eq(identity, tolerance) shouldBe true
+  }
+
+  @Test
+  fun `rotate XZX`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.XZX)
+    val expected =
+      AffineTransformationMatrix3.createRotationX(angle1) *
+        AffineTransformationMatrix3.createRotationZ(angle2) *
+        AffineTransformationMatrix3.createRotationX(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate YZY`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.YZY)
+    val expected =
+      AffineTransformationMatrix3.createRotationY(angle1) *
+        AffineTransformationMatrix3.createRotationZ(angle2) *
+        AffineTransformationMatrix3.createRotationY(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate ZYZ`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.ZYZ)
+    val expected =
+      AffineTransformationMatrix3.createRotationZ(angle1) *
+        AffineTransformationMatrix3.createRotationY(angle2) *
+        AffineTransformationMatrix3.createRotationZ(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate XYX`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.XYX)
+    val expected =
+      AffineTransformationMatrix3.createRotationX(angle1) *
+        AffineTransformationMatrix3.createRotationY(angle2) *
+        AffineTransformationMatrix3.createRotationX(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate YXY`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.YXY)
+    val expected =
+      AffineTransformationMatrix3.createRotationY(angle1) *
+        AffineTransformationMatrix3.createRotationX(angle2) *
+        AffineTransformationMatrix3.createRotationY(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate ZXZ`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.ZXZ)
+    val expected =
+      AffineTransformationMatrix3.createRotationZ(angle1) *
+        AffineTransformationMatrix3.createRotationX(angle2) *
+        AffineTransformationMatrix3.createRotationZ(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate XYZ`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.XYZ)
+    val expected =
+      AffineTransformationMatrix3.createRotationX(angle1) *
+        AffineTransformationMatrix3.createRotationY(angle2) *
+        AffineTransformationMatrix3.createRotationZ(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate XZY`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.XZY)
+    val expected =
+      AffineTransformationMatrix3.createRotationX(angle1) *
+        AffineTransformationMatrix3.createRotationZ(angle2) *
+        AffineTransformationMatrix3.createRotationY(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate YXZ`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.YXZ)
+    val expected =
+      AffineTransformationMatrix3.createRotationY(angle1) *
+        AffineTransformationMatrix3.createRotationX(angle2) *
+        AffineTransformationMatrix3.createRotationZ(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate YZX`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.YZX)
+    val expected =
+      AffineTransformationMatrix3.createRotationY(angle1) *
+        AffineTransformationMatrix3.createRotationZ(angle2) *
+        AffineTransformationMatrix3.createRotationX(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate ZXY`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.ZXY)
+    val expected =
+      AffineTransformationMatrix3.createRotationZ(angle1) *
+        AffineTransformationMatrix3.createRotationX(angle2) *
+        AffineTransformationMatrix3.createRotationY(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `rotate ZYX`() {
+    val angle1 = PI / 6
+    val angle2 = PI / 4
+    val angle3 = PI / 3
+    val actual =
+      AffineTransformationMatrix3.createRotation(angle1, angle2, angle3, RotationSequence.ZYX)
+    val expected =
+      AffineTransformationMatrix3.createRotationZ(angle1) *
+        AffineTransformationMatrix3.createRotationY(angle2) *
+        AffineTransformationMatrix3.createRotationX(angle3)
+
+    actual.eq(expected) shouldBe true
+  }
+
+  @Test
+  fun `createRotation with degrees`() {
+    val angle1Deg = 30.0
+    val angle2Deg = 45.0
+    val angle3Deg = 60.0
+
+    val actualDeg =
+      AffineTransformationMatrix3.createRotation(
+        angle1Deg,
+        angle2Deg,
+        angle3Deg,
+        RotationSequence.XYZ,
+        AngleUnit.DEGREES,
+      )
+
+    val actualRad =
+      AffineTransformationMatrix3.createRotation(
+        angle1Deg * DEGREES_TO_RADIANS,
+        angle2Deg * DEGREES_TO_RADIANS,
+        angle3Deg * DEGREES_TO_RADIANS,
+        RotationSequence.XYZ,
+      )
+
+    actualDeg.eq(actualRad) shouldBe true
+  }
+
+  @Test
+  fun `instance rotate method with degrees`() {
+    val baseMatrix = AffineTransformationMatrix3.createScaling(2.0, 2.0, 2.0)
+    val angle1Deg = 30.0
+    val angle2Deg = 45.0
+    val angle3Deg = 60.0
+
+    val actual =
+      baseMatrix.rotate(angle1Deg, angle2Deg, angle3Deg, RotationSequence.YXZ, AngleUnit.DEGREES)
+    val expected =
+      baseMatrix *
+        AffineTransformationMatrix3.createRotation(
+          angle1Deg,
+          angle2Deg,
+          angle3Deg,
+          RotationSequence.YXZ,
+          AngleUnit.DEGREES,
+        )
+
+    actual.eq(expected) shouldBe true
   }
 }

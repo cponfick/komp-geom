@@ -197,6 +197,25 @@ public data class AffineTransformationMatrix3(
   ): AffineTransformationMatrix3 = this * createRotationZ(angle, angleUnit)
 
   /**
+   * Applies a combined rotation around multiple axes using the specified rotation sequence.
+   *
+   * @param firstAngle The first rotation angle.
+   * @param secondAngle The second rotation angle.
+   * @param thirdAngle The third rotation angle.
+   * @param sequence The rotation sequence to use (e.g., ZYX, XYZ).
+   * @param angleUnit The unit of the angles, defaults to [AngleUnit.RADIANS].
+   * @return A new affine transformation matrix with the combined rotation applied.
+   */
+  public fun rotate(
+    firstAngle: Double,
+    secondAngle: Double,
+    thirdAngle: Double,
+    sequence: RotationSequence,
+    angleUnit: AngleUnit = AngleUnit.RADIANS,
+  ): AffineTransformationMatrix3 =
+    this * createRotation(firstAngle, secondAngle, thirdAngle, sequence, angleUnit)
+
+  /**
    * Multiplies this affine transformation matrix by another affine transformation matrix.
    *
    * @param other The other affine transformation matrix to multiply with.
@@ -401,6 +420,139 @@ public data class AffineTransformationMatrix3(
         0.0, 0.0, 1.0, 0.0
         // spotless:on
       )
+    }
+
+    /**
+     * Creates a combined rotation transformation matrix using the specified rotation sequence. This
+     * is more efficient than multiplying individual rotation matrices as it computes the final
+     * transformation matrix directly using trigonometric identities.
+     *
+     * @param firstAngle The first rotation angle.
+     * @param secondAngle The second rotation angle.
+     * @param thirdAngle The third rotation angle.
+     * @param sequence The rotation sequence to use (e.g., ZYX, XYZ).
+     * @param angleUnit The unit of the angles, defaults to [AngleUnit.RADIANS].
+     * @return A new [AffineTransformationMatrix3] representing the combined rotation.
+     */
+    public fun createRotation(
+      firstAngle: Double,
+      secondAngle: Double,
+      thirdAngle: Double,
+      sequence: RotationSequence,
+      angleUnit: AngleUnit = AngleUnit.RADIANS,
+    ): AffineTransformationMatrix3 {
+      val first =
+        if (angleUnit == AngleUnit.DEGREES) firstAngle * DEGREES_TO_RADIANS else firstAngle
+      val second =
+        if (angleUnit == AngleUnit.DEGREES) secondAngle * DEGREES_TO_RADIANS else secondAngle
+      val third =
+        if (angleUnit == AngleUnit.DEGREES) thirdAngle * DEGREES_TO_RADIANS else thirdAngle
+
+      val c1 = cos(first)
+      val s1 = sin(first)
+      val c2 = cos(second)
+      val s2 = sin(second)
+      val c3 = cos(third)
+      val s3 = sin(third)
+
+      return when (sequence) {
+        RotationSequence.XYZ ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c2 * c3, -c2 * s3, s2, 0.0,
+            c1 * s3 + c3 * s1 * s2, c1 * c3 - s1 * s2 * s3, -c2 * s1, 0.0,
+            s1 * s3 - c1 * c3 * s2, c3 * s1 + c1 * s2 * s3, c1 * c2, 0.0
+            // spotless:on
+          )
+        RotationSequence.XZY ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c2 * c3, -s2, c2 * s3, 0.0,
+            s1 * s3 + c1 * c3 * s2, c1 * c2, c1 * s2 * s3 - c3 * s1, 0.0,
+            c3 * s1 * s2 - c1 * s3, c2 * s1, c1 * c3 + s1 * s2 * s3, 0.0
+            // spotless:on
+          )
+        RotationSequence.YXZ ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c3 + s1 * s2 * s3, c3 * s1 * s2 - c1 * s3, c2 * s1, 0.0,
+            c2 * s3, c2 * c3, -s2, 0.0,
+            c1 * s2 * s3 - c3 * s1, c1 * c3 * s2 + s1 * s3, c1 * c2, 0.0
+            // spotless:on
+          )
+        RotationSequence.YZX ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c2, s1 * s3 - c1 * c3 * s2, c3 * s1 + c1 * s2 * s3, 0.0,
+            s2, c2 * c3, -c2 * s3, 0.0,
+            -c2 * s1, c1 * s3 + c3 * s1 * s2, c1 * c3 - s1 * s2 * s3, 0.0
+            // spotless:on
+          )
+        RotationSequence.ZXY ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c3 - s1 * s2 * s3, -c2 * s1, c1 * s3 + c3 * s1 * s2, 0.0,
+            c3 * s1 + c1 * s2 * s3, c1 * c2, s1 * s3 - c1 * c3 * s2, 0.0,
+            -c2 * s3, s2, c2 * c3, 0.0
+            // spotless:on
+          )
+        RotationSequence.ZYX ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c2, c1 * s2 * s3 - c3 * s1, s1 * s3 + c1 * c3 * s2, 0.0,
+            c2 * s1, c1 * c3 + s1 * s2 * s3, c3 * s1 * s2 - c1 * s3, 0.0,
+            -s2, c2 * s3, c2 * c3, 0.0
+            // spotless:on
+          )
+        RotationSequence.ZYZ ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c2 * c3 - s1 * s3, -c3 * s1 - c1 * c2 * s3, c1 * s2, 0.0,
+            c1 * s3 + c2 * c3 * s1, c1 * c3 - c2 * s1 * s3, s1 * s2, 0.0,
+            -c3 * s2, s2 * s3, c2, 0.0
+            // spotless:on
+          )
+        RotationSequence.ZXZ ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c3 - c2 * s1 * s3, -c1 * s3 - c2 * c3 * s1, s1 * s2, 0.0,
+            c3 * s1 + c1 * c2 * s3, c1 * c2 * c3 - s1 * s3, -c1 * s2, 0.0,
+            s2 * s3, c3 * s2, c2, 0.0
+            // spotless:on
+          )
+        RotationSequence.YZY ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c2 * c3 - s1 * s3, -c1 * s2, c3 * s1 + c1 * c2 * s3, 0.0,
+            c3 * s2, c2, s2 * s3, 0.0,
+            -c1 * s3 - c2 * c3 * s1, s1 * s2, c1 * c3 - c2 * s1 * s3, 0.0
+            // spotless:on
+          )
+        RotationSequence.YXY ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c1 * c3 - c2 * s1 * s3, s1 * s2, c1 * s3 + c2 * c3 * s1, 0.0,
+            s2 * s3, c2, -c3 * s2, 0.0,
+            -c3 * s1 - c1 * c2 * s3, c1 * s2, c1 * c2 * c3 - s1 * s3, 0.0
+            // spotless:on
+          )
+        RotationSequence.XZX ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c2, -c3 * s2, s2 * s3, 0.0,
+            c1 * s2, c1 * c2 * c3 - s1 * s3, -c3 * s1 - c1 * c2 * s3, 0.0,
+            s1 * s2, c1 * s3 + c2 * c3 * s1, c1 * c3 - c2 * s1 * s3, 0.0
+            // spotless:on
+          )
+        RotationSequence.XYX ->
+          AffineTransformationMatrix3(
+            // spotless:off
+            c2, s2 * s3, c3 * s2, 0.0,
+            s1 * s2, c1 * c3 - c2 * s1 * s3, -c1 * s3 - c2 * c3 * s1, 0.0,
+            -c1 * s2, c3 * s1 + c1 * c2 * s3, c1 * c2 * c3 - s1 * s3, 0.0
+            // spotless:on
+          )
+      }
     }
   }
 }
