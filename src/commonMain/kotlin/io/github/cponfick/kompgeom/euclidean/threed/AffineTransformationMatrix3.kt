@@ -441,7 +441,6 @@ public data class AffineTransformationMatrix3(
       sequence: RotationSequence,
       angleUnit: AngleUnit = AngleUnit.RADIANS,
     ): AffineTransformationMatrix3 {
-      // Convert angles to radians
       val first =
         if (angleUnit == AngleUnit.DEGREES) firstAngle * DEGREES_TO_RADIANS else firstAngle
       val second =
@@ -449,7 +448,6 @@ public data class AffineTransformationMatrix3(
       val third =
         if (angleUnit == AngleUnit.DEGREES) thirdAngle * DEGREES_TO_RADIANS else thirdAngle
 
-      // Precompute trigonometric values
       val c1 = cos(first)
       val s1 = sin(first)
       val c2 = cos(second)
@@ -466,7 +464,6 @@ public data class AffineTransformationMatrix3(
             s1 * s3 - c1 * c3 * s2, c3 * s1 + c1 * s2 * s3, c1 * c2, 0.0
             // spotless:on
           )
-
         RotationSequence.XZY ->
           AffineTransformationMatrix3(
             // spotless:off
@@ -475,7 +472,6 @@ public data class AffineTransformationMatrix3(
             c3 * s1 * s2 - c1 * s3, c2 * s1, c1 * c3 + s1 * s2 * s3, 0.0
             // spotless:on
           )
-
         RotationSequence.YXZ ->
           AffineTransformationMatrix3(
             // spotless:off
@@ -484,7 +480,6 @@ public data class AffineTransformationMatrix3(
             c1 * s2 * s3 - c3 * s1, c1 * c3 * s2 + s1 * s3, c1 * c2, 0.0
             // spotless:on
           )
-
         RotationSequence.YZX ->
           AffineTransformationMatrix3(
             // spotless:off
@@ -493,7 +488,6 @@ public data class AffineTransformationMatrix3(
             -c2 * s1, c1 * s3 + c3 * s1 * s2, c1 * c3 - s1 * s2 * s3, 0.0
             // spotless:on
           )
-
         RotationSequence.ZXY ->
           AffineTransformationMatrix3(
             // spotless:off
