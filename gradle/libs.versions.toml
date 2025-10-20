@@ -6,7 +6,7 @@ ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.34.0"
 dokka = "2.0.0"
 kover = "0.9.1"
-sonarqube = "6.3.1.5724"
+sonarqube = "7.0.0.6105"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
