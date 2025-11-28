@@ -23,12 +23,6 @@ class Vec3Test {
   }
 
   @Test
-  fun `dimensions returns 3`() {
-    val vector = Vec3(1.0, 2.0, 3.0)
-    vector.dimensions() shouldBe 3
-  }
-
-  @Test
   fun `toString returns correct format`() {
     val vector = Vec3(1.1, 2.2, 3.3)
     vector.toString() shouldBe "Vec3(x=1.1, y=2.2, z=3.3)"

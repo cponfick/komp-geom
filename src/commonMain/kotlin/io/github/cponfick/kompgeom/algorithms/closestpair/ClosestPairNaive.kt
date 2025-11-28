@@ -1,6 +1,7 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.euclidean.EuclideanVector
+import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.core.Vector
 
 /**
  * Closest Pair algorithm using the Divide and Conquer approach. This implementation sorts the
@@ -9,16 +10,14 @@ import io.github.cponfick.kompgeom.euclidean.EuclideanVector
  * @property input collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairNaive<V : EuclideanVector<V>>(input: Collection<V>) : IClosestPair<V> {
+public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPair<V> {
   private val points = input.toList()
 
   init {
-    if (input.size < 2) {
-      throw IllegalArgumentException("Input must contain at least 2 elements")
-    }
+    require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
-  override fun run(): Result<V> {
+  override fun execute(): Result<V> {
     var closestPair = Pair(points[0], points[1])
     var closestDistance = Double.POSITIVE_INFINITY
 
@@ -34,5 +33,13 @@ public class ClosestPairNaive<V : EuclideanVector<V>>(input: Collection<V>) : IC
     return Result(closestDistance, closestPair)
   }
 
-  override fun getName(): String = "Closest Pair Naive"
+  public companion object : IAlgorithm.IAlgorithmInfo {
+    override fun getGroup(): String = "Closest Pair"
+
+    override fun getName(): String = "Closest Pair Naive"
+
+    override fun getTimeComplexity(): String = "O(n^2)"
+
+    override fun getSpaceComplexity(): String = "O(1)"
+  }
 }

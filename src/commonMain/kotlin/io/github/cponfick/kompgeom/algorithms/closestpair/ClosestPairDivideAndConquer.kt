@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
+import io.github.cponfick.kompgeom.algorithms.IAlgorithm
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
 /**
@@ -13,12 +14,10 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
   private val sortedByY: List<Vec2> = input.sortedBy { it.y }
 
   init {
-    if (input.size < 2) {
-      throw IllegalArgumentException("Input must contain at least 2 elements")
-    }
+    require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
-  override fun run(): Result<Vec2> {
+  override fun execute(): Result<Vec2> {
     val closestPair = closestPair(sortedByX, sortedByY)
     val distance = closestPair.first distance closestPair.second
     return Result(distance, closestPair)
@@ -47,7 +46,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
 
   private fun closestPair(px: List<Vec2>, py: List<Vec2>): Pair<Vec2, Vec2> {
     if (px.size <= 3) {
-      return ClosestPairNaive(px).run().result
+      return ClosestPairNaive(px).execute().result
     }
 
     val mid = px.size / 2
@@ -73,5 +72,13 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
     }
   }
 
-  override fun getName(): String = "Closest Pair Divide and Conquer"
+  public companion object : IAlgorithm.IAlgorithmInfo {
+    override fun getGroup(): String = "Closest Pair"
+
+    override fun getName(): String = "Closest Pair Divide and Conquer"
+
+    override fun getTimeComplexity(): String = "O(n log n)"
+
+    override fun getSpaceComplexity(): String = "O(n)"
+  }
 }

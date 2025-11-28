@@ -1,10 +1,12 @@
 [versions]
-kotlin = "2.2.0"
-spotless = "7.0.4"
+kotlin = "2.2.21"
+spotless = "8.0.0"
 kotest = "5.9.1"
 ktfmt = "0.53"
-com-vanniktech-maven-publish = "0.33.0"
-dokka = "2.0.0"
+com-vanniktech-maven-publish = "0.34.0"
+dokka = "2.1.0"
+kover = "0.9.3"
+sonarqube = "7.0.1.6134"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
@@ -15,3 +17,5 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish" }
 dokka-html = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+sonarqube = { id = "org.sonarqube", version.ref= "sonarqube"}

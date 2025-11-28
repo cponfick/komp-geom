@@ -10,11 +10,13 @@ plugins {
   alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
   alias(libs.plugins.dokka.html)
+  alias(libs.plugins.kotlinx.kover)
+  alias(libs.plugins.sonarqube)
 }
 
 group = "io.github.cponfick"
 
-version = "0.2.0"
+version = "0.3.0-rc6"
 
 repositories { mavenCentral() }
 
@@ -133,7 +135,9 @@ dependencies { dokkaPlugin("org.jetbrains.dokka:versioning-plugin:${libs.version
 
 dokka {
   dokkaSourceSets.commonMain {
-    sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/main") }
+    sourceLink { remoteUrl("https://github.com/cponfick/komp-geom/blob/${rootProject.version}") }
+    includes.from("src/commonMain/kotlin/io/github/cponfick/kompgeom/kompgeom.md")
+    moduleName.set("Kotlin Computational Geometry")
   }
   pluginsConfiguration {
     versioning {
@@ -141,5 +145,21 @@ dokka {
       olderVersionsDir.set(projectDir.resolve("docs/dokka"))
       renderVersionsNavigationOnAllPages.set(true)
     }
+  }
+}
+
+sonar {
+  properties {
+    property("sonar.projectKey", "cponfick_komp-geom")
+    property("sonar.organization", "cponfick")
+    property("sonar.host.url", "https://sonarcloud.io")
+    val koverReport =
+      allprojects
+        .mapNotNull { project ->
+          val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
+          if (File(reportPath).exists()) reportPath else null
+        }
+        .joinToString(",")
+    property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
   }
 }

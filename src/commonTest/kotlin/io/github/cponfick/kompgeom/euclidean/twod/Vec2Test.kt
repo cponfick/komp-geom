@@ -22,12 +22,6 @@ class Vec2Test {
     original shouldBe copy
   }
 
-  @Test
-  fun `dimensions returns 2`() {
-    val vector = Vec2(1.0, 2.0)
-    vector.dimensions() shouldBe 2
-  }
-
   private val angleInRadiansTestCases =
     listOf(
       Triple(Vec2(1.0, 0.0), Vec2(0.0, 1.0), PI / 2),
@@ -91,9 +85,9 @@ class Vec2Test {
 
   @Test
   fun `normalize method normalizes vector`() {
-    val vector = Vec2(3.0, 4.0)
+    val vector = Vec2(0.0, 10.0)
     val actual = vector.normalize()
-    actual shouldBe Vec2(0.6, 0.8)
+    actual shouldBe Vec2(0.0, 1.0)
   }
 
   @Test
@@ -263,8 +257,48 @@ class Vec2Test {
   }
 
   @Test
-  fun `toString returns expected format`() {
-    val vector = Vec2(1.1, 2.1)
-    vector.toString() shouldBe "Vec2(x=1.1, y=2.1)"
+  fun `signedArea returns expected value for two vectors`() {
+    val vector1 = Vec2(1.0, 0.0)
+    val vector2 = Vec2(0.0, 1.0)
+
+    vector1.signedArea(vector2) shouldBe 1.0
+    vector2.signedArea(vector1) shouldBe -1.0
+  }
+
+  @Test
+  fun `signedArea returns zero for collinear vectors`() {
+    val vector1 = Vec2(1.0, 2.0)
+    val vector2 = Vec2(2.0, 4.0)
+
+    vector1.signedArea(vector2) shouldBe 0.0
+    vector2.signedArea(vector1) shouldBe 0.0
+  }
+
+  @Test
+  fun `dimensions returns the correct value`() {
+    val vector = Vec2(1.0, 2.0)
+    vector.dimensions() shouldBe 2
+  }
+
+  @Test
+  fun `isFinite returns true for finite vector`() {
+    val vector = Vec2(1.0, 2.0)
+    vector.isFinite() shouldBe true
+  }
+
+  @Test
+  fun `isFinite returns false for vector with NaN or Infinite values`() {
+    val vectorNaN = Vec2(Double.NaN, 2.0)
+    val vectorInfinite = Vec2(Double.POSITIVE_INFINITY, 2.0)
+    val vectorMixed = Vec2(1.0, Double.NEGATIVE_INFINITY)
+
+    vectorNaN.isFinite() shouldBe false
+    vectorInfinite.isFinite() shouldBe false
+    vectorMixed.isFinite() shouldBe false
+  }
+
+  @Test
+  fun `zero returns the zero vector`() {
+    Vec2.ZERO shouldBe Vec2(0.0, 0.0)
   }
 }

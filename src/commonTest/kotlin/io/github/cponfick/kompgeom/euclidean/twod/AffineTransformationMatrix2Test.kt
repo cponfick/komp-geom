@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
+import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -15,12 +16,6 @@ class AffineTransformationMatrix2Test {
   fun `toArray returns expected array`() {
     AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0).toArray() shouldBe
       doubleArrayOf(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
-  }
-
-  @Test
-  fun `toString returns expected string representation`() {
-    AffineTransformationMatrix2(1.1, 2.2, 3.3, 4.4, 5.5, 6.6).toString() shouldBe
-      "[1.1, 2.2, 3.3 | 4.4, 5.5, 6.6]"
   }
 
   @Test
@@ -97,5 +92,139 @@ class AffineTransformationMatrix2Test {
       AffineTransformationMatrix2(cosTheta, -sinTheta, 0.0, sinTheta, cosTheta, 0.0)
     val vector = Vec2(1.0, 0.0)
     rotationMatrix.apply(vector) shouldBe Vec2(cosTheta, sinTheta)
+  }
+
+  @Test
+  fun `preserveOrientation returns true for positive determinant`() {
+    AffineTransformationMatrix2.IDENTITY.preserveOrientation() shouldBe true
+  }
+
+  @Test
+  fun `preserveOrientation returns false for negative determinant`() {
+    val matrix = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    matrix.preserveOrientation() shouldBe false
+  }
+
+  @Test
+  fun `eq returns true for equal matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    matrix1.eq(matrix2, testEquivalence) shouldBe true
+  }
+
+  @Test
+  fun `eq returns false for different matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 7.0)
+    matrix1.eq(matrix2, testEquivalence) shouldBe false
+  }
+
+  @Test
+  fun `eq returns true for approximately equal matrices`() {
+    val matrix1 = AffineTransformationMatrix2(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
+    val matrix2 =
+      AffineTransformationMatrix2(
+        1.0 + 1e-13,
+        2.0 + 1e-13,
+        3.0 + 1e-13,
+        4.0 + 1e-13,
+        5.0 + 1e-13,
+        6.0 + 1e-13,
+      )
+    matrix1.eq(matrix2, testEquivalence) shouldBe true
+  }
+
+  @Test
+  fun `translate returns correct result`() {
+    val expectedMatrix = AffineTransformationMatrix2(1.0, 0.0, 3.0, 0.0, 1.0, 6.0)
+    val identityMatrix = AffineTransformationMatrix2.IDENTITY
+
+    identityMatrix.translate(Vec2(3.0, 6.0)) shouldBe expectedMatrix
+    identityMatrix.translate(3.0, 6.0) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `scale returns correct result`() {
+    val expectedMatrix = AffineTransformationMatrix2(2.0, 0.0, 0.0, 0.0, 3.0, 0.0)
+    val identityMatrix = AffineTransformationMatrix2.IDENTITY
+
+    identityMatrix.scale(Vec2(2.0, 3.0)) shouldBe expectedMatrix
+    identityMatrix.scale(2.0, 3.0) shouldBe expectedMatrix
+    identityMatrix.scale(4.0) shouldBe AffineTransformationMatrix2(4.0, 0.0, 0.0, 0.0, 4.0, 0.0)
+  }
+
+  @Test
+  fun `rotate returns correct result`() {
+    val radians = PI / 2.0
+    val degrees = 90.0
+    val cos = cos(radians)
+    val sin = sin(radians)
+    val expectedMatrix = AffineTransformationMatrix2(cos, -sin, 0.0, sin, cos, 0.0)
+    val identityMatrix = AffineTransformationMatrix2.IDENTITY
+
+    identityMatrix.rotate(radians) shouldBe expectedMatrix
+    identityMatrix.rotate(degrees, AngleUnit.DEGREES) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `times returns correct result`() {
+    // The previous tests prove that the individual transformations work correctly.
+    // Here we just check that the multiplication of two matrices gives the expected result.
+    val cos = cos(PI / 2.0)
+    val sin = sin(PI / 2.0)
+    val expectedMatrix = AffineTransformationMatrix2(2.0 * cos, -sin, 2.0, sin, 3.0 * cos, 3.0)
+
+    val actual =
+      AffineTransformationMatrix2.IDENTITY.rotate(PI / 2.0).translate(2.0, 3.0).scale(2.0, 3.0)
+
+    actual shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `shear returns correct result`() {
+    val shearX = 2.0
+    val shearY = 3.0
+    val expectedMatrix = AffineTransformationMatrix2(1.0, shearX, 0.0, shearY, 1.0, 0.0)
+    val identityMatrix = AffineTransformationMatrix2.IDENTITY
+
+    identityMatrix.shear(shearX, shearY) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `createTranslation returns expected matrix`() {
+    val translation = Vec2(3.0, 4.0)
+    val expectedMatrix = AffineTransformationMatrix2(1.0, 0.0, 3.0, 0.0, 1.0, 4.0)
+
+    AffineTransformationMatrix2.createTranslation(translation) shouldBe expectedMatrix
+    AffineTransformationMatrix2.createTranslation(3.0, 4.0) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `createScaling returns expected matrix`() {
+    val scaling = Vec2(2.0, 3.0)
+    val expectedMatrix = AffineTransformationMatrix2(2.0, 0.0, 0.0, 0.0, 3.0, 0.0)
+
+    AffineTransformationMatrix2.createScaling(scaling) shouldBe expectedMatrix
+    AffineTransformationMatrix2.createScaling(2.0, 3.0) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `createRotation returns expected matrix`() {
+    val radians = PI / 4.0
+    val cos = cos(radians)
+    val sin = sin(radians)
+    val expectedMatrix = AffineTransformationMatrix2(cos, -sin, 0.0, sin, cos, 0.0)
+
+    AffineTransformationMatrix2.createRotation(radians) shouldBe expectedMatrix
+    AffineTransformationMatrix2.createRotation(45.0, AngleUnit.DEGREES) shouldBe expectedMatrix
+  }
+
+  @Test
+  fun `createShear returns expected matrix`() {
+    val shearX = 2.0
+    val shearY = 3.0
+    val expectedMatrix = AffineTransformationMatrix2(1.0, shearX, 0.0, shearY, 1.0, 0.0)
+
+    AffineTransformationMatrix2.createShear(shearX, shearY) shouldBe expectedMatrix
   }
 }

@@ -11,7 +11,7 @@ class ClosestPairDivideAndConquerTest {
     val points = listOf(Vec2.ZERO, Vec2(1.0, 1.0))
     val closestPair = ClosestPairDivideAndConquer(points)
 
-    val actual = closestPair.run()
+    val actual = closestPair.execute()
 
     actual.distance shouldBe 1.4142135623730951
     actual.result.first shouldBe points[0]
@@ -56,8 +56,8 @@ class ClosestPairDivideAndConquerTest {
       )
 
     // Assuming the naive implementation is correct
-    val closestPairNaiveResult = ClosestPairNaive(points).run()
-    val actual = ClosestPairDivideAndConquer(points).run()
+    val closestPairNaiveResult = ClosestPairNaive(points).execute()
+    val actual = ClosestPairDivideAndConquer(points).execute()
 
     actual.distance shouldBe closestPairNaiveResult.distance
     actual.result.first shouldBe closestPairNaiveResult.result.first
@@ -65,18 +65,29 @@ class ClosestPairDivideAndConquerTest {
   }
 
   @Test
-  fun `returns the correct id`() {
-    val closestPair = ClosestPairDivideAndConquer(listOf(Vec2.ZERO, Vec2(1.0, 1.0)))
-    closestPair.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
+  fun `getId the correct id`() {
+    ClosestPairDivideAndConquer.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
+  }
+
+  @Test
+  fun `getTimeComplexity returns correct result`() {
+    ClosestPairDivideAndConquer.getTimeComplexity() shouldBe "O(n log n)"
+  }
+
+  @Test
+  fun `getSpaceComplexity returns correct result`() {
+    ClosestPairDivideAndConquer.getSpaceComplexity() shouldBe "O(n)"
   }
 
   @Test
   fun `throws exception on empty input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf()).run() }
+    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf()).execute() }
   }
 
   @Test
   fun `throws exception on single point input`() {
-    shouldThrow<IllegalArgumentException> { ClosestPairDivideAndConquer(listOf(Vec2.ZERO)).run() }
+    shouldThrow<IllegalArgumentException> {
+      ClosestPairDivideAndConquer(listOf(Vec2.ZERO)).execute()
+    }
   }
 }
