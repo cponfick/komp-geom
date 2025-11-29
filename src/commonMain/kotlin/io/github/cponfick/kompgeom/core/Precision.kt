@@ -2,12 +2,8 @@ package io.github.cponfick.kompgeom.core
 
 import kotlin.math.abs
 
-/**
- * Represents the precision used in geometric computations.
- *
- * This value is based on the IEEE 754 standard for double-precision floating-point numbers.
- */
-public var DBL_EPSILON: Double = 2.220446049250313e-16 // 2^-52
+/** Default epsilon for geometric computations */
+public var GEOMETRIC_EPSILON: Double = 1e-10
 
 /** The default double equivalence used in geometric computations. */
 public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = DoubleEquivalence()
@@ -18,9 +14,9 @@ public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = DoubleEquivalence()
  * This class is used to determine the equality and order of double values while considering
  * floating-point precision errors.
  *
- * @property epsilon The precision threshold for comparing double values. Defaults to [DBL_EPSILON].
+ * @property epsilon The precision threshold for comparing double values. Defaults to [GEOMETRIC_EPSILON].
  */
-public open class DoubleEquivalence(public val epsilon: Double = DBL_EPSILON) {
+public open class DoubleEquivalence(public val epsilon: Double = GEOMETRIC_EPSILON) {
   /**
    * Indicates if given double values are equal.
    *
@@ -41,8 +37,9 @@ public open class DoubleEquivalence(public val epsilon: Double = DBL_EPSILON) {
   /**
    * Checks if value `a` is strictly smaller than value `b`.
    *
-   * @param a The double value to check.
-   * @return `true` if `a` is greater than zero, `false` otherwise.
+   * @param a The first double value to check.
+   * @param b The second double value to check.
+   * @return `true` if `a` is less than `b`, `false` otherwise.
    */
   public fun lt(a: Double, b: Double): Boolean = compare(a, b) < 0
 
