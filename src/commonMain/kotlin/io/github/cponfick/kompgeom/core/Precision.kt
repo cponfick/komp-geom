@@ -14,7 +14,8 @@ public var DEFAULT_DOUBLE_EQUIVALENCE: DoubleEquivalence = DoubleEquivalence()
  * This class is used to determine the equality and order of double values while considering
  * floating-point precision errors.
  *
- * @property epsilon The precision threshold for comparing double values. Defaults to [GEOMETRIC_EPSILON].
+ * @property epsilon The precision threshold for comparing double values. Defaults to
+ *   [GEOMETRIC_EPSILON].
  */
 public open class DoubleEquivalence(public val epsilon: Double = GEOMETRIC_EPSILON) {
   /**

@@ -16,9 +16,7 @@ public class Quickhull2(private val input: Collection<Vec2>) : IConvexHull<Vec2>
   private val convexHull = mutableSetOf<Vec2>()
 
   init {
-    require(input.size >= 3) {
-      "Input must contain at least 3 elements"
-    }
+    require(input.size >= 3) { "Input must contain at least 3 elements" }
   }
 
   override fun execute(): Result<Vec2> {
