@@ -65,7 +65,7 @@ class ClosestPairDivideAndConquerTest {
   }
 
   @Test
-  fun `getId the correct id`() {
+  fun `getId returns the correct id`() {
     ClosestPairDivideAndConquer.getId() shouldBe "closest-pair:closest-pair-divide-and-conquer"
   }
 
