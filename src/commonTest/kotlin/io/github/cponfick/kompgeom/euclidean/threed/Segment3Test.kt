@@ -151,7 +151,7 @@ class Segment3Test {
   }
 
   @Test
-  fun `intersection handles degenerate segments (points)`() {
+  fun `intersection handles degenerate segments`() {
     val point = Vec3(1.0, 1.0, 1.0)
     val degenerateSegment = Segment3(point, point)
     val normalSegment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0))
