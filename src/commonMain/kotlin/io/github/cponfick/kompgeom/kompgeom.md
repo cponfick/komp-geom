@@ -67,7 +67,7 @@ val points = listOf(
     Vec2(7.0, 2.0)
 )
 
-// Create an algorithm instance and run it
+// Create an algorithm instance and execute it
 val closestPairAlgo = ClosestPairDivideAndConquer(points)
-val result = closestPairAlgo.run()
+val result = closestPairAlgo.execute()
 ```
