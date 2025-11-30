@@ -1,12 +1,15 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
-import io.github.cponfick.kompgeom.core.*
+import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Vector
 import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil
 import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
 import kotlin.math.sqrt
 
 public data class Vec3(public val x: Double, public val y: Double, public val z: Double) :
-  Spatial, Distanceable<Vec3> {
+  Vector<Vec3> {
 
   /**
    * Creates a new vector by copying the coordinates from another vector.
@@ -93,47 +96,18 @@ public data class Vec3(public val x: Double, public val y: Double, public val z:
 
   override fun isNaN(): Boolean = x.isNaN() || y.isNaN() || z.isNaN()
 
-  /**
-   * Adds two vectors component-wise.
-   *
-   * @param other The vector to add.
-   * @return The sum of the vectors.
-   */
-  public operator fun plus(other: Vec3): Vec3 =
+  public override operator fun plus(other: Vec3): Vec3 =
     Vec3(this.x + other.x, this.y + other.y, this.z + other.z)
 
-  /**
-   * Calculates the dot product of this vector with another vector.
-   *
-   * @param other The vector to dot with.
-   * @return The dot product of the two vectors.
-   */
-  public infix fun dot(other: Vec3): Double = this.x * other.x + this.y * other.y + this.z * other.z
+  public override infix fun dot(other: Vec3): Double =
+    this.x * other.x + this.y * other.y + this.z * other.z
 
-  /**
-   * Multiplies this vector by a scalar.
-   *
-   * @param scalar The scalar to multiply with.
-   * @return The resulting vector after multiplication.
-   */
-  public operator fun times(scalar: Double): Vec3 =
+  public override operator fun times(scalar: Double): Vec3 =
     Vec3(this.x * scalar, this.y * scalar, this.z * scalar)
 
-  /**
-   * Negates the vector, i.e., multiplies each component by -1.
-   *
-   * @return A new vector with each component negated.
-   * @return The negated vector.
-   */
-  public operator fun unaryMinus(): Vec3 = Vec3(-x, -y, -z)
+  public override operator fun unaryMinus(): Vec3 = Vec3(-x, -y, -z)
 
-  /**
-   * Normalizes the vector to a unit vector.
-   *
-   * @return A new vector with the same direction but a magnitude of 1.
-   * @throws ArithmeticException if the vector is a zero vector.
-   */
-  public fun normalize(): Vec3 {
+  public override fun normalize(): Vec3 {
     val norm = sqrt(x * x + y * y + z * z)
     val inverseNorm = 1.0 / norm
     if (norm == 0.0) {
@@ -142,34 +116,28 @@ public data class Vec3(public val x: Double, public val y: Double, public val z:
     return Vec3(x * inverseNorm, y * inverseNorm, z * inverseNorm)
   }
 
-  /**
-   * Calculates the Euclidean norm (magnitude) of the vector.
-   *
-   * @return The Euclidean norm of the vector.
-   */
-  public fun norm(): Double = sqrt(x * x + y * y + z * z)
+  public override fun norm(): Double = sqrt(x * x + y * y + z * z)
 
-  /**
-   * Returns the number of dimensions of the vector.
-   *
-   * @param other The other vector.
-   * @return The number of dimensions (3 for Vec3).
-   */
-  public operator fun minus(other: Vec3): Vec3 =
+  public override operator fun minus(other: Vec3): Vec3 =
     Vec3(this.x - other.x, this.y - other.y, this.z - other.z)
 
-  public fun angle(other: Vec3, angleUnit: AngleUnit): Double =
+  override fun zero(): Vec3 = ZERO
+
+  public override fun angle(other: Vec3, angleUnit: AngleUnit): Double =
     VectorUtil.calculateAngle(this dot other, this.norm(), other.norm(), angleUnit)
 
   public companion object {
     /** The zero vector. */
     public val ZERO: Vec3 = Vec3(0.0, 0.0, 0.0)
+
     /** Vector with all components set to positive infinity. */
     public val POSITIVE_INFINITY: Vec3 =
       Vec3(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
+
     /** Vector with all components set to negative infinity. */
     public val NEGATIVE_INFINITY: Vec3 =
       Vec3(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)
+
     /** Vector with all components set to NaN. */
     public val NaN: Vec3 = Vec3(Double.NaN, Double.NaN, Double.NaN)
   }
