@@ -110,6 +110,18 @@ class Polygon2Test {
   }
 
   @Test
+  fun `isSimple returns true for square`() {
+    val square = Polygon2.rectangle(0.0, 0.0, 2.0, 2.0)
+    square.isSimple() shouldBe true
+  }
+
+  @Test
+  fun `isSimple returns true for triangle`() {
+    val triangle = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(1.0, 2.0)))
+    triangle.isSimple() shouldBe true
+  }
+
+  @Test
   fun `isConvex returns false for concave polygon`() {
     val lShape =
       Polygon2(
@@ -126,6 +138,28 @@ class Polygon2Test {
   }
 
   @Test
+  fun `isSimple returns true for concave polygon`() {
+    val lShape =
+      Polygon2(
+        listOf(
+          Vec2(0.0, 0.0),
+          Vec2(2.0, 0.0),
+          Vec2(2.0, 1.0),
+          Vec2(1.0, 1.0),
+          Vec2(1.0, 2.0),
+          Vec2(0.0, 2.0),
+        )
+      )
+    lShape.isSimple() shouldBe true
+  }
+
+  @Test
+  fun `isSimple returns false for self-intersecting polygon`() {
+    val bowtie = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(2.0, 2.0), Vec2(0.0, 2.0), Vec2(2.0, 0.0)))
+    bowtie.isSimple() shouldBe false
+  }
+
+  @Test
   fun `orientation returns COUNTERCLOCKWISE for counter clock wise square`() {
     val square = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(2.0, 2.0), Vec2(0.0, 2.0)))
     square.orientation() shouldBe Orientation.COUNTERCLOCKWISE
@@ -135,6 +169,12 @@ class Polygon2Test {
   fun `orientation returns CLOCKWISE for clock wise square`() {
     val square = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(0.0, 2.0), Vec2(2.0, 2.0), Vec2(2.0, 0.0)))
     square.orientation() shouldBe Orientation.CLOCKWISE
+  }
+
+  @Test
+  fun `orientation returns COLLINEAR for degenerate polygon`() {
+    val degenerate = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(1.0, 0.0), Vec2(2.0, 0.0)))
+    degenerate.orientation() shouldBe Orientation.COLLINEAR
   }
 
   @Test

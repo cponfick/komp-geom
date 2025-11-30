@@ -5,6 +5,7 @@ import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Orientation
 import io.github.cponfick.kompgeom.core.Polygon
 import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.euclidean.utils.IntersectionType
 import kotlin.math.abs
 
 /**
@@ -74,6 +75,8 @@ public data class Polygon2(
 
   public override fun isConvex(): Boolean = isConvexHolder
 
+  public override fun isSimple(): Boolean = isSimpleHolder
+
   private val isConvexHolder: Boolean by lazy {
     var hasPositive = false
     var hasNegative = false
@@ -98,6 +101,25 @@ public data class Polygon2(
       }
     }
 
+    return@lazy true
+  }
+
+  private val isSimpleHolder: Boolean by lazy {
+    // TODO: Optimize as soon as we have a sweeping line algorithm implemented
+    //  Currently O(n^2) check, which is fine for small polygons but not efficient for large ones.
+    for (i in edges.indices) {
+      for (j in edges.indices) {
+        if (i == j || (i + 1) % edges.size == j || i == (j + 1) % edges.size) {
+          continue
+        }
+        if (
+          edges[i].intersection(edges[j], precision).type in
+            setOf(IntersectionType.POINT, IntersectionType.OVERLAP)
+        ) {
+          return@lazy false
+        }
+      }
+    }
     return@lazy true
   }
 

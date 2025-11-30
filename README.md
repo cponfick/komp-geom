@@ -83,6 +83,9 @@ The library currently provides the following geometric elements:
 
 - **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations such as addition, subtraction, and dot
   product.
+- **Lines**: Representation of lines in 2D and 3D space.
+- **Line Segments**: Representation of line segments in 2D and 3D space.
+- **Polygons**: Representation of polygons in 2D and 3D space.
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 

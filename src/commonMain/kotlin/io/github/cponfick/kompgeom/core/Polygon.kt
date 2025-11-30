@@ -51,6 +51,15 @@ public interface Polygon<V : Vector<V>> : Spatial {
   public fun isConvex(): Boolean
 
   /**
+   * Checks if the polygon is simple (non-self-intersecting).
+   *
+   * A simple polygon does not intersect itself.
+   *
+   * @return True if the polygon is simple, false otherwise.
+   */
+  public fun isSimple(): Boolean
+
+  /**
    * Computes the perimeter of the polygon.
    *
    * The perimeter is the sum of the lengths of all edges.
