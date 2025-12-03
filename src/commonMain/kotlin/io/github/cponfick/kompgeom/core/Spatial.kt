@@ -4,7 +4,7 @@ package io.github.cponfick.kompgeom.core
  * Interface representing a spatial object in the KompGeom library.
  *
  * A spatial object can be a point, line, plane, or any other geometric entity that exists in a
- * multi-dimensional space.
+ * multidimensional space.
  */
 public interface Spatial {
   /**
