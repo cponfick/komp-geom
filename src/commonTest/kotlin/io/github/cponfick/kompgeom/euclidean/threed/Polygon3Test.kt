@@ -117,7 +117,8 @@ class Polygon3Test {
           Vec3(0.0, 2.0, 0.0),
           Vec3(0.0, 2.0, 1.0),
           Vec3(0.0, 1.0, 1.0),
-          Vec3(0.0, 1.0, 0.0),
+          Vec3(0.0, 1.0, 2.0),
+          Vec3(0.0, 0.0, 2.0),
         )
       )
     lShape.isConvex() shouldBe false
@@ -282,7 +283,8 @@ class Polygon3Test {
           Vec3(0.0, 2.0, 0.0),
           Vec3(0.0, 2.0, 1.0),
           Vec3(0.0, 1.0, 1.0),
-          Vec3(0.0, 1.0, 0.0),
+          Vec3(0.0, 1.0, 2.0),
+          Vec3(0.0, 0.0, 2.0),
         )
       )
     val pointInside = Vec3(0.0, 1.5, 0.5)
