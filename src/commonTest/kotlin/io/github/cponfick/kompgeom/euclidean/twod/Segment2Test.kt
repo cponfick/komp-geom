@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
-import io.github.cponfick.kompgeom.core.Transformer
-import io.github.cponfick.kompgeom.euclidean.utils.IntersectionType
+import io.github.cponfick.kompgeom.core.shapes.IntersectionType
+import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 

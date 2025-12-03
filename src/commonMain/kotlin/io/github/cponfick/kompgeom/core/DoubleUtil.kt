@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.core
 
 internal fun Double.assertIsFiniteAndNotZero(): Double {
   require(!(!isFinite() || this == 0.0)) { "Value is not finite or is zero: $this" }

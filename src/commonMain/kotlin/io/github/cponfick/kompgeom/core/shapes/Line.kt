@@ -1,4 +1,7 @@
-package io.github.cponfick.kompgeom.core
+package io.github.cponfick.kompgeom.core.shapes
+
+import io.github.cponfick.kompgeom.core.Distanceable
+import io.github.cponfick.kompgeom.core.Vector
 
 /**
  * Represents a line in a vector space.

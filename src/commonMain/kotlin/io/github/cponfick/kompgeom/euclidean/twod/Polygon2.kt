@@ -3,9 +3,9 @@ package io.github.cponfick.kompgeom.euclidean.twod
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Orientation
-import io.github.cponfick.kompgeom.core.Polygon
-import io.github.cponfick.kompgeom.core.Transformer
-import io.github.cponfick.kompgeom.euclidean.utils.IntersectionType
+import io.github.cponfick.kompgeom.core.shapes.IntersectionType
+import io.github.cponfick.kompgeom.core.shapes.Polygon
+import io.github.cponfick.kompgeom.core.transform.Transformer
 import kotlin.math.abs
 
 /**

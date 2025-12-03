@@ -6,7 +6,7 @@ import io.github.cponfick.kompgeom.core.Distanceable
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Spatial
 import io.github.cponfick.kompgeom.core.Vector
-import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import kotlin.math.PI
 import kotlin.math.absoluteValue
 

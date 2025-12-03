@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.Orientation
-import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.doubles.shouldBeLessThan
 import io.kotest.matchers.shouldBe

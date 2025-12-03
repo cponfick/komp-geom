@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
-import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test

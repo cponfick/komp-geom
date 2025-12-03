@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Location
+import io.github.cponfick.kompgeom.core.shapes.Location
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test

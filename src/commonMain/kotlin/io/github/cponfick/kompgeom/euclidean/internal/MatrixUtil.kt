@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.euclidean.internal
 
 /** Utility for matrix operations. */
 public object MatrixUtil {

@@ -1,12 +1,14 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.core
 
+import io.github.cponfick.kompgeom.core.shapes.IntersectionData
+import io.github.cponfick.kompgeom.core.shapes.IntersectionType
 import io.github.cponfick.kompgeom.euclidean.twod.Segment2
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
-class IntersectionUtilTest {
+class IntersectionTest {
 
   @Test
   fun `constructor works as expected with valid argument combinations`() {
