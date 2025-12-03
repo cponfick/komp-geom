@@ -1,18 +1,17 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.euclidean.internal
 
-import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil.norm
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
 class VectorUtilTest {
   @Test
   fun `norm calculates the norm of two components`() {
-    norm(3.0, 4.0) shouldBe 5.0
+    VectorUtil.norm(3.0, 4.0) shouldBe 5.0
   }
 
   @Test
   fun `norm calculates the norm of three components`() {
-    norm(1.0, 2.0, 2.0) shouldBe 3.0
+    VectorUtil.norm(1.0, 2.0, 2.0) shouldBe 3.0
   }
 
   @Test

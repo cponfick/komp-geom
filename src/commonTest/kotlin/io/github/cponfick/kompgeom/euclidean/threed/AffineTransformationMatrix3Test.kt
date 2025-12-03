@@ -1,8 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.DEGREES_TO_RADIANS
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.euclidean.utils.DEGREES_TO_RADIANS
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI

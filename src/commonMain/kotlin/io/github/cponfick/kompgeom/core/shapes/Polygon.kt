@@ -1,4 +1,8 @@
-package io.github.cponfick.kompgeom.core
+package io.github.cponfick.kompgeom.core.shapes
+
+import io.github.cponfick.kompgeom.core.Spatial
+import io.github.cponfick.kompgeom.core.Vector
+import io.github.cponfick.kompgeom.core.transform.Transformer
 
 /**
  * Represents a polygon in a vector space.

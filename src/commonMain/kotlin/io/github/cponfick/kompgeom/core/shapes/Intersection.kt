@@ -1,6 +1,5 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.core.shapes
 
-import io.github.cponfick.kompgeom.core.Segment
 import io.github.cponfick.kompgeom.core.Vector
 
 /**

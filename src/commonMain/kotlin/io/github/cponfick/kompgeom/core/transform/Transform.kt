@@ -1,4 +1,4 @@
-package io.github.cponfick.kompgeom.core
+package io.github.cponfick.kompgeom.core.transform
 
 /**
  * Interface for geometric transformations.

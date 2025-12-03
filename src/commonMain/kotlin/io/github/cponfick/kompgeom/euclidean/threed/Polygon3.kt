@@ -2,8 +2,8 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Polygon
-import io.github.cponfick.kompgeom.core.Transformer
+import io.github.cponfick.kompgeom.core.shapes.Polygon
+import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.github.cponfick.kompgeom.euclidean.twod.Polygon2
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import kotlin.math.abs

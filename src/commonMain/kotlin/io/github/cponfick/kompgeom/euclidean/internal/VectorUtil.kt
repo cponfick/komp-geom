@@ -1,6 +1,8 @@
-package io.github.cponfick.kompgeom.euclidean.utils
+package io.github.cponfick.kompgeom.euclidean.internal
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.RADIANS_TO_DEGREES
+import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import kotlin.math.acos
 import kotlin.math.sqrt
 

@@ -2,8 +2,8 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Line
-import io.github.cponfick.kompgeom.core.Location
+import io.github.cponfick.kompgeom.core.shapes.Line
+import io.github.cponfick.kompgeom.core.shapes.Location
 import kotlin.math.abs
 
 /**

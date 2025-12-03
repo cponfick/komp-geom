@@ -4,8 +4,8 @@ import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Vector
-import io.github.cponfick.kompgeom.euclidean.utils.VectorUtil
-import io.github.cponfick.kompgeom.euclidean.utils.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil
 import kotlin.math.sqrt
 
 /**
