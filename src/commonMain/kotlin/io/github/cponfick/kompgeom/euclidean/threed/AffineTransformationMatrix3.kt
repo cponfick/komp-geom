@@ -4,6 +4,7 @@ import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DEGREES_TO_RADIANS
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Vector3
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.github.cponfick.kompgeom.euclidean.internal.MatrixUtil
@@ -33,7 +34,7 @@ public data class AffineTransformationMatrix3(
   public val m10: Double, public val m11: Double, public val m12: Double, public val m13: Double,
   public val m20: Double, public val m21: Double, public val m22: Double, public val m23: Double,
   // spotless:on
-) : Transformer<Vec3> {
+) : Transformer<Vector3<*>> {
 
   /**
    * Get the array representation of the transformation matrix.
@@ -75,12 +76,14 @@ public data class AffineTransformationMatrix3(
       equivalence.eq(m22, other.m22) &&
       equivalence.eq(m23, other.m23)
 
-  override fun apply(obj: Vec3): Vec3 =
-    Vec3(
+  override fun <T : Vector3<*>> apply(obj: T): T {
+    @Suppress("UNCHECKED_CAST")
+    return obj.withComponents(
       m00 * obj.x + m01 * obj.y + m02 * obj.z + m03,
       m10 * obj.x + m11 * obj.y + m12 * obj.z + m13,
       m20 * obj.x + m21 * obj.y + m22 * obj.z + m23,
-    )
+    ) as T
+  }
 
   override fun inverse(): AffineTransformationMatrix3 {
     val invDet = 1.0 / determinant().assertIsFiniteAndNotZero()

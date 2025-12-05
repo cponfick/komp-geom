@@ -34,7 +34,10 @@ public data class AffineTransformationMatrix1(public val m00: Double, public val
     equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
   ): Boolean = equivalence.eq(m00, other.m00) && equivalence.eq(m01, other.m01)
 
-  override fun apply(obj: Vec1): Vec1 = Vec1(m00 * obj.x + m01)
+  override fun <T : Vec1> apply(obj: T): T {
+    @Suppress("UNCHECKED_CAST")
+    return Vec1(m00 * obj.x + m01) as T
+  }
 
   override fun inverse(): AffineTransformationMatrix1 {
     val det = determinant().assertIsFiniteAndNotZero()

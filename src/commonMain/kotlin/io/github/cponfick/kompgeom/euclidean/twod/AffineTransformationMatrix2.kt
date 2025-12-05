@@ -65,8 +65,10 @@ public data class AffineTransformationMatrix2(
       equivalence.eq(m11, other.m11) &&
       equivalence.eq(m12, other.m12)
 
-  override fun apply(obj: Vec2): Vec2 =
-    Vec2(m00 * obj.x + m01 * obj.y + m02, m10 * obj.x + m11 * obj.y + m12)
+  override fun <T : Vec2> apply(obj: T): T {
+    @Suppress("UNCHECKED_CAST")
+    return Vec2(m00 * obj.x + m01 * obj.y + m02, m10 * obj.x + m11 * obj.y + m12) as T
+  }
 
   override fun inverse(): AffineTransformationMatrix2 {
     val invDet = 1.0 / determinant().assertIsFiniteAndNotZero()

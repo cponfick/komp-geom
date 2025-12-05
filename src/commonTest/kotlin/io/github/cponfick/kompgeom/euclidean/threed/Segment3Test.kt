@@ -24,7 +24,8 @@ class Segment3Test {
     val segment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
     val transformer =
       object : Transformer<Vec3> {
-        override fun apply(obj: Vec3): Vec3 = Vec3(obj.x + 1, obj.y + 1, obj.z + 1)
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : Vec3> apply(obj: T): T = Vec3(obj.x + 1, obj.y + 1, obj.z + 1) as T
 
         override fun inverse(): Transformer<Vec3> = this
 

@@ -1,15 +1,14 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
-import io.github.cponfick.kompgeom.core.AngleUnit
-import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Vector
-import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.*
 import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil
 import kotlin.math.sqrt
 
-public data class Vec3(public val x: Double, public val y: Double, public val z: Double) :
-  Vector<Vec3> {
+public data class Vec3(
+  public override val x: Double,
+  public override val y: Double,
+  public override val z: Double,
+) : Vector3<Vec3> {
 
   /**
    * Creates a new vector by copying the coordinates from another vector.
@@ -24,7 +23,7 @@ public data class Vec3(public val x: Double, public val y: Double, public val z:
    * @param other The vector to cross with.
    * @return The resulting vector from the cross product.
    */
-  public infix fun cross(other: Vec3): Vec3 =
+  public override infix fun cross(other: Vector3<*>): Vec3 =
     Vec3(
       this.y * other.z - this.z * other.y,
       this.z * other.x - this.x * other.z,
@@ -125,6 +124,8 @@ public data class Vec3(public val x: Double, public val y: Double, public val z:
 
   public override fun angle(other: Vec3, angleUnit: AngleUnit): Double =
     VectorUtil.calculateAngle(this dot other, this.norm(), other.norm(), angleUnit)
+
+  override fun withComponents(x: Double, y: Double, z: Double): Vec3 = Vec3(x, y, z)
 
   public companion object {
     /** The zero vector. */
