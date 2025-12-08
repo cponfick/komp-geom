@@ -230,6 +230,13 @@ class Vec1Test {
     result shouldBe vec
   }
 
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vec = Vec1(7.0)
+    val zeroVec = vec.zero()
+    zeroVec shouldBe Vec1.ZERO
+  }
+
   companion object {
     private val plusTestCases =
       listOf(

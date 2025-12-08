@@ -320,4 +320,22 @@ class MutableVec3Test {
     mutableCopy.eq(original)
     (mutableCopy === original) shouldBe false
   }
+
+  @Test
+  fun `negativeInfinity returns correct vector`() {
+    val negInfVector = MutableVec3.negativeInfinity()
+    negInfVector.x shouldBe Double.NEGATIVE_INFINITY
+    negInfVector.y shouldBe Double.NEGATIVE_INFINITY
+    negInfVector.z shouldBe Double.NEGATIVE_INFINITY
+  }
+
+  @Test
+  fun `zero on instance returns correct vector`() {
+    val vec = MutableVec3(5.0, -3.0, 2.0)
+    val zeroVector = vec.zero()
+    zeroVector.x shouldBe 0.0
+    zeroVector.y shouldBe 0.0
+    zeroVector.z shouldBe 0.0
+    (vec === zeroVector) shouldBe false
+  }
 }

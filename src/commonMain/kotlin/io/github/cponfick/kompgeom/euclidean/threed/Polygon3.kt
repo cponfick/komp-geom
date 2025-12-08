@@ -24,7 +24,7 @@ public data class Polygon3(
   private fun normal(): Vec3 {
     val v1 = vertices[1] - vertices[0]
     val v2 = vertices[2] - vertices[1]
-    return v1.cross(v2).normalize() as Vec3
+    return v1.cross(v2).normalize()
   }
 
   public val edges: List<Segment3> by lazy {

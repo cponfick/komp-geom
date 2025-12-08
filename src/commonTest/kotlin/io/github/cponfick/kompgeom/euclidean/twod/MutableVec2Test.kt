@@ -314,4 +314,36 @@ class MutableVec2Test {
     mutableCopy.eq(original) shouldBe true
     (mutableCopy === original) shouldBe false
   }
+
+  @Test
+  fun `positiveInfinity returns the correct vector`() {
+    val infVector = MutableVec2.positiveInfinity()
+    infVector.x shouldBe Double.POSITIVE_INFINITY
+    infVector.y shouldBe Double.POSITIVE_INFINITY
+  }
+
+  @Test
+  fun `negativeInfinity returns the correct vector`() {
+    val negInfVector = MutableVec2.negativeInfinity()
+    negInfVector.x shouldBe Double.NEGATIVE_INFINITY
+    negInfVector.y shouldBe Double.NEGATIVE_INFINITY
+  }
+
+  @Test
+  fun `zero vector properties are correct`() {
+    val zeroVector = MutableVec2.zero()
+    zeroVector.x shouldBe 0.0
+    zeroVector.y shouldBe 0.0
+
+    // second zero creates a new instance
+    (zeroVector === MutableVec2.zero()) shouldBe false
+  }
+
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vec = MutableVec2(3.0, 4.0)
+    val zeroVec = vec.zero()
+    zeroVec.eq(MutableVec2(0.0, 0.0)) shouldBe true
+    (vec === zeroVec) shouldBe false
+  }
 }

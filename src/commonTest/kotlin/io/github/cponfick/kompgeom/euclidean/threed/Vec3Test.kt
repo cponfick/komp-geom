@@ -325,4 +325,11 @@ class Vec3Test {
     val mutableCopy = original.toMutableVec3()
     original.eq(mutableCopy)
   }
+
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vector = Vec3(1.0, 2.0, 3.0)
+    val zeroVector = vector.zero()
+    zeroVector shouldBe Vec3(0.0, 0.0, 0.0)
+  }
 }

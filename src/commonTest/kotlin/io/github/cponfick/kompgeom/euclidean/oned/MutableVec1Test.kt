@@ -231,6 +231,37 @@ class MutableVec1Test {
     result shouldNotBe mutableVec
   }
 
+  @Test
+  fun `zero vector creation`() {
+    val zeroVec = MutableVec1.zero()
+    zeroVec.x shouldBe 0.0
+  }
+
+  @Test
+  fun `positive infinity vector creation`() {
+    val posInfVec = MutableVec1.positiveInfinity()
+    posInfVec.x shouldBe Double.POSITIVE_INFINITY
+  }
+
+  @Test
+  fun `negative infinity vector creation`() {
+    val negInfVec = MutableVec1.negativeInfinity()
+    negInfVec.x shouldBe Double.NEGATIVE_INFINITY
+  }
+
+  @Test
+  fun `nan vector creation`() {
+    val nanVec = MutableVec1.nan()
+    nanVec.x.isNaN() shouldBe true
+  }
+
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vec = MutableVec1(3.0)
+    val zeroVec = vec.zero()
+    zeroVec.x shouldBe 0.0
+  }
+
   companion object {
     private val plusTestCases =
       listOf(
