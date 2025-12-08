@@ -123,6 +123,98 @@ public interface Vector2<V : Vector2<V>> : Vector<V> {
    * @return A vector with the specified components.
    */
   public fun withComponents(x: Double, y: Double): V
+
+  /**
+   * Calculates the scale factor to project this vector onto another vector.
+   *
+   * @param other The vector onto which to project this vector.
+   * @return The scale factor for the projection.
+   */
+  public fun computeScaleFactor(other: Vector2<*>): Double {
+    val dotProduct = linearCombination(this.x, other.x, this.y, other.y)
+    val denominator =
+      linearCombination(other.x, other.x, other.y, other.y).assertIsFiniteAndNotZero()
+    return dotProduct / denominator
+  }
+
+  /**
+   * Calculate the projection of this vector onto another vector.
+   *
+   * @param base The vector onto which to project this vector.
+   * @return The projection of this vector onto the other vector.
+   */
+  public fun project(base: Vector2<*>): V {
+    val scale = computeScaleFactor(base)
+    return withComponents(scale * base.x, scale * base.y)
+  }
+
+  /**
+   * Calculates the rejection of this vector from another vector.
+   *
+   * @param base The vector from which to reject this vector.
+   * @return The rejection of this vector from the other vector.
+   */
+  public fun reject(base: Vector2<*>): V {
+    val scale = computeScaleFactor(base)
+    return withComponents(this.x - scale * base.x, this.y - scale * base.y)
+  }
+
+  /**
+   * Tests if two vectors are approximately equal.
+   *
+   * @param other The other vector to compare with.
+   * @param equivalence The equivalence used to compare the double values. Default is
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
+   * @return True if the vectors are approximately equal, false otherwise.
+   */
+  public fun eq(
+    other: Vector2<*>,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Boolean = equivalence.eq(this.x, other.x) && equivalence.eq(this.y, other.y)
+
+  /**
+   * Performs linear interpolation between this vector and another vector.
+   *
+   * @param other The target vector for interpolation.
+   * @param t The interpolation parameter (0.0 returns this vector, 1.0 returns other vector).
+   */
+  public fun lerp(other: Vector2<*>, t: Double): V =
+    withComponents(x + (other.x - x) * t, y + (other.y - y) * t)
+
+  /**
+   * Computes the signed area of the parallelogram formed by this vector and another vector.
+   *
+   * @param other The other vector.
+   * @return The signed area of the parallelogram.
+   */
+  public fun signedArea(other: Vector2<*>): Double = linearCombination(x, other.y, -y, other.x)
+
+  override infix fun distance(other: V): Double =
+    sqrt((this.x - other.x).let { it * it } + (this.y - other.y).let { it * it })
+
+  override fun dimensions(): Int = 2
+
+  override fun isFinite(): Boolean = x.isFinite() && y.isFinite()
+
+  override fun isInfinite(): Boolean = x.isInfinite() || y.isInfinite()
+
+  override fun isNaN(): Boolean = x.isNaN() || y.isNaN()
+
+  override fun normalize(): V {
+    val norm = VectorUtil.norm(x, y)
+    val inverseNorm = 1.0 / norm
+    if (norm == 0.0) {
+      throw ArithmeticException("Cannot create a unit vector from a zero vector.")
+    }
+    return this.withComponents(x * inverseNorm, y * inverseNorm)
+  }
+
+  override fun norm(): Double = VectorUtil.norm(x, y)
+
+  override fun angle(other: V, angleUnit: AngleUnit): Double =
+    VectorUtil.calculateAngle(this dot other, this.norm(), other.norm(), angleUnit)
+
+  override fun dot(other: V): Double = this.x * other.x + this.y * other.y
 }
 
 /**

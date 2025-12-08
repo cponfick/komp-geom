@@ -3,6 +3,13 @@ package io.github.cponfick.kompgeom.euclidean.threed
 import io.github.cponfick.kompgeom.core.Vector3
 import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil
 
+/**
+ * An immutable 3-dimensional vector with double-precision components.
+ *
+ * @property x The x-component of the vector.
+ * @property y The y-component of the vector.
+ * @property z The z-component of the vector.
+ */
 public data class Vec3(
   public override val x: Double,
   public override val y: Double,

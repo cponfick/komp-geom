@@ -24,25 +24,25 @@ class MutableVec3Test {
   @Test
   fun `minus operator returns correct vector`() {
     val actual = MutableVec3(5.0, 6.0, 7.0) - MutableVec3(2.0, 3.0, 4.0)
-    actual shouldBe MutableVec3(3.0, 3.0, 3.0)
+    actual.eq(MutableVec3(3.0, 3.0, 3.0)) shouldBe true
   }
 
   @Test
   fun `unary minus operator returns correct vector`() {
     val actual = -MutableVec3(1.0, 2.0, 3.0)
-    actual shouldBe MutableVec3(-1.0, -2.0, -3.0)
+    actual.eq(MutableVec3(-1.0, -2.0, -3.0)) shouldBe true
   }
 
   @Test
   fun `times operator returns correct vector`() {
     val actual = MutableVec3(1.0, 2.0, 3.0) * 2.0
-    actual shouldBe MutableVec3(2.0, 4.0, 6.0)
+    actual.eq(MutableVec3(2.0, 4.0, 6.0)) shouldBe true
   }
 
   @Test
   fun `plus operator returns correct vector`() {
     val actual = MutableVec3(1.0, 2.0, 3.0) + MutableVec3(4.0, 5.0, 6.0)
-    actual shouldBe MutableVec3(5.0, 7.0, 9.0)
+    actual.eq(MutableVec3(5.0, 7.0, 9.0)) shouldBe true
   }
 
   @Test
@@ -147,7 +147,7 @@ class MutableVec3Test {
     val end = MutableVec3(4.0, 5.0, 6.0)
     val expected = MutableVec3(2.5, 3.5, 4.5)
     val actual = start.lerp(end, 0.5)
-    actual shouldBe expected
+    actual.eq(expected) shouldBe true
   }
 
   @Test
@@ -163,7 +163,7 @@ class MutableVec3Test {
     val start = MutableVec3(1.0, 2.0, 3.0)
     val end = MutableVec3(4.0, 5.0, 6.0)
     val actual = start.lerp(end, 1.0)
-    actual shouldBe end
+    actual.eq(end) shouldBe true
   }
 
   @Test
@@ -171,7 +171,7 @@ class MutableVec3Test {
     val start = MutableVec3(1.0, 2.0, 3.0)
     val end = MutableVec3(4.0, 5.0, 6.0)
     val actual = start.lerp(end, -0.5)
-    actual shouldBe MutableVec3(-0.5, 0.5, 1.5)
+    actual.eq(MutableVec3(-0.5, 0.5, 1.5)) shouldBe true
   }
 
   @Test
@@ -179,14 +179,14 @@ class MutableVec3Test {
     val start = MutableVec3(1.0, 2.0, 3.0)
     val end = MutableVec3(4.0, 5.0, 6.0)
     val actual = start.lerp(end, 1.5)
-    actual shouldBe MutableVec3(5.5, 6.5, 7.5)
+    actual.eq(MutableVec3(5.5, 6.5, 7.5)) shouldBe true
   }
 
   @Test
   fun `normalize returns correct vector`() {
     val vector = MutableVec3(3.0, 4.0, 5.0)
     val actual = vector.normalize()
-    actual shouldBe MutableVec3(0.4242640687119285, 0.565685424949238, 0.7071067811865475)
+    actual.eq(MutableVec3(0.4242640687119285, 0.565685424949238, 0.7071067811865475)) shouldBe true
   }
 
   @Test
@@ -207,7 +207,7 @@ class MutableVec3Test {
     val vector = MutableVec3(1.0, 2.0, 3.0)
     val direction = MutableVec3(4.0, 5.0, 6.0)
     val actual = vector.project(direction)
-    actual shouldBe MutableVec3(1.6623376623376624, 2.077922077922078, 2.4935064935064934)
+    actual.eq(MutableVec3(1.6623376623376624, 2.077922077922078, 2.4935064935064934)) shouldBe true
   }
 
   @Test
@@ -233,7 +233,8 @@ class MutableVec3Test {
     val vector = MutableVec3(1.0, 2.0, 3.0)
     val direction = MutableVec3(4.0, 5.0, 6.0)
     val actual = vector.reject(direction)
-    actual shouldBe MutableVec3(-0.6623376623376624, -0.07792207792207817, 0.5064935064935066)
+    actual.eq(MutableVec3(-0.6623376623376624, -0.07792207792207817, 0.5064935064935066)) shouldBe
+      true
   }
 
   @Test
@@ -259,7 +260,7 @@ class MutableVec3Test {
     val vector1 = MutableVec3(1.0, 2.0, 3.0)
     val vector2 = MutableVec3(4.0, 5.0, 6.0)
     val actual = vector1 cross vector2
-    actual shouldBe MutableVec3(-3.0, 6.0, -3.0)
+    actual.eq(MutableVec3(-3.0, 6.0, -3.0))
   }
 
   @Test
@@ -270,7 +271,7 @@ class MutableVec3Test {
     val vector4 = MutableVec3(4.0, 5.0, 6.0)
     val cross1 = vector1 cross vector2
     val cross2 = vector4 cross vector3
-    cross1 shouldBe -cross2
+    cross1.eq(-cross2)
   }
 
   private val angleInRadiansTestCases =
@@ -316,7 +317,7 @@ class MutableVec3Test {
   fun `toMutableVec3 creates a mutable copy of the vector`() {
     val original = MutableVec3(7.0, 8.0, 9.0)
     val mutableCopy = original.toMutableVec3()
-    mutableCopy shouldBe original
+    mutableCopy.eq(original)
     (mutableCopy === original) shouldBe false
   }
 }
