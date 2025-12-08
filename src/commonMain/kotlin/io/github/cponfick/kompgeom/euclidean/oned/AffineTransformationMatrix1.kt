@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.oned
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Vector1
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import io.github.cponfick.kompgeom.core.transform.Transformer
 
@@ -12,7 +13,7 @@ import io.github.cponfick.kompgeom.core.transform.Transformer
  * @property m01 The translation factor for the x-coordinate.
  */
 public data class AffineTransformationMatrix1(public val m00: Double, public val m01: Double) :
-  Transformer<Vec1> {
+  Transformer<Vector1<*>> {
 
   /**
    * Computes the determinant of the affine transformation matrix. In one-dimensional space, the
@@ -34,7 +35,7 @@ public data class AffineTransformationMatrix1(public val m00: Double, public val
     equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
   ): Boolean = equivalence.eq(m00, other.m00) && equivalence.eq(m01, other.m01)
 
-  override fun <T : Vec1> apply(obj: T): T {
+  override fun <T : Vector1<*>> apply(obj: T): T {
     @Suppress("UNCHECKED_CAST")
     return Vec1(m00 * obj.x + m01) as T
   }

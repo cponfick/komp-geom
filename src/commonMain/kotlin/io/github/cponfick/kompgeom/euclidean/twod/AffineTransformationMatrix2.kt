@@ -4,6 +4,7 @@ import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DEGREES_TO_RADIANS
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Vector2
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.github.cponfick.kompgeom.euclidean.internal.MatrixUtil
@@ -28,7 +29,7 @@ public data class AffineTransformationMatrix2(
   public val m10: Double,
   public val m11: Double,
   public val m12: Double,
-) : Transformer<Vec2> {
+) : Transformer<Vector2<*>> {
 
   /**
    * Get the array representation of the transformation matrix.
@@ -65,7 +66,7 @@ public data class AffineTransformationMatrix2(
       equivalence.eq(m11, other.m11) &&
       equivalence.eq(m12, other.m12)
 
-  override fun <T : Vec2> apply(obj: T): T {
+  override fun <T : Vector2<*>> apply(obj: T): T {
     @Suppress("UNCHECKED_CAST")
     return Vec2(m00 * obj.x + m01 * obj.y + m02, m10 * obj.x + m11 * obj.y + m12) as T
   }
@@ -203,9 +204,9 @@ public data class AffineTransformationMatrix2(
     public fun createTranslation(x: Double, y: Double): AffineTransformationMatrix2 =
       AffineTransformationMatrix2(
         // spotless:off
-      1.0, 0.0, x,
-      0.0, 1.0, y
-      // spotless:on
+        1.0, 0.0, x,
+        0.0, 1.0, y
+        // spotless:on
       )
 
     /**
