@@ -2,10 +2,13 @@ package io.github.cponfick.kompgeom.core
 
 import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil
 import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil.linearCombination
+import io.github.cponfick.kompgeom.euclidean.oned.Vec1
+import kotlin.math.PI
+import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
 /**
- * This interface represents a vector in a multi-dimensional space.
+ * This interface represents a vector in a multidimensional space.
  *
  * @param V The type of the vector that implements this interface.
  * @see Spatial
@@ -100,6 +103,64 @@ public interface Vector1<V : Vector1<V>> : Vector<V> {
    * @return A vector with the specified component.
    */
   public fun withComponents(x: Double): V
+
+  /**
+   * Checks if two vectors are equal within a specified tolerance.
+   *
+   * @param other The other vector to compare with.
+   * @param equivalence The tolerance used for comparison.
+   * @return True if the vectors are equal within the tolerance, false otherwise.
+   */
+  public fun eq(
+    other: Vector1<*>,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Boolean = equivalence.eq(this.x, other.x)
+
+  /**
+   * Calculates the squared norm of the vector.
+   *
+   * @return The squared norm of the vector.
+   */
+  public fun normSquared(): Double = x * x
+
+  override fun angle(other: V, angleUnit: AngleUnit): Double {
+    this.x.assertIsFiniteAndNotZero()
+    other.x.assertIsFiniteAndNotZero()
+    return when (angleUnit) {
+      AngleUnit.RADIANS -> if (this.x == other.x) 0.0 else PI
+      AngleUnit.DEGREES -> if (this.x == other.x) 0.0 else 180.0
+    }
+  }
+
+  /**
+   * Performs linear interpolation between two vectors.
+   *
+   * @param other The target vector for interpolation.
+   * @param t The interpolation parameter (0.0 returns this vector, 1.0 returns other vector).
+   * @return The interpolated vector.
+   */
+  public fun lerp(other: Vector1<*>, t: Double): Vec1 = Vec1(x + (other.x - x) * t)
+
+  override fun normalize(): V {
+    if (x == 0.0) {
+      throw ArithmeticException("Cannot normalize a vector with zero length.")
+    }
+    return this.withComponents(x / x.absoluteValue)
+  }
+
+  override fun norm(): Double = x.absoluteValue
+
+  override fun dimensions(): Int = 1
+
+  override fun isFinite(): Boolean = x.isFinite()
+
+  override fun isInfinite(): Boolean = x.isInfinite()
+
+  override fun isNaN(): Boolean = x.isNaN()
+
+  override fun dot(other: V): Double = this.x * other.x
+
+  override fun distance(other: V): Double = (this.x - other.x).absoluteValue
 }
 
 /**
