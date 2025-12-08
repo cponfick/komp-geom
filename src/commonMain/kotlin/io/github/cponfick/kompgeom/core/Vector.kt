@@ -1,5 +1,9 @@
 package io.github.cponfick.kompgeom.core
 
+import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil
+import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil.linearCombination
+import kotlin.math.sqrt
+
 /**
  * This interface represents a vector in a multi-dimensional space.
  *
@@ -107,6 +111,7 @@ public interface Vector1<V : Vector1<V>> : Vector<V> {
 public interface Vector2<V : Vector2<V>> : Vector<V> {
   /** The x component of the vector. */
   public val x: Double
+
   /** The y component of the vector. */
   public val y: Double
 
@@ -129,8 +134,10 @@ public interface Vector2<V : Vector2<V>> : Vector<V> {
 public interface Vector3<V : Vector3<V>> : Vector<V> {
   /** The x component of the vector. */
   public val x: Double
+
   /** The y component of the vector. */
   public val y: Double
+
   /** The z component of the vector. */
   public val z: Double
 
@@ -150,5 +157,94 @@ public interface Vector3<V : Vector3<V>> : Vector<V> {
    * @param other The vector to cross with.
    * @return The resulting vector from the cross product.
    */
-  public infix fun cross(other: Vector3<*>): V
+  public infix fun cross(other: Vector3<*>): V =
+    withComponents(
+      this.y * other.z - this.z * other.y,
+      this.z * other.x - this.x * other.z,
+      this.x * other.y - this.y * other.x,
+    )
+
+  /**
+   * Calculate the projection of this vector onto another vector.
+   *
+   * @param base The vector onto which to project this vector.
+   * @return The projection of this vector onto the other vector.
+   */
+  public fun project(base: Vector3<*>): V {
+    val scale = computeScaleFactor(base)
+    return withComponents(scale * base.x, scale * base.y, scale * base.z)
+  }
+
+  /**
+   * Calculates the rejection of this vector from another vector.
+   *
+   * @param base The vector from which to reject this vector.
+   * @return The rejection of this vector from the other vector.
+   */
+  public fun reject(base: Vector3<*>): V {
+    val scale = computeScaleFactor(base)
+    return withComponents(this.x - scale * base.x, this.y - scale * base.y, this.z - scale * base.z)
+  }
+
+  /**
+   * Calculates the scale factor to project this vector onto another vector.
+   *
+   * @param other The vector onto which to project this vector.
+   * @return The scale factor for the projection.
+   */
+  public fun computeScaleFactor(other: Vector3<*>): Double {
+    val dotProduct = linearCombination(this.x, other.x, this.y, other.y, this.z, other.z)
+    val denominator =
+      linearCombination(other.x, other.x, other.y, other.y, other.z, other.z)
+        .assertIsFiniteAndNotZero()
+    return dotProduct / denominator
+  }
+
+  /**
+   * Checks if two vectors are equal within a specified tolerance.
+   *
+   * @param other The other vector to compare with.
+   * @param equivalence The tolerance used for comparison. Default is [DEFAULT_DOUBLE_EQUIVALENCE].
+   * @return True if the vectors are equal within the tolerance, false otherwise.
+   */
+  public fun eq(
+    other: Vector3<*>,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Boolean =
+    equivalence.eq(this.x, other.x) &&
+      equivalence.eq(this.y, other.y) &&
+      equivalence.eq(this.z, other.z)
+
+  /**
+   * Performs linear interpolation between this vector and another vector.
+   *
+   * @param other The target vector for interpolation.
+   * @param t The interpolation parameter (0.0 returns this vector, 1.0 returns other vector).
+   * @return The interpolated vector.
+   */
+  public fun lerp(other: Vector3<*>, t: Double): V =
+    withComponents(x + (other.x - x) * t, y + (other.y - y) * t, z + (other.z - z) * t)
+
+  override fun dimensions(): Int = 3
+
+  override fun isFinite(): Boolean = x.isFinite() && y.isFinite() && z.isFinite()
+
+  override fun isInfinite(): Boolean = x.isInfinite() || y.isInfinite() || z.isInfinite()
+
+  override fun isNaN(): Boolean = x.isNaN() || y.isNaN() || z.isNaN()
+
+  override fun distance(other: V): Double =
+    sqrt(
+      (this.x - other.x).let { it * it } +
+        (this.y - other.y).let { it * it } +
+        (this.z - other.z).let { it * it }
+    )
+
+  override fun dot(other: V): Double =
+    linearCombination(this.x, other.x, this.y, other.y, this.z, other.z)
+
+  override fun norm(): Double = VectorUtil.norm(this.x, this.y, this.z)
+
+  override fun angle(other: V, angleUnit: AngleUnit): Double =
+    VectorUtil.calculateAngle(this dot other, this.norm(), other.norm(), angleUnit)
 }

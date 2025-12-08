@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.internal
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.RADIANS_TO_DEGREES
+import io.github.cponfick.kompgeom.core.Vector3
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
 import kotlin.math.acos
 import kotlin.math.sqrt
@@ -18,6 +19,23 @@ public object VectorUtil {
   internal fun norm(x: Double, y: Double): Double = sqrt(x * x + y * y)
 
   /**
+   * Computes the inverse of the Euclidean norm (magnitude) of a vector defined by its x and y
+   * components.
+   *
+   * @param x The x component of the vector.
+   * @param y The y component of the vector.
+   * @return The inverse of the Euclidean norm of the vector.
+   * @throws ArithmeticException if the vector is a zero vector.
+   */
+  internal fun <V : Vector3<V>> inverseNorm(x: Double, y: Double): Double {
+    val norm = norm(x, y)
+    if (norm == 0.0) {
+      throw ArithmeticException("Cannot compute inverse norm of a zero vector.")
+    }
+    return 1.0 / norm
+  }
+
+  /**
    * Computes the Euclidean norm (magnitude) of a vector defined by its x, y, and z components.
    *
    * @param x The x component of the vector.
@@ -26,6 +44,24 @@ public object VectorUtil {
    * @return The Euclidean norm of the vector.
    */
   internal fun norm(x: Double, y: Double, z: Double): Double = sqrt(x * x + y * y + z * z)
+
+  /**
+   * Computes the inverse of the Euclidean norm (magnitude) of a vector defined by its x, y, and z
+   * components.
+   *
+   * @param x The x component of the vector.
+   * @param y The y component of the vector.
+   * @param z The z component of the vector.
+   * @return The inverse of the Euclidean norm of the vector.
+   * @throws ArithmeticException if the vector is a zero vector.
+   */
+  internal fun <V : Vector3<V>> inverseNorm(x: Double, y: Double, z: Double): Double {
+    val norm = norm(x, y, z)
+    if (norm == 0.0) {
+      throw ArithmeticException("Cannot compute inverse norm of a zero vector.")
+    }
+    return 1.0 / norm
+  }
 
   /**
    * Computes the linear combination a1 * b1 + a2 * b2 of two pairs of doubles.
