@@ -28,7 +28,9 @@ kotlin {
   jvm {
     compilations {
       val main by getting
-      val benchmark by creating { associateWith(main) }
+      val benchmark by creating {
+        associateWith(main)
+      }
     }
   }
   js(IR) {
@@ -37,7 +39,9 @@ kotlin {
     browser { testTask { useKarma { useChromeHeadless() } } }
     compilations {
       val main by getting
-      val benchmark by creating { associateWith(main) }
+      val benchmark by creating {
+        associateWith(main)
+      }
     }
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
@@ -45,7 +49,9 @@ kotlin {
   linuxX64 {
     compilations {
       val main by getting
-      val benchmark by creating { associateWith(main) }
+      val benchmark by creating {
+        associateWith(main)
+      }
     }
   }
   macosX64()
@@ -171,6 +177,17 @@ dokka {
     }
   }
 }
+
+kover {
+  reports {
+    filters {
+      excludes {
+        classes("*Benchmark")
+      }
+    }
+  }
+}
+
 
 sonar {
   properties {
