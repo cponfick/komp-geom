@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.algorithms.Algorithm
 import io.github.cponfick.kompgeom.core.Vector
 
 /**
@@ -17,4 +17,4 @@ public class Result<V : Vector<V>>(public val distance: Double, public val resul
  * This interface defines the contract for algorithms that find the closest pair of points in a
  * collection of points in 2D space.
  */
-public interface IClosestPair<V : Vector<V>> : IAlgorithm<Result<V>>
+public interface ClosestPair<V : Vector<V>> : Algorithm<Result<V>>

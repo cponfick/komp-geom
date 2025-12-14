@@ -5,7 +5,7 @@ package io.github.cponfick.kompgeom.algorithms
  *
  * @param Output The type of output produced by the algorithm.
  */
-public fun interface IAlgorithm<Output> {
+public fun interface Algorithm<Output> {
 
   /**
    * Execute the algorithm and returns the output.
@@ -20,7 +20,7 @@ public fun interface IAlgorithm<Output> {
    * the user with useful meta-information about the algorithm, such as its name, group, time
    * complexity, and space complexity.
    */
-  public interface IAlgorithmInfo {
+  public interface AlgorithmInfo {
     /**
      * Returns the group to which the algorithm belongs. This is used for categorization and
      * organization of algorithms.

@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.algorithms.Algorithm
 import io.github.cponfick.kompgeom.core.Vector
 
 /**
@@ -10,7 +10,7 @@ import io.github.cponfick.kompgeom.core.Vector
  * @property input collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPair<V> {
+public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : ClosestPair<V> {
   private val points = input.toList()
 
   init {
@@ -33,7 +33,7 @@ public class ClosestPairNaive<V : Vector<V>>(input: Collection<V>) : IClosestPai
     return Result(closestDistance, closestPair)
   }
 
-  public companion object : IAlgorithm.IAlgorithmInfo {
+  public companion object : Algorithm.AlgorithmInfo {
     override fun getGroup(): String = "Closest Pair"
 
     override fun getName(): String = "Closest Pair Naive"

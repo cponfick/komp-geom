@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.convexhull
 
-import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.algorithms.Algorithm
 import io.github.cponfick.kompgeom.core.Vector2
 import io.github.cponfick.kompgeom.core.shapes.Location
 import io.github.cponfick.kompgeom.euclidean.twod.Line2
@@ -11,7 +11,7 @@ import io.github.cponfick.kompgeom.euclidean.twod.Line2
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : IConvexHull<V> {
+public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : ConvexHull<V> {
 
   private val convexHull = mutableSetOf<V>()
 
@@ -51,7 +51,7 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : ICon
     findHull(furthestPointP2PlusSide, furthestPoint, p2)
   }
 
-  public companion object : IAlgorithm.IAlgorithmInfo {
+  public companion object : Algorithm.AlgorithmInfo {
     override fun getGroup(): String = "Convex Hull"
 
     override fun getName(): String = "Quickhull"

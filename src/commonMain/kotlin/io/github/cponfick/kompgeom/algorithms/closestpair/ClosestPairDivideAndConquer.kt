@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
-import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.algorithms.Algorithm
 import io.github.cponfick.kompgeom.core.Vector2
 
 /**
@@ -9,7 +9,7 @@ import io.github.cponfick.kompgeom.core.Vector2
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairDivideAndConquer<V : Vector2<V>>(input: Collection<V>) : IClosestPair<V> {
+public class ClosestPairDivideAndConquer<V : Vector2<V>>(input: Collection<V>) : ClosestPair<V> {
   private val sortedByX: List<V> = input.sortedBy { it.x }
   private val sortedByY: List<V> = input.sortedBy { it.y }
 
@@ -72,7 +72,7 @@ public class ClosestPairDivideAndConquer<V : Vector2<V>>(input: Collection<V>) :
     }
   }
 
-  public companion object : IAlgorithm.IAlgorithmInfo {
+  public companion object : Algorithm.AlgorithmInfo {
     override fun getGroup(): String = "Closest Pair"
 
     override fun getName(): String = "Closest Pair Divide and Conquer"
