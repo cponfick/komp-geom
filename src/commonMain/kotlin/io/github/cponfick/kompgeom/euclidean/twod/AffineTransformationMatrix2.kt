@@ -1,11 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
-import io.github.cponfick.kompgeom.core.AngleUnit
-import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.DEGREES_TO_RADIANS
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.Vector2
-import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.*
+import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.github.cponfick.kompgeom.euclidean.internal.MatrixUtil
 import io.github.cponfick.kompgeom.euclidean.internal.VectorUtil

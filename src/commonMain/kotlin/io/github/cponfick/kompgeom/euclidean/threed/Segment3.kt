@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.shapes.IntersectionData
 import io.github.cponfick.kompgeom.core.shapes.IntersectionType
 import io.github.cponfick.kompgeom.core.shapes.Segment

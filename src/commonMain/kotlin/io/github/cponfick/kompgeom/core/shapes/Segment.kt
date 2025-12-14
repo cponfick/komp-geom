@@ -1,8 +1,8 @@
 package io.github.cponfick.kompgeom.core.shapes
 
-import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Vector
+import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.transform.Transformer
 
 /**
@@ -52,7 +52,7 @@ public interface Segment<V : Vector<V>> {
    *
    * @param other The other segment to intersect with.
    * @param equivalence The equivalence to use for comparing floating-point values. Defaults to
-   *   [io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE].
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
    * @return A new segment representing the intersection, or null if there is no intersection/ the
    *   produce an infinite amount of intersections.
    */

@@ -1,8 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
-import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Vector2
+import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.shapes.Line
 import io.github.cponfick.kompgeom.core.shapes.Location
 import kotlin.math.abs
@@ -21,9 +21,7 @@ public data class Line2(
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
 ) : Line<Vector2<*>> {
   init {
-    require(precision.compare(1.0, direction.norm()) == 0) {
-      "Direction vector must be a unit vector."
-    }
+    require(precision.eq(1.0, direction.norm())) { "Direction vector cannot be zero." }
   }
 
   override fun distance(other: Vector2<*>): Double = abs(offset(other))

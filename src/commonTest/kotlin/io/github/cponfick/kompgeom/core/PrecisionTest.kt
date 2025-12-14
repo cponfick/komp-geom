@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.core
 
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
@@ -133,7 +134,7 @@ class PrecisionTest {
   }
 
   private companion object {
-    private class TestDoubleEquivalence : DoubleEquivalence() {
+    private class TestDoubleEquivalence : EpsilonDoubleEquivalence() {
       override fun compare(a: Double, b: Double): Int {
         return when {
           a < b -> -1
