@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.github.cponfick.kompgeom.core.shapes.Location
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -148,7 +148,7 @@ class Line2Test {
 
   @Test
   fun `custom precision is respected in constructor`() {
-    val customPrecision = DoubleEquivalence(1e-10)
+    val customPrecision = EpsilonDoubleEquivalence(1e-10)
     val direction = Vec2.unit(1.0, 0.0)
     val line = Line2(direction, 0.0, customPrecision)
 

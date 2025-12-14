@@ -1,9 +1,9 @@
 package io.github.cponfick.kompgeom.euclidean.oned
 
-import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.Vector1
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import io.github.cponfick.kompgeom.core.transform.Transformer
 
 /**

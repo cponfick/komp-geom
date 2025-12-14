@@ -1,3 +1,5 @@
+# Computational Geometry in Kotlin
+
 [![tests](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=coverage)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
@@ -6,19 +8,21 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=cponfick_komp-geom)
 [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
 
-# Computational Geometry in Kotlin
+Komp-Geom is a comprehensive Kotlin Multiplatform (KMP) library for computational geometry, designed to provide a robust
+and efficient toolkit for solving geometric problems. It offers a set of algorithms and data structures with an
+idiomatic Kotlin API that should feel natural to Kotlin developers.
 
-This repository contains a collection of algorithms and data structures for computational geometry implemented in Kotlin
-Multiplatform (KMP). The library focuses on providing efficient solutions to common geometric problems across multiple
-platforms. It aims to provide a solid foundation for building complex geometric algorithms and applications while
-offering idiomatic Kotlin APIs.
+The library is built with cross-platform compatibility in mind, supporting JVM, JS, WebAssembly, and Native (iOS, Linux,
+Windows, macOS). This ensures that your geometric code works consistently everywhere.
 
-The following platforms are currently supported:
+Key features include:
 
-- JVM
-- JS
-- WebAssembly (WASM)
-- Native (iOS, Linux, Windows, macOS)
+* **Core Geometric Primitives**: A solid foundation of core components like vectors, lines, polygons, and affine
+  transformations.
+* **Precision Handling**: A configurable comparison system to handle floating-point inaccuracies, crucial
+  for reliable geometric calculations.
+* **Immutability and Performance**: Provides both immutable and mutable data structures. While immutability by default
+  ensures thread-safety and predictability, mutable alternatives are available for performance-critical scenarios.
 
 > [!IMPORTANT]
 > This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. After
@@ -97,8 +101,8 @@ reliable geometric operations across all platforms.
 
 ### Default Precision
 
-By default, the library uses `GEOMETRIC_EPSILON` (1e-10) as the tolerance threshold. Two double values are considered
-equal if their absolute difference is within this epsilon:
+By default, the library uses an epsilon based comparison with a default `GEOMETRIC_EPSILON` of `1e-10` as the tolerance
+threshold. Two double values are considered equal if their absolute difference is within this epsilon:
 
 ```kotlin
 // Using default precision
@@ -109,17 +113,20 @@ DEFAULT_DOUBLE_EQUIVALENCE.eq(a, b)  // true
 
 ### Custom Precision
 
-You can create custom `DoubleEquivalence` instances to adjust precision for specific use cases:
+You can create custom `EpsilonDoubleEquivalence` instances to adjust precision for specific use cases:
 
 ```kotlin
 // More lenient precision for approximate calculations
-val relaxed = DoubleEquivalence(epsilon = 1e-6)
+val relaxed = EpsilonDoubleEquivalence(epsilon = 1e-6)
 relaxed.eq(0.3000001, 0.3)  // true
 
 // Stricter precision for high-accuracy requirements
 val strict = DoubleEquivalence(epsilon = 1e-12)
 strict.eq(0.30000000001, 0.3)  // false
 ```
+
+Further, it is possible to provide a custom implementation of the `Equivalence` interface if you need
+specialized comparison logic.
 
 ### Available Comparison Operations
 
@@ -148,7 +155,7 @@ val matrix2 = AffineTransformationMatrix3.createRotationX(0.7853981634)
 matrix1.eq(matrix2)  // Uses default precision
 
 // Custom precision for specific requirements
-matrix1.eq(matrix2, DoubleEquivalence(epsilon = 1e-9))  // true
+matrix1.eq(matrix2, EpsilonDoubleEquivalence(epsilon = 1e-9))  // true
 ```
 
 ### Global Precision Configuration
@@ -160,7 +167,7 @@ For applications requiring consistent custom precision across all operations, yo
 GEOMETRIC_EPSILON = 1e-8
 
 // Replace the global default equivalence
-DEFAULT_DOUBLE_EQUIVALENCE = DoubleEquivalence(epsilon = 1e-8)
+DEFAULT_DOUBLE_EQUIVALENCE = EpsilonDoubleEquivalence(epsilon = 1e-8)
 ```
 
 **Note:** Modifying global defaults should be done during application initialization, as it affects all subsequent

@@ -1,7 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.AngleUnit
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -10,7 +11,7 @@ import kotlin.math.sin
 import kotlin.test.Test
 
 class AffineTransformationMatrix2Test {
-  private val testEquivalence: DoubleEquivalence = DoubleEquivalence(1e-12)
+  private val testEquivalence: DoubleEquivalence = EpsilonDoubleEquivalence(1e-12)
 
   @Test
   fun `toArray returns expected array`() {

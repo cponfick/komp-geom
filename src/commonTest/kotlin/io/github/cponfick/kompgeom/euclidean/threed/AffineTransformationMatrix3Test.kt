@@ -2,7 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.DEGREES_TO_RADIANS
-import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -168,7 +168,7 @@ class AffineTransformationMatrix3Test {
         9.0 + 1e-13, 10.0 + 1e-13, 11.0 + 1e-13, 12.0 + 1e-13
         // spotless:on
       )
-    matrix1.eq(matrix2, DoubleEquivalence(1e-10)) shouldBe true
+    matrix1.eq(matrix2, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -262,7 +262,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationX(90.0, AngleUnit.DEGREES)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -276,7 +276,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationX(PI / 2)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -290,7 +290,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationY(90.0, AngleUnit.DEGREES)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -304,7 +304,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationY(PI / 2)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -318,7 +318,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationZ(90.0, AngleUnit.DEGREES)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -332,7 +332,7 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val actual = AffineTransformationMatrix3.createRotationZ(PI / 2)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -350,8 +350,8 @@ class AffineTransformationMatrix3Test {
     val actualRad = identityMatrix.rotateX(PI / 2)
     val actualDeg = identityMatrix.rotateX(90.0, AngleUnit.DEGREES)
 
-    actualRad.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
-    actualDeg.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actualRad.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
+    actualDeg.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -365,9 +365,10 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val identityMatrix = AffineTransformationMatrix3.IDENTITY
-    identityMatrix.rotateY(PI / 2).eq(expected, DoubleEquivalence(1e-10)) shouldBe true
-    identityMatrix.rotateY(90.0, AngleUnit.DEGREES).eq(expected, DoubleEquivalence(1e-10)) shouldBe
-      true
+    identityMatrix.rotateY(PI / 2).eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
+    identityMatrix
+      .rotateY(90.0, AngleUnit.DEGREES)
+      .eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -381,9 +382,10 @@ class AffineTransformationMatrix3Test {
         // spotless:on
       )
     val identityMatrix = AffineTransformationMatrix3.IDENTITY
-    identityMatrix.rotateZ(PI / 2).eq(expected, DoubleEquivalence(1e-10)) shouldBe true
-    identityMatrix.rotateZ(90.0, AngleUnit.DEGREES).eq(expected, DoubleEquivalence(1e-10)) shouldBe
-      true
+    identityMatrix.rotateZ(PI / 2).eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
+    identityMatrix
+      .rotateZ(90.0, AngleUnit.DEGREES)
+      .eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -395,7 +397,7 @@ class AffineTransformationMatrix3Test {
 
     val expected = Vec3(0.0, 1.0, 0.0)
     val actual = transform.apply(vector)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -406,7 +408,7 @@ class AffineTransformationMatrix3Test {
 
     val expected = Vec3(2.0, 4.0, 4.0)
     val actual = transform.apply(vector)
-    actual.eq(expected, DoubleEquivalence(1e-10)) shouldBe true
+    actual.eq(expected, EpsilonDoubleEquivalence(1e-10)) shouldBe true
   }
 
   @Test
@@ -416,7 +418,7 @@ class AffineTransformationMatrix3Test {
     val rotZ = AffineTransformationMatrix3.createRotationZ(360.0, AngleUnit.DEGREES)
 
     val identity = AffineTransformationMatrix3.IDENTITY
-    val tolerance = DoubleEquivalence(1e-10)
+    val tolerance = EpsilonDoubleEquivalence(1e-10)
 
     rotX.eq(identity, tolerance) shouldBe true
     rotY.eq(identity, tolerance) shouldBe true
