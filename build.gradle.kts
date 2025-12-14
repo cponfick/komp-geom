@@ -12,6 +12,7 @@ plugins {
   alias(libs.plugins.dokka.html)
   alias(libs.plugins.kotlinx.kover)
   alias(libs.plugins.sonarqube)
+  alias(libs.plugins.kotlinx.benchmark)
 }
 
 group = "io.github.cponfick"
@@ -24,15 +25,29 @@ repositories { mavenCentral() }
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
 kotlin {
   explicitApi()
-  jvm()
+  jvm {
+    compilations {
+      val main by getting
+      val benchmark by creating { associateWith(main) }
+    }
+  }
   js(IR) {
     binaries.library()
     nodejs()
     browser { testTask { useKarma { useChromeHeadless() } } }
+    compilations {
+      val main by getting
+      val benchmark by creating { associateWith(main) }
+    }
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
   // Tier 1
-  linuxX64()
+  linuxX64 {
+    compilations {
+      val main by getting
+      val benchmark by creating { associateWith(main) }
+    }
+  }
   macosX64()
   macosArm64()
   iosSimulatorArm64()
@@ -55,26 +70,35 @@ kotlin {
   mingwX64()
   watchosDeviceArm64()
 
+  applyDefaultHierarchyTemplate()
+
   sourceSets {
+    val commonMain by getting { dependencies { implementation(libs.kotlin.logging) } }
+    val jvmMain by getting { dependencies { implementation(libs.slf4j.simple) } }
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
         implementation(libs.kotest.assertions.core)
       }
     }
+    val commonBenchmark by creating {
+      dependencies { implementation(libs.kotlinx.benchmark.runtime) }
+    }
+    val jvmBenchmark by getting { dependsOn(commonBenchmark) }
+    val jsBenchmark by getting { dependsOn(commonBenchmark) }
+    val linuxX64Benchmark by getting { dependsOn(commonBenchmark) }
   }
 }
 
-tasks {
-  withType<Test> {
-    useJUnitPlatform()
-    testLogging {
-      showStandardStreams = true
-      showExceptions = true
-      exceptionFormat = FULL
-    }
+tasks.withType<AbstractTestTask>().configureEach {
+  testLogging {
+    showStandardStreams = true
+    showExceptions = true
+    exceptionFormat = FULL
   }
 }
+
+tasks { withType<Test> { useJUnitPlatform() } }
 
 spotless {
   kotlin {
@@ -148,6 +172,8 @@ dokka {
   }
 }
 
+kover { reports { filters { excludes { classes("*Benchmark") } } } }
+
 sonar {
   properties {
     property("sonar.projectKey", "cponfick_komp-geom")
@@ -161,5 +187,13 @@ sonar {
         }
         .joinToString(",")
     property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
+  }
+}
+
+benchmark {
+  targets {
+    register("jvmBenchmark")
+    register("jsBenchmark")
+    register("linuxX64Benchmark")
   }
 }

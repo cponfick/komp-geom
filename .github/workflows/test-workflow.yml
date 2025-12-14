@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, macos-13, windows-latest ]
+        os: [ ubuntu-latest, macos-latest, macos-15-intel, windows-latest ]
 
     steps:
       - uses: actions/checkout@v6
@@ -61,7 +61,7 @@ jobs:
 
       - name: macOS x64 tests
         run: ./gradlew macosX64Test
-        if: matrix.os == 'macos-13'
+        if: matrix.os == 'macos-15-intel'
 
       - name: macOS ARM64 tests
         run: ./gradlew macosArm64Test
@@ -90,7 +90,7 @@ jobs:
 
       - name: tvOS x64 tests
         run: ./gradlew tvosX64Test
-        if: matrix.os == 'macos-13'
+        if: matrix.os == 'macos-15-intel'
 
       # Tier 3 Native Platform Tests
       - name: MinGw X64 tests

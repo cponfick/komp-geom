@@ -15,13 +15,6 @@ class Vec2Test {
     vector.y shouldBe 2.0
   }
 
-  @Test
-  fun `copy constructor creates an identical vector`() {
-    val original = Vec2(3.0, 4.0)
-    val copy = Vec2(original)
-    original shouldBe copy
-  }
-
   private val angleInRadiansTestCases =
     listOf(
       Triple(Vec2(1.0, 0.0), Vec2(0.0, 1.0), PI / 2),
@@ -300,5 +293,26 @@ class Vec2Test {
   @Test
   fun `zero returns the zero vector`() {
     Vec2.ZERO shouldBe Vec2(0.0, 0.0)
+  }
+
+  @Test
+  fun `toVec3 creates a identical copy of the vector`() {
+    val original = Vec2(7.0, 8.0)
+    val copy = original.toVec2()
+    copy shouldBe original
+    (copy === original) shouldBe false
+  }
+
+  @Test
+  fun `toMutableVec2 creates a mutable copy of the vector`() {
+    val original = Vec2(7.0, 8.0)
+    val mutableCopy = original.toMutableVec2()
+    original.eq(mutableCopy)
+  }
+
+  @Test
+  fun `zero on instance returns the zero vector`() {
+    val vector = Vec2(5.0, 10.0)
+    vector.zero() shouldBe Vec2.ZERO
   }
 }

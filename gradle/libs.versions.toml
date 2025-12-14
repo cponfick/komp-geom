@@ -7,9 +7,15 @@ com-vanniktech-maven-publish = "0.35.0"
 dokka = "2.1.0"
 kover = "0.9.3"
 sonarqube = "7.2.0.6526"
+kotlin-logging = "7.0.13"
+slf4j = "2.0.17"
+kotlinx-benchmark = "0.4.14"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotlin-logging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlin-logging" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinx-benchmark" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -19,3 +25,4 @@ maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vannik
 dokka-html = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 sonarqube = { id = "org.sonarqube", version.ref= "sonarqube"}
+kotlinx-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "kotlinx-benchmark" }

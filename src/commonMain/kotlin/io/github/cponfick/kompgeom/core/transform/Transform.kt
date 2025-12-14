@@ -12,12 +12,13 @@ package io.github.cponfick.kompgeom.core.transform
 public interface Transformer<O> {
 
   /**
-   * Applies the transformation to a point.
+   * Applies the transformation to a geometric object.
    *
+   * @param T The concrete type of the object, which must be a subtype of O.
    * @param obj The geometric object to transform.
-   * @return The transformed point.
+   * @return The transformed object of the same concrete type.
    */
-  public fun apply(obj: O): O
+  public fun <T : O> apply(obj: T): T
 
   /**
    * Get the inverse of this transformation.

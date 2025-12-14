@@ -216,6 +216,27 @@ class Vec1Test {
     actual shouldBe "Vec1(x=3.1)"
   }
 
+  @Test
+  fun `toMutableVec1 returns correct MutableVec1`() {
+    val vec = Vec1(4.2)
+    val mutableVec = vec.toMutableVec1()
+    mutableVec.x shouldBe 4.2
+  }
+
+  @Test
+  fun `toVec1 on Vec1 returns itself`() {
+    val vec = Vec1(5.3)
+    val result = vec.toVec1()
+    result shouldBe vec
+  }
+
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vec = Vec1(7.0)
+    val zeroVec = vec.zero()
+    zeroVec shouldBe Vec1.ZERO
+  }
+
   companion object {
     private val plusTestCases =
       listOf(

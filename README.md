@@ -89,16 +89,45 @@ The library currently provides the following geometric elements:
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 
+## Immutability and Performance
+
+The library follows Kotlin's philosophy of immutability by default. Immutable data structures offer several advantages:
+
+- **Thread Safety**: Immutable objects can be safely shared across threads without synchronization
+- **Predictability**: Operations never modify existing objects, making code easier to reason about
+- **Functional Style**: Enables a more functional programming approach with pure functions
+
+However, for performance-critical applications involving large-scale operations, immutability can introduce overhead
+due to object allocations. To address this, the library also provides **mutable implementations** for certain data
+types that modify objects in-place. Currently, mutable implementations are available for:
+
+- Vectors (1D, 2D, 3D)
+
+Further, following algorithms support mutable implementations:
+
+- Affine Transformations (1D, 2D, 3D)
+- Closest Pair (2D, 3D)
+- Convex Hull (2D)
+
+### Benchmark Results
+
+Based on [benchmark results](docs/benchmarks/affine_transformation.md), mutable implementations offer significant
+performance improvements when performing large numbers of operations:
+
+- **2.66× faster** on JVM for 1M affine transformations
+- **2.59× faster** on JS for 1M affine transformations
+- **2.10× faster** on Native (Linux) for 1M affine transformations
+
 ## Algorithms
 
 The following is a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or
 contribute a pull request.
 
-| Algorithm    | Implementation     | Supported Dimensions | Runtime Complexity | Space Complexity |
-|--------------|--------------------|----------------------|--------------------|------------------|
-| Closest Pair | Naive              | 2D, 3D               | O(n^2)             | O(1)             |
-| Closest Pair | Divide and Conquer | 2D                   | O(n log n)         | O(n)             |
-| Convex Hull  | QuickHull          | 2D                   | O(n log n)         | O(n)             |
+| Algorithm    | Implementation     | Supported Dimensions | Mutable Input<br/>Supported | Runtime Complexity | Space Complexity |
+|--------------|--------------------|----------------------|-----------------------------|--------------------|------------------|
+| Closest Pair | Naive              | 2D, 3D               | yes                         | O(n^2)             | O(1)             |
+| Closest Pair | Divide and Conquer | 2D                   | yes                         | O(n log n)         | O(n)             |
+| Convex Hull  | QuickHull          | 2D                   | yes                         | O(n log n)         | O(n)             |
 
 ## Contributing
 

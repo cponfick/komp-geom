@@ -242,7 +242,8 @@ class Polygon2Test {
     val square = Polygon2.rectangle(0.0, 0.0, 1.0, 1.0)
     val transformer =
       object : Transformer<Vec2> {
-        override fun apply(obj: Vec2): Vec2 = Vec2(obj.x * 2, obj.y * 2)
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : Vec2> apply(obj: T): T = Vec2(obj.x * 2, obj.y * 2) as T
 
         override fun inverse(): Transformer<Vec2> = this
 

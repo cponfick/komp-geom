@@ -17,12 +17,6 @@ class Vec3Test {
   }
 
   @Test
-  fun `copy constructor creates an identical vector`() {
-    val original = Vec3(3.0, 4.0, 1.0)
-    original shouldBe Vec3(original)
-  }
-
-  @Test
   fun `toString returns correct format`() {
     val vector = Vec3(1.1, 2.2, 3.3)
     vector.toString() shouldBe "Vec3(x=1.1, y=2.2, z=3.3)"
@@ -315,5 +309,27 @@ class Vec3Test {
       val actual = vector1.angle(vector2, AngleUnit.DEGREES)
       actual shouldBe expected
     }
+  }
+
+  @Test
+  fun `toVec3 creates a identical copy of the vector`() {
+    val original = Vec3(7.0, 8.0, 9.0)
+    val copy = original.toVec3()
+    copy shouldBe original
+    (copy === original) shouldBe false
+  }
+
+  @Test
+  fun `toMutableVec3 creates a mutable copy of the vector`() {
+    val original = Vec3(7.0, 8.0, 9.0)
+    val mutableCopy = original.toMutableVec3()
+    original.eq(mutableCopy)
+  }
+
+  @Test
+  fun `zero on instance returns zero vector`() {
+    val vector = Vec3(1.0, 2.0, 3.0)
+    val zeroVector = vector.zero()
+    zeroVector shouldBe Vec3(0.0, 0.0, 0.0)
   }
 }
