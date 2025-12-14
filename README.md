@@ -106,6 +106,8 @@ types that modify objects in-place. Currently, mutable implementations are avail
 Further, following algorithms support mutable implementations:
 
 - Affine Transformations (1D, 2D, 3D)
+- Closest Pair (2D, 3D)
+- Convex Hull (2D)
 
 ### Benchmark Results
 
@@ -121,11 +123,11 @@ performance improvements when performing large numbers of operations:
 The following is a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or
 contribute a pull request.
 
-| Algorithm    | Implementation     | Supported Dimensions | Runtime Complexity | Space Complexity |
-|--------------|--------------------|----------------------|--------------------|------------------|
-| Closest Pair | Naive              | 2D, 3D               | O(n^2)             | O(1)             |
-| Closest Pair | Divide and Conquer | 2D                   | O(n log n)         | O(n)             |
-| Convex Hull  | QuickHull          | 2D                   | O(n log n)         | O(n)             |
+| Algorithm    | Implementation     | Supported Dimensions | Mutable Input<br/>Supported | Runtime Complexity | Space Complexity |
+|--------------|--------------------|----------------------|-----------------------------|--------------------|------------------|
+| Closest Pair | Naive              | 2D, 3D               | yes                         | O(n^2)             | O(1)             |
+| Closest Pair | Divide and Conquer | 2D                   | yes                         | O(n log n)         | O(n)             |
+| Convex Hull  | QuickHull          | 2D                   | yes                         | O(n log n)         | O(n)             |
 
 ## Contributing
 
