@@ -18,46 +18,57 @@ class ClosestPairDivideAndConquerTest {
     actual.result.second shouldBe points[1]
   }
 
+  private val manyPoints =
+    listOf(
+      Vec2(6.51, 4.61),
+      Vec2(3.05, -6.65),
+      Vec2(-7.38, -0.83),
+      Vec2(-4.09, 2.98),
+      Vec2(1.16, -2.13),
+      Vec2(5.58, -2.42),
+      Vec2(0.90, 4.94),
+      Vec2(-5.18, 4.76),
+      Vec2(-4.56, -3.42),
+      Vec2(6.82, -5.87),
+      Vec2(1.35, -8.11),
+      Vec2(-7.74, -4.35),
+      Vec2(-7.17, 0.97),
+      Vec2(-2.98, 1.02),
+      Vec2(4.58, -7.09),
+      Vec2(-4.45, 6.13),
+      Vec2(-6.91, 3.31),
+      Vec2(2.87, -2.71),
+      Vec2(2.93, 5.65),
+      Vec2(7.11, -4.82),
+      Vec2(3.80, 0.93),
+      Vec2(2.24, 3.02),
+      Vec2(-2.31, -5.24),
+      Vec2(4.12, -5.35),
+      Vec2(4.61, 4.45),
+      Vec2(8.42, -3.38),
+      Vec2(4.91, -0.64),
+      Vec2(-7.03, -2.60),
+      Vec2(-4.00, -1.44),
+      Vec2(0.40, -5.06),
+      Vec2(7.31, 2.60),
+    )
+
   @Test
   fun `calculates the closest pair of points 2`() {
-    val points =
-      listOf(
-        Vec2(6.51, 4.61),
-        Vec2(3.05, -6.65),
-        Vec2(-7.38, -0.83),
-        Vec2(-4.09, 2.98),
-        Vec2(1.16, -2.13),
-        Vec2(5.58, -2.42),
-        Vec2(0.90, 4.94),
-        Vec2(-5.18, 4.76),
-        Vec2(-4.56, -3.42),
-        Vec2(6.82, -5.87),
-        Vec2(1.35, -8.11),
-        Vec2(-7.74, -4.35),
-        Vec2(-7.17, 0.97),
-        Vec2(-2.98, 1.02),
-        Vec2(4.58, -7.09),
-        Vec2(-4.45, 6.13),
-        Vec2(-6.91, 3.31),
-        Vec2(2.87, -2.71),
-        Vec2(2.93, 5.65),
-        Vec2(7.11, -4.82),
-        Vec2(3.80, 0.93),
-        Vec2(2.24, 3.02),
-        Vec2(-2.31, -5.24),
-        Vec2(4.12, -5.35),
-        Vec2(4.61, 4.45),
-        Vec2(8.42, -3.38),
-        Vec2(4.91, -0.64),
-        Vec2(-7.03, -2.60),
-        Vec2(-4.00, -1.44),
-        Vec2(0.40, -5.06),
-        Vec2(7.31, 2.60),
-      )
-
     // Assuming the naive implementation is correct
-    val closestPairNaiveResult = ClosestPairNaive(points).execute()
-    val actual = ClosestPairDivideAndConquer(points).execute()
+    val closestPairNaiveResult = ClosestPairNaive(manyPoints).execute()
+    val actual = ClosestPairDivideAndConquer(manyPoints).execute()
+
+    actual.distance shouldBe closestPairNaiveResult.distance
+    actual.result.first shouldBe closestPairNaiveResult.result.first
+    actual.result.second shouldBe closestPairNaiveResult.result.second
+  }
+
+  @Test
+  fun `calculates the closest pair of points mutable input`() {
+    val mutablePoints = manyPoints.map { it.toMutableVec2() }
+    val closestPairNaiveResult = ClosestPairNaive(mutablePoints).execute()
+    val actual = ClosestPairDivideAndConquer(mutablePoints).execute()
 
     actual.distance shouldBe closestPairNaiveResult.distance
     actual.result.first shouldBe closestPairNaiveResult.result.first

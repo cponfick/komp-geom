@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.DoubleEquivalence
+import io.github.cponfick.kompgeom.core.Vector2
 import io.github.cponfick.kompgeom.core.shapes.Line
 import io.github.cponfick.kompgeom.core.shapes.Location
 import kotlin.math.abs
@@ -18,20 +19,20 @@ public data class Line2(
   public val direction: Vec2,
   public val originOffSet: Double,
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
-) : Line<Vec2> {
+) : Line<Vector2<*>> {
   init {
     require(precision.compare(1.0, direction.norm()) == 0) {
       "Direction vector must be a unit vector."
     }
   }
 
-  override fun distance(other: Vec2): Double = abs(offset(other))
+  override fun distance(other: Vector2<*>): Double = abs(offset(other))
 
-  override fun offset(vec: Vec2): Double = originOffSet - direction.signedArea(vec)
+  override fun offset(vec: Vector2<*>): Double = originOffSet - direction.signedArea(vec)
 
   override fun reverse(): Line2 = Line2(-direction, -originOffSet, precision)
 
-  override fun location(vec: Vec2): Location {
+  override fun location(vec: Vector2<*>): Location {
     val offset = offset(vec)
     val signum = precision.signum(offset)
     return when {
@@ -53,8 +54,8 @@ public data class Line2(
      * @throws IllegalArgumentException if the direction vector is zero.
      */
     public fun fromPointAndDirection(
-      point: Vec2,
-      direction: Vec2,
+      point: Vector2<*>,
+      direction: Vector2<*>,
       precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
     ): Line2 {
       require(!(direction.eq(Vec2.ZERO, precision))) { "Direction vector cannot be zero." }
@@ -62,7 +63,7 @@ public data class Line2(
       val unitDirection = direction.normalize()
       val originOffset = unitDirection.signedArea(point)
 
-      return Line2(unitDirection, originOffset, precision)
+      return Line2(Vec2.from(unitDirection), originOffset, precision)
     }
 
     /**
@@ -77,9 +78,9 @@ public data class Line2(
      *   direction vector).
      */
     public fun fromPoints(
-      p1: Vec2,
-      p2: Vec2,
+      p1: Vector2<*>,
+      p2: Vector2<*>,
       precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
-    ): Line2 = fromPointAndDirection(p1, p2 - p1, precision)
+    ): Line2 = fromPointAndDirection(p1, Vec2(p2.x - p1.x, p2.y - p1.y), precision)
   }
 }

@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.internal
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
@@ -22,5 +23,15 @@ class VectorUtilTest {
   @Test
   fun `linear combination of 6 components`() {
     VectorUtil.linearCombination(1.0, 2.0, 3.0, 4.0, 5.0, 6.0) shouldBe 44.0
+  }
+
+  @Test
+  fun `inverseNorm calculates the inverse norm of two components`() {
+    VectorUtil.inverseNorm(3.0, 4.0) shouldBe 0.2
+  }
+
+  @Test
+  fun `inverseNorm throws exception on zero vector`() {
+    shouldThrow<ArithmeticException> { VectorUtil.inverseNorm(0.0, 0.0) }
   }
 }

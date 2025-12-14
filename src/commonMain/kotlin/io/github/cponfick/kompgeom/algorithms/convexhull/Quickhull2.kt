@@ -1,9 +1,9 @@
 package io.github.cponfick.kompgeom.algorithms.convexhull
 
 import io.github.cponfick.kompgeom.algorithms.IAlgorithm
+import io.github.cponfick.kompgeom.core.Vector2
 import io.github.cponfick.kompgeom.core.shapes.Location
 import io.github.cponfick.kompgeom.euclidean.twod.Line2
-import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
 /**
  * Quickhull algorithm for computing the convex hull of a collection of 2D points.
@@ -11,15 +11,15 @@ import io.github.cponfick.kompgeom.euclidean.twod.Vec2
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class Quickhull2(private val input: Collection<Vec2>) : IConvexHull<Vec2> {
+public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : IConvexHull<V> {
 
-  private val convexHull = mutableSetOf<Vec2>()
+  private val convexHull = mutableSetOf<V>()
 
   init {
     require(input.size >= 3) { "Input must contain at least 3 elements" }
   }
 
-  override fun execute(): Result<Vec2> {
+  override fun execute(): Result<V> {
     val minX = input.minByOrNull { it.x }!!
     val maxX = input.maxByOrNull { it.x }!!
 
@@ -34,7 +34,7 @@ public class Quickhull2(private val input: Collection<Vec2>) : IConvexHull<Vec2>
     return Result(convexHull)
   }
 
-  private fun findHull(points: List<Vec2>, p1: Vec2, p2: Vec2) {
+  private fun findHull(points: List<V>, p1: V, p2: V) {
     if (points.isEmpty()) return
 
     val line = Line2.fromPoints(p1, p2)

@@ -11,7 +11,7 @@ import io.github.cponfick.kompgeom.core.Vector
  *
  * @param V The type of vector that defines the space in which the line exists.
  */
-public interface Line<V : Vector<V>> : Distanceable<V> {
+public interface Line<V : Vector<*>> : Distanceable<V> {
 
   /**
    * Get the offset of a point from this line.

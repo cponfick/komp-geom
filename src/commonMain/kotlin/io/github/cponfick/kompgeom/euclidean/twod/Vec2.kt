@@ -59,5 +59,13 @@ public data class Vec2(public override val x: Double, public override val y: Dou
      * @throws ArithmeticException if both x and y are zero.
      */
     public fun unit(x: Double, y: Double): Vec2 = Vec2(x, y).normalize()
+
+    /**
+     * Creates a [Vec2] from a generic [Vector2].
+     *
+     * @param vec The generic vector to convert.
+     * @return A new [Vec2] instance with the same components as the input vector.
+     */
+    public fun from(vec: Vector2<*>): Vec2 = Vec2(vec.x, vec.y)
   }
 }

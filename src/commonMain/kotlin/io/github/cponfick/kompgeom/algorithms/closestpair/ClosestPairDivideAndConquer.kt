@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
 import io.github.cponfick.kompgeom.algorithms.IAlgorithm
-import io.github.cponfick.kompgeom.euclidean.twod.Vec2
+import io.github.cponfick.kompgeom.core.Vector2
 
 /**
  * Closest Pair algorithm using the Divide and Conquer approach.
@@ -9,21 +9,21 @@ import io.github.cponfick.kompgeom.euclidean.twod.Vec2
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
-public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair<Vec2> {
-  private val sortedByX: List<Vec2> = input.sortedBy { it.x }
-  private val sortedByY: List<Vec2> = input.sortedBy { it.y }
+public class ClosestPairDivideAndConquer<V : Vector2<V>>(input: Collection<V>) : IClosestPair<V> {
+  private val sortedByX: List<V> = input.sortedBy { it.x }
+  private val sortedByY: List<V> = input.sortedBy { it.y }
 
   init {
     require(input.size >= 2) { "Input must contain at least 2 elements" }
   }
 
-  override fun execute(): Result<Vec2> {
+  override fun execute(): Result<V> {
     val closestPair = closestPair(sortedByX, sortedByY)
     val distance = closestPair.first distance closestPair.second
     return Result(distance, closestPair)
   }
 
-  private fun closestSplitPair(px: List<Vec2>, py: List<Vec2>, d: Double): Pair<Vec2, Vec2> {
+  private fun closestSplitPair(px: List<V>, py: List<V>, d: Double): Pair<V, V> {
     val midX = px[px.size / 2].x
     val sy = py.filter { it.x in (midX - d)..(midX + d) }
 
@@ -44,7 +44,7 @@ public class ClosestPairDivideAndConquer(input: Collection<Vec2>) : IClosestPair
     return bestPair
   }
 
-  private fun closestPair(px: List<Vec2>, py: List<Vec2>): Pair<Vec2, Vec2> {
+  private fun closestPair(px: List<V>, py: List<V>): Pair<V, V> {
     if (px.size <= 3) {
       return ClosestPairNaive(px).execute().result
     }
