@@ -102,7 +102,7 @@ equal if their absolute difference is within this epsilon:
 
 ```kotlin
 // Using default precision
-val a = 0.1 + 0.2  // 0.30000000000000004 due to floating-point arithmetic
+val a = 0.30000000000000004
 val b = 0.3
 DEFAULT_DOUBLE_EQUIVALENCE.eq(a, b)  // true
 ```
