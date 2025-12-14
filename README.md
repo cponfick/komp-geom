@@ -89,6 +89,83 @@ The library currently provides the following geometric elements:
 - **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
 - **Polar Coordinates**: Implementation of polar coordinates in 2D space.
 
+## Precision Handling
+
+Floating-point arithmetic inherently introduces small rounding errors that can cause issues in geometric computations.
+The library addresses this challenge through a configurable epsilon-based comparison system, ensuring robust and
+reliable geometric operations across all platforms.
+
+### Default Precision
+
+By default, the library uses `GEOMETRIC_EPSILON` (1e-10) as the tolerance threshold. Two double values are considered
+equal if their absolute difference is within this epsilon:
+
+```kotlin
+// Using default precision
+val a = 0.1 + 0.2  // 0.30000000000000004 due to floating-point arithmetic
+val b = 0.3
+DEFAULT_DOUBLE_EQUIVALENCE.eq(a, b)  // true
+```
+
+### Custom Precision
+
+You can create custom `DoubleEquivalence` instances to adjust precision for specific use cases:
+
+```kotlin
+// More lenient precision for approximate calculations
+val relaxed = DoubleEquivalence(epsilon = 1e-6)
+relaxed.eq(0.3000001, 0.3)  // true
+
+// Stricter precision for high-accuracy requirements
+val strict = DoubleEquivalence(epsilon = 1e-12)
+strict.eq(0.30000000001, 0.3)  // false
+```
+
+### Available Comparison Operations
+
+The `DoubleEquivalence` class provides a complete set of comparison methods:
+
+```kotlin
+val precision = DoubleEquivalence()
+
+precision.eq(a, b)      // Equal to
+precision.eqZero(a)     // Equal to zero
+precision.lt(a, b)      // Less than
+precision.lte(a, b)     // Less than or equal to
+precision.gt(a, b)      // Greater than
+precision.gte(a, b)     // Greater than or equal to
+```
+
+### Precision in Geometric Operations
+
+Many geometric data structures and algorithms accept an optional `DoubleEquivalence` parameter to control
+precision-aware operations. The parameter defaults to `DEFAULT_DOUBLE_EQUIVALENCE`, making it optional in most cases:
+
+```kotlin
+// Comparing transformation matrices with default precision
+val matrix1 = AffineTransformationMatrix3.createRotationX(Math.PI / 4)
+val matrix2 = AffineTransformationMatrix3.createRotationX(0.7853981634)
+matrix1.eq(matrix2)  // Uses default precision
+
+// Custom precision for specific requirements
+matrix1.eq(matrix2, DoubleEquivalence(epsilon = 1e-9))  // true
+```
+
+### Global Precision Configuration
+
+For applications requiring consistent custom precision across all operations, you can modify the global defaults:
+
+```kotlin
+// Adjust global epsilon (affects all new DoubleEquivalence instances)
+GEOMETRIC_EPSILON = 1e-8
+
+// Replace the global default equivalence
+DEFAULT_DOUBLE_EQUIVALENCE = DoubleEquivalence(epsilon = 1e-8)
+```
+
+**Note:** Modifying global defaults should be done during application initialization, as it affects all subsequent
+geometric operations throughout the library.
+
 ## Immutability and Performance
 
 The library follows Kotlin's philosophy of immutability by default. Immutable data structures offer several advantages:
