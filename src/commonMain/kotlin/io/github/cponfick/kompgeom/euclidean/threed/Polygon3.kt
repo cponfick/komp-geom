@@ -27,10 +27,10 @@ public data class Polygon3(
     return v1.cross(v2).normalize()
   }
 
-  public val edges: List<Segment3> by lazy {
+  public val edges: List<Seg3> by lazy {
     vertices.indices.map { i ->
       val nextIndex = (i + 1) % vertices.size
-      Segment3(vertices[i], vertices[nextIndex])
+      Seg3(vertices[i], vertices[nextIndex])
     }
   }
 

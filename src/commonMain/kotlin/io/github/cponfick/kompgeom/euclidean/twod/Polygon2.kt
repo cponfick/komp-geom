@@ -33,10 +33,10 @@ public data class Polygon2(
    * Each segment connects consecutive vertices, with the last segment connecting the last vertex to
    * the first vertex.
    */
-  public val edges: List<Segment2> by lazy {
+  public val edges: List<Seg2> by lazy {
     vertices.indices.map { i ->
       val nextIndex = (i + 1) % vertices.size
-      Segment2(vertices[i], vertices[nextIndex])
+      Seg2(vertices[i], vertices[nextIndex])
     }
   }
 

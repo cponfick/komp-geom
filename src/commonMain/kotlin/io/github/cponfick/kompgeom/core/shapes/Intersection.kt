@@ -27,7 +27,7 @@ public enum class IntersectionType {
 public data class IntersectionData<V : Vector<V>>(
   public val type: IntersectionType,
   public val point: V? = null,
-  public val segment: Segment<V>? = null,
+  public val segment: Pair<V, V>? = null,
 ) {
   init {
     when (type) {
@@ -35,10 +35,12 @@ public data class IntersectionData<V : Vector<V>>(
         require(point == null) { "Point must be null when type is NONE." }
         require(segment == null) { "Segment must be null when type is NONE." }
       }
+
       IntersectionType.POINT -> {
         require(point != null) { "Point must not be null when type is POINT." }
         require(segment == null) { "Segment must be null when type is POINT." }
       }
+
       IntersectionType.OVERLAP -> {
         require(point == null) { "Point must be null when type is OVERLAP." }
         require(segment != null) { "Segment must not be null when type is OVERLAP." }

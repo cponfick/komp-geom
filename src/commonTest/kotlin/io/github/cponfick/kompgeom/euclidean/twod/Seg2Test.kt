@@ -5,17 +5,17 @@ import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
-class Segment2Test {
+class Seg2Test {
 
   @Test
   fun `length returns the correct length of the segment`() {
-    val segment = Segment2(Vec2(0.0, 0.0), Vec2(0.0, 4.0))
+    val segment = Seg2(Vec2(0.0, 0.0), Vec2(0.0, 4.0))
     segment.length() shouldBe 4.0
   }
 
   @Test
   fun `transform applies the transformation to the segment endpoints`() {
-    val segment = Segment2(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
+    val segment = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
     val transformer =
       object : Transformer<Vec2> {
         @Suppress("UNCHECKED_CAST")
@@ -32,7 +32,7 @@ class Segment2Test {
 
   @Test
   fun `reverse returns the reverse segment`() {
-    val segment = Segment2(Vec2(1.0, 1.0), Vec2(2.0, 2.0))
+    val segment = Seg2(Vec2(1.0, 1.0), Vec2(2.0, 2.0))
 
     val reversed = segment.reverse()
 
@@ -42,9 +42,9 @@ class Segment2Test {
 
   private val nonIntersectingSegmentPairs =
     listOf(
-      Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Segment2(Vec2(0.0, 1.0), Vec2(1.0, 1.0)),
-      Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Segment2(Vec2(2.0, 0.0), Vec2(3.0, 0.0)),
-      Segment2(Vec2(0.0, 0.0), Vec2(0.0, 1.0)) to Segment2(Vec2(1.0, 0.0), Vec2(1.0, 1.0)),
+      Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Seg2(Vec2(0.0, 1.0), Vec2(1.0, 1.0)),
+      Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)) to Seg2(Vec2(2.0, 0.0), Vec2(3.0, 0.0)),
+      Seg2(Vec2(0.0, 0.0), Vec2(0.0, 1.0)) to Seg2(Vec2(1.0, 0.0), Vec2(1.0, 1.0)),
     )
 
   @Test
@@ -58,23 +58,23 @@ class Segment2Test {
   private val pointIntersectionExpectations =
     listOf(
       Triple(
-        Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
-        Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
+        Seg2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
+        Seg2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
         Vec2(0.0, 0.0),
       ),
       Triple(
-        Segment2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
-        Segment2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
+        Seg2(Vec2(-1.0, 1.0), Vec2(1.0, -1.0)),
+        Seg2(Vec2(-1.0, -1.0), Vec2(1.0, 1.0)),
         Vec2(0.0, 0.0),
       ),
       Triple(
-        Segment2(Vec2(0.0, 0.0), Vec2(2.0, 2.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(2.0, 2.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
         Vec2(0.0, 0.0),
       ),
       Triple(
-        Segment2(Vec2(0.0, 0.0), Vec2(0.0, 2.0)),
-        Segment2(Vec2(0.0, 1.0), Vec2(2.0, 1.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(0.0, 2.0)),
+        Seg2(Vec2(0.0, 1.0), Vec2(2.0, 1.0)),
         Vec2(0.0, 1.0),
       ),
     )
@@ -91,29 +91,34 @@ class Segment2Test {
   private val overLappingSegmentsExpectations =
     listOf(
       Triple(
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
-        Segment2(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
+        Pair(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
       ),
       Triple(
-        Segment2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.5, 0.0), Vec2(2.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Pair(Vec2(0.5, 0.0), Vec2(1.0, 0.0)),
       ),
       Triple(
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Pair(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
       ),
       Triple(
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
+        Pair(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
       ),
       Triple(
-        Segment2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
+        Seg2(Vec2(-1.0, 0.0), Vec2(0.5, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Pair(Vec2(0.0, 0.0), Vec2(0.5, 0.0)),
+      ),
+      Triple(
+        Seg2(Vec2(0.0, 0.0), Vec2(4.0, 4.0)),
+        Seg2(Vec2(2.0, 2.0), Vec2(6.0, 6.0)),
+        Pair(Vec2(2.0, 2.0), Vec2(4.0, 4.0)),
       ),
     )
 
@@ -124,5 +129,22 @@ class Segment2Test {
       intersection.type shouldBe IntersectionType.OVERLAP
       intersection.segment shouldBe expectedOverlap
     }
+  }
+
+  @Test
+  fun `eq works correctly`() {
+    val segment1 = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
+    val segment2 = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
+    val segment3 = Seg2(Vec2(1.0, 1.0), Vec2(2.0, 2.0))
+
+    segment1.eq(segment2) shouldBe true
+    segment1.eq(segment3) shouldBe false
+  }
+
+  @Test
+  fun `eq for reversed segments works correctly`() {
+    val segment1 = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
+
+    segment1.eq(segment1.reverse()) shouldBe true
   }
 }
