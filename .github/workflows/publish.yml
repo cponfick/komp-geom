@@ -38,10 +38,6 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
-            **/gradle/libs.versions.toml
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -80,10 +76,6 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
-            **/gradle/libs.versions.toml
 
       - name: Build documentation with Gradle
         run: ./gradlew dokkaGeneratePublicationHtml
