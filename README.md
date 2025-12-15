@@ -186,6 +186,7 @@ due to object allocations. To address this, the library also provides **mutable 
 types that modify objects in-place. Currently, mutable implementations are available for:
 
 - Vectors (1D, 2D, 3D)
+- Segments (2D, 3D)
 
 Further, following algorithms support mutable implementations:
 

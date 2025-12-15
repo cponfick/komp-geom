@@ -5,23 +5,23 @@ import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
 
-class Segment3Test {
+class Seg3Test {
 
   @Test
   fun `length returns the correct length of the segment`() {
-    val segment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 4.0))
+    val segment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, 4.0))
     segment.length() shouldBe 4.0
   }
 
   @Test
   fun `length returns correct value for diagonal segment`() {
-    val segment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
+    val segment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
     segment.length() shouldBe kotlin.math.sqrt(3.0)
   }
 
   @Test
   fun `transform applies the transformation to the segment endpoints`() {
-    val segment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
+    val segment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
     val transformer =
       object : Transformer<Vec3> {
         @Suppress("UNCHECKED_CAST")
@@ -38,7 +38,7 @@ class Segment3Test {
 
   @Test
   fun `reverse returns the reverse segment`() {
-    val segment = Segment3(Vec3(1.0, 1.0, 1.0), Vec3(2.0, 2.0, 2.0))
+    val segment = Seg3(Vec3(1.0, 1.0, 1.0), Vec3(2.0, 2.0, 2.0))
 
     val reversed = segment.reverse()
 
@@ -49,17 +49,17 @@ class Segment3Test {
   private val nonIntersectingSegmentPairs =
     listOf(
       // Parallel segments in different planes
-      Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
-        Segment3(Vec3(0.0, 1.0, 0.0), Vec3(1.0, 1.0, 0.0)),
+      Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
+        Seg3(Vec3(0.0, 1.0, 0.0), Vec3(1.0, 1.0, 0.0)),
       // Segments on same line but not overlapping
-      Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
-        Segment3(Vec3(2.0, 0.0, 0.0), Vec3(3.0, 0.0, 0.0)),
+      Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
+        Seg3(Vec3(2.0, 0.0, 0.0), Vec3(3.0, 0.0, 0.0)),
       // Skew segments (not parallel, not intersecting)
-      Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
-        Segment3(Vec3(0.0, 1.0, 1.0), Vec3(1.0, 1.0, 1.0)),
+      Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
+        Seg3(Vec3(0.0, 1.0, 1.0), Vec3(1.0, 1.0, 1.0)),
       // Segments that would intersect if extended, but don't within bounds
-      Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
-        Segment3(Vec3(2.0, 0.0, 1.0), Vec3(2.0, 1.0, 1.0)),
+      Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)) to
+        Seg3(Vec3(2.0, 0.0, 1.0), Vec3(2.0, 1.0, 1.0)),
     )
 
   @Test
@@ -74,26 +74,26 @@ class Segment3Test {
     listOf(
       // Two segments crossing at origin
       Triple(
-        Segment3(Vec3(-1.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
-        Segment3(Vec3(0.0, -1.0, 0.0), Vec3(0.0, 1.0, 0.0)),
+        Seg3(Vec3(-1.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(0.0, -1.0, 0.0), Vec3(0.0, 1.0, 0.0)),
         Vec3(0.0, 0.0, 0.0),
       ),
       // Two segments crossing in 3D space
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0)),
-        Segment3(Vec3(2.0, 0.0, 2.0), Vec3(0.0, 2.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0)),
+        Seg3(Vec3(2.0, 0.0, 2.0), Vec3(0.0, 2.0, 0.0)),
         Vec3(1.0, 1.0, 1.0),
       ),
       // Segments sharing an endpoint
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
         Vec3(0.0, 0.0, 0.0),
       ),
       // Segments intersecting at midpoint
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
-        Segment3(Vec3(1.0, -1.0, 0.0), Vec3(1.0, 1.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
+        Seg3(Vec3(1.0, -1.0, 0.0), Vec3(1.0, 1.0, 0.0)),
         Vec3(1.0, 0.0, 0.0),
       ),
     )
@@ -111,33 +111,33 @@ class Segment3Test {
     listOf(
       // Partial overlap on same line
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
-        Segment3(Vec3(0.5, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
-        Segment3(Vec3(0.5, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(0.5, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
+        Seg3(Vec3(0.5, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
       ),
       // One segment contains the other
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
-        Segment3(Vec3(0.5, 0.0, 0.0), Vec3(1.5, 0.0, 0.0)),
-        Segment3(Vec3(0.5, 0.0, 0.0), Vec3(1.5, 0.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
+        Seg3(Vec3(0.5, 0.0, 0.0), Vec3(1.5, 0.0, 0.0)),
+        Seg3(Vec3(0.5, 0.0, 0.0), Vec3(1.5, 0.0, 0.0)),
       ),
       // Identical segments
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0)),
       ),
       // Overlap from opposite directions
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
-        Segment3(Vec3(2.0, 0.0, 0.0), Vec3(0.5, 0.0, 0.0)),
-        Segment3(Vec3(0.5, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(2.0, 0.0, 0.0), Vec3(0.5, 0.0, 0.0)),
+        Seg3(Vec3(0.5, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
       ),
       // Partial overlap in 3D
       Triple(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0)),
-        Segment3(Vec3(1.0, 1.0, 1.0), Vec3(3.0, 3.0, 3.0)),
-        Segment3(Vec3(1.0, 1.0, 1.0), Vec3(2.0, 2.0, 2.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0)),
+        Seg3(Vec3(1.0, 1.0, 1.0), Vec3(3.0, 3.0, 3.0)),
+        Seg3(Vec3(1.0, 1.0, 1.0), Vec3(2.0, 2.0, 2.0)),
       ),
     )
 
@@ -146,16 +146,16 @@ class Segment3Test {
     for ((segment1, segment2, expectedOverlap) in overlappingSegmentsExpectations) {
       val intersection = segment1.intersection(segment2)
       intersection.type shouldBe IntersectionType.OVERLAP
-      intersection.segment!!.start.eq(expectedOverlap.start) shouldBe true
-      intersection.segment.end.eq(expectedOverlap.end) shouldBe true
+      intersection.segment!!.first.eq(expectedOverlap.start) shouldBe true
+      intersection.segment.second.eq(expectedOverlap.end) shouldBe true
     }
   }
 
   @Test
   fun `intersection handles degenerate segments`() {
     val point = Vec3(1.0, 1.0, 1.0)
-    val degenerateSegment = Segment3(point, point)
-    val normalSegment = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0))
+    val degenerateSegment = Seg3(point, point)
+    val normalSegment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0))
 
     val intersection = degenerateSegment.intersection(normalSegment)
     intersection.type shouldBe IntersectionType.NONE
@@ -164,8 +164,8 @@ class Segment3Test {
   @Test
   fun `intersection of two identical point segments`() {
     val point = Vec3(1.0, 1.0, 1.0)
-    val segment1 = Segment3(point, point)
-    val segment2 = Segment3(point, point)
+    val segment1 = Seg3(point, point)
+    val segment2 = Seg3(point, point)
 
     val intersection = segment1.intersection(segment2)
     intersection.type shouldBe IntersectionType.POINT
@@ -174,11 +174,27 @@ class Segment3Test {
 
   @Test
   fun `collinear segments touching at endpoint`() {
-    val segment1 = Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0))
-    val segment2 = Segment3(Vec3(1.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0))
+    val segment1 = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0))
+    val segment2 = Seg3(Vec3(1.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0))
 
     val intersection = segment1.intersection(segment2)
     intersection.type shouldBe IntersectionType.POINT
     intersection.point!!.eq(Vec3(1.0, 0.0, 0.0)) shouldBe true
+  }
+
+  @Test
+  fun `eq works correctly`() {
+    val segment1 = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
+    val segment2 = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
+    val segment3 = Seg3(Vec3(1.0, 1.0, 1.0), Vec3(2.0, 2.0, 2.0))
+
+    segment1.eq(segment2) shouldBe true
+    segment1.eq(segment3) shouldBe false
+  }
+
+  @Test
+  fun `eq for reversed segments works correctly`() {
+    val segment1 = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 1.0, 1.0))
+    segment1.eq(segment1.reverse()) shouldBe true
   }
 }

@@ -64,5 +64,13 @@ public data class Vec3(
 
     /** Vector with all components set to NaN. */
     public val NaN: Vec3 = Vec3(Double.NaN, Double.NaN, Double.NaN)
+
+    /**
+     * Creates a [Vec3] from a generic [Vector3].
+     *
+     * @param vector The input vector.
+     * @return A [Vec3] with the same components as the input vector.
+     */
+    public fun from(vector: Vector3<*>): Vec3 = Vec3(vector.x, vector.y, vector.z)
   }
 }

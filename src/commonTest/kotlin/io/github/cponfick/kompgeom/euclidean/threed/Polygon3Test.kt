@@ -45,9 +45,9 @@ class Polygon3Test {
     val triangle = Polygon3(listOf(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0), Vec3(0.5, 1.0, 0.0)))
     triangle.edges shouldContainExactly
       listOf(
-        Segment3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
-        Segment3(Vec3(1.0, 0.0, 0.0), Vec3(0.5, 1.0, 0.0)),
-        Segment3(Vec3(0.5, 1.0, 0.0), Vec3(0.0, 0.0, 0.0)),
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+        Seg3(Vec3(1.0, 0.0, 0.0), Vec3(0.5, 1.0, 0.0)),
+        Seg3(Vec3(0.5, 1.0, 0.0), Vec3(0.0, 0.0, 0.0)),
       )
   }
 

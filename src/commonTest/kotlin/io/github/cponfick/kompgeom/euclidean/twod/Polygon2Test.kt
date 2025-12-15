@@ -39,9 +39,9 @@ class Polygon2Test {
     triangle.edges.size shouldBe 3
     triangle.edges shouldContainExactly
       listOf(
-        Segment2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
-        Segment2(Vec2(1.0, 0.0), Vec2(0.5, 1.0)),
-        Segment2(Vec2(0.5, 1.0), Vec2(0.0, 0.0)),
+        Seg2(Vec2(0.0, 0.0), Vec2(1.0, 0.0)),
+        Seg2(Vec2(1.0, 0.0), Vec2(0.5, 1.0)),
+        Seg2(Vec2(0.5, 1.0), Vec2(0.0, 0.0)),
       )
   }
 

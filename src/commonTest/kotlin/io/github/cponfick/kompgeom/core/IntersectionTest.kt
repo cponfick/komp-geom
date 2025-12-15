@@ -2,7 +2,6 @@ package io.github.cponfick.kompgeom.core
 
 import io.github.cponfick.kompgeom.core.shapes.IntersectionData
 import io.github.cponfick.kompgeom.core.shapes.IntersectionType
-import io.github.cponfick.kompgeom.euclidean.twod.Segment2
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -23,7 +22,7 @@ class IntersectionTest {
     pointIntersection.point shouldBe point
     pointIntersection.segment shouldBe null
 
-    val overlap = Segment2(Vec2(0.0, 0.0), Vec2(2.0, 2.0))
+    val overlap = Pair(Vec2(0.0, 0.0), Vec2(2.0, 2.0))
     val overlapIntersection = IntersectionData(IntersectionType.OVERLAP, segment = overlap)
     overlapIntersection.type shouldBe IntersectionType.OVERLAP
     overlapIntersection.point shouldBe null
@@ -36,11 +35,11 @@ class IntersectionTest {
       IntersectionData(IntersectionType.NONE, Vec2(1.0, 1.0))
     }
     shouldThrow<IllegalArgumentException> {
-      IntersectionData(IntersectionType.NONE, segment = Segment2(Vec2(0.0, 0.0), Vec2(1.0, 1.0)))
+      IntersectionData(IntersectionType.NONE, segment = Pair(Vec2(0.0, 0.0), Vec2(1.0, 1.0)))
     }
     shouldThrow<IllegalArgumentException> { IntersectionData(IntersectionType.POINT) }
     shouldThrow<IllegalArgumentException> {
-      IntersectionData(IntersectionType.POINT, segment = Segment2(Vec2(0.0, 0.0), Vec2(1.0, 1.0)))
+      IntersectionData(IntersectionType.POINT, segment = Pair(Vec2(0.0, 0.0), Vec2(1.0, 1.0)))
     }
     shouldThrow<IllegalArgumentException> { IntersectionData(IntersectionType.OVERLAP) }
     shouldThrow<IllegalArgumentException> {
