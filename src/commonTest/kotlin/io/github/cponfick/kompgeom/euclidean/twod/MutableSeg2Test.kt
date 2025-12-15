@@ -18,9 +18,9 @@ class MutableSeg2Test {
 
   @Test
   fun `toString returns correct format`() {
-    val segment = MutableSeg2(MutableVec2(1.0, 2.0), MutableVec2(3.0, 4.0))
+    val segment = MutableSeg2(MutableVec2(1.1, 2.2), MutableVec2(3.3, 4.4))
     segment.toString() shouldBe
-      "MutableSeg2(start=MutableVec2(x=1.0, y=2.0), end=MutableVec2(x=3.0, y=4.0))"
+      "MutableSeg2(start=MutableVec2(x=1.1, y=2.2), end=MutableVec2(x=3.3, y=4.4))"
   }
 
   @Test

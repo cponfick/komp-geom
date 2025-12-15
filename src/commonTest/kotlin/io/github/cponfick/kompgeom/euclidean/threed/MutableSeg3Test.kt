@@ -123,10 +123,10 @@ class MutableSeg3Test {
 
   @Test
   fun `toString returns correct format`() {
-    val segment = MutableSeg3(MutableVec3(1.0, 2.0, 3.0), MutableVec3(4.0, 5.0, 6.0))
+    val segment = MutableSeg3(MutableVec3(1.1, 2.2, 3.3), MutableVec3(4.4, 5.5, 6.6))
     val string = segment.toString()
     string shouldBe
-      "MutableSeg3(start=MutableVec3(x=1.0, y=2.0, z=3.0), end=MutableVec3(x=4.0, y=5.0, z=6.0))"
+      "MutableSeg3(start=MutableVec3(x=1.1, y=2.2, z=3.3), end=MutableVec3(x=4.4, y=5.5, z=6.6))"
   }
 
   private val nonIntersectingSegmentPairs =
