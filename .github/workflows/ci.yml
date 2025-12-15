@@ -46,6 +46,14 @@ jobs:
           java-version: '21'
           cache: gradle
 
+      - name: Cache Konan
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-
+
       - name: Build and test
         run: ./gradlew build
 
