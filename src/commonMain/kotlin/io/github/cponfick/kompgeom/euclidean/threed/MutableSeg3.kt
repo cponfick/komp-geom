@@ -2,6 +2,12 @@ package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.shapes.Segment3
 
+/**
+ * Represents a mutable segment in 3D space defined by a start and end point.
+ *
+ * @property start The starting point of the segment.
+ * @property end The ending point of the segment.
+ */
 public class MutableSeg3(
   public override val start: MutableVec3,
   public override val end: MutableVec3,
