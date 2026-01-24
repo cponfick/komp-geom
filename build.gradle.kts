@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.spotless)
-  alias(libs.plugins.kotest.multiplatform)
   alias(libs.plugins.maven.publish)
   alias(libs.plugins.dokka.html)
   alias(libs.plugins.kotlinx.kover)
