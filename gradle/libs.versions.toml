@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 spotless = "8.1.0"
 kotest = "5.9.1"
 ktfmt = "0.53"
@@ -20,7 +20,6 @@ kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish" }
 dokka-html = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
