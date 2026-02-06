@@ -75,12 +75,13 @@ class Line3Test {
 
   @Test
   fun `offset returns opposite signs for symmetric points`() {
-    val cases = listOf(
-      Triple(Vec3(0.1, 1.0, 2.0).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
-      Triple(Vec3(2.0, 0.1, 3.0).normalize(), Vec3.ZERO, Vec3(0.0, 0.0, 1.0)),
-      Triple(Vec3(2.0, 3.0, 0.1).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
-      Triple(Vec3(0.2, 1.0, 0.3).normalize(), Vec3(0.0, 2.0, 0.0), Vec3(1.0, 0.0, 0.0)),
-    )
+    val cases =
+      listOf(
+        Triple(Vec3(0.1, 1.0, 2.0).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
+        Triple(Vec3(2.0, 0.1, 3.0).normalize(), Vec3.ZERO, Vec3(0.0, 0.0, 1.0)),
+        Triple(Vec3(2.0, 3.0, 0.1).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
+        Triple(Vec3(0.2, 1.0, 0.3).normalize(), Vec3(0.0, 2.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+      )
 
     cases.forEach { (direction, linePoint, testVector) ->
       val line = Line3.fromPointAndDirection(linePoint, direction)
