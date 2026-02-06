@@ -10,9 +10,9 @@ import kotlin.math.abs
 /**
  * Represents a line in 3D space defined by a direction vector and a moment (point offset).
  *
- * The line is stored in Plücker form using a unit [direction] vector and a [moment] vector
- * computed as `point × direction` for any point on the line. This representation allows stable
- * distance and side classification while remaining translation invariant.
+ * The line is stored in Plücker form using a unit [direction] vector and a [moment] vector computed
+ * as `point × direction` for any point on the line. This representation allows stable distance and
+ * side classification while remaining translation invariant.
  *
  * @property direction The unit direction vector of the line.
  * @property moment The moment vector (`point × direction`) identifying the line's position.
@@ -112,7 +112,6 @@ public data class Line3(
       p1: Vector3<*>,
       p2: Vector3<*>,
       precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
-    ): Line3 =
-      fromPointAndDirection(p1, Vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z), precision)
+    ): Line3 = fromPointAndDirection(p1, Vec3(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z), precision)
   }
 }
