@@ -4,6 +4,7 @@ import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.github.cponfick.kompgeom.core.shapes.Location
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import kotlin.math.sqrt
 import kotlin.test.Test
 
@@ -70,6 +71,28 @@ class Line3Test {
     val pointOnLine = Vec3(5.0, 0.0, 0.0)
 
     line.offset(pointOnLine) shouldBe 0.0
+  }
+
+  @Test
+  fun `offset returns opposite signs for symmetric points`() {
+    val cases = listOf(
+      Triple(Vec3(0.1, 1.0, 2.0).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
+      Triple(Vec3(2.0, 0.1, 3.0).normalize(), Vec3.ZERO, Vec3(0.0, 0.0, 1.0)),
+      Triple(Vec3(2.0, 3.0, 0.1).normalize(), Vec3.ZERO, Vec3(0.0, 1.0, 0.0)),
+      Triple(Vec3(0.2, 1.0, 0.3).normalize(), Vec3(0.0, 2.0, 0.0), Vec3(1.0, 0.0, 0.0)),
+    )
+
+    cases.forEach { (direction, linePoint, testVector) ->
+      val line = Line3.fromPointAndDirection(linePoint, direction)
+      val pointA = linePoint + testVector
+      val pointB = linePoint - testVector
+
+      val offsetA = line.offset(pointA)
+      val offsetB = line.offset(pointB)
+
+      offsetA shouldNotBe 0.0
+      offsetA shouldBe -offsetB
+    }
   }
 
   @Test
