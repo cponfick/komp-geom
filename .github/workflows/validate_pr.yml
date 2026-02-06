@@ -30,4 +30,6 @@ jobs:
           pip install commitizen
 
       - name: Validate PR Title
-        run: cz check --message "${{ github.event.pull_request.title }}"
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: cz check --message "$PR_TITLE"
