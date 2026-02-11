@@ -3,6 +3,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -24,6 +25,7 @@ repositories { mavenCentral() }
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
 kotlin {
   explicitApi()
+  jvmToolchain(17)
   jvm {
     compilations {
       val main by getting
