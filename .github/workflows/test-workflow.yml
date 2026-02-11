@@ -7,25 +7,33 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: ${{ matrix.os }} (JDK ${{ matrix.java-version }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, macos-latest, macos-15-intel, windows-latest ]
-        java-version: [ '17', '21', '25' ]
-
+  code-style:
+    name: Code Style
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Cache Konan
-        uses: actions/cache@v5
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
         with:
-          path: ~/.konan
-          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-konan-
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
+
+      - name: Test Code Style
+        run: ./gradlew spotlessCheck
+
+  jvm-and-js-tests:
+    name: JVM & JS Tests (JDK ${{ matrix.java-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        java-version: [ '17', '21', '25' ]
+    steps:
+      - uses: actions/checkout@v6
 
       - name: Set up JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v5
@@ -39,61 +47,138 @@ jobs:
       - name: Install Chrome
         uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
 
-      - name: Test Code Style
-        run: ./gradlew spotlessCheck
-        if: matrix.os == 'ubuntu-latest'
-
       - name: JVM tests
         run: ./gradlew jvmTest
-        if: matrix.os == 'ubuntu-latest'
 
       - name: JS tests
         run: ./gradlew jsTest
-        if: matrix.os == 'ubuntu-latest'
 
       - name: WebAssembly tests
         run: ./gradlew wasmJsTest
-        if: matrix.os == 'ubuntu-latest'
 
-      # Tier 1 Native Platform Tests
+  native-linux:
+    name: Linux x64 Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
+
       - name: Linux x64 tests
         run: ./gradlew linuxX64Test
-        if: matrix.os == 'ubuntu-latest'
+
+  native-macos:
+    name: macOS Tests (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15-intel
+            arch: x64
+          - runner: macos-latest
+            arch: ARM64
+          - runner: macos-latest
+            arch: iOS Simulator ARM64
+          - runner: macos-latest
+            arch: iOS x64
+          - runner: macos-latest
+            arch: watchOS Simulator ARM64
+          - runner: macos-latest
+            arch: watchOS x64
+          - runner: macos-latest
+            arch: tvOS Simulator ARM64
+          - runner: macos-15-intel
+            arch: tvOS x64
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
 
       - name: macOS x64 tests
         run: ./gradlew macosX64Test
-        if: matrix.os == 'macos-15-intel'
+        if: matrix.arch == 'x64'
 
       - name: macOS ARM64 tests
         run: ./gradlew macosArm64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'ARM64'
 
       - name: iOS Simulator ARM64 tests
         run: ./gradlew iosSimulatorArm64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'iOS Simulator ARM64'
 
       - name: iOS x64 tests
         run: ./gradlew iosX64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'iOS x64'
 
-      # Tier 2 Native Platform Tests
       - name: watchOS Simulator ARM64 tests
         run: ./gradlew watchosSimulatorArm64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'watchOS Simulator ARM64'
 
       - name: watchOS x64 tests
         run: ./gradlew watchosX64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'watchOS x64'
 
       - name: tvOS Simulator ARM64 tests
         run: ./gradlew tvosSimulatorArm64Test
-        if: matrix.os == 'macos-latest'
+        if: matrix.arch == 'tvOS Simulator ARM64'
 
       - name: tvOS x64 tests
         run: ./gradlew tvosX64Test
-        if: matrix.os == 'macos-15-intel'
+        if: matrix.arch == 'tvOS x64'
 
-      # Tier 3 Native Platform Tests
+  native-windows:
+    name: Windows MinGW x64 Tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Cache Konan
+        uses: actions/cache@v5
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-konan-
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
+
       - name: MinGw X64 tests
         run: ./gradlew mingwX64Test
-        if: matrix.os == 'windows-latest'
