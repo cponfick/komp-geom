@@ -9,7 +9,7 @@ kover = "0.9.6"
 sonarqube = "7.2.2.6593"
 kotlin-logging = "7.0.14"
 slf4j = "2.0.17"
-kotlinx-benchmark = "0.4.15"
+kotlinx-benchmark = "0.4.16"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
