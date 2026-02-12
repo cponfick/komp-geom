@@ -58,7 +58,7 @@ jobs:
         run: ./gradlew wasmJsTest
 
   native-linux:
-    needs: jvm-and-js-tests
+    needs: code-style
     name: Linux x64 Tests
     runs-on: ubuntu-latest
     steps:
@@ -85,7 +85,7 @@ jobs:
         run: ./gradlew linuxX64Test
 
   native-macos-intel:
-    needs: jvm-and-js-tests
+    needs: code-style
     name: macOS Intel Tests
     runs-on: macos-15-intel
     steps:
@@ -115,7 +115,7 @@ jobs:
         run: ./gradlew tvosX64Test
 
   native-macos-arm:
-    needs: jvm-and-js-tests
+    needs: code-style
     name: macOS ARM64 Tests
     runs-on: macos-latest
     steps:
@@ -157,7 +157,7 @@ jobs:
         run: ./gradlew tvosSimulatorArm64Test
 
   native-windows:
-    needs: jvm-and-js-tests
+    needs: code-style
     name: Windows MinGW x64 Tests
     runs-on: windows-latest
     steps:
