@@ -24,6 +24,7 @@ repositories { mavenCentral() }
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
 kotlin {
   explicitApi()
+  jvmToolchain(17)
   jvm {
     compilations {
       val main by getting
