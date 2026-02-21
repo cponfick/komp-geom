@@ -11,19 +11,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test:
-    name: Test on different targets
-    uses: ./.github/workflows/test-workflow.yml
+  code-style:
+    name: Code Style
+    uses: ./.github/workflows/code-style-workflow.yml
 
-    permissions:
-      contents: read
-      pull-requests: read
+  jvm-tests:
+    name: JVM Tests
+    needs: code-style
+    uses: ./.github/workflows/jvm-test-workflow.yml
+
+  platform-tests:
+    name: Platform Tests
+    needs: code-style
+    uses: ./.github/workflows/platform-test-workflow.yml
 
   publish:
     name: Build and Publish
     runs-on: macos-latest
     needs:
-      - test
+      - jvm-tests
+      - platform-tests
     permissions:
       contents: read
       pull-requests: read

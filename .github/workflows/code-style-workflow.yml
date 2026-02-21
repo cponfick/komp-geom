@@ -1,0 +1,25 @@
+name: Code Style Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  code-style:
+    name: Code Style
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
+
+      - name: Test Code Style
+        run: ./gradlew spotlessCheck

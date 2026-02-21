@@ -26,14 +26,24 @@ permissions:
   pull-requests: read
 
 jobs:
-  test:
-    name: Test on different targets
-    uses: ./.github/workflows/test-workflow.yml
+  code-style:
+    name: Code Style
+    uses: ./.github/workflows/code-style-workflow.yml
+
+  jvm-tests:
+    name: JVM Tests
+    needs: code-style
+    uses: ./.github/workflows/jvm-test-workflow.yml
+
+  platform-tests:
+    name: Platform Tests
+    needs: code-style
+    uses: ./.github/workflows/platform-test-workflow.yml
 
   sonarqube:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
-    needs: test
+    needs: jvm-tests
     steps:
       - uses: actions/checkout@v6
         with:
