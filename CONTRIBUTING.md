@@ -84,6 +84,14 @@ When making API changes:
 - Consider backward compatibility impact
 
 
+## AI-Assisted Development
+
+AI tools (Copilot, ChatGPT, Claude, etc.) are welcome as development aids — for code generation, refactoring suggestions, exploring ideas, and more. However, contributors are fully responsible for every line of code they submit. You must understand, review, and be able to explain all changes in your PR.
+
+AI-generated code is held to the same quality standards as any other contribution: tests, formatting (`spotlessApply`), KDoc on public APIs, and adherence to the project's design patterns. Treat AI output as a starting point, not a finished product.
+
+PRs that appear to be unreviewed AI output — such as hallucinated APIs, irrelevant or out-of-scope changes, or generic boilerplate that doesn't fit the codebase — will be closed.
+
 ## Getting Help
 
 If you need help contributing:
