@@ -1,11 +1,11 @@
-name: Test Workflow
+name: Platform Test Workflow
 
 on:
   workflow_call:
 
 jobs:
-  code-style:
-    name: Code Style
+  js-wasm-tests:
+    name: JS & WebAssembly Tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -21,36 +21,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
 
-      - name: Test Code Style
-        run: ./gradlew spotlessCheck
-
-  jvm-and-js-tests:
-    needs: code-style
-    name: JVM & JS Tests (JDK ${{ matrix.java-version }})
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    strategy:
-      fail-fast: false
-      matrix:
-        java-version: [ '17', '21', '25' ]
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Set up JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: ${{ matrix.java-version }}
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
-
       - name: Install Chrome
         uses: browser-actions/setup-chrome@b94431e051d1c52dcbe9a7092a4f10f827795416
-
-      - name: JVM tests
-        run: ./gradlew jvmTest
 
       - name: JS tests
         run: ./gradlew jsTest
@@ -59,7 +31,6 @@ jobs:
         run: ./gradlew wasmJsTest
 
   native-linux:
-    needs: code-style
     name: Linux x64 Tests
     runs-on: ubuntu-latest
     permissions:
@@ -88,7 +59,6 @@ jobs:
         run: ./gradlew linuxX64Test
 
   native-macos-intel:
-    needs: code-style
     name: macOS Intel Tests
     runs-on: macos-15-intel
     permissions:
@@ -120,7 +90,6 @@ jobs:
         run: ./gradlew tvosX64Test
 
   native-macos-arm:
-    needs: code-style
     name: macOS ARM64 Tests
     runs-on: macos-latest
     permissions:
@@ -164,7 +133,6 @@ jobs:
         run: ./gradlew tvosSimulatorArm64Test
 
   native-windows:
-    needs: code-style
     name: Windows MinGW x64 Tests
     runs-on: windows-latest
     permissions:
