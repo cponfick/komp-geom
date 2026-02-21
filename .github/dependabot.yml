@@ -4,6 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "gradle"
+        versions: [">= 9.1.0"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
