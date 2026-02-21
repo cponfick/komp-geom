@@ -24,6 +24,10 @@ Run a single test class on JVM:
 
 JS/WASM browser tests use Karma with Chrome Headless. Native tests run directly on the host platform (e.g., `./gradlew linuxX64Test`).
 
+## Commit Conventions
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) via Commitizen. Commit messages and PR titles must follow the format `type(scope): description`. Common types: `feat`, `fix`, `docs`, `ci`, `build`, `refactor`, `test`.
+
 ## Code Style
 
 - **Formatter**: Spotless with ktfmt (Google style). Always run `spotlessApply` before committing.
