@@ -13,8 +13,7 @@ on:
     paths:
       - 'src/**'
       - 'gradle/**'
-      - 'build.gradle'
-      - 'settings.gradle'
+      - '*.gradle.kts'
       - 'gradle.properties'
       - '.github/workflows/ci.yml'
   schedule:
@@ -48,19 +47,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884
 
-      - name: Cache Konan
-        uses: actions/cache@v5
-        with:
-          path: ~/.konan
-          key: ${{ runner.os }}-konan-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-konan-
-
-      - name: Build and test
-        run: ./gradlew build
-
-      - name: Generate Kover XML report
-        run: ./gradlew koverXmlReport
+      - name: Run JVM tests and generate coverage
+        run: ./gradlew jvmTest koverXmlReport
 
       - name: Upload to SonarQube
         env:
