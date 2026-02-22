@@ -37,7 +37,7 @@ public data class AffineTransformationMatrix1(public val m00: Double, public val
 
   override fun <T : Vector1<*>> apply(obj: T): T {
     @Suppress("UNCHECKED_CAST")
-    return Vec1(m00 * obj.x + m01) as T
+    return obj.withComponents(m00 * obj.x + m01) as T
   }
 
   override fun inverse(): AffineTransformationMatrix1 {
