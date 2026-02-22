@@ -1,6 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.toImmutable
+import io.github.cponfick.kompgeom.core.toMutable
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -301,16 +303,16 @@ class MutableVec2Test {
   }
 
   @Test
-  fun `toVec2 creates a identical copy of the vector`() {
+  fun `toImmutable creates an immutable copy of the vector`() {
     val original = MutableVec2(7.0, 8.0)
-    val copy = original.toVec2()
+    val copy = original.toImmutable()
     original.eq(copy)
   }
 
   @Test
-  fun `toMutableVec2 creates a mutable copy of the vector`() {
+  fun `toMutable creates a mutable copy of the vector`() {
     val original = MutableVec2(7.0, 8.0)
-    val mutableCopy = original.toMutableVec2()
+    val mutableCopy = original.toMutable()
     mutableCopy.eq(original) shouldBe true
     (mutableCopy === original) shouldBe false
   }

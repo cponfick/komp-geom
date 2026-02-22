@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.convexhull
 
+import io.github.cponfick.kompgeom.core.toMutable
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -107,8 +108,8 @@ class Quickhull2Test {
 
   @Test
   fun `execute hull with internal points mutable input`() {
-    val mutableHull = hull.map { it.toMutableVec2() }
-    val mutableInternalPoints = internalPoints.map { it.toMutableVec2() }
+    val mutableHull = hull.map { it.toMutable() }
+    val mutableInternalPoints = internalPoints.map { it.toMutable() }
 
     val result = Quickhull2(mutableHull + mutableInternalPoints).execute()
     result.points.size shouldBe 15
