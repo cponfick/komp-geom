@@ -43,14 +43,14 @@ public interface Segment2<V : Vector2<V>> : Segment<V> {
    * Applies a transformation to the endpoints of this segment.
    *
    * @param transformer The transformer to apply to the segment endpoints.
-   * @return A new segment with transformed endpoints.
+   * @return A segment with transformed endpoints.
    */
   public fun transform(transformer: Transformer<V>): Segment2<V>
 
   /**
    * Reverses the segment, swapping its start and end points.
    *
-   * @return A new segment with the start and end points swapped.
+   * @return A segment with the start and end points swapped.
    */
   public fun reverse(): Segment2<V>
 
@@ -114,14 +114,14 @@ public interface Segment3<V : Vector3<V>> : Segment<V> {
    * Applies a transformation to the endpoints of this segment.
    *
    * @param transformer The transformer to apply to the segment endpoints.
-   * @return A new segment with transformed endpoints.
+   * @return A segment with transformed endpoints.
    */
   public fun transform(transformer: Transformer<V>): Segment3<V>
 
   /**
    * Reverses the segment, swapping its start and end points.
    *
-   * @return A new segment with the start and end points swapped.
+   * @return A segment with the start and end points swapped.
    */
   public fun reverse(): Segment3<V>
 
