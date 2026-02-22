@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.internal
 
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
@@ -33,5 +34,27 @@ class VectorUtilTest {
   @Test
   fun `inverseNorm throws exception on zero vector`() {
     shouldThrow<ArithmeticException> { VectorUtil.inverseNorm(0.0, 0.0) }
+  }
+
+  @Test
+  fun `inverseNorm calculates the inverse norm of three components`() {
+    VectorUtil.inverseNorm(2.0, 2.0, 1.0) shouldBe (1.0 / 3.0)
+  }
+
+  @Test
+  fun `inverseNorm throws exception on zero 3d vector`() {
+    shouldThrow<ArithmeticException> { VectorUtil.inverseNorm(0.0, 0.0, 0.0) }
+  }
+
+  @Test
+  fun `inverseNorm 2d throws exception on near-zero vector with custom equivalence`() {
+    val loosePrecision = EpsilonDoubleEquivalence(1.0)
+    shouldThrow<ArithmeticException> { VectorUtil.inverseNorm(1e-10, 1e-10, loosePrecision) }
+  }
+
+  @Test
+  fun `inverseNorm 3d throws exception on near-zero vector with custom equivalence`() {
+    val loosePrecision = EpsilonDoubleEquivalence(1.0)
+    shouldThrow<ArithmeticException> { VectorUtil.inverseNorm(1e-10, 1e-10, 1e-10, loosePrecision) }
   }
 }

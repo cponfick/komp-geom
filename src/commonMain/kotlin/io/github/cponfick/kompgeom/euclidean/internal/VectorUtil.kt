@@ -2,8 +2,9 @@ package io.github.cponfick.kompgeom.euclidean.internal
 
 import io.github.cponfick.kompgeom.core.AngleUnit
 import io.github.cponfick.kompgeom.core.RADIANS_TO_DEGREES
-import io.github.cponfick.kompgeom.core.Vector3
 import io.github.cponfick.kompgeom.core.assertIsFiniteAndNotZero
+import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
+import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
 import kotlin.math.acos
 import kotlin.math.sqrt
 
@@ -24,12 +25,18 @@ public object VectorUtil {
    *
    * @param x The x component of the vector.
    * @param y The y component of the vector.
+   * @param equivalence The tolerance used to check for a zero norm. Default is
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
    * @return The inverse of the Euclidean norm of the vector.
    * @throws ArithmeticException if the vector is a zero vector.
    */
-  internal fun <V : Vector3<V>> inverseNorm(x: Double, y: Double): Double {
+  internal fun inverseNorm(
+    x: Double,
+    y: Double,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Double {
     val norm = norm(x, y)
-    if (norm == 0.0) {
+    if (equivalence.eqZero(norm)) {
       throw ArithmeticException("Cannot compute inverse norm of a zero vector.")
     }
     return 1.0 / norm
@@ -52,12 +59,19 @@ public object VectorUtil {
    * @param x The x component of the vector.
    * @param y The y component of the vector.
    * @param z The z component of the vector.
+   * @param equivalence The tolerance used to check for a zero norm. Default is
+   *   [DEFAULT_DOUBLE_EQUIVALENCE].
    * @return The inverse of the Euclidean norm of the vector.
    * @throws ArithmeticException if the vector is a zero vector.
    */
-  internal fun <V : Vector3<V>> inverseNorm(x: Double, y: Double, z: Double): Double {
+  internal fun inverseNorm(
+    x: Double,
+    y: Double,
+    z: Double,
+    equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+  ): Double {
     val norm = norm(x, y, z)
-    if (norm == 0.0) {
+    if (equivalence.eqZero(norm)) {
       throw ArithmeticException("Cannot compute inverse norm of a zero vector.")
     }
     return 1.0 / norm
