@@ -36,20 +36,6 @@ public data class Vec3(
 
   override fun withComponents(x: Double, y: Double, z: Double): Vec3 = Vec3(x, y, z)
 
-  /**
-   * Creates an immutable copy of this vector.
-   *
-   * @return An immutable [Vec3] with the same components as this vector.
-   */
-  public fun toVec3(): Vec3 = Vec3(x, y, z)
-
-  /**
-   * Creates a mutable copy of this vector.
-   *
-   * @return A mutable [MutableVec3] with the same components as this immutable vector.
-   */
-  public fun toMutableVec3(): MutableVec3 = MutableVec3(x, y, z)
-
   public companion object {
     /** The zero vector. */
     public val ZERO: Vec3 = Vec3(0.0, 0.0, 0.0)

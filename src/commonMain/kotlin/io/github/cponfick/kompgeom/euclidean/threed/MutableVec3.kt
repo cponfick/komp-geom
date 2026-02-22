@@ -61,20 +61,6 @@ public class MutableVec3(
 
   override fun zero(): MutableVec3 = MutableVec3(0.0, 0.0, 0.0)
 
-  /**
-   * Converts this mutable vector to an immutable [Vec3].
-   *
-   * @return An immutable [Vec3] with the same components as this mutable vector.
-   */
-  public fun toVec3(): Vec3 = Vec3(x, y, z)
-
-  /**
-   * Creates a mutable copy of this vector.
-   *
-   * @return A new [MutableVec3] instance with the same components as this vector.
-   */
-  public fun toMutableVec3(): MutableVec3 = MutableVec3(x, y, z)
-
   public override fun toString(): String = "MutableVec3(x=$x, y=$y, z=$z)"
 
   public companion object {

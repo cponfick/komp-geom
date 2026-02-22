@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.closestpair
 
+import io.github.cponfick.kompgeom.core.toMutable
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -66,7 +67,7 @@ class ClosestPairDivideAndConquerTest {
 
   @Test
   fun `calculates the closest pair of points mutable input`() {
-    val mutablePoints = manyPoints.map { it.toMutableVec2() }
+    val mutablePoints = manyPoints.map { it.toMutable() }
     val closestPairNaiveResult = ClosestPairNaive(mutablePoints).execute()
     val actual = ClosestPairDivideAndConquer(mutablePoints).execute()
 

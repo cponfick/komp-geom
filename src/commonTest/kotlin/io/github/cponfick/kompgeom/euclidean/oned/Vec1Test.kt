@@ -1,6 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.oned
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.toImmutable
+import io.github.cponfick.kompgeom.core.toMutable
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -217,17 +219,18 @@ class Vec1Test {
   }
 
   @Test
-  fun `toMutableVec1 returns correct MutableVec1`() {
+  fun `toMutable returns correct MutableVec1`() {
     val vec = Vec1(4.2)
-    val mutableVec = vec.toMutableVec1()
+    val mutableVec = vec.toMutable()
     mutableVec.x shouldBe 4.2
   }
 
   @Test
-  fun `toVec1 on Vec1 returns itself`() {
+  fun `toImmutable on Vec1 returns itself`() {
     val vec = Vec1(5.3)
-    val result = vec.toVec1()
+    val result = vec.toImmutable()
     result shouldBe vec
+    (result === vec) shouldBe true
   }
 
   @Test

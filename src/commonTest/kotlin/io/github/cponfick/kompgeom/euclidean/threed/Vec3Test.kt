@@ -1,6 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.threed
 
 import io.github.cponfick.kompgeom.core.AngleUnit
+import io.github.cponfick.kompgeom.core.toImmutable
+import io.github.cponfick.kompgeom.core.toMutable
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import kotlin.math.PI
@@ -312,17 +314,17 @@ class Vec3Test {
   }
 
   @Test
-  fun `toVec3 creates a identical copy of the vector`() {
+  fun `toImmutable on Vec3 returns itself`() {
     val original = Vec3(7.0, 8.0, 9.0)
-    val copy = original.toVec3()
+    val copy = original.toImmutable()
     copy shouldBe original
-    (copy === original) shouldBe false
+    (copy === original) shouldBe true
   }
 
   @Test
-  fun `toMutableVec3 creates a mutable copy of the vector`() {
+  fun `toMutable creates a mutable copy of the vector`() {
     val original = Vec3(7.0, 8.0, 9.0)
-    val mutableCopy = original.toMutableVec3()
+    val mutableCopy = original.toMutable()
     original.eq(mutableCopy)
   }
 

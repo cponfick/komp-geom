@@ -36,20 +36,6 @@ public class MutableVec2(public override var x: Double, public override var y: D
 
   override fun zero(): MutableVec2 = MutableVec2(0.0, 0.0)
 
-  /**
-   * Creates an immutable copy of this vector.
-   *
-   * @return An immutable [Vec2] with the same components as this vector.
-   */
-  public fun toVec2(): Vec2 = Vec2(x, y)
-
-  /**
-   * Creates a mutable copy of this vector.
-   *
-   * @return A mutable [MutableVec2] with the same components as this mutable vector.
-   */
-  public fun toMutableVec2(): MutableVec2 = MutableVec2(x, y)
-
   public override fun toString(): String = "MutableVec2(x=$x, y=$y)"
 
   public companion object {

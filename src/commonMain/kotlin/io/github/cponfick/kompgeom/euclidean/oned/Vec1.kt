@@ -21,20 +21,6 @@ public data class Vec1(public override val x: Double) : Vector1<Vec1> {
 
   override fun withComponents(x: Double): Vec1 = Vec1(x)
 
-  /**
-   * Creates an immutable copy of this vector.
-   *
-   * @return An immutable [Vec1] with the same component as this vector.
-   */
-  public fun toVec1(): Vec1 = Vec1(x)
-
-  /**
-   * Creates a mutable copy of this vector.
-   *
-   * @return A mutable [MutableVec1] with the same component as this mutable vector.
-   */
-  public fun toMutableVec1(): MutableVec1 = MutableVec1(x)
-
   public companion object {
     /** The zero vector. */
     public val ZERO: Vec1 = Vec1(0.0)
