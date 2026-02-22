@@ -20,8 +20,8 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : Conv
   }
 
   override fun execute(): Result<V> {
-    val minX = input.minByOrNull { it.x }!!
-    val maxX = input.maxByOrNull { it.x }!!
+    val minX = input.minBy { it.x }
+    val maxX = input.maxBy { it.x }
 
     val line = Line2.fromPoints(minX, maxX)
     val plusSide = input.filter { line.location(it) == Location.PLUS }
@@ -38,7 +38,7 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : Conv
     if (points.isEmpty()) return
 
     val line = Line2.fromPoints(p1, p2)
-    val furthestPoint = points.maxByOrNull { line.offset(it) }!!
+    val furthestPoint = points.maxBy { line.offset(it) }
     convexHull.add(furthestPoint)
 
     val p1FurthestPoint = Line2.fromPoints(p1, furthestPoint)
