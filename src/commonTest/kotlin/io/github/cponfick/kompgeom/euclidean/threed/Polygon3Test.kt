@@ -301,4 +301,23 @@ class Polygon3Test {
     val pointOffPlane = Vec3(1.0, 1.0, 1.0)
     square.contains(pointOffPlane) shouldBe false
   }
+
+  @Test
+  fun `boundingBox returns correct bounds for square in xy plane`() {
+    val square =
+      Polygon3(
+        listOf(Vec3(1.0, 2.0, 0.0), Vec3(5.0, 2.0, 0.0), Vec3(5.0, 7.0, 0.0), Vec3(1.0, 7.0, 0.0))
+      )
+    val (min, max) = square.boundingBox()
+    min shouldBe Vec3(1.0, 2.0, 0.0)
+    max shouldBe Vec3(5.0, 7.0, 0.0)
+  }
+
+  @Test
+  fun `boundingBox returns correct bounds for triangle with z variation`() {
+    val triangle = Polygon3(listOf(Vec3(1.0, 2.0, 3.0), Vec3(5.0, 2.0, 1.0), Vec3(3.0, 6.0, 2.0)))
+    val (min, max) = triangle.boundingBox()
+    min shouldBe Vec3(1.0, 2.0, 1.0)
+    max shouldBe Vec3(5.0, 6.0, 3.0)
+  }
 }

@@ -146,6 +146,21 @@ public data class Polygon3(
     return projectTo2D().contains(point2D)
   }
 
+  /**
+   * Computes the axis-aligned bounding box of the polygon.
+   *
+   * @return A pair of [Vec3] representing the minimum and maximum corners of the bounding box.
+   */
+  public fun boundingBox(): Pair<Vec3, Vec3> {
+    val minX = vertices.minOf { it.x }
+    val minY = vertices.minOf { it.y }
+    val minZ = vertices.minOf { it.z }
+    val maxX = vertices.maxOf { it.x }
+    val maxY = vertices.maxOf { it.y }
+    val maxZ = vertices.maxOf { it.z }
+    return Pair(Vec3(minX, minY, minZ), Vec3(maxX, maxY, maxZ))
+  }
+
   override fun transform(transformer: Transformer<Vec3>): Polygon<Vec3> {
     val transformedVertices = vertices.map { transformer.apply(it) }
     return Polygon3(transformedVertices, precision)
