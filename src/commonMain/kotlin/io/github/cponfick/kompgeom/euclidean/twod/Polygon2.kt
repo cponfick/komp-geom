@@ -8,7 +8,6 @@ import io.github.cponfick.kompgeom.core.shapes.IntersectionType
 import io.github.cponfick.kompgeom.core.shapes.Polygon
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import kotlin.math.abs
-import kotlin.math.atan2
 
 /**
  * Represents a polygon in 2D space defined by a list of vertices.
@@ -203,17 +202,13 @@ public data class Polygon2(
   /**
    * Computes the convex hull of this polygon's vertices using the [Quickhull2] algorithm.
    *
-   * The resulting polygon's vertices are ordered counterclockwise by polar angle around their
-   * centroid.
+   * The resulting polygon's vertices are in counterclockwise winding order.
    *
    * @return A new [Polygon2] representing the convex hull of this polygon's vertices.
    */
   public fun convexHull(): Polygon2 {
     val hullPoints = Quickhull2(vertices).execute().points
-    val cx = hullPoints.sumOf { it.x } / hullPoints.size
-    val cy = hullPoints.sumOf { it.y } / hullPoints.size
-    val sorted = hullPoints.sortedBy { atan2(it.y - cy, it.x - cx) }
-    return Polygon2(sorted, precision)
+    return Polygon2(hullPoints, precision)
   }
 
   public override fun transform(transformer: Transformer<Vec2>): Polygon2 {
