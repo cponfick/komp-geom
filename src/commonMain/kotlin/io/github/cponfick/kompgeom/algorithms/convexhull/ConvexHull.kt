@@ -3,6 +3,11 @@ package io.github.cponfick.kompgeom.algorithms.convexhull
 import io.github.cponfick.kompgeom.algorithms.Algorithm
 import io.github.cponfick.kompgeom.core.Vector2
 
-public class Result<V : Vector2<V>>(public val points: Collection<V>)
+/**
+ * The result of a convex hull algorithm.
+ *
+ * @property points The hull vertices in counterclockwise winding order.
+ */
+public class Result<V : Vector2<V>>(public val points: List<V>)
 
 public interface ConvexHull<V : Vector2<V>> : Algorithm<Result<V>>
