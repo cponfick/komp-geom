@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
+import io.github.cponfick.kompgeom.algorithms.convexhull.Quickhull2
 import io.github.cponfick.kompgeom.core.Orientation
 import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
@@ -196,6 +197,18 @@ public data class Polygon2(
     val maxX = vertices.maxOf { it.x }
     val maxY = vertices.maxOf { it.y }
     return Pair(Vec2(minX, minY), Vec2(maxX, maxY))
+  }
+
+  /**
+   * Computes the convex hull of this polygon's vertices using the [Quickhull2] algorithm.
+   *
+   * The resulting polygon's vertices are in counterclockwise winding order.
+   *
+   * @return A new [Polygon2] representing the convex hull of this polygon's vertices.
+   */
+  public fun convexHull(): Polygon2 {
+    val hullPoints = Quickhull2(vertices).execute().points
+    return Polygon2(hullPoints, precision)
   }
 
   public override fun transform(transformer: Transformer<Vec2>): Polygon2 {

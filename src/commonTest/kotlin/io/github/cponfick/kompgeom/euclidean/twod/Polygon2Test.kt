@@ -469,4 +469,39 @@ class Polygon2Test {
     polygon.isConvex() shouldBe true
     abs(polygon.area() - PI) shouldBeLessThan 0.01 // Should be close to circle area
   }
+
+  @Test
+  fun `convexHull returns a convex polygon for concave input`() {
+    val lShape =
+      Polygon2(
+        listOf(
+          Vec2(0.0, 0.0),
+          Vec2(2.0, 0.0),
+          Vec2(2.0, 1.0),
+          Vec2(1.0, 1.0),
+          Vec2(1.0, 2.0),
+          Vec2(0.0, 2.0),
+        )
+      )
+    val hull = lShape.convexHull()
+    hull.isConvex() shouldBe true
+  }
+
+  @Test
+  fun `convexHull of convex polygon contains all original vertices`() {
+    val square = Polygon2.rectangle(0.0, 0.0, 2.0, 2.0)
+    val hull = square.convexHull()
+    hull.vertices.containsAll(square.vertices) shouldBe true
+  }
+
+  @Test
+  fun `convexHull has fewer vertices than concave polygon`() {
+    // Pentagon with a dent: (2,2) is interior to the convex hull of the other 4 vertices
+    val concave =
+      Polygon2(
+        listOf(Vec2(0.0, 0.0), Vec2(4.0, 0.0), Vec2(4.0, 4.0), Vec2(2.0, 2.0), Vec2(0.0, 4.0))
+      )
+    val hull = concave.convexHull()
+    hull.vertexCount shouldBe 4
+  }
 }
