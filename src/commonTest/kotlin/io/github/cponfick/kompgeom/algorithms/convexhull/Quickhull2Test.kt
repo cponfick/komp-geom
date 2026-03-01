@@ -1,5 +1,6 @@
 package io.github.cponfick.kompgeom.algorithms.convexhull
 
+import io.github.cponfick.kompgeom.core.Vector2
 import io.github.cponfick.kompgeom.core.toMutable
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
@@ -114,5 +115,29 @@ class Quickhull2Test {
     val result = Quickhull2(mutableHull + mutableInternalPoints).execute()
     result.points.size shouldBe 15
     result.points.containsAll(mutableHull) shouldBe true
+  }
+
+  @Test
+  fun `hull points are in counterclockwise winding order`() {
+    val result = Quickhull2(hull + internalPoints).execute()
+    assertCounterClockwise(result.points)
+  }
+
+  @Test
+  fun `simple hull points are in counterclockwise winding order`() {
+    val points = listOf(Vec2(0.0, 0.0), Vec2(1.0, 0.0), Vec2(1.0, 1.0), Vec2(0.0, 1.0))
+    val result = Quickhull2(points).execute()
+    assertCounterClockwise(result.points)
+  }
+
+  private fun <V : Vector2<V>> assertCounterClockwise(points: List<V>) {
+    val n = points.size
+    for (i in 0 until n) {
+      val a = points[i]
+      val b = points[(i + 1) % n]
+      val c = points[(i + 2) % n]
+      val cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
+      (cross > 0) shouldBe true
+    }
   }
 }

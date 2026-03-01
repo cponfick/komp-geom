@@ -13,8 +13,6 @@ import io.github.cponfick.kompgeom.euclidean.twod.Line2
  */
 public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : ConvexHull<V> {
 
-  private val convexHull = mutableSetOf<V>()
-
   init {
     require(input.size >= 3) { "Input must contain at least 3 elements" }
   }
@@ -26,20 +24,22 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : Conv
     val line = Line2.fromPoints(minX, maxX)
     val plusSide = input.filter { line.location(it) == Location.PLUS }
     val minusSide = input.filter { line.location(it) == Location.MINUS }
-    convexHull.add(minX)
-    convexHull.add(maxX)
 
-    findHull(plusSide, minX, maxX)
-    findHull(minusSide, maxX, minX)
-    return Result(convexHull)
+    return Result(
+      buildList {
+        add(minX)
+        addAll(findHull(plusSide, minX, maxX))
+        add(maxX)
+        addAll(findHull(minusSide, maxX, minX))
+      }
+    )
   }
 
-  private fun findHull(points: List<V>, p1: V, p2: V) {
-    if (points.isEmpty()) return
+  private fun findHull(points: List<V>, p1: V, p2: V): List<V> {
+    if (points.isEmpty()) return emptyList()
 
     val line = Line2.fromPoints(p1, p2)
     val furthestPoint = points.maxBy { line.offset(it) }
-    convexHull.add(furthestPoint)
 
     val p1FurthestPoint = Line2.fromPoints(p1, furthestPoint)
     val furthestPointP2 = Line2.fromPoints(furthestPoint, p2)
@@ -47,8 +47,9 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : Conv
     val p1FurthestPointPlusSide = points.filter { p1FurthestPoint.location(it) == Location.PLUS }
     val furthestPointP2PlusSide = points.filter { furthestPointP2.location(it) == Location.PLUS }
 
-    findHull(p1FurthestPointPlusSide, p1, furthestPoint)
-    findHull(furthestPointP2PlusSide, furthestPoint, p2)
+    return findHull(p1FurthestPointPlusSide, p1, furthestPoint) +
+      listOf(furthestPoint) +
+      findHull(furthestPointP2PlusSide, furthestPoint, p2)
   }
 
   public companion object : Algorithm.AlgorithmInfo {
