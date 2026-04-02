@@ -246,4 +246,104 @@ class MutableRedBlackTreeMapTest {
     map[1] = "one"
     map.containsValue("two") shouldBe false
   }
+
+  @Test
+  fun `clear empties the map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.clear()
+    map.size shouldBe 0
+    map.isEmpty() shouldBe true
+  }
+
+  private fun populatedMap(): MutableRedBlackTreeMap<Int, String> {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[2] = "two"
+    map[4] = "four"
+    map[6] = "six"
+    map[8] = "eight"
+    return map
+  }
+
+  @Test
+  fun `lower returns greatest key strictly less than given key`() {
+    val map = populatedMap()
+    map.lower(5) shouldBe 4
+    map.lower(6) shouldBe 4
+    map.lower(9) shouldBe 8
+  }
+
+  @Test
+  fun `lower returns null when no smaller key exists`() {
+    val map = populatedMap()
+    map.lower(2) shouldBe null
+    map.lower(1) shouldBe null
+  }
+
+  @Test
+  fun `lower returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.lower(5) shouldBe null
+  }
+
+  @Test
+  fun `floor returns greatest key less than or equal to given key`() {
+    val map = populatedMap()
+    map.floor(6) shouldBe 6
+    map.floor(5) shouldBe 4
+    map.floor(9) shouldBe 8
+  }
+
+  @Test
+  fun `floor returns null when no smaller or equal key exists`() {
+    val map = populatedMap()
+    map.floor(1) shouldBe null
+  }
+
+  @Test
+  fun `floor returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.floor(5) shouldBe null
+  }
+
+  @Test
+  fun `ceiling returns least key greater than or equal to given key`() {
+    val map = populatedMap()
+    map.ceiling(4) shouldBe 4
+    map.ceiling(5) shouldBe 6
+    map.ceiling(1) shouldBe 2
+  }
+
+  @Test
+  fun `ceiling returns null when no greater or equal key exists`() {
+    val map = populatedMap()
+    map.ceiling(9) shouldBe null
+  }
+
+  @Test
+  fun `ceiling returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.ceiling(5) shouldBe null
+  }
+
+  @Test
+  fun `higher returns least key strictly greater than given key`() {
+    val map = populatedMap()
+    map.higher(5) shouldBe 6
+    map.higher(4) shouldBe 6
+    map.higher(1) shouldBe 2
+  }
+
+  @Test
+  fun `higher returns null when no greater key exists`() {
+    val map = populatedMap()
+    map.higher(8) shouldBe null
+    map.higher(9) shouldBe null
+  }
+
+  @Test
+  fun `higher returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.higher(5) shouldBe null
+  }
 }
