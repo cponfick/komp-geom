@@ -32,19 +32,67 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   }
 
   override fun lower(key: K): K? {
-    TODO("Not yet implemented")
+    var result: K? = null
+    var current = root
+    while (current != null) {
+      val cmp = key.compareTo(current.key)
+      if (cmp > 0) {
+        result = current.key
+        current = current.right
+      } else {
+        current = current.left
+      }
+    }
+    return result
   }
 
   override fun floor(key: K): K? {
-    TODO("Not yet implemented")
+    var result: K? = null
+    var current = root
+    while (current != null) {
+      val cmp = key.compareTo(current.key)
+      when {
+        cmp == 0 -> return current.key
+        cmp > 0 -> {
+          result = current.key
+          current = current.right
+        }
+        else -> current = current.left
+      }
+    }
+    return result
   }
 
   override fun ceiling(key: K): K? {
-    TODO("Not yet implemented")
+    var result: K? = null
+    var current = root
+    while (current != null) {
+      val cmp = key.compareTo(current.key)
+      when {
+        cmp == 0 -> return current.key
+        cmp < 0 -> {
+          result = current.key
+          current = current.left
+        }
+        else -> current = current.right
+      }
+    }
+    return result
   }
 
   override fun higher(key: K): K? {
-    TODO("Not yet implemented")
+    var result: K? = null
+    var current = root
+    while (current != null) {
+      val cmp = key.compareTo(current.key)
+      if (cmp < 0) {
+        result = current.key
+        current = current.left
+      } else {
+        current = current.right
+      }
+    }
+    return result
   }
 
   override val size: Int
@@ -154,7 +202,8 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   }
 
   override fun clear() {
-    TODO("Not yet implemented")
+    root = null
+    _size = 0
   }
 
   private fun isRed(x: Node?): Boolean = x?.color == RED
