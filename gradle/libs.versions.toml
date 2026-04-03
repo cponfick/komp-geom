@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.3.20"
 spotless = "8.4.0"
-kotest = "6.1.9"
+kotest = "6.1.10"
 ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.36.0"
 dokka = "2.1.0"
