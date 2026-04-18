@@ -257,8 +257,9 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      val otherEntry = other as? Map.Entry<*, *> ?: return false
-      return key == otherEntry.key && value == otherEntry.value
+      if (other is MutableMap.MutableEntry<*, *>) return key == other.key && value == other.value
+      if (other is Map.Entry<*, *>) return key == other.key && value == other.value
+      return false
     }
 
     override fun toString(): String = "$key=$value"
@@ -416,9 +417,14 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    val otherMap = other as? Map<*, *> ?: return false
-    if (size != otherMap.size) return false
-    return otherMap.entries.all { (k, v) ->
+    if (other is MutableSortedMap<*, *>) return sameEntries(other)
+    if (other is Map<*, *>) return sameEntries(other)
+    return false
+  }
+
+  private fun sameEntries(other: Map<*, *>): Boolean {
+    if (size != other.size) return false
+    return other.entries.all { (k, v) ->
       @Suppress("UNCHECKED_CAST")
       containsKey(k as K) && getNode(k)?.value == v
     }
