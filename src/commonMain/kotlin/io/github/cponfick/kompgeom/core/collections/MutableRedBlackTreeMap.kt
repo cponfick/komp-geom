@@ -256,8 +256,9 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     override fun hashCode(): Int = key.hashCode() xor value.hashCode()
 
     override fun equals(other: Any?): Boolean {
-      if (other !is Map.Entry<*, *>) return false
-      return key == other.key && value == other.value
+      if (this === other) return true
+      val otherEntry = other as? Map.Entry<*, *> ?: return false
+      return key == otherEntry.key && value == otherEntry.value
     }
 
     override fun toString(): String = "$key=$value"
@@ -373,18 +374,23 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     if (key.compareTo(n.key) < 0) {
       if (!isRed(n.left) && !isRed(n.left?.left)) n = moveRedLeft(n)
       n.left = delete(n.left!!, key)
+      return balance(n)
+    }
+    return deleteRight(n, key)
+  }
+
+  private fun deleteRight(h: Node, key: K): Node? {
+    var n = h
+    if (isRed(n.left)) n = rotateRight(n)
+    if (key.compareTo(n.key) == 0 && n.right == null) return null
+    if (!isRed(n.right) && !isRed(n.right?.left)) n = moveRedRight(n)
+    if (key.compareTo(n.key) == 0) {
+      val successor = min(n.right!!)
+      n.key = successor.key
+      n.value = successor.value
+      n.right = deleteMin(n.right!!)
     } else {
-      if (isRed(n.left)) n = rotateRight(n)
-      if (key.compareTo(n.key) == 0 && n.right == null) return null
-      if (!isRed(n.right) && !isRed(n.right?.left)) n = moveRedRight(n)
-      if (key.compareTo(n.key) == 0) {
-        val successor = min(n.right!!)
-        n.key = successor.key
-        n.value = successor.value
-        n.right = deleteMin(n.right!!)
-      } else {
-        n.right = delete(n.right!!, key)
-      }
+      n.right = delete(n.right!!, key)
     }
     return balance(n)
   }
@@ -410,9 +416,9 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other !is Map<*, *>) return false
-    if (size != other.size) return false
-    return other.entries.all { (k, v) ->
+    val otherMap = other as? Map<*, *> ?: return false
+    if (size != otherMap.size) return false
+    return otherMap.entries.all { (k, v) ->
       @Suppress("UNCHECKED_CAST")
       containsKey(k as K) && getNode(k)?.value == v
     }
