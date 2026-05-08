@@ -22,7 +22,7 @@ jobs:
         uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e
 
       - name: Install Chrome
-        uses: browser-actions/setup-chrome@4f8e94349a351df0f048634f25fec36c3c91eded
+        uses: browser-actions/setup-chrome@2e1d749697dd1612b833dba4a722266286fbefcd
 
       - name: JS tests
         run: ./gradlew jsTest
