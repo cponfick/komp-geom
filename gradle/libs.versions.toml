@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.21"
-spotless = "8.5.0"
+spotless = "8.5.1"
 kotest = "6.1.11"
 ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.36.0"
