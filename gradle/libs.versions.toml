@@ -7,7 +7,7 @@ com-vanniktech-maven-publish = "0.36.0"
 dokka = "2.2.0"
 kover = "0.9.8"
 sonarqube = "7.2.3.7755"
-kotlin-logging = "8.0.01"
+kotlin-logging = "8.0.4"
 slf4j = "2.0.18"
 kotlinx-benchmark = "0.4.16"
 
