@@ -3,6 +3,8 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -19,6 +21,10 @@ group = "io.github.cponfick"
 version = "0.4.0-rc3"
 
 repositories { mavenCentral() }
+
+YarnRootExtension.Companion.get(rootProject).apply {
+  yarnLockMismatchReport = YarnLockMismatchReport.WARNING
+}
 
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
