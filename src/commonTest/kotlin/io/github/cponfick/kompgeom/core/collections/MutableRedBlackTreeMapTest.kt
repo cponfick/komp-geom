@@ -1,0 +1,601 @@
+package io.github.cponfick.kompgeom.core.collections
+
+import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import kotlin.test.Test
+
+class MutableRedBlackTreeMapTest {
+
+  @Test
+  fun `isEmpty returns true for new map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.isEmpty() shouldBe true
+  }
+
+  @Test
+  fun `put adds element`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "1"
+    map[1] shouldBe "1"
+  }
+
+  @Test
+  fun `isEmpty returns false map with one element`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[5] = "five"
+    map.isEmpty() shouldBe false
+  }
+
+  @Test
+  fun `firstKey returns correct value when one element is in map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[5] = "five"
+
+    map.firstKey() shouldBe 5
+  }
+
+  @Test
+  fun `firstKey returns least key when multiple elements are in map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[5] = "five"
+    map[3] = "three"
+    map[7] = "seven"
+    map[1] = "one"
+
+    map.firstKey() shouldBe 1
+  }
+
+  @Test
+  fun `lastKey returns correct value when one element is in map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[5] = "five"
+    map.lastKey() shouldBe 5
+  }
+
+  @Test
+  fun `lastKey returns greatest key when multiple elements are in map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[5] = "five"
+    map[3] = "three"
+    map[7] = "seven"
+    map[1] = "one"
+
+    map.lastKey() shouldBe 7
+  }
+
+  @Test
+  fun `putAll puts elements into map`() {
+    val actual = MutableRedBlackTreeMap<Int, String>()
+    val inputMap = mapOf(1 to "one", 2 to "two", 3 to "three", 4 to "four", 5 to "five", 6 to "six")
+
+    actual.putAll(inputMap)
+
+    actual[1] shouldBe "one"
+    actual[2] shouldBe "two"
+    actual[3] shouldBe "three"
+    actual[4] shouldBe "four"
+    actual[5] shouldBe "five"
+    actual[6] shouldBe "six"
+  }
+
+  @Test
+  fun `putAll unordered puts elements into map`() {
+    val actual = MutableRedBlackTreeMap<Int, String>()
+    val inputMap = mapOf(6 to "six", 5 to "five", 4 to "four", 3 to "three", 2 to "two", 1 to "one")
+
+    actual.putAll(inputMap)
+    actual[1] shouldBe "one"
+    actual[2] shouldBe "two"
+    actual[3] shouldBe "three"
+    actual[4] shouldBe "four"
+    actual[5] shouldBe "five"
+    actual[6] shouldBe "six"
+  }
+
+  @Test
+  fun `keys returns empty set for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.keys shouldBe emptySet()
+  }
+
+  @Test
+  fun `keys returns all keys in sorted order`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[3] = "three"
+    map[1] = "one"
+    map[5] = "five"
+    map[2] = "two"
+    map[4] = "four"
+
+    map.keys.toList() shouldContainExactly listOf(1, 2, 3, 4, 5)
+  }
+
+  @Test
+  fun `values returns empty collection for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.values shouldBe emptyList()
+  }
+
+  @Test
+  fun `values returns all values in key-sorted order`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[3] = "three"
+    map[1] = "one"
+    map[5] = "five"
+    map[2] = "two"
+    map[4] = "four"
+
+    map.values.toList() shouldContainExactly listOf("one", "two", "three", "four", "five")
+  }
+
+  @Test
+  fun `entries returns empty set for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.entries shouldBe emptySet()
+  }
+
+  @Test
+  fun `entries returns all entries`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[3] = "three"
+    map[1] = "one"
+    map[2] = "two"
+
+    val entries = map.entries
+    entries.map { it.key } shouldContainExactlyInAnyOrder listOf(1, 2, 3)
+    entries.map { it.value } shouldContainExactlyInAnyOrder listOf("one", "two", "three")
+  }
+
+  @Test
+  fun `entries reflects updated values`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map[1] = "ONE"
+
+    val entry = map.entries.single()
+    entry.key shouldBe 1
+    entry.value shouldBe "ONE"
+  }
+
+  @Test
+  fun `size returns 0 for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.size shouldBe 0
+  }
+
+  @Test
+  fun `size increases with each new key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.size shouldBe 1
+    map[2] = "two"
+    map.size shouldBe 2
+    map[3] = "three"
+    map.size shouldBe 3
+  }
+
+  @Test
+  fun `size does not increase when updating existing key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map[1] = "ONE"
+    map.size shouldBe 1
+  }
+
+  @Test
+  fun `put returns null for new key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.put(1, "one") shouldBe null
+  }
+
+  @Test
+  fun `put returns old value when updating existing key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.put(1, "ONE") shouldBe "one"
+  }
+
+  @Test
+  fun `containsKey returns false for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.containsKey(1) shouldBe false
+  }
+
+  @Test
+  fun `containsKey returns true for existing key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[3] = "three"
+    map[1] = "one"
+    map[5] = "five"
+
+    map.containsKey(1) shouldBe true
+    map.containsKey(3) shouldBe true
+    map.containsKey(5) shouldBe true
+  }
+
+  @Test
+  fun `containsKey returns false for missing key`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.containsKey(2) shouldBe false
+  }
+
+  @Test
+  fun `containsValue returns false for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.containsValue("one") shouldBe false
+  }
+
+  @Test
+  fun `containsValue returns true for existing value`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map[2] = "two"
+    map[3] = "three"
+
+    map.containsValue("one") shouldBe true
+    map.containsValue("two") shouldBe true
+    map.containsValue("three") shouldBe true
+  }
+
+  @Test
+  fun `containsValue returns false for missing value`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.containsValue("two") shouldBe false
+  }
+
+  @Test
+  fun `clear empties the map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.clear()
+    map.size shouldBe 0
+    map.isEmpty() shouldBe true
+  }
+
+  private fun populatedMap(): MutableRedBlackTreeMap<Int, String> {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[2] = "two"
+    map[4] = "four"
+    map[6] = "six"
+    map[8] = "eight"
+    return map
+  }
+
+  @Test
+  fun `lower returns greatest key strictly less than given key`() {
+    val map = populatedMap()
+    map.lower(5) shouldBe 4
+    map.lower(6) shouldBe 4
+    map.lower(9) shouldBe 8
+  }
+
+  @Test
+  fun `lower returns null when no smaller key exists`() {
+    val map = populatedMap()
+    map.lower(2) shouldBe null
+    map.lower(1) shouldBe null
+  }
+
+  @Test
+  fun `lower returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.lower(5) shouldBe null
+  }
+
+  @Test
+  fun `floor returns greatest key less than or equal to given key`() {
+    val map = populatedMap()
+    map.floor(6) shouldBe 6
+    map.floor(5) shouldBe 4
+    map.floor(9) shouldBe 8
+  }
+
+  @Test
+  fun `floor returns null when no smaller or equal key exists`() {
+    val map = populatedMap()
+    map.floor(1) shouldBe null
+  }
+
+  @Test
+  fun `floor returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.floor(5) shouldBe null
+  }
+
+  @Test
+  fun `ceiling returns least key greater than or equal to given key`() {
+    val map = populatedMap()
+    map.ceiling(4) shouldBe 4
+    map.ceiling(5) shouldBe 6
+    map.ceiling(1) shouldBe 2
+  }
+
+  @Test
+  fun `ceiling returns null when no greater or equal key exists`() {
+    val map = populatedMap()
+    map.ceiling(9) shouldBe null
+  }
+
+  @Test
+  fun `ceiling returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.ceiling(5) shouldBe null
+  }
+
+  @Test
+  fun `higher returns least key strictly greater than given key`() {
+    val map = populatedMap()
+    map.higher(5) shouldBe 6
+    map.higher(4) shouldBe 6
+    map.higher(1) shouldBe 2
+  }
+
+  @Test
+  fun `higher returns null when no greater key exists`() {
+    val map = populatedMap()
+    map.higher(8) shouldBe null
+    map.higher(9) shouldBe null
+  }
+
+  @Test
+  fun `higher returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.higher(5) shouldBe null
+  }
+
+  @Test
+  fun `remove returns null for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.remove(1) shouldBe null
+  }
+
+  @Test
+  fun `remove returns null for missing key`() {
+    val map = populatedMap()
+    map.remove(5) shouldBe null
+    map.size shouldBe 4
+  }
+
+  @Test
+  fun `remove returns old value for existing key`() {
+    val map = populatedMap()
+    map.remove(4) shouldBe "four"
+  }
+
+  @Test
+  fun `remove decreases size`() {
+    val map = populatedMap()
+    map.remove(4)
+    map.size shouldBe 3
+  }
+
+  @Test
+  fun `remove makes key no longer present`() {
+    val map = populatedMap()
+    map.remove(4)
+    map.containsKey(4) shouldBe false
+    map.get(4) shouldBe null
+  }
+
+  @Test
+  fun `remove preserves other entries`() {
+    val map = populatedMap()
+    map.remove(4)
+    map[2] shouldBe "two"
+    map[6] shouldBe "six"
+    map[8] shouldBe "eight"
+  }
+
+  @Test
+  fun `remove single element results in empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map.remove(1) shouldBe "one"
+    map.isEmpty() shouldBe true
+    map.size shouldBe 0
+  }
+
+  @Test
+  fun `remove all elements one by one`() {
+    val map = populatedMap()
+    map.remove(2) shouldBe "two"
+    map.remove(4) shouldBe "four"
+    map.remove(6) shouldBe "six"
+    map.remove(8) shouldBe "eight"
+    map.isEmpty() shouldBe true
+    map.size shouldBe 0
+  }
+
+  @Test
+  fun `remove maintains sorted order of keys`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    for (i in 1..10) {
+      map[i] = i.toString()
+    }
+    map.remove(3)
+    map.remove(7)
+    map.remove(5)
+    map.keys.toList() shouldContainExactly listOf(1, 2, 4, 6, 8, 9, 10)
+  }
+
+  @Test
+  fun `remove first key updates firstKey`() {
+    val map = populatedMap()
+    map.remove(2)
+    map.firstKey() shouldBe 4
+  }
+
+  @Test
+  fun `remove last key updates lastKey`() {
+    val map = populatedMap()
+    map.remove(8)
+    map.lastKey() shouldBe 6
+  }
+
+  @Test
+  fun `put after remove works correctly`() {
+    val map = populatedMap()
+    map.remove(4)
+    map[4] = "FOUR"
+    map[4] shouldBe "FOUR"
+    map.size shouldBe 4
+  }
+
+  @Test
+  fun `remove many elements preserves tree integrity`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    for (i in 1..50) {
+      map[i] = i.toString()
+    }
+    for (i in 1..50 step 2) {
+      map.remove(i)
+    }
+    map.size shouldBe 25
+    map.keys.toList() shouldContainExactly (2..50 step 2).toList()
+    for (i in 2..50 step 2) {
+      map[i] shouldBe i.toString()
+    }
+  }
+
+  @Test
+  fun `containsKey returns true for key with null value`() {
+    val map = MutableRedBlackTreeMap<Int, String?>()
+    map[1] = null
+    map.containsKey(1) shouldBe true
+  }
+
+  @Test
+  fun `size does not increase when updating key with null value`() {
+    val map = MutableRedBlackTreeMap<Int, String?>()
+    map[1] = null
+    map[1] = "one"
+    map.size shouldBe 1
+  }
+
+  @Test
+  fun `remove removes key with null value`() {
+    val map = MutableRedBlackTreeMap<Int, String?>()
+    map[1] = null
+    map[2] = "two"
+    map.remove(1) shouldBe null
+    map.size shouldBe 1
+    map.containsKey(1) shouldBe false
+  }
+
+  @Test
+  fun `containsValue returns true for null value`() {
+    val map = MutableRedBlackTreeMap<Int, String?>()
+    map[1] = null
+    map.containsValue(null) shouldBe true
+  }
+
+  @Test
+  fun `keys view reflects map changes`() {
+    val map = populatedMap()
+    val keys = map.keys
+    keys.size shouldBe 4
+    map[10] = "ten"
+    keys.size shouldBe 5
+    keys.contains(10) shouldBe true
+  }
+
+  @Test
+  fun `keys remove modifies the map`() {
+    val map = populatedMap()
+    map.keys.remove(4) shouldBe true
+    map.containsKey(4) shouldBe false
+    map.size shouldBe 3
+  }
+
+  @Test
+  fun `keys remove returns false for missing key`() {
+    val map = populatedMap()
+    map.keys.remove(5) shouldBe false
+    map.size shouldBe 4
+  }
+
+  @Test
+  fun `values view reflects map changes`() {
+    val map = populatedMap()
+    val values = map.values
+    values.size shouldBe 4
+    map[10] = "ten"
+    values.size shouldBe 5
+    values.contains("ten") shouldBe true
+  }
+
+  @Test
+  fun `entries view reflects map changes`() {
+    val map = populatedMap()
+    val entries = map.entries
+    entries.size shouldBe 4
+    map[10] = "ten"
+    entries.size shouldBe 5
+  }
+
+  @Test
+  fun `entry setValue updates the map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    val entry = map.entries.iterator().next()
+    entry.setValue("ONE")
+    map[1] shouldBe "ONE"
+  }
+
+  @Test
+  fun `equals returns true for maps with same entries`() {
+    val map1 = populatedMap()
+    val map2 = populatedMap()
+    map1 shouldBe map2
+  }
+
+  @Test
+  fun `equals returns true when compared to regular map with same entries`() {
+    val map = populatedMap()
+    val regular = mapOf(2 to "two", 4 to "four", 6 to "six", 8 to "eight")
+    map shouldBe regular
+  }
+
+  @Test
+  fun `equals returns false for maps with different entries`() {
+    val map1 = populatedMap()
+    val map2 = MutableRedBlackTreeMap<Int, String>()
+    map2[1] = "one"
+    map1 shouldNotBe map2
+  }
+
+  @Test
+  fun `equals returns false for maps with same keys but different values`() {
+    val map1 = MutableRedBlackTreeMap<Int, String>()
+    map1[1] = "one"
+    val map2 = MutableRedBlackTreeMap<Int, String>()
+    map2[1] = "ONE"
+    map1 shouldNotBe map2
+  }
+
+  @Test
+  fun `hashCode is equal for maps with same entries`() {
+    val map1 = populatedMap()
+    val map2 = populatedMap()
+    map1.hashCode() shouldBe map2.hashCode()
+  }
+
+  @Test
+  fun `toString returns entries in sorted order`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[3] = "three"
+    map[1] = "one"
+    map[2] = "two"
+    map.toString() shouldBe "{1=one, 2=two, 3=three}"
+  }
+
+  @Test
+  fun `toString returns empty braces for empty map`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map.toString() shouldBe "{}"
+  }
+}
