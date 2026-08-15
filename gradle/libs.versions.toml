@@ -1,15 +1,15 @@
 [versions]
 kotlin = "2.3.21"
-spotless = "8.5.0"
+spotless = "8.6.0"
 kotest = "6.1.11"
 ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.36.0"
 dokka = "2.2.0"
 kover = "0.9.8"
-sonarqube = "7.2.3.7755"
+sonarqube = "7.3.1.8318"
 kotlin-logging = "8.0.4"
 slf4j = "2.0.18"
-kotlinx-benchmark = "0.4.16"
+kotlinx-benchmark = "0.4.17"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
