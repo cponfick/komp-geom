@@ -23,9 +23,9 @@ flowchart TD
     L --> M[Verify tag commit is reachable from main]
     M --> N[Release environment approval]
     N --> O[Build and publish signed Maven artifacts]
-    O --> P[Deploy tag documentation to GitHub Pages]
-    O --> Q[Trigger retryable documentation workflow]
-    Q --> R[Build versioned docs from immutable tag]
+    O --> Q[On successful Publish: trigger Release Documentation]
+    Q --> P[Build and deploy tag docs to GitHub Pages]
+    Q --> R[Build versioned docs from release commit]
     R --> S[Push <tag>-docs branch]
     S --> T{Documentation PR exists?}
     T -->|No| U[Create documentation PR against main]
@@ -34,4 +34,4 @@ flowchart TD
     V --> W
 ```
 
-The Pages deployment and documentation PR workflow are independent after Maven publication, so documentation can be retried without republishing artifacts.
+After Maven publication succeeds, `Release Documentation` runs automatically. Its Pages deployment and versioned documentation PR are independent jobs: a failure in either does not require republishing Maven artifacts. Review and merge the `<tag>-docs` PR. If documentation fails, rerun failed jobs in Actions or manually run **Release Documentation** with the published release tag; do not rerun **Publish** to recover documentation. A manual run redeploys that tag as the site's current version, so use the latest intended release tag when retrying Pages. The repository needs GitHub Pages configured to publish via Actions, the `documentation` label, and permission for Actions to create pull requests.

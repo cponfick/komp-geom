@@ -1,4 +1,4 @@
-name: Documentation PR
+name: Release Documentation
 
 on:
   workflow_dispatch:
@@ -11,32 +11,94 @@ on:
     workflows: [Publish]
     types: [completed]
 
+# Only a successful Maven release triggers this workflow automatically. It can
+# also be run manually for an already published tag without republishing Maven.
 concurrency:
-  group: documentation-${{ github.event.workflow_run.head_branch || inputs.tag }}
+  group: documentation-${{ github.event.workflow_run.head_branch || github.event.workflow_run.head_sha || inputs.tag }}
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
-  docs-pr:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+  release-tag:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+      sha: ${{ steps.release.outputs.sha }}
     steps:
-      - name: Select release tag
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Select and verify release tag
         id: release
         env:
           INPUT_TAG: ${{ inputs.tag }}
           RUN_TAG: ${{ github.event.workflow_run.head_branch }}
+          PUBLISHED_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
           tag="${INPUT_TAG:-$RUN_TAG}"
+          # GitHub may omit head_branch for tag-triggered workflow runs.
+          # If so, resolve the tag by commit; refuse to guess if ambiguous.
+          if [[ -z "$tag" && -n "$PUBLISHED_SHA" ]]; then
+            mapfile -t tags < <(git tag --points-at "$PUBLISHED_SHA" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$' || true)
+            [[ "${#tags[@]}" -eq 1 ]] || { echo "Cannot identify unique release tag; run manually with a tag"; exit 1; }
+            tag="${tags[0]}"
+          fi
           [[ "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$ ]]
+          git rev-parse --verify "refs/tags/$tag^{commit}" >/dev/null
+          if [[ -n "$PUBLISHED_SHA" ]]; then
+            [[ "$(git rev-parse "refs/tags/$tag^{commit}")" == "$PUBLISHED_SHA" ]]
+          fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse "refs/tags/$tag^{commit}")" >> "$GITHUB_OUTPUT"
+
+  build-pages:
+    name: Build documentation for GitHub Pages
+    needs: release-tag
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: ${{ steps.release.outputs.tag }}
+          ref: ${{ needs.release-tag.outputs.sha }}
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Build documentation from release commit
+        run: ./gradlew dokkaGeneratePublicationHtml
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with: { path: build/dokka/html }
+
+  deploy-pages:
+    name: Publish to GitHub Pages
+    needs: build-pages
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
+
+  docs-pr:
+    needs: release-tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.release-tag.outputs.sha }}
           fetch-depth: 0
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
         with:
@@ -46,8 +108,9 @@ jobs:
       - name: Build documentation
         run: ./gradlew dokkaGeneratePublicationHtml
       - name: Update documentation branch
+        id: update
         env:
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_TAG: ${{ needs.release-tag.outputs.tag }}
         run: |
           set -euo pipefail
           branch="${RELEASE_TAG}-docs"
@@ -59,17 +122,23 @@ jobs:
           cp -r build/dokka/html/. "docs/dokka/$RELEASE_TAG/"
           find "docs/dokka/$RELEASE_TAG" -type d -name older -prune -exec rm -rf {} +
           git add "docs/dokka/$RELEASE_TAG"
-          git diff --cached --quiet && exit 0
+          if git diff --cached --quiet; then
+            echo "No documentation changes for $RELEASE_TAG"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           git commit -m "docs: update documentation after $RELEASE_TAG"
           git push --force-with-lease origin "$branch"
       - name: Check documentation label
+        if: steps.update.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh label list --search documentation --json name --jq 'map(select(.name == "documentation")) | length == 1' | grep -qx true
       - name: Create or reuse documentation PR
+        if: steps.update.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_TAG: ${{ needs.release-tag.outputs.tag }}
         run: |
           set -euo pipefail
           branch="${RELEASE_TAG}-docs"
