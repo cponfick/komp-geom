@@ -618,13 +618,13 @@ class MutableRedBlackTreeMapTest {
   }
 
   @Test
-  fun `equals requires equal keys when comparison considers keys equivalent`() {
-    val first = MutableRedBlackTreeMap<ComparisonKey, String>()
-    val second = mapOf(ComparisonKey(1, "second") to "value")
-    first[ComparisonKey(1, "first")] = "value"
+  fun `equals interoperates with a regular map when comparator agrees with equality`() {
+    val first = MutableRedBlackTreeMap<Int, String>(compareByDescending { it })
+    val second = mapOf(1 to "value")
+    first[1] = "value"
 
-    first shouldNotBe second
-    second shouldNotBe first
+    first shouldBe second
+    second shouldBe first
   }
 
   @Test
@@ -653,9 +653,5 @@ class MutableRedBlackTreeMapTest {
     map.keys.toList() shouldContainExactly listOf(3, 2, 1)
     map.firstKey() shouldBe 3
     map.lastKey() shouldBe 1
-  }
-
-  private data class ComparisonKey(val rank: Int, val name: String) : Comparable<ComparisonKey> {
-    override fun compareTo(other: ComparisonKey): Int = rank.compareTo(other.rank)
   }
 }

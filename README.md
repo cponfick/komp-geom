@@ -201,6 +201,12 @@ performance improvements when performing large numbers of operations:
 - **2.59× faster** on JS for 1M affine transformations
 - **2.10× faster** on Native (Linux) for 1M affine transformations
 
+## Data structures
+
+| Data structure | Implementation | Operations | Runtime Complexity | Space Complexity |
+|----------------|----------------|------------|--------------------|------------------|
+| Sorted map | `MutableRedBlackTreeMap` (Red-Black tree) | Insert, delete, lookup, neighbor queries, ordered iteration | O(log n) per update/lookup; O(n) iteration | O(n) |
+
 ## Algorithms
 
 The following is a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or

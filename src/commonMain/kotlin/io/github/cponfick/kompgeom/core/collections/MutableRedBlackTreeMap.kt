@@ -3,24 +3,30 @@ package io.github.cponfick.kompgeom.core.collections
 /**
  * A [MutableSortedMap] implementation backed by a Red-Black tree.
  *
- * Keys are ordered by [comparator]. The default comparator uses the natural ordering of [K]. A
- * comparator that returns zero for unequal keys cannot represent both keys: inserting the latter
- * replaces the former. Lookups still require key equality, so map equality remains symmetric and
- * follows the `Map` contract.
+ * Keys are ordered by [comparator]. By default, keys use their natural ordering. Keys comparing as
+ * zero identify the same mapping; replacing its value retains the original key. For
+ * interoperability with ordinary maps, the comparator should be consistent with key equality. The
+ * comparator must impose a stable total order while keys are in the map; do not mutate keys in ways
+ * that change their ordering. Null values are supported, but null keys are not.
  *
- * Provides O(log n) time for [get], [put], [remove], [containsKey], [floor], [ceiling], [higher],
- * [lower], [firstKey], and [lastKey] operations.
+ * [firstKey], [lastKey] and neighbor queries return `null` when no matching key exists. Iterators
+ * traverse in key order and are fail-fast on structural modifications other than their own
+ * [MutableIterator.remove]; value replacements do not invalidate iterators. Iteration takes O(n)
+ * time and O(log n) auxiliary space. [containsValue] takes O(n) time. [get], [put], [remove],
+ * [containsKey], [floor], [ceiling], [higher], [lower], [firstKey], and [lastKey] take O(log n).
  *
  * @param K The type of keys maintained by this map.
  * @param V The type of mapped values.
- * @param comparator The ordering used by the tree. Defaults to the natural ordering of [K].
+ * @param comparator The ordering used by the tree. Defaults to natural ordering (keys must then
+ *   implement [Comparable]); supply a comparator for other key types.
  */
-public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
-  private val comparator: Comparator<in K> = Comparator { a, b -> a.compareTo(b) }
+public class MutableRedBlackTreeMap<K, V>(
+  private val comparator: Comparator<in K> = Comparator { a, b -> naturalCompare(a, b) }
 ) : MutableSortedMap<K, V> {
 
   private var root: Node? = null
   private var _size: Int = 0
+  private var modCount: Int = 0
 
   override fun firstKey(): K? {
     var current = root
@@ -39,6 +45,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun lower(key: K): K? {
+    requireNotNull(key) { "Null keys are not supported" }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -54,6 +61,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun floor(key: K): K? {
+    requireNotNull(key) { "Null keys are not supported" }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -71,6 +79,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun ceiling(key: K): K? {
+    requireNotNull(key) { "Null keys are not supported" }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -88,6 +97,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun higher(key: K): K? {
+    requireNotNull(key) { "Null keys are not supported" }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -109,21 +119,12 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
 
   override fun containsKey(key: K): Boolean = getNode(key) != null
 
-  override fun containsValue(value: V): Boolean = containsValue(root, value)
-
-  private fun containsValue(node: Node?, value: V): Boolean {
-    node ?: return false
-      return node.value == value || containsValue(node.left, value) || containsValue(node.right, value)
-  }
+  override fun containsValue(value: V): Boolean = values.any { it == value }
 
   override fun get(key: K): V? = getNode(key)?.value
 
   private fun getNode(key: K): Node? {
-    val node = findNodeByOrder(key) ?: return null
-    return node.takeIf { it.key == key }
-  }
-
-  private fun findNodeByOrder(key: K): Node? {
+    requireNotNull(key) { "Null keys are not supported" }
     var x = root
     while (x != null) {
       val cmp = comparator.compare(key, x.key)
@@ -145,18 +146,6 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
 
   override val entries: MutableSet<MutableMap.MutableEntry<K, V>>
     get() = EntrySet()
-
-  private fun inOrderKeys(): MutableList<K> {
-    val result = mutableListOf<K>()
-    fun collect(node: Node?) {
-      node ?: return
-      collect(node.left)
-      result.add(node.key)
-      collect(node.right)
-    }
-    collect(root)
-    return result
-  }
 
   private inner class KeySet : AbstractMutableSet<K>() {
     override val size: Int
@@ -221,35 +210,71 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   private abstract inner class TreeIterator<T> : MutableIterator<T> {
-    protected val orderedKeys = inOrderKeys()
-    protected var cursor = 0
-    private var lastReturned = -1
+    private val pending = ArrayDeque<Node>()
+    private var expectedModCount = modCount
+    private var lastReturned: Node? = null
 
-    override fun hasNext(): Boolean = cursor < orderedKeys.size
+    init {
+      pushLeft(root)
+    }
 
-    protected fun advanceKey(): K {
-      if (!hasNext()) throw NoSuchElementException()
-      lastReturned = cursor
-      return orderedKeys[cursor++]
+    private fun pushLeft(start: Node?) {
+      var node = start
+      while (node != null) {
+        pending.addLast(node)
+        node = node.left
+      }
+    }
+
+    protected fun advance(): Node {
+      checkForModification()
+      if (pending.isEmpty()) throw NoSuchElementException()
+      val node = pending.removeLast()
+      pushLeft(node.right)
+      lastReturned = node
+      return node
+    }
+
+    private fun checkForModification() {
+      if (modCount != expectedModCount) throw ConcurrentModificationException()
+    }
+
+    override fun hasNext(): Boolean {
+      checkForModification()
+      return pending.isNotEmpty()
     }
 
     override fun remove() {
-      check(lastReturned >= 0) { "Call next() before remove()" }
-      this@MutableRedBlackTreeMap.remove(orderedKeys[lastReturned])
-      lastReturned = -1
+      checkForModification()
+      val node = lastReturned ?: throw IllegalStateException("Call next() before remove()")
+      this@MutableRedBlackTreeMap.remove(node.key)
+      // Deletion can rotate or transplant nodes that were already on the traversal stack.
+      // Rebuild the path to the next key in the updated tree.
+      pending.clear()
+      var current = root
+      while (current != null) {
+        if (comparator.compare(current.key, node.key) > 0) {
+          pending.addLast(current)
+          current = current.left
+        } else {
+          current = current.right
+        }
+      }
+      expectedModCount = modCount
+      lastReturned = null
     }
   }
 
   private inner class KeyIterator : TreeIterator<K>() {
-    override fun next(): K = advanceKey()
+    override fun next(): K = advance().key
   }
 
   private inner class ValueIterator : TreeIterator<V>() {
-    override fun next(): V = getNode(advanceKey())!!.value
+    override fun next(): V = advance().value
   }
 
   private inner class EntryIterator : TreeIterator<MutableMap.MutableEntry<K, V>>() {
-    override fun next(): MutableMap.MutableEntry<K, V> = LiveEntry(getNode(advanceKey())!!)
+    override fun next(): MutableMap.MutableEntry<K, V> = LiveEntry(advance())
   }
 
   /**
@@ -265,21 +290,14 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
 
     override fun setValue(newValue: V): V {
       val old = node.value
-      if (!containsNode(root, node)) return old
-      node.value = newValue
+      if (getNode(node.key) === node) node.value = newValue
       return old
-    }
-
-    private fun containsNode(current: Node?, target: Node): Boolean {
-      current ?: return false
-        return current === target || containsNode(current.left, target) || containsNode(current.right, target)
     }
 
     override fun hashCode(): Int = key.hashCode() xor value.hashCode()
 
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      if (other is MutableMap.MutableEntry<*, *>) return key == other.key && value == other.value
       if (other is Map.Entry<*, *>) return key == other.key && value == other.value
       return false
     }
@@ -288,11 +306,17 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun put(key: K, value: V): V? {
-    val existingNode = findNodeByOrder(key)
-    val old = existingNode?.takeIf { it.key == key }?.value
+    requireNotNull(key) { "Null keys are not supported" }
+    // Also validate natural ordering for the first key, before adding it to an empty tree.
+    if (root == null) comparator.compare(key, key)
+    val existingNode = getNode(key)
+    val old = existingNode?.value
     root = put(root, key, value)
     root?.color = BLACK
-    if (existingNode == null) _size++
+    if (existingNode == null) {
+      _size++
+      modCount++
+    }
     return old
   }
 
@@ -303,6 +327,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
     root = delete(root!!, key)
     root?.color = BLACK
     _size--
+    modCount++
     return old
   }
 
@@ -311,8 +336,30 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
   }
 
   override fun clear() {
+    if (root != null) modCount++
     root = null
     _size = 0
+  }
+
+  // Internal diagnostic for cross-platform invariant tests.
+  internal fun hasValidRedBlackInvariants(): Boolean {
+    if (isRed(root)) return false
+    var nodes = 0
+    fun blackHeight(node: Node?, lower: K?, upper: K?): Int {
+      node ?: return 1
+      nodes++
+      if (
+        (lower != null && comparator.compare(node.key, lower) <= 0) ||
+          (upper != null && comparator.compare(node.key, upper) >= 0) ||
+          (isRed(node) && (isRed(node.left) || isRed(node.right)))
+      )
+        return -1
+      val left = blackHeight(node.left, lower, node.key)
+      val right = blackHeight(node.right, node.key, upper)
+      if (left < 0 || left != right) return -1
+      return left + if (isRed(node)) 0 else 1
+    }
+    return blackHeight(root, null, null) > 0 && nodes == _size
   }
 
   private fun isRed(x: Node?): Boolean = x?.color == RED
@@ -438,9 +485,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other is MutableSortedMap<*, *>) return sameEntries(other)
-    if (other is Map<*, *>) return sameEntries(other)
-    return false
+    return other is Map<*, *> && sameEntries(other)
   }
 
   private fun sameEntries(other: Map<*, *>): Boolean {
@@ -452,36 +497,18 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
       }
   }
 
-  override fun hashCode(): Int {
-    var h = 0
-    fun addHash(node: Node?) {
-      node ?: return
-      addHash(node.left)
-      h += node.key.hashCode() xor node.value.hashCode()
-      addHash(node.right)
-    }
-    addHash(root)
-    return h
-  }
+  override fun hashCode(): Int = entries.sumOf { it.hashCode() }
 
-  override fun toString(): String {
-    val sb = StringBuilder("{")
-    var first = true
-    fun append(node: Node?) {
-      node ?: return
-      append(node.left)
-      if (!first) sb.append(", ")
-      sb.append("${node.key}=${node.value}")
-      first = false
-      append(node.right)
-    }
-    append(root)
-    sb.append("}")
-    return sb.toString()
-  }
+  override fun toString(): String = entries.joinToString(prefix = "{", postfix = "}")
 
   private companion object {
     const val RED = true
     const val BLACK = false
+
+    @Suppress("UNCHECKED_CAST")
+    fun <K> naturalCompare(a: K, b: K): Int =
+      (a as? Comparable<K>
+          ?: throw IllegalArgumentException("Keys need a comparator or natural ordering"))
+        .compareTo(b)
   }
 }
