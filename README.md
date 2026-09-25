@@ -220,8 +220,6 @@ contribute a pull request.
 | Intersection | Shamos-Hoey        | 2D                   | yes                         | O(n log n)         | O(n)             |
 | Intersection | Bentley-Ottmann    | 2D                   | yes                         | O((n + k) log n)   | O(n + k)         |
 
-The Shamos-Hoey implementation answers whether any pair of segments intersects and can stop at the first match. Bentley-Ottmann reports all point and overlapping-segment intersections; `k` is the number of reported intersections.
-
 ## Contributing
 
 Contributions are welcome! Please check the [contributing guidelines](CONTRIBUTING.md) for more information on how to
