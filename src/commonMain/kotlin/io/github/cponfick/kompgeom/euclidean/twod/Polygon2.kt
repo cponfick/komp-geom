@@ -108,9 +108,12 @@ public class Polygon2(
     return@lazy true
   }
 
+  /**
+   * Checks all non-adjacent edge pairs. This deliberately remains an O(n²) implementation until a
+   * multiplatform sweep-line implementation is available; polygon simplicity is correctness
+   * critical and the current implementation is adequate for the library's typical small polygons.
+   */
   private val isSimpleHolder: Boolean by lazy {
-    // TODO: Optimize as soon as we have a sweeping line algorithm implemented
-    //  Currently O(n^2) check, which is fine for small polygons but not efficient for large ones.
     for (i in edges.indices) {
       for (j in edges.indices) {
         if (i == j || (i + 1) % edges.size == j || i == (j + 1) % edges.size) {

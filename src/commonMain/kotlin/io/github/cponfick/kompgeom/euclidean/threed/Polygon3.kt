@@ -8,6 +8,16 @@ import io.github.cponfick.kompgeom.euclidean.twod.Polygon2
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import kotlin.math.abs
 
+/**
+ * Represents a planar polygon in three-dimensional space.
+ *
+ * The vertices are copied on construction and must include at least one non-collinear triple. The
+ * polygon may begin with collinear vertices; the plane is inferred from any valid triple and all
+ * vertices must lie in that plane.
+ *
+ * @property vertices The vertices in boundary order.
+ * @property precision The precision used for geometric computations.
+ */
 public class Polygon3(
   vertices: List<Vec3>,
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,

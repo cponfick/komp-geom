@@ -4,6 +4,7 @@ import io.github.cponfick.kompgeom.core.toMutable
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import kotlin.random.Random
 import kotlin.test.Test
 
 class ClosestPairDivideAndConquerTest {
@@ -113,6 +114,29 @@ class ClosestPairDivideAndConquerTest {
     actual.distance shouldBe closestPairNaiveResult.distance
     actual.result.first shouldBe closestPairNaiveResult.result.first
     actual.result.second shouldBe closestPairNaiveResult.result.second
+  }
+
+  @Test
+  fun `matches naive implementation for seeded random inputs`() {
+    val random = Random(0x5EED)
+
+    repeat(100) {
+      val points =
+        List(2 + random.nextInt(24)) {
+          // Keep coordinates integral so that duplicates and exact ties occur regularly.
+          Vec2(random.nextInt(-10, 11).toDouble(), random.nextInt(-10, 11).toDouble())
+        }
+      val expected = ClosestPairNaive(points).execute()
+      val actual = ClosestPairDivideAndConquer(points).execute()
+
+      actual.distance shouldBe expected.distance
+    }
+  }
+
+  @Test
+  fun `handles duplicate points`() {
+    val points = listOf(Vec2(4.0, -2.0), Vec2(1.0, 3.0), Vec2(4.0, -2.0), Vec2(9.0, 1.0))
+    ClosestPairDivideAndConquer(points).execute().distance shouldBe 0.0
   }
 
   @Test

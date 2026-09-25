@@ -5,6 +5,7 @@ import io.github.cponfick.kompgeom.core.toMutable
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import kotlin.random.Random
 import kotlin.test.Test
 
 class Quickhull2Test {
@@ -25,6 +26,37 @@ class Quickhull2Test {
   fun `collinear and equal-x points produce a two-point hull`() {
     val points = listOf(Vec2(0.0, 0.0), Vec2(0.0, 2.0), Vec2(0.0, 1.0), Vec2(0.0, 2.0))
     Quickhull2(points).execute().points shouldBe listOf(Vec2(0.0, 0.0), Vec2(0.0, 2.0))
+  }
+
+  @Test
+  fun `seeded random hulls are unique enclosing counterclockwise polygons`() {
+    val random = Random(0xC0FFEE)
+
+    repeat(50) {
+      val input =
+        List(20) { Vec2(random.nextInt(-50, 51).toDouble(), random.nextInt(-50, 51).toDouble()) }
+      val hull = Quickhull2(input).execute().points
+
+      hull.distinctBy { it.x to it.y }.size shouldBe hull.size
+      if (hull.size >= 3) {
+        assertCounterClockwise(hull)
+        input
+          .distinctBy { it.x to it.y }
+          .forEach { point ->
+            for (index in hull.indices) {
+              val a = hull[index]
+              val b = hull[(index + 1) % hull.size]
+              val cross = (b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x)
+              (cross >= -1e-9) shouldBe true
+            }
+          }
+      }
+    }
+  }
+
+  @Test
+  fun `all duplicate input produces a single point`() {
+    Quickhull2(List(10) { Vec2(3.0, -7.0) }).execute().points shouldBe listOf(Vec2(3.0, -7.0))
   }
 
   @Test
