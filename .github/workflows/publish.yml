@@ -65,6 +65,8 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: gradle
+      - name: Assemble artifacts without tests
+        run: ./gradlew assemble --no-configuration-cache
       - name: Verify local publication
         run: ./gradlew verifyLocalPublication --no-configuration-cache
         env:
