@@ -147,15 +147,20 @@ public interface Segment3<V : Vector3<V>> : Segment<V> {
     val d2 = p4 - p3
     val r = p3 - p1
 
-    if (equivalence.eqZero(d1.norm()) || equivalence.eqZero(d2.norm())) {
-      if (equivalence.eqZero(d1.norm()) && equivalence.eqZero(d2.norm())) {
-        return if (p1.eq(p3, equivalence)) {
-          IntersectionData(IntersectionType.POINT, point = Vec3.from(p1))
-        } else {
-          IntersectionData(IntersectionType.NONE)
-        }
+    val d1IsPoint = equivalence.eqZero(d1.norm())
+    val d2IsPoint = equivalence.eqZero(d2.norm())
+    if (d1IsPoint && d2IsPoint) {
+      return if (p1.eq(p3, equivalence)) {
+        IntersectionData(IntersectionType.POINT, point = p1)
+      } else {
+        IntersectionData(IntersectionType.NONE)
       }
-      return IntersectionData(IntersectionType.NONE)
+    }
+    if (d1IsPoint) {
+      return pointIntersection(p1, p3, p4, equivalence)
+    }
+    if (d2IsPoint) {
+      return pointIntersection(p3, p1, p2, equivalence)
     }
 
     val cross = d1 cross d2
@@ -284,6 +289,39 @@ private fun computeOverlappingSegment(
   }
 
   return IntersectionData(IntersectionType.OVERLAP, segment = overlap)
+}
+
+private fun pointIntersection(
+  point: Vec3,
+  start: Vec3,
+  end: Vec3,
+  equivalence: DoubleEquivalence,
+): IntersectionData<Vec3> =
+  if (isOnSegment(point, start, end, equivalence)) {
+    IntersectionData(IntersectionType.POINT, point = point)
+  } else {
+    IntersectionData(IntersectionType.NONE)
+  }
+
+private fun isOnSegment(
+  point: Vec3,
+  start: Vec3,
+  end: Vec3,
+  equivalence: DoubleEquivalence,
+): Boolean {
+  val direction = end - start
+  val fromStart = point - start
+  val directionLengthSquared = direction dot direction
+
+  // Bounds alone are insufficient in 3D: a point can be inside every coordinate
+  // bound without lying on the segment's line.
+  val distanceToLine = (fromStart cross direction).norm() / direction.norm()
+  if (!equivalence.eqZero(distanceToLine)) {
+    return false
+  }
+
+  val parameter = (fromStart dot direction) / directionLengthSquared
+  return equivalence.gte(parameter, 0.0) && equivalence.lte(parameter, 1.0)
 }
 
 private fun computeOverlappingSegment(

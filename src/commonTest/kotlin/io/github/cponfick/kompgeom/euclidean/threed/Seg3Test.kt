@@ -152,13 +152,47 @@ class Seg3Test {
   }
 
   @Test
-  fun `intersection handles degenerate segments`() {
+  fun `intersection handles a point in the interior of a segment`() {
     val point = Vec3(1.0, 1.0, 1.0)
     val degenerateSegment = Seg3(point, point)
     val normalSegment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0))
 
     val intersection = degenerateSegment.intersection(normalSegment)
-    intersection.type shouldBe IntersectionType.NONE
+    intersection.type shouldBe IntersectionType.POINT
+    intersection.point!!.eq(point) shouldBe true
+
+    // The result must not depend on which operand is the point segment.
+    val reversedIntersection = normalSegment.intersection(degenerateSegment)
+    reversedIntersection.type shouldBe IntersectionType.POINT
+    reversedIntersection.point!!.eq(point) shouldBe true
+  }
+
+  @Test
+  fun `intersection handles a point at a segment endpoint`() {
+    val point = Vec3(0.0, 0.0, 0.0)
+    val pointSegment = Seg3(point, point)
+    val segment = Seg3(point, Vec3(2.0, 2.0, 2.0))
+
+    pointSegment.intersection(segment).type shouldBe IntersectionType.POINT
+    segment.intersection(pointSegment).type shouldBe IntersectionType.POINT
+  }
+
+  @Test
+  fun `intersection rejects a point inside coordinate bounds but off the segment line`() {
+    val pointSegment = Seg3(Vec3(1.0, 0.5, 0.0), Vec3(1.0, 0.5, 0.0))
+    val segment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 0.0))
+
+    pointSegment.intersection(segment).type shouldBe IntersectionType.NONE
+    segment.intersection(pointSegment).type shouldBe IntersectionType.NONE
+  }
+
+  @Test
+  fun `intersection rejects disjoint point and segment`() {
+    val pointSegment = Seg3(Vec3(3.0, 3.0, 3.0), Vec3(3.0, 3.0, 3.0))
+    val segment = Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 2.0, 2.0))
+
+    pointSegment.intersection(segment).type shouldBe IntersectionType.NONE
+    segment.intersection(pointSegment).type shouldBe IntersectionType.NONE
   }
 
   @Test
@@ -170,6 +204,14 @@ class Seg3Test {
     val intersection = segment1.intersection(segment2)
     intersection.type shouldBe IntersectionType.POINT
     intersection.point!!.eq(point) shouldBe true
+  }
+
+  @Test
+  fun `intersection of two different point segments is NONE`() {
+    val segment1 = Seg3(Vec3(1.0, 1.0, 1.0), Vec3(1.0, 1.0, 1.0))
+    val segment2 = Seg3(Vec3(2.0, 2.0, 2.0), Vec3(2.0, 2.0, 2.0))
+
+    segment1.intersection(segment2).type shouldBe IntersectionType.NONE
   }
 
   @Test
