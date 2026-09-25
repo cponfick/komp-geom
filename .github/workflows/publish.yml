@@ -47,8 +47,6 @@ jobs:
     name: Build and Publish
     runs-on: macos-latest
     needs: [validate-release, jvm-tests, platform-tests]
-    environment:
-      name: maven-central-release
     permissions:
       contents: read
     steps:
