@@ -60,11 +60,11 @@ Since this is a multiplatform project:
    ```bash
    ./gradlew spotlessApply
    ```
-2. **Verify tests pass:**
+2. **Verify formatting and tests:**
    ```bash
-   ./gradlew allTests
+   ./gradlew spotlessCheck allTests
    ```
-   This runs all tests available to your platform. The github actions will test a set of different platforms.
+   Always use `allTests` rather than a single target-specific test task for verification. It runs the tests available on your host; browser tests require Chrome (set `CHROME_BIN` if it is not on the PATH). GitHub Actions covers additional platforms.
 
 ### Pull Request Guidelines
 

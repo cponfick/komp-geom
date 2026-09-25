@@ -101,8 +101,9 @@ reliable geometric operations across all platforms.
 
 ### Default Precision
 
-By default, the library uses an epsilon based comparison with a default `GEOMETRIC_EPSILON` of `1e-10` as the tolerance
-threshold. Two double values are considered equal if their absolute difference is within this epsilon:
+By default, the library uses an epsilon-based comparison with `GEOMETRIC_EPSILON` set to `1e-10`.
+Two finite double values are considered equal when `abs(a - b) <= epsilon * maxOf(1.0, abs(a), abs(b))`.
+This combines an absolute tolerance near zero with a relative tolerance for larger magnitudes:
 
 ```kotlin
 // Using default precision
@@ -121,7 +122,7 @@ val relaxed = EpsilonDoubleEquivalence(epsilon = 1e-6)
 relaxed.eq(0.3000001, 0.3)  // true
 
 // Stricter precision for high-accuracy requirements
-val strict = DoubleEquivalence(epsilon = 1e-12)
+val strict = EpsilonDoubleEquivalence(epsilon = 1e-12)
 strict.eq(0.30000000001, 0.3)  // false
 ```
 
@@ -130,10 +131,10 @@ specialized comparison logic.
 
 ### Available Comparison Operations
 
-The `DoubleEquivalence` class provides a complete set of comparison methods:
+The `DoubleEquivalence` interface defines the comparison methods; `EpsilonDoubleEquivalence` provides the epsilon-based implementation:
 
 ```kotlin
-val precision = DoubleEquivalence()
+val precision = EpsilonDoubleEquivalence()
 
 precision.eq(a, b)      // Equal to
 precision.eqZero(a)     // Equal to zero

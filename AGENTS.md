@@ -27,17 +27,16 @@ Use the Gradle wrapper from the repository root:
 ```bash
 ./gradlew spotlessApply   # format Kotlin, Gradle Kotlin DSL, and Markdown/YAML
 ./gradlew spotlessCheck   # verify formatting without changing files
-./gradlew jvmTest         # run JVM tests
-./gradlew jsTest          # run JavaScript tests; requires Chrome for Karma
-./gradlew wasmJsTest      # run WebAssembly tests; requires Chrome for Karma
-./gradlew linuxX64Test    # run Linux Native tests
+./gradlew allTests        # run all tests available on this host (JS/Wasm browser tests require Chrome)
 ```
 
 The project configures a Java 17 toolchain. Install/configure a JDK 17 or newer before running JVM/Gradle tasks. CI runs JVM tests on JDK 17, 21, and 25, and runs platform-specific tests on the corresponding operating systems.
 
-There is no generic root `test` task; use target-specific tasks such as `jvmTest`.
+Use `allTests` for verification rather than a single target-specific test task. Install Chrome (or set `CHROME_BIN` to its executable) for JS/Wasm browser tests. Gradle runs the targets available on the current host; CI covers additional hosts and targets.
 
 ## Implementation conventions
+
+Before changing geometry behavior, inspect the relevant interface, corresponding implementations in other dimensions, comparison semantics in `core/equivalence/`, and matching `commonTest` tests. Preserve established API and edge-case behavior unless the task explicitly changes it.
 
 - Put platform-independent functionality in `commonMain`; avoid `expect`/`actual` unless platform behavior genuinely requires it.
 - Add new tests to `commonTest` whenever behavior is shared across targets.
@@ -51,7 +50,7 @@ There is no generic root `test` task; use target-specific tasks such as `jvmTest
 
 - Add or update focused tests for every behavior change, including edge cases and invalid/degenerate inputs.
 - Prefer shared tests in `src/commonTest` so behavior is checked across supported platforms.
-- Run `spotlessApply` before committing and then run the relevant target tests.
+- Run `spotlessApply`, `spotlessCheck`, and `allTests` before committing.
 - Do not edit generated files under `build/` or hand-edit the tracked Dokka output under `docs/dokka/`. Regenerate and commit Dokka output only when the task calls for a documentation update.
 - Keep changes focused; update README/docs when changing public behavior or usage.
 
@@ -61,7 +60,7 @@ Before submitting a change:
 
 1. Run `./gradlew spotlessApply`.
 2. Run `./gradlew spotlessCheck`.
-3. Run the relevant test task(s), at minimum `./gradlew jvmTest` when a JDK 17 toolchain is available.
+3. Run `./gradlew allTests`.
 4. Review the diff for accidental generated files or unrelated changes.
 5. Use a clear commit/PR description and explain API or precision-related changes.
 
