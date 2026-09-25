@@ -1,6 +1,8 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.github.cponfick.kompgeom.core.shapes.IntersectionType
+import io.github.cponfick.kompgeom.core.shapes.computeIntersection
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
@@ -129,6 +131,32 @@ class Seg2Test {
       intersection.type shouldBe IntersectionType.OVERLAP
       intersection.segment shouldBe expectedOverlap
     }
+  }
+
+  @Test
+  fun `near parallel segments use equivalence consistently`() {
+    val equivalence = EpsilonDoubleEquivalence(1e-6)
+    val first = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1e-8))
+    val second = Seg2(Vec2(0.0, 1.0), Vec2(1.0, 1.0 + 2e-8))
+
+    first.intersection(second, equivalence).type shouldBe IntersectionType.NONE
+
+    // The standalone helper has the same parallel-line policy as intersection().
+    val parallel = Seg2(Vec2(0.0, 0.0), Vec2(1.0, 1e-8))
+    val parallelOther = Seg2(Vec2(0.0, 1e-7), Vec2(1.0, 1.1e-7))
+    kotlin.test.assertFailsWith<IllegalArgumentException> {
+      computeIntersection(parallel, parallelOther, equivalence)
+    }
+  }
+
+  @Test
+  fun `small and large coordinate intersections remain points when above tolerance`() {
+    val equivalence = EpsilonDoubleEquivalence(1e-12)
+    val small = Seg2(Vec2(0.0, 0.0), Vec2(1e-3, 1e-3)) to Seg2(Vec2(0.0, 1e-3), Vec2(1e-3, 0.0))
+    val large = Seg2(Vec2(0.0, 0.0), Vec2(1e6, 1e6)) to Seg2(Vec2(0.0, 1e6), Vec2(1e6, 0.0))
+
+    small.first.intersection(small.second, equivalence).type shouldBe IntersectionType.POINT
+    large.first.intersection(large.second, equivalence).type shouldBe IntersectionType.POINT
   }
 
   @Test

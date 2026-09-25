@@ -95,8 +95,22 @@ public interface Segment2<V : Vector2<V>> : Segment<V> {
     val o4 = orientation(otherStart, otherEnd, end, equivalence)
 
     return when {
-      (o1 != o2 && o3 != o4) ->
-        IntersectionData(IntersectionType.POINT, point = computeIntersection(this, other))
+      (o1 != o2 && o3 != o4) -> {
+        // Use the same equivalence for the denominator as for orientation. A
+        // denominator that is insignificant at the configured precision must
+        // not reach the exact-zero check in computeIntersection().
+        val denominator =
+          (start.x - end.x) * (otherStart.y - otherEnd.y) -
+            (start.y - end.y) * (otherStart.x - otherEnd.x)
+        if (equivalence.eqZero(denominator)) {
+          IntersectionData(IntersectionType.NONE)
+        } else {
+          IntersectionData(
+            IntersectionType.POINT,
+            point = computeIntersection(this, other, equivalence),
+          )
+        }
+      }
 
       (o1 == Orientation.COLLINEAR &&
         o2 == Orientation.COLLINEAR &&
@@ -239,10 +253,17 @@ private fun isOnSegment(
  *
  * @param segment1 The first segment.
  * @param segment2 The second segment.
+ * @param equivalence The equivalence used to determine whether the lines are parallel. Defaults to
+ *   [DEFAULT_DOUBLE_EQUIVALENCE].
  * @return The intersection point of the two segments.
- * @throws IllegalArgumentException if the segments do not intersect or are collinear.
+ * @throws IllegalArgumentException if the segments do not intersect or are parallel at the given
+ *   precision.
  */
-public fun computeIntersection(segment1: Segment2<*>, segment2: Segment2<*>): Vec2 {
+public fun computeIntersection(
+  segment1: Segment2<*>,
+  segment2: Segment2<*>,
+  equivalence: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
+): Vec2 {
   val x1 = segment1.start.x
   val y1 = segment1.start.y
   val x2 = segment1.end.x
@@ -253,7 +274,9 @@ public fun computeIntersection(segment1: Segment2<*>, segment2: Segment2<*>): Ve
   val y4 = segment2.end.y
 
   val denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
-  require(denominator != 0.0) { "Segments do not intersect or are collinear." }
+  require(!equivalence.eqZero(denominator)) {
+    "Segments do not intersect or are parallel at the configured precision."
+  }
 
   val t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator
   return Vec2(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
