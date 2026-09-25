@@ -1,0 +1,83 @@
+name: Documentation PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to document (for example 0.4.0-rc3)
+        required: true
+        type: string
+  workflow_run:
+    workflows: [Publish]
+    types: [completed]
+
+concurrency:
+  group: documentation-${{ github.event.workflow_run.head_branch || inputs.tag }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  docs-pr:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select release tag
+        id: release
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          RUN_TAG: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          set -euo pipefail
+          tag="${INPUT_TAG:-$RUN_TAG}"
+          [[ "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$ ]]
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+          fetch-depth: 0
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Build documentation
+        run: ./gradlew dokkaGeneratePublicationHtml
+      - name: Update documentation branch
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          branch="${RELEASE_TAG}-docs"
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git config user.name github-actions[bot]
+          git fetch origin main
+          git switch --create "$branch" origin/main
+          mkdir -p "docs/dokka/$RELEASE_TAG"
+          cp -r build/dokka/html/. "docs/dokka/$RELEASE_TAG/"
+          find "docs/dokka/$RELEASE_TAG" -type d -name older -prune -exec rm -rf {} +
+          git add "docs/dokka/$RELEASE_TAG"
+          git diff --cached --quiet && exit 0
+          git commit -m "docs: update documentation after $RELEASE_TAG"
+          git push --force-with-lease origin "$branch"
+      - name: Check documentation label
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label list --search documentation --json name --jq 'map(select(.name == "documentation")) | length == 1' | grep -qx true
+      - name: Create or reuse documentation PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          set -euo pipefail
+          branch="${RELEASE_TAG}-docs"
+          existing="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number')"
+          if [[ -n "$existing" ]]; then
+            echo "Documentation PR #$existing already exists"
+          else
+            gh pr create --title "docs: update documentation after $RELEASE_TAG" \
+              --body "This PR updates versioned documentation for $RELEASE_TAG." \
+              --base main --head "$branch" --label documentation
+          fi
