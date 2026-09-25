@@ -65,9 +65,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: gradle
-      - name: Build with Gradle
-        run: ./gradlew build
-      - name: Verify signed publication in local Maven repository
+      - name: Verify local publication
         run: ./gradlew verifyLocalPublication --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}

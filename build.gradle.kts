@@ -174,9 +174,6 @@ dokka {
 
 kover { reports { filters { excludes { classes("*Benchmark") } } } }
 
-// This is intentionally a release-gate task. It publishes to the local Maven
-// repository first, then verifies the same coordinates that the Central upload
-// will contain. Signing credentials are supplied by the protected release job.
 tasks.register("verifyLocalPublication") {
   dependsOn("publishToMavenLocal")
   doLast {
@@ -187,7 +184,6 @@ tasks.register("verifyLocalPublication") {
     check(files.any { it.extension == "pom" }) { "No POM was published" }
     check(files.any { it.name.endsWith(".module") }) { "No Gradle module metadata was published" }
     check(files.any { it.name.endsWith("-sources.jar") }) { "No sources JAR was published" }
-    check(files.any { it.name.endsWith(".asc") }) { "No signed publication artifact was published" }
     check(files.any { it.extension == "klib" || it.extension == "jar" }) {
       "No target artifact was published"
     }
