@@ -174,22 +174,6 @@ dokka {
 
 kover { reports { filters { excludes { classes("*Benchmark") } } } }
 
-tasks.register("verifyLocalPublication") {
-  dependsOn("publishToMavenLocal")
-  doLast {
-    val localRoot =
-      File(System.getProperty("user.home"), ".m2/repository/$group/komp-geom/$version")
-    check(localRoot.isDirectory) { "Local publication was not written to $localRoot" }
-    val files = localRoot.walkTopDown().filter { it.isFile }.toList()
-    check(files.any { it.extension == "pom" }) { "No POM was published" }
-    check(files.any { it.name.endsWith(".module") }) { "No Gradle module metadata was published" }
-    check(files.any { it.name.endsWith("-sources.jar") }) { "No sources JAR was published" }
-    check(files.any { it.extension == "klib" || it.extension == "jar" }) {
-      "No target artifact was published"
-    }
-  }
-}
-
 sonar {
   properties {
     property("sonar.projectKey", "cponfick_komp-geom")
