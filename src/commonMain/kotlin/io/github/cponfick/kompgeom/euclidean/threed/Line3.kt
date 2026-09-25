@@ -11,8 +11,10 @@ import kotlin.math.abs
  * Represents a line in 3D space defined by a direction vector and a moment (point offset).
  *
  * The line is stored in Plücker form using a unit [direction] vector and a [moment] vector computed
- * as `point × direction` for any point on the line. This representation allows stable distance and
- * side classification while remaining translation invariant.
+ * as `point × direction` for any point on the line. The distance to the line is the magnitude of
+ * the perpendicular offset vector. Since a 3D line does not divide space into two half-spaces,
+ * [offset] and [location] use a deterministic auxiliary orientation to choose a sign; that sign is
+ * a classification convention, not a geometric side of the line.
  *
  * @property direction The unit direction vector of the line.
  * @property moment The moment vector (`point × direction`) identifying the line's position.
@@ -25,19 +27,25 @@ public data class Line3(
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
 ) : Line<Vector3<*>> {
   private val referenceNormal: Vec3 by lazy { computeReferenceNormal(direction) }
+  private val secondaryNormal: Vec3 by lazy { direction cross referenceNormal }
 
   init {
     require(precision.eq(1.0, direction.norm())) { "Direction vector cannot be zero." }
   }
 
-  override fun distance(other: Vector3<*>): Double = abs(offset(other))
+  override fun distance(other: Vector3<*>): Double = computeOffsetVector(other).norm()
 
   override fun offset(vec: Vector3<*>): Double {
     val offsetVector = computeOffsetVector(vec)
     val magnitude = offsetVector.norm()
     if (precision.eqZero(magnitude)) return 0.0
 
-    val sign = precision.signum(referenceNormal dot offsetVector)
+    // A line has a two-dimensional normal space. Use the second normal as a
+    // deterministic tie-breaker when the first auxiliary plane contains the
+    // point; otherwise a non-line point could incorrectly have offset zero.
+    val primarySign = precision.signum(referenceNormal dot offsetVector)
+    val sign =
+      if (primarySign != 0.0) primarySign else precision.signum(secondaryNormal dot offsetVector)
     return sign * magnitude
   }
 

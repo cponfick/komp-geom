@@ -47,6 +47,15 @@ class Line3Test {
   }
 
   @Test
+  fun `distance is nonzero when offset is orthogonal to the reference normal`() {
+    val line = Line3(Vec3(1.0, 0.0, 0.0), Vec3.ZERO)
+    val pointOffLine = Vec3(0.0, 0.0, 1.0)
+
+    line.distance(pointOffLine) shouldBe 1.0
+    line.location(pointOffLine) shouldNotBe Location.ON
+  }
+
+  @Test
   fun `offset returns correct result for positive side`() {
     val direction = Vec3(1.0, 0.0, 0.0).normalize()
     val line = Line3(direction, Vec3.ZERO)
