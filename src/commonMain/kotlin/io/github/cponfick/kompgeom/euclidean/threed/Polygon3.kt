@@ -15,16 +15,37 @@ public data class Polygon3(
 
   init {
     require(vertices.size >= 3) { "A polygon must have at least 3 vertices." }
+    require(findNormal() != null) {
+      "A polygon must contain three non-collinear vertices to define a plane."
+    }
     require(isCoplanar()) { "All vertices of the polygon must be coplanar." }
   }
 
   /** The normal vector of the polygon's plane. */
   public val normal: Vec3 by lazy { normal() }
 
-  private fun normal(): Vec3 {
-    val v1 = vertices[1] - vertices[0]
-    val v2 = vertices[2] - vertices[1]
-    return v1.cross(v2).normalize()
+  private fun normal(): Vec3 =
+    requireNotNull(findNormal()) {
+      "A polygon must contain three non-collinear vertices to define a plane."
+    }
+
+  /**
+   * Finds a plane normal from any non-collinear triple, rather than assuming the first three
+   * vertices define the plane. This is important for polygons with a collinear prefix.
+   */
+  private fun findNormal(): Vec3? {
+    for (first in 0 until vertices.size - 2) {
+      for (second in first + 1 until vertices.size - 1) {
+        val firstEdge = vertices[second] - vertices[first]
+        for (third in second + 1 until vertices.size) {
+          val cross = firstEdge.cross(vertices[third] - vertices[first])
+          if (!precision.eqZero(cross.norm())) {
+            return cross.normalize()
+          }
+        }
+      }
+    }
+    return null
   }
 
   public val edges: List<Seg3> by lazy {
@@ -102,10 +123,14 @@ public data class Polygon3(
   }
 
   private fun isCoplanar(): Boolean {
-    if (vertexCount < 4) return true
+    // Three non-collinear points define a plane by themselves. Avoid a redundant coplanarity
+    // calculation here so the existing finite/NaN predicates can still be used on such input.
+    if (vertexCount == 3) return true
+
+    val planeNormal = findNormal() ?: return false
     val point = vertices[0]
 
-    return vertices.all { vertex -> precision.eqZero((vertex - point).dot(normal())) }
+    return vertices.all { vertex -> precision.eqZero((vertex - point).dot(planeNormal)) }
   }
 
   private fun projectTo2D(): Polygon2 {

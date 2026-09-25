@@ -33,6 +33,22 @@ class Polygon3Test {
   }
 
   @Test
+  fun `constructor finds a plane using a later non-collinear vertex`() {
+    val vertices =
+      listOf(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0), Vec3(0.0, 1.0, 0.0))
+
+    val polygon = Polygon3(vertices)
+    polygon.normal shouldBe Vec3(0.0, 0.0, 1.0)
+  }
+
+  @Test
+  fun `constructor rejects an all-collinear polygon`() {
+    assertFailsWith<IllegalArgumentException> {
+      Polygon3(listOf(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)))
+    }
+  }
+
+  @Test
   fun `vertexCount returns the correct vertices`() {
     val vertices =
       listOf(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0), Vec3(2.0, 2.0, 0.0), Vec3(0.0, 2.0, 0.0))
