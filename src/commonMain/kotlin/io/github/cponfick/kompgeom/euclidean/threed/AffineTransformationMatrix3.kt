@@ -135,12 +135,25 @@ public data class AffineTransformationMatrix3(
   public fun translate(translation: Vec3): AffineTransformationMatrix3 =
     translate(translation.x, translation.y, translation.z)
 
+  /**
+   * Scales the transformation matrix by the specified factors.
+   *
+   * Scaling is composed on the right of this transformation. The scale is therefore applied to an
+   * input before this matrix: the columns of the linear part are scaled and the existing
+   * translation remains unchanged. This is consistent with [times] and the one- and two-
+   * dimensional affine transformation matrices.
+   *
+   * @param x The scaling factor along the x-axis.
+   * @param y The scaling factor along the y-axis.
+   * @param z The scaling factor along the z-axis.
+   * @return A new [AffineTransformationMatrix3] that represents the scaling.
+   */
   public fun scale(x: Double, y: Double, z: Double): AffineTransformationMatrix3 =
     AffineTransformationMatrix3(
       // spotless:off
-      m00 * x, m01 * x, m02 * x, m03 * x,
-      m10 * y, m11 * y, m12 * y, m13 * y,
-      m20 * z, m21 * z, m22 * z, m23 * z
+      m00 * x, m01 * y, m02 * z, m03,
+      m10 * x, m11 * y, m12 * z, m13,
+      m20 * x, m21 * y, m22 * z, m23
       // spotless:on
     )
 

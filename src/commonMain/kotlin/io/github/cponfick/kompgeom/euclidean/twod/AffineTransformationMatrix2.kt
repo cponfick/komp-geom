@@ -122,6 +122,11 @@ public data class AffineTransformationMatrix2(
   /**
    * Scales the transformation matrix by given factors in the x and y directions.
    *
+   * Scaling is composed on the right of this transformation. In other words, the scale is applied
+   * to an input before this matrix, so the linear part is scaled by columns while the existing
+   * translation remains unchanged. This is consistent with [times] and with
+   * [AffineTransformationMatrix1.scale].
+   *
    * @param x The scaling factor for the x-direction.
    * @param y The scaling factor for the y-direction.
    * @return A new affine transformation matrix with the scaling applied.
@@ -129,8 +134,8 @@ public data class AffineTransformationMatrix2(
   public fun scale(x: Double, y: Double): AffineTransformationMatrix2 =
     AffineTransformationMatrix2(
       // spotless:off
-      m00 * x, m01, m02,
-      m10, m11 * y, m12
+      m00 * x, m01 * y, m02,
+      m10 * x, m11 * y, m12
       // spotless:on
     )
 

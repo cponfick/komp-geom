@@ -155,6 +155,27 @@ class AffineTransformationMatrix2Test {
   }
 
   @Test
+  fun `scale composes with rotated linear part and preserves translation`() {
+    val actual =
+      AffineTransformationMatrix2.IDENTITY.rotate(PI / 2.0).translate(7.0, 8.0).scale(2.0, 3.0)
+
+    actual shouldBe
+      AffineTransformationMatrix2(
+        2.0 * cos(PI / 2.0),
+        -3.0 * sin(PI / 2.0),
+        7.0,
+        2.0 * sin(PI / 2.0),
+        3.0 * cos(PI / 2.0),
+        8.0,
+      )
+    actual.eq(
+      AffineTransformationMatrix2.IDENTITY.rotate(PI / 2.0).translate(7.0, 8.0) *
+        AffineTransformationMatrix2.createScaling(2.0, 3.0),
+      testEquivalence,
+    ) shouldBe true
+  }
+
+  @Test
   fun `rotate returns correct result`() {
     val radians = PI / 2.0
     val degrees = 90.0
@@ -173,7 +194,8 @@ class AffineTransformationMatrix2Test {
     // Here we just check that the multiplication of two matrices gives the expected result.
     val cos = cos(PI / 2.0)
     val sin = sin(PI / 2.0)
-    val expectedMatrix = AffineTransformationMatrix2(2.0 * cos, -sin, 2.0, sin, 3.0 * cos, 3.0)
+    val expectedMatrix =
+      AffineTransformationMatrix2(2.0 * cos, -3.0 * sin, 2.0, 2.0 * sin, 3.0 * cos, 3.0)
 
     val actual =
       AffineTransformationMatrix2.IDENTITY.rotate(PI / 2.0).translate(2.0, 3.0).scale(2.0, 3.0)

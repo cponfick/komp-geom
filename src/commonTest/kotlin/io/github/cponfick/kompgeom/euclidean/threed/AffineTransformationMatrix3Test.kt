@@ -204,6 +204,37 @@ class AffineTransformationMatrix3Test {
   }
 
   @Test
+  fun `scale composes with rotated linear part and preserves translation`() {
+    val actual =
+      AffineTransformationMatrix3.IDENTITY.rotateZ(PI / 2.0)
+        .translate(7.0, 8.0, 9.0)
+        .scale(2.0, 3.0, 4.0)
+
+    actual.eq(
+      AffineTransformationMatrix3(
+        2.0 * kotlin.math.cos(PI / 2.0),
+        -3.0 * kotlin.math.sin(PI / 2.0),
+        0.0,
+        7.0,
+        2.0 * kotlin.math.sin(PI / 2.0),
+        3.0 * kotlin.math.cos(PI / 2.0),
+        0.0,
+        8.0,
+        0.0,
+        0.0,
+        4.0,
+        9.0,
+      ),
+      EpsilonDoubleEquivalence(1e-10),
+    ) shouldBe true
+    actual.eq(
+      AffineTransformationMatrix3.IDENTITY.rotateZ(PI / 2.0).translate(7.0, 8.0, 9.0) *
+        AffineTransformationMatrix3.createScaling(2.0, 3.0, 4.0),
+      EpsilonDoubleEquivalence(1e-10),
+    ) shouldBe true
+  }
+
+  @Test
   fun `createTranslation returns expected translation matrix`() {
     val expected =
       AffineTransformationMatrix3(
