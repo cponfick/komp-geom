@@ -217,6 +217,10 @@ contribute a pull request.
 | Closest Pair | Naive              | 2D, 3D               | yes                         | O(n^2)             | O(1)             |
 | Closest Pair | Divide and Conquer | 2D                   | yes                         | O(n log n)         | O(n)             |
 | Convex Hull  | QuickHull          | 2D                   | yes                         | O(n log n)         | O(n)             |
+| Intersection | Shamos-Hoey        | 2D                   | yes                         | O(n log n)         | O(n)             |
+| Intersection | Bentley-Ottmann    | 2D                   | yes                         | O((n + k) log n)   | O(n + k)         |
+
+The Shamos-Hoey implementation answers whether any pair of segments intersects and can stop at the first match. Bentley-Ottmann reports all point and overlapping-segment intersections; `k` is the number of reported intersections.
 
 ## Contributing
 
