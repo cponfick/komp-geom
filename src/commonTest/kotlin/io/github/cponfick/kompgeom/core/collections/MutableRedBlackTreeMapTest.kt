@@ -378,7 +378,7 @@ class MutableRedBlackTreeMapTest {
     val map = populatedMap()
     map.remove(4)
     map.containsKey(4) shouldBe false
-    map.get(4) shouldBe null
+    map[4] shouldBe null
   }
 
   @Test
@@ -585,6 +585,16 @@ class MutableRedBlackTreeMapTest {
   }
 
   @Test
+  fun `map and entry hash codes support null values`() {
+    val map = MutableRedBlackTreeMap<Int, String?>()
+    map[1] = null
+    val entry = map.entries.single()
+
+    entry.hashCode() shouldBe (1.hashCode() xor 0)
+    map.hashCode() shouldBe mapOf(1 to null).hashCode()
+  }
+
+  @Test
   fun `toString returns entries in sorted order`() {
     val map = MutableRedBlackTreeMap<Int, String>()
     map[3] = "three"
@@ -597,5 +607,55 @@ class MutableRedBlackTreeMapTest {
   fun `toString returns empty braces for empty map`() {
     val map = MutableRedBlackTreeMap<Int, String>()
     map.toString() shouldBe "{}"
+  }
+
+  @Test
+  fun `equals returns false instead of throwing for unrelated key types`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+
+    map shouldNotBe mapOf("1" to "one")
+  }
+
+  @Test
+  fun `equals requires equal keys when comparison considers keys equivalent`() {
+    val first = MutableRedBlackTreeMap<ComparisonKey, String>()
+    val second = mapOf(ComparisonKey(1, "second") to "value")
+    first[ComparisonKey(1, "first")] = "value"
+
+    first shouldNotBe second
+    second shouldNotBe first
+  }
+
+  @Test
+  fun `entry retains its key after its mapping is removed`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    map[2] = "two"
+    map[3] = "three"
+    val removed = map.entries.single { it.key == 2 }
+
+    map.remove(2)
+
+    removed.key shouldBe 2
+    removed.value shouldBe "two"
+    removed.setValue("changed") shouldBe "two"
+    map[3] shouldBe "three"
+  }
+
+  @Test
+  fun `custom comparator controls tree ordering`() {
+    val map = MutableRedBlackTreeMap<Int, String>(compareByDescending { it })
+    map[1] = "one"
+    map[3] = "three"
+    map[2] = "two"
+
+    map.keys.toList() shouldContainExactly listOf(3, 2, 1)
+    map.firstKey() shouldBe 3
+    map.lastKey() shouldBe 1
+  }
+
+  private data class ComparisonKey(val rank: Int, val name: String) : Comparable<ComparisonKey> {
+    override fun compareTo(other: ComparisonKey): Int = rank.compareTo(other.rank)
   }
 }

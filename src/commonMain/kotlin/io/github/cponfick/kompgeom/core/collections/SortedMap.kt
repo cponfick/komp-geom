@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.core.collections
 
 /**
- * A map that maintains its entries sorted by key according to a [Comparator].
+ * A map that maintains its entries sorted according to its implementation-defined key ordering.
  *
  * Extends [Map] with neighbor queries ([floor], [ceiling], [higher], [lower]) and extremum access
  * ([firstKey], [lastKey]) for finding adjacent keys.

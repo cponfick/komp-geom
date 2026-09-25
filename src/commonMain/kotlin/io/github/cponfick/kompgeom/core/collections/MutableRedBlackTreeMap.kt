@@ -3,13 +3,21 @@ package io.github.cponfick.kompgeom.core.collections
 /**
  * A [MutableSortedMap] implementation backed by a Red-Black tree.
  *
+ * Keys are ordered by [comparator]. The default comparator uses the natural ordering of [K]. A
+ * comparator that returns zero for unequal keys cannot represent both keys: inserting the latter
+ * replaces the former. Lookups still require key equality, so map equality remains symmetric and
+ * follows the `Map` contract.
+ *
  * Provides O(log n) time for [get], [put], [remove], [containsKey], [floor], [ceiling], [higher],
  * [lower], [firstKey], and [lastKey] operations.
  *
  * @param K The type of keys maintained by this map.
  * @param V The type of mapped values.
+ * @param comparator The ordering used by the tree. Defaults to the natural ordering of [K].
  */
-public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, V> {
+public class MutableRedBlackTreeMap<K : Comparable<K>, V>(
+  private val comparator: Comparator<in K> = Comparator { a, b -> a.compareTo(b) }
+) : MutableSortedMap<K, V> {
 
   private var root: Node? = null
   private var _size: Int = 0
@@ -34,7 +42,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     var result: K? = null
     var current = root
     while (current != null) {
-      val cmp = key.compareTo(current.key)
+      val cmp = comparator.compare(key, current.key)
       if (cmp > 0) {
         result = current.key
         current = current.right
@@ -49,7 +57,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     var result: K? = null
     var current = root
     while (current != null) {
-      val cmp = key.compareTo(current.key)
+      val cmp = comparator.compare(key, current.key)
       when {
         cmp == 0 -> return current.key
         cmp > 0 -> {
@@ -66,7 +74,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     var result: K? = null
     var current = root
     while (current != null) {
-      val cmp = key.compareTo(current.key)
+      val cmp = comparator.compare(key, current.key)
       when {
         cmp == 0 -> return current.key
         cmp < 0 -> {
@@ -83,7 +91,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     var result: K? = null
     var current = root
     while (current != null) {
-      val cmp = key.compareTo(current.key)
+      val cmp = comparator.compare(key, current.key)
       if (cmp < 0) {
         result = current.key
         current = current.left
@@ -105,16 +113,20 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
   private fun containsValue(node: Node?, value: V): Boolean {
     node ?: return false
-    if (node.value == value) return true
-    return containsValue(node.left, value) || containsValue(node.right, value)
+      return node.value == value || containsValue(node.left, value) || containsValue(node.right, value)
   }
 
   override fun get(key: K): V? = getNode(key)?.value
 
   private fun getNode(key: K): Node? {
+    val node = findNodeByOrder(key) ?: return null
+    return node.takeIf { it.key == key }
+  }
+
+  private fun findNodeByOrder(key: K): Node? {
     var x = root
     while (x != null) {
-      val cmp = key.compareTo(x.key)
+      val cmp = comparator.compare(key, x.key)
       x =
         when {
           cmp < 0 -> x.left
@@ -240,6 +252,10 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     override fun next(): MutableMap.MutableEntry<K, V> = LiveEntry(getNode(advanceKey())!!)
   }
 
+  /**
+   * An entry remains attached to its tree node. If that node is removed, the entry becomes a
+   * detached snapshot: its key and value do not change, and [setValue] no longer changes the map.
+   */
   private inner class LiveEntry(private val node: Node) : MutableMap.MutableEntry<K, V> {
     override val key: K
       get() = node.key
@@ -249,8 +265,14 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
     override fun setValue(newValue: V): V {
       val old = node.value
+      if (!containsNode(root, node)) return old
       node.value = newValue
       return old
+    }
+
+    private fun containsNode(current: Node?, target: Node): Boolean {
+      current ?: return false
+        return current === target || containsNode(current.left, target) || containsNode(current.right, target)
     }
 
     override fun hashCode(): Int = key.hashCode() xor value.hashCode()
@@ -266,8 +288,8 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   }
 
   override fun put(key: K, value: V): V? {
-    val existingNode = getNode(key)
-    val old = existingNode?.value
+    val existingNode = findNodeByOrder(key)
+    val old = existingNode?.takeIf { it.key == key }?.value
     root = put(root, key, value)
     root?.color = BLACK
     if (existingNode == null) _size++
@@ -363,7 +385,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   }
 
   private fun deleteMin(h: Node): Node? {
-    if (h.left == null) return null
+    if (h.left == null) return h.right
     var n = h
     if (!isRed(n.left) && !isRed(n.left?.left)) n = moveRedLeft(n)
     n.left = deleteMin(n.left!!)
@@ -372,7 +394,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
 
   private fun delete(h: Node, key: K): Node? {
     var n = h
-    if (key.compareTo(n.key) < 0) {
+    if (comparator.compare(key, n.key) < 0) {
       if (!isRed(n.left) && !isRed(n.left?.left)) n = moveRedLeft(n)
       n.left = delete(n.left!!, key)
       return balance(n)
@@ -383,13 +405,17 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   private fun deleteRight(h: Node, key: K): Node? {
     var n = h
     if (isRed(n.left)) n = rotateRight(n)
-    if (key.compareTo(n.key) == 0 && n.right == null) return null
+    if (comparator.compare(key, n.key) == 0 && n.right == null) return null
     if (!isRed(n.right) && !isRed(n.right?.left)) n = moveRedRight(n)
-    if (key.compareTo(n.key) == 0) {
+    if (comparator.compare(key, n.key) == 0) {
+      // Move the successor node instead of copying its fields. An entry referring to the
+      // removed node must not unexpectedly start referring to the successor key.
       val successor = min(n.right!!)
-      n.key = successor.key
-      n.value = successor.value
-      n.right = deleteMin(n.right!!)
+      val right = deleteMin(n.right!!)
+      successor.left = n.left
+      successor.right = right
+      successor.color = n.color
+      n = successor
     } else {
       n.right = delete(n.right!!, key)
     }
@@ -399,7 +425,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   private fun put(h: Node?, key: K, value: V): Node {
     if (h == null) return Node(key, value)
 
-    val cmp = key.compareTo(h.key)
+    val cmp = comparator.compare(key, h.key)
     when {
       cmp < 0 -> h.left = put(h.left, key, value)
       cmp > 0 -> h.right = put(h.right, key, value)
@@ -407,12 +433,7 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
     }
 
     // Fix-up strategy (LLRB specific order)
-    var n = h
-    if (isRed(n.right) && !isRed(n.left)) n = rotateLeft(n)
-    if (isRed(n.left) && isRed(n.left?.left)) n = rotateRight(n)
-    if (isRed(n.left) && isRed(n.right)) flipColors(n)
-
-    return n
+    return balance(h)
   }
 
   override fun equals(other: Any?): Boolean {
@@ -423,11 +444,12 @@ public class MutableRedBlackTreeMap<K : Comparable<K>, V> : MutableSortedMap<K, 
   }
 
   private fun sameEntries(other: Map<*, *>): Boolean {
-    if (size != other.size) return false
-    return other.entries.all { (k, v) ->
-      @Suppress("UNCHECKED_CAST")
-      containsKey(k as K) && getNode(k)?.value == v
-    }
+    return size == other.size &&
+      entries.all { entry ->
+        other.entries.any { otherEntry ->
+          entry.key == otherEntry.key && entry.value == otherEntry.value
+        }
+      }
   }
 
   override fun hashCode(): Int {
