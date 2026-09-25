@@ -99,4 +99,4 @@ If you need help contributing:
 - Open a discussion for design questions
 - Reach out through GitHub issues for specific problems
 
-Thank you for helping make KompGeom better! 🚀
+Thank you for helping make KompGeom better!
