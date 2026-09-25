@@ -7,9 +7,20 @@ import kotlin.math.abs
  * ordering of double values.
  *
  * @property epsilon The relative tolerance used for comparisons. Defaults to [GEOMETRIC_EPSILON].
+ *
+ * The epsilon must be finite and non-negative. Comparisons of finite values use `epsilon * max(1,
+ * abs(a), abs(b))`. Non-finite values are ordered without applying a tolerance: negative infinity
+ * is less than every finite value, positive infinity is greater than every finite value, and NaN is
+ * greater than every non-NaN value. Two equal infinities and two NaN values compare equal.
  */
 public open class EpsilonDoubleEquivalence(public val epsilon: Double = GEOMETRIC_EPSILON) :
   DoubleEquivalence {
+
+  init {
+    require(epsilon.isFinite() && epsilon >= 0.0) {
+      "epsilon must be finite and non-negative, but was $epsilon"
+    }
+  }
 
   public override fun eq(a: Double, b: Double): Boolean = compare(a, b) == 0
 
@@ -46,6 +57,28 @@ public open class EpsilonDoubleEquivalence(public val epsilon: Double = GEOMETRI
    *   greater than `b`.
    */
   public open fun compare(a: Double, b: Double): Int {
+    // Handle these before subtraction: inf - inf and any operation involving NaN produce NaN,
+    // and an infinite tolerance would otherwise make infinity equal to every finite value.
+    if (a.isNaN() || b.isNaN()) {
+      return when {
+        a.isNaN() && b.isNaN() -> 0
+        a.isNaN() -> 1
+        else -> -1
+      }
+    }
+    if (
+      a == Double.POSITIVE_INFINITY ||
+        a == Double.NEGATIVE_INFINITY ||
+        b == Double.POSITIVE_INFINITY ||
+        b == Double.NEGATIVE_INFINITY
+    ) {
+      return when {
+        a == b -> 0
+        a == Double.NEGATIVE_INFINITY || b == Double.POSITIVE_INFINITY -> -1
+        else -> 1
+      }
+    }
+
     val diff = abs(a - b)
     val tolerance = epsilon * maxOf(1.0, abs(a), abs(b))
     return when {

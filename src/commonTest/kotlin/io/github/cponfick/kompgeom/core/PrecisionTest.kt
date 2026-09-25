@@ -3,6 +3,7 @@ package io.github.cponfick.kompgeom.core
 import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class PrecisionTest {
   private val equivalence = TestDoubleEquivalence()
@@ -131,6 +132,30 @@ class PrecisionTest {
   fun `signum of a is negative zero`() {
     val a = -0.0
     equivalence.signum(a) shouldBe -0.0
+  }
+
+  @Test
+  fun `equal infinities compare equal`() {
+    val epsilonEquivalence = EpsilonDoubleEquivalence()
+    epsilonEquivalence.eq(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY) shouldBe true
+    epsilonEquivalence.eq(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY) shouldBe true
+    epsilonEquivalence.lt(Double.NEGATIVE_INFINITY, 0.0) shouldBe true
+    epsilonEquivalence.gt(Double.POSITIVE_INFINITY, 0.0) shouldBe true
+  }
+
+  @Test
+  fun `NaN has a deterministic ordering`() {
+    val epsilonEquivalence = EpsilonDoubleEquivalence()
+    epsilonEquivalence.eq(Double.NaN, Double.NaN) shouldBe true
+    epsilonEquivalence.gt(Double.NaN, Double.POSITIVE_INFINITY) shouldBe true
+    epsilonEquivalence.lt(1.0, Double.NaN) shouldBe true
+  }
+
+  @Test
+  fun `epsilon must be finite and nonnegative`() {
+    assertFailsWith<IllegalArgumentException> { EpsilonDoubleEquivalence(-1.0) }
+    assertFailsWith<IllegalArgumentException> { EpsilonDoubleEquivalence(Double.NaN) }
+    assertFailsWith<IllegalArgumentException> { EpsilonDoubleEquivalence(Double.POSITIVE_INFINITY) }
   }
 
   private companion object {

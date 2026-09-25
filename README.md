@@ -159,20 +159,17 @@ matrix1.eq(matrix2)  // Uses default precision
 matrix1.eq(matrix2, EpsilonDoubleEquivalence(epsilon = 1e-9))  // true
 ```
 
-### Global Precision Configuration
+### Consistent Custom Precision
 
-For applications requiring consistent custom precision across all operations, you can modify the global defaults:
+`GEOMETRIC_EPSILON` and `DEFAULT_DOUBLE_EQUIVALENCE` are immutable defaults. For an application that needs
+consistent custom precision, create one equivalence instance and pass it to operations that accept a precision:
 
 ```kotlin
-// Adjust global epsilon (affects all new DoubleEquivalence instances)
-GEOMETRIC_EPSILON = 1e-8
-
-// Replace the global default equivalence
-DEFAULT_DOUBLE_EQUIVALENCE = EpsilonDoubleEquivalence(epsilon = 1e-8)
+val applicationPrecision = EpsilonDoubleEquivalence(epsilon = 1e-8)
+matrix1.eq(matrix2, applicationPrecision)
 ```
 
-**Note:** Modifying global defaults should be done during application initialization, as it affects all subsequent
-geometric operations throughout the library.
+This avoids mutable global state and makes the precision used by each operation explicit.
 
 ## Immutability and Performance
 
