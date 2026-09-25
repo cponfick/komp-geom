@@ -128,9 +128,10 @@ public interface Vector1<V : Vector1<V>> : Vector<V> {
   override fun angle(other: V, angleUnit: AngleUnit): Double {
     this.x.assertIsFiniteAndNotZero()
     other.x.assertIsFiniteAndNotZero()
+    val sameDirection = (this.x > 0.0) == (other.x > 0.0)
     return when (angleUnit) {
-      AngleUnit.RADIANS -> if (this.x == other.x) 0.0 else PI
-      AngleUnit.DEGREES -> if (this.x == other.x) 0.0 else 180.0
+      AngleUnit.RADIANS -> if (sameDirection) 0.0 else PI
+      AngleUnit.DEGREES -> if (sameDirection) 0.0 else 180.0
     }
   }
 

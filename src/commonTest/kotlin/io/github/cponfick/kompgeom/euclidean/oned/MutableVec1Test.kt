@@ -165,9 +165,18 @@ class MutableVec1Test {
   }
 
   @Test
-  fun `angle between two vectors in radians and degrees`() {
+  fun `angle between same-direction vectors is zero regardless of magnitude`() {
     val vec1 = MutableVec1(1.0)
     val vec2 = MutableVec1(2.0)
+
+    vec1.angle(vec2, AngleUnit.RADIANS) shouldBe 0.0
+    vec1.angle(vec2, AngleUnit.DEGREES) shouldBe 0.0
+  }
+
+  @Test
+  fun `angle between opposite-direction vectors`() {
+    val vec1 = MutableVec1(1.0)
+    val vec2 = MutableVec1(-2.0)
 
     vec1.angle(vec2, AngleUnit.RADIANS) shouldBe PI
     vec1.angle(vec2, AngleUnit.DEGREES) shouldBe 180.0
