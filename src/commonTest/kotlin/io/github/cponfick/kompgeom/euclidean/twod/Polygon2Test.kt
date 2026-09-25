@@ -471,6 +471,12 @@ class Polygon2Test {
   }
 
   @Test
+  fun `convexHull rejects a degenerate hull`() {
+    val collinear = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(1.0, 0.0), Vec2(2.0, 0.0)))
+    assertFailsWith<IllegalArgumentException> { collinear.convexHull() }
+  }
+
+  @Test
   fun `convexHull returns a convex polygon for concave input`() {
     val lShape =
       Polygon2(

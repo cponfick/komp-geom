@@ -202,12 +202,18 @@ public data class Polygon2(
   /**
    * Computes the convex hull of this polygon's vertices using the [Quickhull2] algorithm.
    *
-   * The resulting polygon's vertices are in counterclockwise winding order.
+   * The resulting polygon's vertices are in counterclockwise winding order. A polygon cannot
+   * represent a hull with fewer than three unique, non-collinear points, so this function throws
+   * [IllegalArgumentException] for duplicate-only, two-point, or collinear input.
    *
    * @return A new [Polygon2] representing the convex hull of this polygon's vertices.
+   * @throws IllegalArgumentException if the hull is degenerate.
    */
   public fun convexHull(): Polygon2 {
     val hullPoints = Quickhull2(vertices).execute().points
+    require(hullPoints.size >= 3) {
+      "The convex hull is degenerate and cannot be represented as a polygon."
+    }
     return Polygon2(hullPoints, precision)
   }
 

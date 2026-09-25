@@ -9,9 +9,22 @@ import kotlin.test.Test
 
 class Quickhull2Test {
   @Test
-  fun `viewer than 3 points should throw an exception`() {
-    val points = listOf(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
-    shouldThrow<IllegalArgumentException> { Quickhull2(points).execute() }
+  fun `empty input should throw an exception`() {
+    shouldThrow<IllegalArgumentException> { Quickhull2(emptyList<Vec2>()) }
+  }
+
+  @Test
+  fun `one and two unique points are returned as the hull`() {
+    Quickhull2(listOf(Vec2(2.0, 3.0), Vec2(2.0, 3.0))).execute().points shouldBe
+      listOf(Vec2(2.0, 3.0))
+    Quickhull2(listOf(Vec2(1.0, 1.0), Vec2(0.0, 0.0), Vec2(1.0, 1.0))).execute().points shouldBe
+      listOf(Vec2(0.0, 0.0), Vec2(1.0, 1.0))
+  }
+
+  @Test
+  fun `collinear and equal-x points produce a two-point hull`() {
+    val points = listOf(Vec2(0.0, 0.0), Vec2(0.0, 2.0), Vec2(0.0, 1.0), Vec2(0.0, 2.0))
+    Quickhull2(points).execute().points shouldBe listOf(Vec2(0.0, 0.0), Vec2(0.0, 2.0))
   }
 
   @Test
@@ -21,7 +34,7 @@ class Quickhull2Test {
 
   @Test
   fun `getComplexities return the correct complexities`() {
-    Quickhull2.getTimeComplexity() shouldBe "O(n log n)"
+    Quickhull2.getTimeComplexity() shouldBe "O(n log n) average, O(n²) worst case"
     Quickhull2.getSpaceComplexity() shouldBe "O(n)"
   }
 

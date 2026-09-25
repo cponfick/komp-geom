@@ -8,22 +8,33 @@ import io.github.cponfick.kompgeom.euclidean.twod.Line2
 /**
  * Quickhull algorithm for computing the convex hull of a collection of 2D points.
  *
+ * Duplicate points are ignored. If the unique input contains one point, the hull contains that
+ * point; if it contains two points, the hull contains both points. Collinear input similarly
+ * produces the two endpoints of the hull, ordered from the lower to the upper x-coordinate.
+ *
  * @property input Collection of points in 2D space.
  * @constructor initializes the algorithm with a collection of points.
  */
 public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : ConvexHull<V> {
 
   init {
-    require(input.size >= 3) { "Input must contain at least 3 elements" }
+    require(input.isNotEmpty()) { "Input must contain at least 1 element" }
   }
 
   override fun execute(): Result<V> {
-    val minX = input.minBy { it.x }
-    val maxX = input.maxBy { it.x }
+    // Keeping occurrences with equal coordinates would make a zero-length base line possible and
+    // would also make duplicate vertices appear in the result.
+    val points = input.distinctBy { it.x to it.y }
+    if (points.size <= 2) {
+      return Result(points.sortedWith(compareBy<V> { it.x }.thenBy { it.y }))
+    }
+
+    val minX = points.minWithOrNull(compareBy<V> { it.x }.thenBy { it.y })!!
+    val maxX = points.maxWithOrNull(compareBy<V> { it.x }.thenBy { it.y })!!
 
     val line = Line2.fromPoints(minX, maxX)
-    val plusSide = input.filter { line.location(it) == Location.PLUS }
-    val minusSide = input.filter { line.location(it) == Location.MINUS }
+    val plusSide = points.filter { line.location(it) == Location.PLUS }
+    val minusSide = points.filter { line.location(it) == Location.MINUS }
 
     return Result(
       buildList {
@@ -57,7 +68,7 @@ public class Quickhull2<V : Vector2<V>>(private val input: Collection<V>) : Conv
 
     override fun getName(): String = "Quickhull"
 
-    override fun getTimeComplexity(): String = "O(n log n)"
+    override fun getTimeComplexity(): String = "O(n log n) average, O(n²) worst case"
 
     override fun getSpaceComplexity(): String = "O(n)"
   }
