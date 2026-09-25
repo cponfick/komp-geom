@@ -1,10 +1,10 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.algorithms.convexhull.Quickhull2
+import io.github.cponfick.kompgeom.algorithms.intersection.SweepLineSegmentIntersection
 import io.github.cponfick.kompgeom.core.Orientation
 import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
-import io.github.cponfick.kompgeom.core.shapes.IntersectionType
 import io.github.cponfick.kompgeom.core.shapes.Polygon
 import io.github.cponfick.kompgeom.core.transform.Transformer
 import kotlin.math.abs
@@ -108,26 +108,12 @@ public class Polygon2(
     return@lazy true
   }
 
-  /**
-   * Checks all non-adjacent edge pairs. This deliberately remains an O(n²) implementation until a
-   * multiplatform sweep-line implementation is available; polygon simplicity is correctness
-   * critical and the current implementation is adequate for the library's typical small polygons.
-   */
+  /** Checks non-adjacent edges using a sweep-line intersection test. */
   private val isSimpleHolder: Boolean by lazy {
-    for (i in edges.indices) {
-      for (j in edges.indices) {
-        if (i == j || (i + 1) % edges.size == j || i == (j + 1) % edges.size) {
-          continue
-        }
-        if (
-          edges[i].intersection(edges[j], precision).type in
-            setOf(IntersectionType.POINT, IntersectionType.OVERLAP)
-        ) {
-          return@lazy false
-        }
+    !SweepLineSegmentIntersection(edges, precision) { first, second ->
+        first == second || (first + 1) % edges.size == second || (second + 1) % edges.size == first
       }
-    }
-    return@lazy true
+      .execute()
   }
 
   /**
