@@ -57,6 +57,35 @@ class Polygon3Test {
   }
 
   @Test
+  fun `constructor snapshots caller-owned vertices before and after lazy properties`() {
+    val vertices =
+      mutableListOf(
+        Vec3(0.0, 0.0, 0.0),
+        Vec3(2.0, 0.0, 0.0),
+        Vec3(2.0, 2.0, 0.0),
+        Vec3(0.0, 2.0, 0.0),
+      )
+    val polygon = Polygon3(vertices)
+    polygon.edges
+    polygon.normal
+    polygon.isConvex()
+    polygon.isSimple()
+
+    vertices[1] = Vec3(3.0, 0.0, 0.0)
+    vertices.add(Vec3(1.0, 1.0, 0.0))
+
+    polygon.vertices shouldContainExactly
+      listOf(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0), Vec3(2.0, 2.0, 0.0), Vec3(0.0, 2.0, 0.0))
+    polygon.edges shouldContainExactly
+      listOf(
+        Seg3(Vec3(0.0, 0.0, 0.0), Vec3(2.0, 0.0, 0.0)),
+        Seg3(Vec3(2.0, 0.0, 0.0), Vec3(2.0, 2.0, 0.0)),
+        Seg3(Vec3(2.0, 2.0, 0.0), Vec3(0.0, 2.0, 0.0)),
+        Seg3(Vec3(0.0, 2.0, 0.0), Vec3(0.0, 0.0, 0.0)),
+      )
+  }
+
+  @Test
   fun `edges returns correct number of edges and constructs edges correctly`() {
     val triangle = Polygon3(listOf(Vec3(0.0, 0.0, 0.0), Vec3(1.0, 0.0, 0.0), Vec3(0.5, 1.0, 0.0)))
     triangle.edges shouldContainExactly

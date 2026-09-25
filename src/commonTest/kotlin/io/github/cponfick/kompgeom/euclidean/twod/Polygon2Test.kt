@@ -34,6 +34,28 @@ class Polygon2Test {
   }
 
   @Test
+  fun `constructor snapshots caller-owned vertices before and after lazy properties`() {
+    val vertices = mutableListOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(2.0, 2.0), Vec2(0.0, 2.0))
+    val polygon = Polygon2(vertices)
+    polygon.edges
+    polygon.isConvex()
+    polygon.isSimple()
+
+    vertices[1] = Vec2(3.0, 0.0)
+    vertices.add(Vec2(1.0, 1.0))
+
+    polygon.vertices shouldContainExactly
+      listOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(2.0, 2.0), Vec2(0.0, 2.0))
+    polygon.edges shouldContainExactly
+      listOf(
+        Seg2(Vec2(0.0, 0.0), Vec2(2.0, 0.0)),
+        Seg2(Vec2(2.0, 0.0), Vec2(2.0, 2.0)),
+        Seg2(Vec2(2.0, 2.0), Vec2(0.0, 2.0)),
+        Seg2(Vec2(0.0, 2.0), Vec2(0.0, 0.0)),
+      )
+  }
+
+  @Test
   fun `edges returns correct number of edges and constructs edges correctly`() {
     val triangle = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(1.0, 0.0), Vec2(0.5, 1.0)))
     triangle.edges.size shouldBe 3

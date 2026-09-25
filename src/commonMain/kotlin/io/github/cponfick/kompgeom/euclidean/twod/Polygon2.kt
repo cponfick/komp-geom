@@ -19,10 +19,13 @@ import kotlin.math.abs
  * @property precision The precision used for geometric computations, defaulting to
  *   [DEFAULT_DOUBLE_EQUIVALENCE].
  */
-public data class Polygon2(
-  public override val vertices: List<Vec2>,
+public class Polygon2(
+  vertices: List<Vec2>,
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
 ) : Polygon<Vec2> {
+
+  /** An immutable snapshot of the vertices supplied to the constructor. */
+  public override val vertices: List<Vec2> = vertices.toList()
 
   init {
     require(vertices.size >= 3) { "A polygon must have at least 3 vertices." }
@@ -245,6 +248,24 @@ public data class Polygon2(
   override fun isInfinite(): Boolean = vertices.any { it.isInfinite() }
 
   override fun isNaN(): Boolean = vertices.any { it.isNaN() }
+
+  /** Returns a polygon with the supplied vertices and precision. */
+  public fun copy(
+    vertices: List<Vec2> = this.vertices,
+    precision: DoubleEquivalence = this.precision,
+  ): Polygon2 = Polygon2(vertices, precision)
+
+  public operator fun component1(): List<Vec2> = vertices
+
+  public operator fun component2(): DoubleEquivalence = precision
+
+  override fun equals(other: Any?): Boolean =
+    this === other ||
+      (other is Polygon2 && vertices == other.vertices && precision == other.precision)
+
+  override fun hashCode(): Int = 31 * vertices.hashCode() + precision.hashCode()
+
+  override fun toString(): String = "Polygon2(vertices=$vertices, precision=$precision)"
 
   public companion object {
     /**

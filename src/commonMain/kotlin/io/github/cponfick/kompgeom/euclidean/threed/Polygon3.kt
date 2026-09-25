@@ -8,10 +8,13 @@ import io.github.cponfick.kompgeom.euclidean.twod.Polygon2
 import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 import kotlin.math.abs
 
-public data class Polygon3(
-  public override val vertices: List<Vec3>,
+public class Polygon3(
+  vertices: List<Vec3>,
   public val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
 ) : Polygon<Vec3> {
+
+  /** An immutable snapshot of the vertices supplied to the constructor. */
+  public override val vertices: List<Vec3> = vertices.toList()
 
   init {
     require(vertices.size >= 3) { "A polygon must have at least 3 vertices." }
@@ -214,4 +217,22 @@ public data class Polygon3(
   override fun isInfinite(): Boolean = vertices.any { it.isInfinite() }
 
   override fun isNaN(): Boolean = vertices.any { it.isNaN() }
+
+  /** Returns a polygon with the supplied vertices and precision. */
+  public fun copy(
+    vertices: List<Vec3> = this.vertices,
+    precision: DoubleEquivalence = this.precision,
+  ): Polygon3 = Polygon3(vertices, precision)
+
+  public operator fun component1(): List<Vec3> = vertices
+
+  public operator fun component2(): DoubleEquivalence = precision
+
+  override fun equals(other: Any?): Boolean =
+    this === other ||
+      (other is Polygon3 && vertices == other.vertices && precision == other.precision)
+
+  override fun hashCode(): Int = 31 * vertices.hashCode() + precision.hashCode()
+
+  override fun toString(): String = "Polygon3(vertices=$vertices, precision=$precision)"
 }
