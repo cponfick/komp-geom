@@ -53,6 +53,7 @@ Before changing geometry behavior, inspect the relevant interface, corresponding
 - Run `spotlessApply`, `spotlessCheck`, and `allTests` before committing.
 - Do not edit generated files under `build/` or hand-edit the tracked Dokka output under `docs/dokka/`. Regenerate and commit Dokka output only when the task calls for a documentation update.
 - Keep changes focused; update README/docs when changing public behavior or usage.
+- Keep `docs/ci-cd.md` short and practical.
 
 ## Pull requests
 
