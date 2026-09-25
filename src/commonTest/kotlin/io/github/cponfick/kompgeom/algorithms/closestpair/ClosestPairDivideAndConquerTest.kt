@@ -55,6 +55,45 @@ class ClosestPairDivideAndConquerTest {
     )
 
   @Test
+  fun `returns a closest half pair when split pair is not better`() {
+    val points =
+      listOf(
+        Vec2(-100.0, 100.0),
+        Vec2(-90.0, 0.0),
+        Vec2(-89.0, 0.0),
+        Vec2(89.0, 0.0),
+        Vec2(90.0, 0.0),
+        Vec2(100.0, 100.0),
+      )
+
+    val actual = ClosestPairDivideAndConquer(points).execute()
+
+    actual.distance shouldBe 1.0
+    actual.result.first shouldBe points[1]
+    actual.result.second shouldBe points[2]
+  }
+
+  @Test
+  fun `partitions points with equal x coordinates by occurrence`() {
+    val points =
+      listOf(
+        Vec2(0.0, 0.0),
+        Vec2(0.0, 10.0),
+        Vec2(0.0, 20.0),
+        Vec2(0.0, 21.0),
+        Vec2(0.0, 40.0),
+        Vec2(0.0, 100.0),
+      )
+
+    val actual = ClosestPairDivideAndConquer(points).execute()
+    val expected = ClosestPairNaive(points).execute()
+
+    actual.distance shouldBe expected.distance
+    actual.result.first shouldBe expected.result.first
+    actual.result.second shouldBe expected.result.second
+  }
+
+  @Test
   fun `calculates the closest pair of points 2`() {
     // Assuming the naive implementation is correct
     val closestPairNaiveResult = ClosestPairNaive(manyPoints).execute()
