@@ -574,6 +574,17 @@ class MutableRedBlackTreeMapTest {
   }
 
   @Test
+  fun `entry equals returns true for equal entries`() {
+    val firstMap = MutableRedBlackTreeMap<Int, String>()
+    firstMap[1] = "one"
+    val secondMap = MutableRedBlackTreeMap<Int, String>()
+    secondMap[1] = "one"
+
+    firstMap.entries.single() shouldBe secondMap.entries.single()
+    firstMap.entries.single() shouldBe mapOf(1 to "one").entries.single()
+  }
+
+  @Test
   fun `entry equals returns false when compared to a non-entry`() {
     val map = MutableRedBlackTreeMap<Int, String>()
     map[1] = "one"
