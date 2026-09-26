@@ -178,7 +178,7 @@ on the platform, runtime, hardware, and workload.
 - [API documentation](https://cponfick.github.io/komp-geom/)
 - [Visualization application](https://github.com/cponfick/komp-geom-visualizer)
 - [Benchmark results](docs/benchmarks/affine_transformation.md)
-- [Example Repo](https://cponfick.github.io/komp-geom-examples)
+- [Example Repo](https://github.com/cponfick/komp-geom-examples)
 
 ## Contributing
 
