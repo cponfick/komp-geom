@@ -569,6 +569,19 @@ class MutableRedBlackTreeMapTest {
   }
 
   @Test
+  fun `equals returns false when compared to a non-map`() {
+    populatedMap() shouldNotBe "not a map"
+  }
+
+  @Test
+  fun `entry equals returns false when compared to a non-entry`() {
+    val map = MutableRedBlackTreeMap<Int, String>()
+    map[1] = "one"
+    val entry = map.entries.single()
+    entry shouldNotBe "not an entry"
+  }
+
+  @Test
   fun `equals returns false for maps with same keys but different values`() {
     val map1 = MutableRedBlackTreeMap<Int, String>()
     map1[1] = "one"
