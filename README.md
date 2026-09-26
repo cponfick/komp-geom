@@ -36,6 +36,10 @@ For more examples and the complete API reference, see the [documentation](https:
 visualization application is also available in
 the [komp-geom-visualizer](https://github.com/cponfick/komp-geom-visualizer) project.
 
+## Interactive visualizer
+
+Explore Komp-Geom's geometry algorithms and primitives in the [komp-geom visualizer](https://cponfick.github.io/komp-geom-visualizer/).
+
 ## Installation
 
 The latest release is available

@@ -7,14 +7,11 @@ on:
         description: Release tag to document (for example 0.4.0-rc3)
         required: true
         type: string
-  workflow_run:
-    workflows: [Publish]
-    types: [completed]
 
-# Only a successful Maven release triggers this workflow automatically. It can
-# also be run manually for an already published tag without republishing Maven.
+# Run this workflow manually after a successful Maven release. The selected tag
+# is verified before any release code is checked out or executed.
 concurrency:
-  group: documentation-${{ github.event.workflow_run.head_branch || github.event.workflow_run.head_sha || inputs.tag }}
+  group: documentation-${{ inputs.tag }}
   cancel-in-progress: false
 
 permissions:
@@ -22,7 +19,7 @@ permissions:
 
 jobs:
   release-tag:
-    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.name == 'Publish' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository)
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.release.outputs.tag }}
@@ -34,28 +31,13 @@ jobs:
       - name: Select and verify release tag
         id: release
         env:
-          INPUT_TAG: ${{ inputs.tag }}
-          RUN_TAG: ${{ github.event.workflow_run.head_branch }}
-          PUBLISHED_SHA: ${{ github.event.workflow_run.head_sha }}
+          TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
-          tag="${INPUT_TAG:-$RUN_TAG}"
-          # GitHub may omit head_branch for tag-triggered workflow runs.
-          # If so, resolve the tag by commit; refuse to guess if ambiguous.
-          if [[ -z "$tag" && -n "$PUBLISHED_SHA" ]]; then
-            mapfile -t tags < <(git tag --points-at "$PUBLISHED_SHA" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$' || true)
-            [[ "${#tags[@]}" -eq 1 ]] || { echo "Cannot identify unique release tag; run manually with a tag"; exit 1; }
-            tag="${tags[0]}"
-          fi
-          [[ "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$ ]]
-          git rev-parse --verify "refs/tags/$tag^{commit}" >/dev/null
-          if [[ -n "$PUBLISHED_SHA" ]]; then
-            # Compare the peeled commit, not the annotated tag object SHA.
-            # This also rejects similarly named branches or fork-controlled refs.
-            [[ "$(git rev-parse "refs/tags/$tag^{commit}")" == "$PUBLISHED_SHA" ]]
-          fi
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-          echo "sha=$(git rev-parse "refs/tags/$tag^{commit}")" >> "$GITHUB_OUTPUT"
+          [[ "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$ ]]
+          git rev-parse --verify "refs/tags/$TAG^{commit}" >/dev/null
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse "refs/tags/$TAG^{commit}")" >> "$GITHUB_OUTPUT"
 
   build-pages:
     name: Build documentation for GitHub Pages

@@ -298,8 +298,8 @@ public class MutableRedBlackTreeMap<K, V>(
 
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      val entry = other as? Map.Entry<*, *> ?: return false
-      return key == entry.key && value == entry.value
+      if (other !is Map.Entry<*, *>) return false
+      return key == other.key && value == other.value
     }
 
     override fun toString(): String = "$key=$value"
@@ -485,8 +485,8 @@ public class MutableRedBlackTreeMap<K, V>(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    val map = other as? Map<*, *> ?: return false
-    return sameEntries(map)
+    if (other !is Map<*, *>) return false
+    return sameEntries(other)
   }
 
   private fun sameEntries(other: Map<*, *>): Boolean {
