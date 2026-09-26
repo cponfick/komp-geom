@@ -1,227 +1,175 @@
-# Computational Geometry in Kotlin
+# Komp-Geom
 
-[![tests](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=alert_status)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
+[![Tests](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/cponfick/komp-geom/actions/workflows/ci.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=coverage)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=bugs)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=code_smells)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
-[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.cponfick/komp-geom)](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=cponfick_komp-geom&metric=alert_status)](https://sonarcloud.io/summary/overall?id=cponfick_komp-geom)
 
-Komp-Geom is a comprehensive Kotlin Multiplatform (KMP) library for computational geometry, designed to provide a robust
-and efficient toolkit for solving geometric problems. It offers a set of algorithms and data structures with an
-idiomatic Kotlin API that should feel natural to Kotlin developers.
+Komp-Geom is a Kotlin Multiplatform library for computational geometry. It provides immutable-by-default geometric primitives, precision-aware operations, mutable alternatives for performance-sensitive code, and a growing collection of geometry algorithms.
 
-The library is built with cross-platform compatibility in mind, supporting JVM, JS, WebAssembly, and Native (iOS, Linux,
-Windows, macOS). This ensures that your geometric code works consistently everywhere.
-
-Key features include:
-
-* **Core Geometric Primitives**: A solid foundation of core components like vectors, lines, polygons, and affine
-  transformations.
-* **Precision Handling**: A configurable comparison system to handle floating-point inaccuracies, crucial
-  for reliable geometric calculations.
-* **Immutability and Performance**: Provides both immutable and mutable data structures. While immutability by default
-  ensures thread-safety and predictability, mutable alternatives are available for performance-critical scenarios.
+The library currently targets JVM, JavaScript, WebAssembly, and Kotlin/Native platforms including Linux, Windows, macOS, iOS, Android Native, watchOS, and tvOS.
 
 > [!IMPORTANT]
-> This project is in its early stages. Until the first stable release 1.0.0, the API may change frequently. After
-> the 1.0.0 release, versioning will follow semantic versioning principles.
+> Komp-Geom is currently in a pre-1.0 release (`0.4.0-rc7`). The public API may change before `1.0.0`.
 
-## Usage Examples
+## Quick start
 
-Usage examples are provided inside the [documentation](https://cponfick.github.io/komp-geom/).
+```kotlin
+import io.github.cponfick.kompgeom.algorithms.convexhull.Quickhull2
+import io.github.cponfick.kompgeom.euclidean.twod.Vec2
 
-## Demo Application
+val points = listOf(
+    Vec2(0.0, 0.0),
+    Vec2(2.0, 0.0),
+    Vec2(1.0, 1.0),
+    Vec2(1.0, 0.25),
+)
 
-A demo application is available at [komp-geom-visualization](https://github.com/cponfick/komp-geom-visualizer). It
-allows you to visualize the algorithms and data structures implemented in this library. The goal is to provide visual
-representations for most, if not all, algorithms and data structures.
+val hull = Quickhull2(points).execute()
+println(hull)
+```
+
+For more examples and the complete API reference, see the [documentation](https://cponfick.github.io/komp-geom/). A visualization application is also available in the [komp-geom-visualizer](https://github.com/cponfick/komp-geom-visualizer) project.
 
 ## Installation
 
-To add the library to your multiplatform project, include the following dependency:
+The latest release is available on [Maven Central](https://central.sonatype.com/artifact/io.github.cponfick/komp-geom/overview). Replace `VERSION` below with the version you want to use.
 
-**Gradle:**
+### Kotlin Multiplatform
+
+Add the dependency to the appropriate source set, usually `commonMain`:
 
 ```kotlin
-implementation("io.github.cponfick:komp-geom:{VERSION}")
+dependencies {
+    implementation("io.github.cponfick:komp-geom:VERSION")
+}
 ```
 
-**Maven:**
+### JVM-only projects
+
+JVM-only projects can depend on the JVM-specific artifact:
+
+```kotlin
+dependencies {
+    implementation("io.github.cponfick:komp-geom-jvm:VERSION")
+}
+```
+
+Maven users can use the corresponding artifact in their `pom.xml`:
 
 ```xml
-
 <dependency>
     <groupId>io.github.cponfick</groupId>
     <artifactId>komp-geom</artifactId>
-    <version>{VERSION}</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
-You can also use the library directly in a JVM-only project by adding the following dependency:
+For a JVM-only project, use `komp-geom-jvm` as the `artifactId`.
 
-**Gradle:**
+## Features
 
-```kotlin
-implementation("io.github.cponfick:komp-geom-jvm:{VERSION}")
+- **Geometric primitives** for one-, two-, and three-dimensional Euclidean spaces
+- **Vectors and points** with arithmetic, products, distances, normalization, and related operations
+- **Lines and line segments** in 2D and 3D
+- **Polygons** in 2D and 3D
+- **Affine transformations** in 1D, 2D, and 3D
+- **Polar coordinates** in 2D
+- **Precision-aware comparisons** using configurable `DoubleEquivalence` implementations
+- **Immutable and mutable variants**, allowing callers to choose clarity or reduced allocation overhead
+- **Cross-platform behavior** from shared Kotlin code
+
+## Algorithms and data structures
+
+### Algorithms
+
+| Algorithm | Implementation | Dimensions | Mutable input | Time complexity | Space complexity |
+| --- | --- | --- | --- | --- | --- |
+| Closest pair | Naive | 2D, 3D | Yes | `O(n²)` | `O(1)` |
+| Closest pair | Divide and conquer | 2D | Yes | `O(n log n)` | `O(n)` |
+| Convex hull | Quickhull | 2D | Yes | `O(n log n)` average, `O(n²)` worst case | `O(n)` |
+| Segment intersection detection | Shamos–Hoey sweep line | 2D | Yes | `O(n log n)` | `O(n)` |
+| Segment intersection reporting | Bentley–Ottmann sweep line | 2D | Yes | `O((n + k) log n)` | `O(n + k)` |
+
+The Shamos–Hoey implementation detects whether any pair intersects and stops at the first intersection. The Bentley–Ottmann implementation reports all intersections; `k` is the number of reported intersections.
+
+If you are looking for an algorithm that is not listed, feel free to [open an issue](https://github.com/cponfick/komp-geom/issues) or contribute an implementation.
+
+### Data structures
+
+| Data structure | Implementation | Operations | Time complexity | Space complexity |
+| --- | --- | --- | --- | --- |
+| Sorted map | `MutableRedBlackTreeMap` | Insert, delete, lookup, neighbor queries, and ordered iteration | `O(log n)` per update or lookup; `O(n)` iteration | `O(n)` |
+
+## Precision handling
+
+Floating-point arithmetic introduces rounding errors that can affect geometric calculations. Komp-Geom uses `DoubleEquivalence` to make comparisons explicit and configurable.
+
+The default implementation, `EpsilonDoubleEquivalence`, uses `GEOMETRIC_EPSILON = 1e-10`. For finite values, two values are considered equal when:
+
+```text
+abs(a - b) <= epsilon * max(1, abs(a), abs(b))
 ```
 
-**Maven:**
-
-```xml
-
-<dependency>
-    <groupId>io.github.cponfick</groupId>
-    <artifactId>komp-geom-jvm</artifactId>
-    <version>{VERSION}</version>
-</dependency>
-```
-
-## Core Components
-
-This section provides an overview of the core components of the library, which are designed to serve as building blocks
-for implementing geometric algorithms.
-
-The library currently provides the following geometric elements:
-
-- **Vectors**: Implementation of 1D, 2D, and 3D vectors with basic operations such as addition, subtraction, and dot
-  product.
-- **Lines**: Representation of lines in 2D and 3D space.
-- **Line Segments**: Representation of line segments in 2D and 3D space.
-- **Polygons**: Representation of polygons in 2D and 3D space.
-- **Affine Transformations**: Support for 1D, 2D, and 3D affine transformations on vectors.
-- **Polar Coordinates**: Implementation of polar coordinates in 2D space.
-
-## Precision Handling
-
-Floating-point arithmetic inherently introduces small rounding errors that can cause issues in geometric computations.
-The library addresses this challenge through a configurable epsilon-based comparison system, ensuring robust and
-reliable geometric operations across all platforms.
-
-### Default Precision
-
-By default, the library uses an epsilon-based comparison with `GEOMETRIC_EPSILON` set to `1e-10`.
-Two finite double values are considered equal when `abs(a - b) <= epsilon * maxOf(1.0, abs(a), abs(b))`.
-This combines an absolute tolerance near zero with a relative tolerance for larger magnitudes:
+This combines an absolute tolerance near zero with a relative tolerance for larger values:
 
 ```kotlin
-// Using default precision
-val a = 0.30000000000000004
-val b = 0.3
-DEFAULT_DOUBLE_EQUIVALENCE.eq(a, b)  // true
-```
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
 
-### Custom Precision
-
-You can create custom `EpsilonDoubleEquivalence` instances to adjust precision for specific use cases:
-
-```kotlin
-// More lenient precision for approximate calculations
 val relaxed = EpsilonDoubleEquivalence(epsilon = 1e-6)
-relaxed.eq(0.3000001, 0.3)  // true
 
-// Stricter precision for high-accuracy requirements
-val strict = EpsilonDoubleEquivalence(epsilon = 1e-12)
-strict.eq(0.30000000001, 0.3)  // false
+relaxed.eq(0.3000001, 0.3) // true
 ```
 
-Further, it is possible to provide a custom implementation of the `Equivalence` interface if you need
-specialized comparison logic.
-
-### Available Comparison Operations
-
-The `DoubleEquivalence` interface defines the comparison methods; `EpsilonDoubleEquivalence` provides the epsilon-based implementation:
+Most geometry types and operations use `DEFAULT_DOUBLE_EQUIVALENCE` by default, while operations that accept an equivalence can be given application-specific precision:
 
 ```kotlin
-val precision = EpsilonDoubleEquivalence()
+import io.github.cponfick.kompgeom.core.equivalence.EpsilonDoubleEquivalence
+import io.github.cponfick.kompgeom.euclidean.twod.AffineTransformationMatrix2
 
-precision.eq(a, b)      // Equal to
-precision.eqZero(a)     // Equal to zero
-precision.lt(a, b)      // Less than
-precision.lte(a, b)     // Less than or equal to
-precision.gt(a, b)      // Greater than
-precision.gte(a, b)     // Greater than or equal to
+val precision = EpsilonDoubleEquivalence(epsilon = 1e-8)
+val first = AffineTransformationMatrix2.createRotation(Math.PI / 4.0)
+val second = AffineTransformationMatrix2.createRotation(0.7853981634)
+
+val equivalent = first.eq(second, precision)
 ```
 
-### Precision in Geometric Operations
+Choose an epsilon appropriate for the scale and accuracy requirements of your application. For consistent behavior, create one equivalence instance and pass it to the operations that support custom precision instead of relying on mutable global state.
 
-Many geometric data structures and algorithms accept an optional `DoubleEquivalence` parameter to control
-precision-aware operations. The parameter defaults to `DEFAULT_DOUBLE_EQUIVALENCE`, making it optional in most cases:
+## Immutability and performance
 
-```kotlin
-// Comparing transformation matrices with default precision
-val matrix1 = AffineTransformationMatrix3.createRotationX(Math.PI / 4)
-val matrix2 = AffineTransformationMatrix3.createRotationX(0.7853981634)
-matrix1.eq(matrix2)  // Uses default precision
+The standard geometric types are immutable. This makes values easier to share, reason about, and use in functional-style code. Mutable alternatives are available where in-place updates are useful, including:
 
-// Custom precision for specific requirements
-matrix1.eq(matrix2, EpsilonDoubleEquivalence(epsilon = 1e-9))  // true
-```
+- `MutableVec1`, `MutableVec2`, and `MutableVec3`
+- `MutableSeg2` and `MutableSeg3`
+- Mutable algorithm implementations where applicable
 
-### Consistent Custom Precision
+Benchmarks show that mutable implementations can substantially reduce allocations and improve throughput for repeated operations. For example, the affine transformation benchmark reports the following improvements for one million transformations:
 
-`GEOMETRIC_EPSILON` and `DEFAULT_DOUBLE_EQUIVALENCE` are immutable defaults. For an application that needs
-consistent custom precision, create one equivalence instance and pass it to operations that accept a precision:
+- 2.66× faster on JVM
+- 2.59× faster on JavaScript
+- 2.10× faster on Linux Native
 
-```kotlin
-val applicationPrecision = EpsilonDoubleEquivalence(epsilon = 1e-8)
-matrix1.eq(matrix2, applicationPrecision)
-```
+See the [benchmark results](docs/benchmarks/affine_transformation.md) for details and context. Benchmark results depend on the platform, runtime, hardware, and workload.
 
-This avoids mutable global state and makes the precision used by each operation explicit.
+## Documentation and examples
 
-## Immutability and Performance
-
-The library follows Kotlin's philosophy of immutability by default. Immutable data structures offer several advantages:
-
-- **Thread Safety**: Immutable objects can be safely shared across threads without synchronization
-- **Predictability**: Operations never modify existing objects, making code easier to reason about
-- **Functional Style**: Enables a more functional programming approach with pure functions
-
-However, for performance-critical applications involving large-scale operations, immutability can introduce overhead
-due to object allocations. To address this, the library also provides **mutable implementations** for certain data
-types that modify objects in-place. Currently, mutable implementations are available for:
-
-- Vectors (1D, 2D, 3D)
-- Segments (2D, 3D)
-
-Further, following algorithms support mutable implementations:
-
-- Affine Transformations (1D, 2D, 3D)
-- Closest Pair (2D, 3D)
-- Convex Hull (2D)
-
-### Benchmark Results
-
-Based on [benchmark results](docs/benchmarks/affine_transformation.md), mutable implementations offer significant
-performance improvements when performing large numbers of operations:
-
-- **2.66× faster** on JVM for 1M affine transformations
-- **2.59× faster** on JS for 1M affine transformations
-- **2.10× faster** on Native (Linux) for 1M affine transformations
-
-## Data structures
-
-| Data structure | Implementation | Operations | Runtime Complexity | Space Complexity |
-|----------------|----------------|------------|--------------------|------------------|
-| Sorted map | `MutableRedBlackTreeMap` (Red-Black tree) | Insert, delete, lookup, neighbor queries, ordered iteration | O(log n) per update/lookup; O(n) iteration | O(n) |
-
-## Algorithms
-
-The following is a list of implemented algorithms. If you are missing an algorithm, feel free to open an issue or
-contribute a pull request.
-
-| Algorithm    | Implementation     | Supported Dimensions | Mutable Input<br/>Supported | Runtime Complexity | Space Complexity |
-|--------------|--------------------|----------------------|-----------------------------|--------------------|------------------|
-| Closest Pair | Naive              | 2D, 3D               | yes                         | O(n^2)             | O(1)             |
-| Closest Pair | Divide and Conquer | 2D                   | yes                         | O(n log n)         | O(n)             |
-| Convex Hull  | QuickHull          | 2D                   | yes                         | O(n log n)         | O(n)             |
-| Intersection | Shamos-Hoey        | 2D                   | yes                         | O(n log n)         | O(n)             |
-| Intersection | Bentley-Ottmann    | 2D                   | yes                         | O((n + k) log n)   | O(n + k)         |
+- [API documentation](https://cponfick.github.io/komp-geom/)
+- [Visualization application](https://github.com/cponfick/komp-geom-visualizer)
+- [Benchmark results](docs/benchmarks/affine_transformation.md)
+- [Contributing guide](CONTRIBUTING.md)
+- [MIT license](LICENSE)
 
 ## Contributing
 
-Contributions are welcome! Please check the [contributing guidelines](CONTRIBUTING.md) for more information on how to
-get started.
-Feel free to open issues for bugs, feature requests, or general questions.
+Contributions, bug reports, feature requests, and documentation improvements are welcome. Please read the [contributing guide](CONTRIBUTING.md) before opening a pull request.
+
+Before submitting a change, run:
+
+```bash
+./gradlew spotlessApply
+./gradlew spotlessCheck
+./gradlew allTests
+```
+
+`allTests` runs the tests available on the current host. Browser-based JavaScript and WebAssembly tests require Chrome; CI covers additional platforms.
