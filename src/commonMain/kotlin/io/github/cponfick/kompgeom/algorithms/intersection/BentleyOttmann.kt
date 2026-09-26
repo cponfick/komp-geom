@@ -20,10 +20,10 @@ public data class SegmentIntersection(
 /**
  * Reports all intersections among a collection of two-dimensional segments.
  *
- * This is the Bentley-Ottmann sweep-line algorithm. Unlike [SweepLineSegmentIntersection], which
- * stops at the first intersection, this algorithm schedules discovered crossing events and reports
- * every intersection. Its running time is O((n + k) log n), where k is the number of reported
- * intersections, and its space complexity is O(n + k).
+ * This is the Bentley-Ottmann sweep-line algorithm. Unlike [ShamosHoey], which stops at the first
+ * intersection, this algorithm schedules discovered crossing events and reports every intersection.
+ * Its running time is O((n + k) log n), where k is the number of reported intersections, and its
+ * space complexity is O(n + k).
  *
  * Collinear overlaps are reported when neighboring segments enter the sweep status. A pair is
  * reported only once, even when it meets at an endpoint and later participates in another event.
@@ -34,15 +34,52 @@ public class BentleyOttmann(
 ) : Algorithm<List<SegmentIntersection>> {
   private val input = segments.toList()
 
+  @Suppress("kotlin:S3776")
   override fun execute(): List<SegmentIntersection> {
     if (input.size < 2) return emptyList()
     val segments = input.mapIndexed { index, segment -> SweepSegment(index, segment) }
+    val reported = mutableSetOf<Pair<Int, Int>>()
+    val result = mutableListOf<SegmentIntersection>()
+
+    // A vertical segment has no open interval to the right of its left endpoint. It can therefore
+    // intersect several segments at that event without ever becoming adjacent to all of them in
+    // the sweep status. Handle these degenerate sweep objects explicitly before processing the
+    // ordinary Bentley-Ottmann events.
+    segments
+      .filter { it.isVertical }
+      .forEach { vertical ->
+        segments
+          .filter { !it.isVertical }
+          .forEach { other ->
+            val pair = minOf(vertical.index, other.index) to maxOf(vertical.index, other.index)
+            val data = vertical.segment.intersection(other.segment, precision)
+            if (data.type != IntersectionType.NONE && reported.add(pair)) {
+              result += SegmentIntersection(pair.first, pair.second, data)
+            }
+          }
+      }
+    segments
+      .filter { it.isVertical }
+      .forEachIndexed { offset, first ->
+        segments
+          .filter { it.isVertical }
+          .drop(offset + 1)
+          .forEach { second ->
+            val pair = minOf(first.index, second.index) to maxOf(first.index, second.index)
+            val data = first.segment.intersection(second.segment, precision)
+            if (data.type != IntersectionType.NONE && reported.add(pair)) {
+              result += SegmentIntersection(pair.first, pair.second, data)
+            }
+          }
+      }
+
     val queue = EventQueue()
-    segments.forEach {
+    val sweepSegments = segments.filterNot { it.isVertical }
+    sweepSegments.forEach {
       queue.add(Event(it.left.x, it.left.y, EventKind.START, it))
       queue.add(Event(it.right.x, it.right.y, EventKind.END, it))
     }
-    var sweepX = queue.peek()?.x ?: return emptyList()
+    var sweepX = queue.peek()?.x ?: return result
     val active =
       MutableRedBlackTreeMap<SweepSegment, Unit> { a, b ->
         val ay = heightAt(a, sweepX)
@@ -61,9 +98,7 @@ public class BentleyOttmann(
           }
         }
       }
-    val reported = mutableSetOf<Pair<Int, Int>>()
     val scheduled = mutableSetOf<Triple<Int, Int, Long>>()
-    val result = mutableListOf<SegmentIntersection>()
 
     fun report(a: SweepSegment, b: SweepSegment, data: IntersectionData<Vec2>) {
       val pair = minOf(a.index, b.index) to maxOf(a.index, b.index)
@@ -128,6 +163,7 @@ public class BentleyOttmann(
   }
 
   private class SweepSegment(val index: Int, val segment: Segment2<*>) {
+    val isVertical = segment.start.x == segment.end.x
     val left =
       if (
         segment.start.x < segment.end.x ||

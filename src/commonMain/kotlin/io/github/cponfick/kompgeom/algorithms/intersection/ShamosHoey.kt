@@ -28,7 +28,7 @@ import kotlin.math.min
  * @param precision The equivalence used for geometric comparisons.
  * @param ignoredPair Predicate for pairs that should not count as intersections.
  */
-public class SweepLineSegmentIntersection(
+public class ShamosHoey(
   segments: Collection<Segment2<*>>,
   private val precision: DoubleEquivalence = DEFAULT_DOUBLE_EQUIVALENCE,
   private val ignoredPair: (Int, Int) -> Boolean = { _, _ -> false },
@@ -57,25 +57,37 @@ public class SweepLineSegmentIntersection(
 
     for (event in events) {
       sweepX = event.point.x
-      val segment = event.segment
-      if (event.start) {
-        status[segment] = Unit
-        val lower = status.lower(segment)
-        val upper = status.higher(segment)
-        if (
-          (lower != null && intersects(lower, segment)) ||
-            (upper != null && intersects(segment, upper))
-        ) {
-          return true
-        }
-      } else {
-        // Test the two segments which become neighbors after this one leaves the status.
-        val lower = status.lower(segment)
-        val upper = status.higher(segment)
-        if (lower != null && upper != null && intersects(lower, upper)) return true
-        status.remove(segment)
-      }
+      if (processEvent(event, status)) return true
     }
+    return false
+  }
+
+  private fun processEvent(
+    event: Event,
+    status: MutableRedBlackTreeMap<SweepSegment, Unit>,
+  ): Boolean =
+    if (event.start) processStart(event.segment, status) else processEnd(event.segment, status)
+
+  private fun processStart(
+    segment: SweepSegment,
+    status: MutableRedBlackTreeMap<SweepSegment, Unit>,
+  ): Boolean {
+    status[segment] = Unit
+    val lower = status.lower(segment)
+    val upper = status.higher(segment)
+    return (lower != null && intersects(lower, segment)) ||
+      (upper != null && intersects(segment, upper))
+  }
+
+  private fun processEnd(
+    segment: SweepSegment,
+    status: MutableRedBlackTreeMap<SweepSegment, Unit>,
+  ): Boolean {
+    // Test the two segments which become neighbors after this one leaves the status.
+    val lower = status.lower(segment)
+    val upper = status.higher(segment)
+    if (lower != null && upper != null && intersects(lower, upper)) return true
+    status.remove(segment)
     return false
   }
 
@@ -140,7 +152,7 @@ public class SweepLineSegmentIntersection(
   public companion object : Algorithm.AlgorithmInfo {
     override fun getGroup(): String = "Intersection"
 
-    override fun getName(): String = "Sweep Line Segment Intersection"
+    override fun getName(): String = "Shamos-Hoey"
 
     override fun getTimeComplexity(): String = "O(n log n)"
 

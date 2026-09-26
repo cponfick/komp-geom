@@ -1,7 +1,7 @@
 package io.github.cponfick.kompgeom.euclidean.twod
 
 import io.github.cponfick.kompgeom.algorithms.convexhull.Quickhull2
-import io.github.cponfick.kompgeom.algorithms.intersection.SweepLineSegmentIntersection
+import io.github.cponfick.kompgeom.algorithms.intersection.ShamosHoey
 import io.github.cponfick.kompgeom.core.Orientation
 import io.github.cponfick.kompgeom.core.equivalence.DEFAULT_DOUBLE_EQUIVALENCE
 import io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence
@@ -110,7 +110,7 @@ public class Polygon2(
 
   /** Checks non-adjacent edges using a sweep-line intersection test. */
   private val isSimpleHolder: Boolean by lazy {
-    !SweepLineSegmentIntersection(edges, precision) { first, second ->
+    !ShamosHoey(edges, precision) { first, second ->
         first == second || (first + 1) % edges.size == second || (second + 1) % edges.size == first
       }
       .execute()
