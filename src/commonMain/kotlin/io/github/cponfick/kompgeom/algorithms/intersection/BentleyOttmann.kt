@@ -81,6 +81,21 @@ internal class SegmentSweep(
 
   fun execute(): List<SegmentIntersection> {
     if (input.size < 2) return emptyList()
+    initializeSweep()
+    while (events.peek() != null) {
+      if (processNextPoint()) return results
+    }
+    return results
+  }
+
+  private data class EventBatch(
+    val point: Point,
+    val starts: List<Edge>,
+    val ends: List<Edge>,
+    val crossingEdges: List<Edge>,
+  )
+
+  private fun initializeSweep() {
     // At most n slopes are forbidden; choosing the first available integer is deterministic.
     val forbidden =
       input
@@ -99,67 +114,79 @@ internal class SegmentSweep(
         val b = shear(s.end.x, s.end.y)
         Edge(i, s, minOf(a, b), maxOf(a, b))
       }
-    for (edge in edges) {
+    edges.forEach { edge ->
       events.add(Event(edge.left, start = edge))
       events.add(Event(edge.right, end = edge))
     }
-    while (events.peek() != null) {
-      val point = events.peek()!!.point
-      val starts = mutableListOf<Edge>()
-      val ends = mutableListOf<Edge>()
-      val crossing = mutableListOf<Pair<Int, Int>>()
-      do {
-        val event = events.remove()
-        event.start?.let(starts::add)
-        event.end?.let(ends::add)
-        event.pair?.let {
-          crossing += it
-          pending.remove(it)
-        }
-      } while (events.peek()?.point == point)
+  }
 
-      // The incident status block is contiguous just before the event. Finding it by height also
-      // handles endpoint events that have never been scheduled as pairwise crossing events.
-      val crossingEdges = crossing.flatMap { listOf(edges[it.first], edges[it.second]) }
-      val crossingIndices = crossingEdges.mapTo(mutableSetOf()) { it.index }
-      // A computed crossing may be a few ULPs away from the exact meeting point after shearing.
-      // Its scheduled participants must still exchange places, even if probing that rounded point
-      // against either original segment fails the point-on-segment predicate.
-      val incident =
-        (status.at(point, precision).filter { touches(it, point) } +
-            crossingEdges.filter(status::contains))
-          .distinctBy { it.index }
-      val group =
-        (incident + starts + ends + crossingEdges)
-          .distinctBy { it.index }
-          .filter { it.index in crossingIndices || touches(it, point) }
-      for (i in group.indices) for (j in i + 1 until group.size) {
-        report(group[i], group[j])
-        if (stopAtFirst && results.isNotEmpty()) return results
+  private fun collectEvents(): EventBatch {
+    val point = events.peek()!!.point
+    val starts = mutableListOf<Edge>()
+    val ends = mutableListOf<Edge>()
+    val crossing = mutableListOf<Pair<Int, Int>>()
+    do {
+      val event = events.remove()
+      event.start?.let(starts::add)
+      event.end?.let(ends::add)
+      event.pair?.let {
+        crossing += it
+        pending.remove(it)
       }
-      val removed = (incident + ends).distinctBy { it.index }.filter(status::contains)
-      val firstRemoved = removed.minByOrNull { status.position(it) }
-      val below = firstRemoved?.let(status::lower)
-      val above = removed.maxByOrNull { status.position(it) }?.let(status::higher)
-      // Locate the affected block before deletion. A crossing can produce slightly different
-      // floating-point heights for segments at the same computed point; their right-side order
-      // must be determined by slope, not by comparing those rounded heights.
-      val insertionRank = firstRemoved?.let(status::position) ?: status.rankAt(point)
-      removed.forEach(status::remove)
-      val entering =
-        (incident.filter { it.right > point } + starts.filter { it.right > point })
-          .distinctBy { it.index }
-          .sortedWith(compareBy<Edge>({ it.slope }, { it.index }))
-      entering.forEachIndexed { index, edge -> status.insertAt(edge, insertionRank + index) }
-      if (entering.isEmpty()) check(below, above, point)
-      else {
-        check(status.lower(entering.first()), entering.first(), point)
-        check(entering.last(), status.higher(entering.last()), point)
-        for (i in 1 until entering.size) check(entering[i - 1], entering[i], point)
-      }
-      if (stopAtFirst && results.isNotEmpty()) return results
+    } while (events.peek()?.point == point)
+    return EventBatch(
+      point,
+      starts,
+      ends,
+      crossing.flatMap { listOf(edges[it.first], edges[it.second]) },
+    )
+  }
+
+  private fun processNextPoint(): Boolean {
+    val batch = collectEvents()
+    val crossingIndices = batch.crossingEdges.mapTo(mutableSetOf()) { it.index }
+    val incident =
+      (status.at(batch.point, precision).filter { touches(it, batch.point) } +
+          batch.crossingEdges.filter(status::contains))
+        .distinctBy { it.index }
+    val group =
+      (incident + batch.starts + batch.ends + batch.crossingEdges)
+        .distinctBy { it.index }
+        .filter { it.index in crossingIndices || touches(it, batch.point) }
+    if (reportGroup(group)) return true
+    updateStatus(batch, incident)
+    return stopAtFirst && results.isNotEmpty()
+  }
+
+  private fun reportGroup(group: List<Edge>): Boolean {
+    for (i in group.indices) for (j in i + 1 until group.size) {
+      report(group[i], group[j])
+      if (stopAtFirst && results.isNotEmpty()) return true
     }
-    return results
+    return false
+  }
+
+  private fun updateStatus(batch: EventBatch, incident: List<Edge>) {
+    val removed = (incident + batch.ends).distinctBy { it.index }.filter(status::contains)
+    val firstRemoved = removed.minByOrNull { status.position(it) }
+    val below = firstRemoved?.let(status::lower)
+    val above = removed.maxByOrNull { status.position(it) }?.let(status::higher)
+    // Locate the affected block before deletion; right-side order is determined by slope.
+    val insertionRank = firstRemoved?.let(status::position) ?: status.rankAt(batch.point)
+    removed.forEach(status::remove)
+    val entering =
+      (incident.filter { it.right > batch.point } + batch.starts.filter { it.right > batch.point })
+        .distinctBy { it.index }
+        .sortedWith(compareBy<Edge>({ it.slope }, { it.index }))
+    entering.forEachIndexed { index, edge -> status.insertAt(edge, insertionRank + index) }
+    if (entering.isEmpty()) check(below, above, batch.point)
+    else checkEntering(entering, batch.point)
+  }
+
+  private fun checkEntering(entering: List<Edge>, point: Point) {
+    check(status.lower(entering.first()), entering.first(), point)
+    check(entering.last(), status.higher(entering.last()), point)
+    for (i in 1 until entering.size) check(entering[i - 1], entering[i], point)
   }
 
   private fun touches(edge: Edge, point: Point): Boolean {
