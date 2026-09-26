@@ -20,6 +20,10 @@ version = "0.4.0-rc8"
 
 repositories { mavenCentral() }
 
+// Keep every resolvable configuration reproducible. Regenerate lockfiles deliberately with
+// `./gradlew dependencies --write-locks` when dependencies are changed.
+dependencyLocking { lockAllConfigurations() }
+
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
 kotlin {

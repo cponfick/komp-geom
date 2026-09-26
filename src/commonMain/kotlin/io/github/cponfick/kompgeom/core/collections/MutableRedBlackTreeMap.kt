@@ -45,7 +45,7 @@ public class MutableRedBlackTreeMap<K, V>(
   }
 
   override fun lower(key: K): K? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -61,7 +61,7 @@ public class MutableRedBlackTreeMap<K, V>(
   }
 
   override fun floor(key: K): K? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -79,7 +79,7 @@ public class MutableRedBlackTreeMap<K, V>(
   }
 
   override fun ceiling(key: K): K? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -97,7 +97,7 @@ public class MutableRedBlackTreeMap<K, V>(
   }
 
   override fun higher(key: K): K? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     var result: K? = null
     var current = root
     while (current != null) {
@@ -124,7 +124,7 @@ public class MutableRedBlackTreeMap<K, V>(
   override fun get(key: K): V? = getNode(key)?.value
 
   private fun getNode(key: K): Node? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     var x = root
     while (x != null) {
       val cmp = comparator.compare(key, x.key)
@@ -298,15 +298,15 @@ public class MutableRedBlackTreeMap<K, V>(
 
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      if (other is Map.Entry<*, *>) return key == other.key && value == other.value
-      return false
+      val entry = other as? Map.Entry<*, *> ?: return false
+      return key == entry.key && value == entry.value
     }
 
     override fun toString(): String = "$key=$value"
   }
 
   override fun put(key: K, value: V): V? {
-    requireNotNull(key) { "Null keys are not supported" }
+    requireNotNull(key) { NULL_KEY_MESSAGE }
     // Also validate natural ordering for the first key, before adding it to an empty tree.
     if (root == null) comparator.compare(key, key)
     val existingNode = getNode(key)
@@ -485,7 +485,8 @@ public class MutableRedBlackTreeMap<K, V>(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    return other is Map<*, *> && sameEntries(other)
+    val map = other as? Map<*, *> ?: return false
+    return sameEntries(map)
   }
 
   private fun sameEntries(other: Map<*, *>): Boolean {
@@ -502,6 +503,7 @@ public class MutableRedBlackTreeMap<K, V>(
   override fun toString(): String = entries.joinToString(prefix = "{", postfix = "}")
 
   private companion object {
+    const val NULL_KEY_MESSAGE = "Null keys are not supported"
     const val RED = true
     const val BLACK = false
 
