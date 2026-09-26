@@ -152,6 +152,14 @@ class PrecisionTest {
   }
 
   @Test
+  fun `approximate compare is not a sorted collection comparator`() {
+    val tolerance = EpsilonDoubleEquivalence(1e-6)
+    tolerance.compare(0.0, 0.75e-6) shouldBe 0
+    tolerance.compare(0.75e-6, 1.5e-6) shouldBe 0
+    tolerance.compare(0.0, 1.5e-6) shouldBe -1
+  }
+
+  @Test
   fun `epsilon must be finite and nonnegative`() {
     assertFailsWith<IllegalArgumentException> { EpsilonDoubleEquivalence(-1.0) }
     assertFailsWith<IllegalArgumentException> { EpsilonDoubleEquivalence(Double.NaN) }

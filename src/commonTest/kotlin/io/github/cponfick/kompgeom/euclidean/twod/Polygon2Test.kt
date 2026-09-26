@@ -182,6 +182,18 @@ class Polygon2Test {
   }
 
   @Test
+  fun `isSimple rejects overlapping consecutive edges`() {
+    Polygon2(listOf(Vec2(0.0, 0.0), Vec2(3.0, 0.0), Vec2(1.0, 0.0), Vec2(1.0, 2.0)))
+      .isSimple() shouldBe false
+  }
+
+  @Test
+  fun `isSimple rejects zero length edges`() {
+    Polygon2(listOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(2.0, 0.0), Vec2(0.0, 2.0)))
+      .isSimple() shouldBe false
+  }
+
+  @Test
   fun `orientation returns COUNTERCLOCKWISE for counter clock wise square`() {
     val square = Polygon2(listOf(Vec2(0.0, 0.0), Vec2(2.0, 0.0), Vec2(2.0, 2.0), Vec2(0.0, 2.0)))
     square.orientation() shouldBe Orientation.COUNTERCLOCKWISE
