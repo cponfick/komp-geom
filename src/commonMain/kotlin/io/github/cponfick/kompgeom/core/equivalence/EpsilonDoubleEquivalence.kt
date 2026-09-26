@@ -9,9 +9,12 @@ import kotlin.math.abs
  * @property epsilon The relative tolerance used for comparisons. Defaults to [GEOMETRIC_EPSILON].
  *
  * The epsilon must be finite and non-negative. Comparisons of finite values use `epsilon * max(1,
- * abs(a), abs(b))`. Non-finite values are ordered without applying a tolerance: negative infinity
- * is less than every finite value, positive infinity is greater than every finite value, and NaN is
- * greater than every non-NaN value. Two equal infinities and two NaN values compare equal.
+ * abs(a), abs(b))`. Approximate equality is not transitive, so [compare] must not be used as a
+ * comparator for sorting, ordered maps, or sets. Use exact keys/order for data structures and
+ * tolerance-based comparisons for geometric predicates. Non-finite values are ordered without
+ * applying a tolerance: negative infinity is less than every finite value, positive infinity is
+ * greater than every finite value, and NaN is greater than every non-NaN value. Two equal
+ * infinities and two NaN values compare equal.
  */
 public open class EpsilonDoubleEquivalence(public val epsilon: Double = GEOMETRIC_EPSILON) :
   DoubleEquivalence {
@@ -49,7 +52,8 @@ public open class EpsilonDoubleEquivalence(public val epsilon: Double = GEOMETRI
   }
 
   /**
-   * Compares two double values considering the defined precision.
+   * Compares two double values considering the defined precision. This is an approximate
+   * comparison, not a total order: do not use it as the comparator of a sorted collection.
    *
    * @param a The first double value to compare.
    * @param b The second double value to compare.
