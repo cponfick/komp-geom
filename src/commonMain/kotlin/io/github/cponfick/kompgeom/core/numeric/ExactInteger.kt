@@ -104,6 +104,39 @@ private constructor(
     return fromMagnitude(sign * other.sign, result)
   }
 
+  /** Returns the quotient and remainder of signed truncating division by [divisor]. */
+  internal fun divideAndRemainder(divisor: ExactInteger): Pair<ExactInteger, ExactInteger> {
+    if (divisor.isZero) throw ArithmeticException("division by zero")
+    if (isZero) return ZERO to ZERO
+
+    val magnitudes = divideMagnitudes(limbs, divisor.limbs)
+    val quotient = fromMagnitude(sign * divisor.sign, magnitudes.first)
+    val remainder = fromMagnitude(sign, magnitudes.second)
+    return quotient to remainder
+  }
+
+  /** Returns the nonnegative greatest common divisor of this integer and [other]. */
+  internal fun gcd(other: ExactInteger): ExactInteger {
+    var left = absoluteValue()
+    var right = other.absoluteValue()
+    if (left.isZero) return right
+    if (right.isZero) return left
+
+    val commonTrailingZeros = minOf(left.trailingZeroCount(), right.trailingZeroCount())
+    left = left shr left.trailingZeroCount()
+    right = right shr right.trailingZeroCount()
+    while (!right.isZero) {
+      if (left > right) {
+        val temporary = left
+        left = right
+        right = temporary
+      }
+      right -= left
+      if (!right.isZero) right = right shr right.trailingZeroCount()
+    }
+    return left shl commonTrailingZeros
+  }
+
   /**
    * Shifts the magnitude left by [bits], preserving this value's sign. A negative count is
    * rejected. This is a signed-magnitude shift, rather than a two's-complement bit operation.
@@ -250,6 +283,83 @@ private constructor(
         if (left[index] != right[index]) return left[index].compareTo(right[index])
       }
       return 0
+    }
+
+    private fun divideMagnitudes(dividend: IntArray, divisor: IntArray): Pair<IntArray, IntArray> {
+      require(divisor.isNotEmpty()) { "division by zero" }
+      if (compareMagnitudes(dividend, divisor) < 0) {
+        return IntArray(0) to dividend.copyOf()
+      }
+      if (divisor.size == 1) {
+        val divisorLimb = divisor[0].toLong()
+        val quotient = IntArray(dividend.size)
+        var remainder = 0L
+        for (index in dividend.lastIndex downTo 0) {
+          val value = (remainder shl LIMB_BITS) + dividend[index].toLong()
+          quotient[index] = (value / divisorLimb).toInt()
+          remainder = value % divisorLimb
+        }
+        return quotient to if (remainder == 0L) IntArray(0) else intArrayOf(remainder.toInt())
+      }
+
+      // Process one dividend bit at a time. The remainder is a private scratch buffer and is
+      // mutated in place, avoiding an integer allocation for every quotient bit.
+      val quotient = IntArray(dividend.size)
+      val remainder = IntArray(divisor.size + 1)
+      val bitLength = magnitudeBitLength(dividend)
+      for (bit in bitLength - 1 downTo 0) {
+        var carry = (dividend[bit / LIMB_BITS] ushr (bit % LIMB_BITS)) and 1
+        for (index in remainder.indices) {
+          val shifted = (remainder[index].toLong() shl 1) + carry.toLong()
+          remainder[index] = (shifted and LIMB_MASK).toInt()
+          carry = (shifted ushr LIMB_BITS).toInt()
+        }
+        if (compareMagnitudesWithTrailingZeros(remainder, divisor) >= 0) {
+          subtractInPlace(remainder, divisor)
+          quotient[bit / LIMB_BITS] = quotient[bit / LIMB_BITS] or (1 shl (bit % LIMB_BITS))
+        }
+      }
+      return quotient to remainder
+    }
+
+    private fun compareMagnitudesWithTrailingZeros(left: IntArray, right: IntArray): Int {
+      var leftSize = left.size
+      while (leftSize > 0 && left[leftSize - 1] == 0) leftSize--
+      var rightSize = right.size
+      while (rightSize > 0 && right[rightSize - 1] == 0) rightSize--
+      if (leftSize != rightSize) return leftSize.compareTo(rightSize)
+      for (index in leftSize - 1 downTo 0) {
+        if (left[index] != right[index]) return left[index].compareTo(right[index])
+      }
+      return 0
+    }
+
+    private fun magnitudeBitLength(value: IntArray): Int {
+      if (value.isEmpty()) return 0
+      var high = value.last()
+      var highBits = 0
+      while (high != 0) {
+        highBits++
+        high = high ushr 1
+      }
+      return (value.size - 1) * LIMB_BITS + highBits
+    }
+
+    /** Subtracts [right] from [left] in place, assuming left >= right. */
+    private fun subtractInPlace(left: IntArray, right: IntArray) {
+      var borrow = 0L
+      for (index in left.indices) {
+        var difference =
+          left[index].toLong() - (if (index < right.size) right[index] else 0).toLong() - borrow
+        if (difference < 0L) {
+          difference += LIMB_BASE.toLong()
+          borrow = 1L
+        } else {
+          borrow = 0L
+        }
+        left[index] = difference.toInt()
+      }
+      check(borrow == 0L) { "magnitude subtraction underflow" }
     }
 
     private fun addMagnitudes(left: IntArray, right: IntArray): IntArray {

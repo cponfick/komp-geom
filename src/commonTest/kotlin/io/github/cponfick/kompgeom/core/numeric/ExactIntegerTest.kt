@@ -103,6 +103,48 @@ class ExactIntegerTest {
   }
 
   @Test
+  fun `divides with truncation toward zero and signed remainder`() {
+    val cases = listOf(17L to 5L, -17L to 5L, 17L to -5L, -17L to -5L, 3L to 5L, 15L to 5L)
+
+    for ((dividendValue, divisorValue) in cases) {
+      val dividend = ExactInteger.fromLong(dividendValue)
+      val divisor = ExactInteger.fromLong(divisorValue)
+      val (quotient, remainder) = dividend.divideAndRemainder(divisor)
+
+      quotient shouldBe ExactInteger.fromLong(dividendValue / divisorValue)
+      remainder shouldBe ExactInteger.fromLong(dividendValue % divisorValue)
+      dividend shouldBe quotient * divisor + remainder
+      (remainder.absoluteValue() < divisor.absoluteValue()) shouldBe true
+    }
+    assertFailsWith<ArithmeticException> { ExactInteger.ONE.divideAndRemainder(ExactInteger.ZERO) }
+  }
+
+  @Test
+  fun `divides multi-limb magnitudes`() {
+    val divisor = (ExactInteger.ONE shl 61) + ExactInteger.fromLong(12345)
+    val quotient = (ExactInteger.ONE shl 130) + (ExactInteger.ONE shl 37) + ExactInteger.ONE
+    val remainder = ExactInteger.fromLong(987654321)
+    val (actualQuotient, actualRemainder) =
+      (quotient * divisor + remainder).divideAndRemainder(divisor)
+
+    actualQuotient shouldBe quotient
+    actualRemainder shouldBe remainder
+  }
+
+  @Test
+  fun `gcd is nonnegative and handles zeros and shared factors`() {
+    ExactInteger.ZERO.gcd(ExactInteger.ZERO) shouldBe ExactInteger.ZERO
+    ExactInteger.fromLong(-84).gcd(ExactInteger.ZERO) shouldBe ExactInteger.fromLong(84)
+    ExactInteger.ZERO.gcd(ExactInteger.fromLong(-84)) shouldBe ExactInteger.fromLong(84)
+    ExactInteger.fromLong(-84).gcd(ExactInteger.fromLong(30)) shouldBe ExactInteger.fromLong(6)
+    ExactInteger.fromLong(35).gcd(ExactInteger.fromLong(64)) shouldBe ExactInteger.ONE
+
+    val factor = ExactInteger.ONE shl 100
+    (factor * ExactInteger.fromLong(21)).gcd(factor * ExactInteger.fromLong(35)) shouldBe
+      factor * ExactInteger.fromLong(7)
+  }
+
+  @Test
   fun `negation and absolute value preserve immutability`() {
     val value = ExactInteger.fromLong(-123456789)
 
