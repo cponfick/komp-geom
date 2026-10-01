@@ -2,6 +2,7 @@ package io.github.cponfick.kompgeom.core.numeric
 
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 
 class ExactIntegerTest {
   @Test
@@ -67,6 +68,38 @@ class ExactIntegerTest {
     a shouldBe b
     a.hashCode() shouldBe b.hashCode()
     a shouldBe (a + ExactInteger.ZERO)
+  }
+
+  @Test
+  fun `multiplies with signs and long carry chains`() {
+    val base = ExactInteger.fromLong(1L shl 30)
+    val value = (base + ExactInteger.fromLong(1)) * (base - ExactInteger.ONE)
+
+    value shouldBe ExactInteger.fromLong((1L shl 60) - 1)
+    (-value) * ExactInteger.fromLong(-3) shouldBe ExactInteger.fromLong(3) * value
+    ExactInteger.ZERO * value shouldBe ExactInteger.ZERO
+    value * ExactInteger.ONE shouldBe value
+  }
+
+  @Test
+  fun `shifts signed magnitudes across limb boundaries`() {
+    val value = -(ExactInteger.ONE shl 31)
+
+    value shl 29 shouldBe -(ExactInteger.ONE shl 60)
+    (value shl 30) shr 30 shouldBe value
+    (value shr 1) shouldBe -(ExactInteger.ONE shl 30)
+    (value shr 31) shouldBe -ExactInteger.ONE
+    (value shr 32) shouldBe ExactInteger.ZERO
+    value.bitLength() shouldBe 32
+    (value shl 30).bitLength() shouldBe 62
+    value.trailingZeroCount() shouldBe 31
+  }
+
+  @Test
+  fun `rejects negative shifts and zero trailing-bit queries`() {
+    assertFailsWith<IllegalArgumentException> { ExactInteger.ONE shl -1 }
+    assertFailsWith<IllegalArgumentException> { ExactInteger.ONE shr -1 }
+    assertFailsWith<IllegalArgumentException> { ExactInteger.ZERO.trailingZeroCount() }
   }
 
   @Test

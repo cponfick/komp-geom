@@ -71,6 +71,125 @@ private constructor(
   /** Subtracts [other] from this integer. */
   internal operator fun minus(other: ExactInteger): ExactInteger = this + -other
 
+  /** Multiplies this integer by [other] using schoolbook multiplication. */
+  internal operator fun times(other: ExactInteger): ExactInteger {
+    if (isZero || other.isZero) return ZERO
+    if (this === ONE) return other
+    if (other === ONE) return this
+
+    check(limbs.size <= Int.MAX_VALUE - other.limbs.size) { "integer result is too large" }
+    val result = IntArray(limbs.size + other.limbs.size)
+    for (leftIndex in limbs.indices) {
+      var carry = 0L
+      for (rightIndex in other.limbs.indices) {
+        val resultIndex = leftIndex + rightIndex
+        // (base - 1)^2 + (base - 1) + (base - 1) is below 2^60.
+        val sum =
+          result[resultIndex].toLong() +
+            limbs[leftIndex].toLong() * other.limbs[rightIndex].toLong() +
+            carry
+        result[resultIndex] = (sum and LIMB_MASK).toInt()
+        carry = sum ushr LIMB_BITS
+      }
+      var resultIndex = leftIndex + other.limbs.size
+      while (carry != 0L) {
+        // At most one carry limb is normally needed here. This loop also makes the invariant
+        // explicit and avoids relying on an unexamined overwrite if the implementation changes.
+        val sum = result[resultIndex].toLong() + carry
+        result[resultIndex] = (sum and LIMB_MASK).toInt()
+        carry = sum ushr LIMB_BITS
+        resultIndex++
+      }
+    }
+    return fromMagnitude(sign * other.sign, result)
+  }
+
+  /**
+   * Shifts the magnitude left by [bits], preserving this value's sign. A negative count is
+   * rejected. This is a signed-magnitude shift, rather than a two's-complement bit operation.
+   */
+  internal infix fun shl(bits: Int): ExactInteger {
+    require(bits >= 0) { "shift count must not be negative" }
+    if (isZero || bits == 0) return this
+    val wholeLimbs = bits / LIMB_BITS
+    check(wholeLimbs <= Int.MAX_VALUE - limbs.size - 1) { "integer result is too large" }
+    val intraLimbBits = bits % LIMB_BITS
+    val result = IntArray(limbs.size + wholeLimbs + if (intraLimbBits == 0) 0 else 1)
+    var carry = 0L
+    for (index in limbs.indices) {
+      val shifted = (limbs[index].toLong() shl intraLimbBits) + carry
+      result[index + wholeLimbs] = (shifted and LIMB_MASK).toInt()
+      carry = shifted ushr LIMB_BITS
+    }
+    if (carry != 0L) result[limbs.size + wholeLimbs] = carry.toInt()
+    return fromMagnitude(sign, result)
+  }
+
+  /**
+   * Shifts the magnitude right by [bits], truncating discarded bits and preserving the sign of a
+   * nonzero result. A negative count is rejected; shifting by at least the bit length returns zero.
+   * This is not arithmetic two's-complement shifting.
+   */
+  internal infix fun shr(bits: Int): ExactInteger {
+    require(bits >= 0) { "shift count must not be negative" }
+    if (isZero || bits == 0) return this
+    if (bits >= bitLength()) return ZERO
+    val wholeLimbs = bits / LIMB_BITS
+    val intraLimbBits = bits % LIMB_BITS
+    val result = IntArray(limbs.size - wholeLimbs)
+    if (intraLimbBits == 0) {
+      for (index in result.indices) result[index] = limbs[index + wholeLimbs]
+    } else {
+      val inverseBits = LIMB_BITS - intraLimbBits
+      for (index in result.indices) {
+        val sourceIndex = index + wholeLimbs
+        val value = limbs[sourceIndex].toLong() ushr intraLimbBits
+        val upper =
+          if (sourceIndex + 1 < limbs.size) {
+            (limbs[sourceIndex + 1].toLong() shl inverseBits) and LIMB_MASK
+          } else {
+            0L
+          }
+        result[index] = (value or upper).toInt()
+      }
+    }
+    return fromMagnitude(sign, result)
+  }
+
+  /** Number of significant bits in the absolute value; zero has bit length zero. */
+  internal fun bitLength(): Int {
+    if (isZero) return 0
+    val high = limbs.last()
+    var bits = 0
+    var value = high
+    while (value != 0) {
+      bits++
+      value = value ushr 1
+    }
+    check(limbs.size <= (Int.MAX_VALUE - bits) / LIMB_BITS) { "bit length overflow" }
+    return (limbs.size - 1) * LIMB_BITS + bits
+  }
+
+  /**
+   * Number of zero bits below the least significant one bit. This operation is defined only for
+   * nonzero values and throws [IllegalArgumentException] for zero.
+   */
+  internal fun trailingZeroCount(): Int {
+    require(!isZero) { "trailing-zero count is undefined for zero" }
+    var count = 0
+    var index = 0
+    while (limbs[index] == 0) {
+      count += LIMB_BITS
+      index++
+    }
+    var value = limbs[index]
+    while ((value and 1) == 0) {
+      count++
+      value = value ushr 1
+    }
+    return count
+  }
+
   /** Compares signed values using their mathematical order. */
   override fun compareTo(other: ExactInteger): Int {
     if (sign != other.sign) return sign.compareTo(other.sign)
