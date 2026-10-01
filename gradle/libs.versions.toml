@@ -7,14 +7,10 @@ com-vanniktech-maven-publish = "0.37.0"
 dokka = "2.2.0"
 kover = "0.9.9"
 sonarqube = "7.3.1.8318"
-kotlin-logging = "8.0.4"
-slf4j = "2.0.18"
 kotlinx-benchmark = "0.4.17"
 
 [libraries]
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-kotlin-logging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlin-logging" }
-slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 kotlinx-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "kotlinx-benchmark" }
 
 [plugins]

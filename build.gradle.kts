@@ -77,8 +77,7 @@ kotlin {
   applyDefaultHierarchyTemplate()
 
   sourceSets {
-    val commonMain by getting { dependencies { implementation(libs.kotlin.logging) } }
-    val jvmMain by getting { dependencies { implementation(libs.slf4j.simple) } }
+    val commonMain by getting
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
