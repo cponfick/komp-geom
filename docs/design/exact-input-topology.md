@@ -341,7 +341,7 @@ Exact arithmetic is not constant-cost. Separately document operand bit-size depe
 ## 11. Implementation sequence and open decisions
 
 1. **Approve the contract and evaluation plan:** exact finite input, explicit approximation boundary, invalid input policy, opt-in rollout, representative workloads, and performance budgets. Do not approve a default switch or universal kernel at this stage.
-2. **Build the minimal reference foundation:** multiplatform exact integers/rationals, conversion, experimental/internal handles, and law/fixture tests. Choose a reference backend; keep production representation open to measured alternatives.
+2. **Build the minimal reference foundation:** multiplatform exact integers/rationals, conversion, experimental/internal handles, and law/fixture tests. The initial integer backend and its measured limitations are recorded in [exact-integer-backend.md](../benchmarks/exact-integer-backend.md); retain it as the reference backend while keeping optimized production representation open to measured alternatives.
 3. **Implement exact pairwise geometry:** point/segment incidence, orientation, classification, and composable constructions, initially exact-only.
 4. **Prove the complete chain with the sweep:** exact shear/events/status predicates and full degeneracy/overlap handling. Activate exact-semantics regressions and validate Shamos–Hoey/polygon contact policies using the same kernel.
 5. **Add filters and evaluate:** compare current, exact-only, and filtered implementations across targets; check parity, costs, operand growth, and conversion behavior. Optimize while keeping the API opt-in until section 9's gates pass.
@@ -351,7 +351,7 @@ Exact arithmetic is not constant-cost. Separately document operand bit-size depe
 Open implementation choices must not reopen the core distinction between topology and tolerance:
 
 - Which representative workloads and per-platform time/memory budgets should gate promotion from the opt-in prototype?
-- Which multiplatform exact integer implementation best satisfies licensing, maintenance, JS/Wasm performance, and package-size requirements?
+- Whether the internal [exact integer backend decision](../benchmarks/exact-integer-backend.md) continues to satisfy licensing, maintenance, JS/Wasm performance, and package-size requirements once those measurements are available?
 - Are normalized rationals or lazy homogeneous constructions the better initial production representation?
 - What public handle/result names fit existing shapes while keeping model mixing and accidental approximation difficult?
 - Which overlap bundle formulation admits a clear output-sensitive proof for all supported degeneracies?
