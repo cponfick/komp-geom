@@ -3,6 +3,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -26,6 +27,7 @@ dependencyLocking { lockAllConfigurations() }
 
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
+// https://kotl.in/native-targets-tiers
 kotlin {
   explicitApi()
   jvmToolchain(17)
@@ -35,7 +37,7 @@ kotlin {
       val benchmark by creating { associateWith(main) }
     }
   }
-  js(IR) {
+  js {
     binaries.library()
     nodejs()
     browser { testTask { useKarma { useChromeHeadless() } } }
@@ -46,26 +48,21 @@ kotlin {
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
   // Tier 1
+  macosArm64()
+  iosSimulatorArm64()
+  iosArm64()
+  // Tier 2
   linuxX64 {
     compilations {
       val main by getting
       val benchmark by creating { associateWith(main) }
     }
   }
-  macosX64()
-  macosArm64()
-  iosSimulatorArm64()
-  iosX64()
-  // Tier 2
   linuxArm64()
   watchosSimulatorArm64()
-  watchosX64()
-  watchosArm32()
   watchosArm64()
   tvosSimulatorArm64()
-  tvosX64()
   tvosArm64()
-  iosArm64()
   // Tier 3
   androidNativeArm32()
   androidNativeArm64()
@@ -73,6 +70,7 @@ kotlin {
   androidNativeX64()
   mingwX64()
   watchosDeviceArm64()
+  iosX64()
 
   applyDefaultHierarchyTemplate()
 
