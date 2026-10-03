@@ -14,13 +14,20 @@ jobs:
   code-style:
     name: Code Style
     uses: ./.github/workflows/code-style-workflow.yml
+  abi-check:
+    name: API/ABI Check
+    uses: ./.github/workflows/abi-check-workflow.yml
   jvm-tests:
     name: JVM Tests
-    needs: code-style
+    needs:
+      - code-style
+      - abi-check
     uses: ./.github/workflows/jvm-test-workflow.yml
   platform-tests:
     name: Platform Tests
-    needs: code-style
+    needs:
+      - code-style
+      - abi-check
     uses: ./.github/workflows/platform-test-workflow.yml
 
   validate-release:
@@ -46,7 +53,7 @@ jobs:
   publish:
     name: Build and Publish
     runs-on: macos-latest
-    needs: [validate-release, jvm-tests, platform-tests]
+    needs: [validate-release, abi-check, jvm-tests, platform-tests]
     permissions:
       contents: read
     steps:

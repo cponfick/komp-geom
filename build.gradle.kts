@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
@@ -26,8 +28,10 @@ dependencyLocking { lockAllConfigurations() }
 
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-hierarchy.html#default-hierarchy-template
 // https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-dsl-reference.html#targets
+// https://kotl.in/native-targets-tiers
 kotlin {
   explicitApi()
+  @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class) abiValidation()
   jvmToolchain(17)
   jvm {
     compilations {
@@ -35,7 +39,7 @@ kotlin {
       val benchmark by creating { associateWith(main) }
     }
   }
-  js(IR) {
+  js {
     binaries.library()
     nodejs()
     browser { testTask { useKarma { useChromeHeadless() } } }
@@ -46,26 +50,21 @@ kotlin {
   }
   wasmJs { browser { testTask { useKarma { useChromeHeadless() } } } }
   // Tier 1
+  macosArm64()
+  iosSimulatorArm64()
+  iosArm64()
+  // Tier 2
   linuxX64 {
     compilations {
       val main by getting
       val benchmark by creating { associateWith(main) }
     }
   }
-  macosX64()
-  macosArm64()
-  iosSimulatorArm64()
-  iosX64()
-  // Tier 2
   linuxArm64()
   watchosSimulatorArm64()
-  watchosX64()
-  watchosArm32()
   watchosArm64()
   tvosSimulatorArm64()
-  tvosX64()
   tvosArm64()
-  iosArm64()
   // Tier 3
   androidNativeArm32()
   androidNativeArm64()
@@ -73,11 +72,11 @@ kotlin {
   androidNativeX64()
   mingwX64()
   watchosDeviceArm64()
+  iosX64()
 
   applyDefaultHierarchyTemplate()
 
   sourceSets {
-    val commonMain by getting
     val commonTest by getting {
       dependencies {
         implementation(kotlin("test"))
@@ -103,22 +102,54 @@ tasks.withType<AbstractTestTask>().configureEach {
 
 tasks { withType<Test> { useJUnitPlatform() } }
 
+val testJavaVersion = providers.gradleProperty("testJavaVersion").map(String::toInt).orElse(17)
+val javaToolchains = extensions.getByType<JavaToolchainService>()
+
+tasks.named<Test>("jvmTest") {
+  javaLauncher.set(
+    javaToolchains.launcherFor {
+      languageVersion.set(testJavaVersion.map { JavaLanguageVersion.of(it) })
+    }
+  )
+  doFirst {
+    val launcher = javaLauncher.get()
+    logger.lifecycle(
+      "JVM tests use Java {} ({})",
+      launcher.metadata.languageVersion,
+      launcher.executablePath,
+    )
+  }
+}
+
 spotless {
+  val excludedPaths =
+    arrayOf(
+      "**/build/**",
+      "**/.gradle/**",
+      "**/.kotlin/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.idea/**",
+      "docs/dokka/**",
+    )
   kotlin {
-    target("**/*.kt", "**/*.kts")
+    target("src/**/*.kt")
+    targetExclude(*excludedPaths)
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     trimTrailingWhitespace()
     endWithNewline()
     toggleOffOn()
   }
   kotlinGradle {
-    target("**/*.gradle.kts")
+    target("*.gradle.kts")
+    targetExclude(*excludedPaths)
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     trimTrailingWhitespace()
     endWithNewline()
   }
   format("misc") {
     target("**/*.md", "**/*.yaml", "**/*.yml")
+    targetExclude(*excludedPaths)
     trimTrailingWhitespace()
     endWithNewline()
   }
@@ -182,16 +213,14 @@ sonar {
     property("sonar.projectKey", "cponfick_komp-geom")
     property("sonar.organization", "cponfick")
     property("sonar.host.url", "https://sonarcloud.io")
-    val koverReport =
-      allprojects
-        .mapNotNull { project ->
-          val reportPath = "${project.projectDir}/build/reports/kover/report.xml"
-          if (File(reportPath).exists()) reportPath else null
-        }
-        .joinToString(",")
-    property("sonar.coverage.jacoco.xmlReportPaths", koverReport)
+    property(
+      "sonar.coverage.jacoco.xmlReportPaths",
+      layout.buildDirectory.file("reports/kover/report.xml").get().asFile.absolutePath,
+    )
   }
 }
+
+tasks.named("sonar") { dependsOn("koverXmlReport") }
 
 benchmark {
   targets {

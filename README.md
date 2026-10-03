@@ -40,6 +40,13 @@ the [komp-geom-visualizer](https://github.com/cponfick/komp-geom-visualizer) pro
 
 Explore Komp-Geom's geometry algorithms and primitives in the [komp-geom visualizer](https://cponfick.github.io/komp-geom-visualizer/).
 
+## Compatibility
+
+For the current development version:
+
+- The JVM artifact requires **Java 17 or newer**.
+- The minimum supported Kotlin compiler version is **2.4.20**.
+
 ## Installation
 
 The latest release is available

@@ -25,14 +25,22 @@ jobs:
     name: Code Style
     uses: ./.github/workflows/code-style-workflow.yml
 
+  abi-check:
+    name: API/ABI Check
+    uses: ./.github/workflows/abi-check-workflow.yml
+
   jvm-tests:
     name: JVM Tests
-    needs: code-style
+    needs:
+     - code-style
+     - abi-check
     uses: ./.github/workflows/jvm-test-workflow.yml
 
   platform-tests:
     name: Platform Tests
-    needs: code-style
+    needs:
+     - code-style
+     - abi-check
     uses: ./.github/workflows/platform-test-workflow.yml
 
   sonarqube:
@@ -52,7 +60,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6
 
       - name: Run JVM tests and generate coverage
         run: ./gradlew koverXmlReport

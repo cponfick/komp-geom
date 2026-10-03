@@ -2,18 +2,22 @@
 
 This document describes the validation, release, and documentation workflows used by the project.
 
+The JVM matrix keeps Gradle and compilation on Java 17, while `-PtestJavaVersion` selects Java 17, 21, or 25 for test execution. The JVM test task logs its runtime version and executable path.
+
 ```mermaid
 flowchart TD
     A[Developer opens or updates PR] --> B[PR validation]
     B --> C[Code style]
     B --> D[JVM test matrix\nJDK 17 / 21 / 25]
     B --> E[Platform test matrix\nJS, Wasm, Native]
+    B --> ABI[API/ABI reference check]
     B --> F{Trusted PR?}
     F -->|Yes| G[Sonar coverage and quality analysis]
     F -->|Fork| H[Skip token-dependent Sonar upload]
     C --> I{Required PR checks pass?}
     D --> I
     E --> I
+    ABI --> I
     G --> I
     H --> I
     I -->|No| A
