@@ -181,14 +181,14 @@ transformations:
 - 2.59× faster on JavaScript
 - 2.10× faster on Linux Native
 
-See the [benchmark results](docs/benchmarks/affine_transformation.md) for details and context. Benchmark results depend
+See the [benchmark results](docs/benchmarks/affine-transformation.md) for details and context. Benchmark results depend
 on the platform, runtime, hardware, and workload.
 
 ## Documentation and examples
 
 - [API documentation](https://cponfick.github.io/komp-geom/)
 - [Visualization application](https://github.com/cponfick/komp-geom-visualizer)
-- [Benchmark results](docs/benchmarks/affine_transformation.md)
+- [Benchmark results](docs/benchmarks/affine-transformation.md)
 - [Example Repo](https://github.com/cponfick/komp-geom-examples)
 
 ## Contributing
