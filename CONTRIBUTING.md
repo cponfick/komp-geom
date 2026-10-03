@@ -66,6 +66,12 @@ Since this is a multiplatform project:
    ```
    Always use `allTests` rather than a single target-specific test task for verification. It runs the tests available on your host; browser tests require Chrome (set `CHROME_BIN` if it is not on the PATH). GitHub Actions covers additional platforms.
 
+### JVM Runtime Compatibility
+
+The JVM artifact targets Java 17. CI builds with Java 17 and runs the JVM tests on Java 17, 21, and 25 using an explicitly selected test launcher. Local tests default to Java 17.
+
+To verify the shared test suite with a different JVM runtime, run `./gradlew allTests -PtestJavaVersion=21` (or `25`). Install both JDK 17 and the selected test JDK where Gradle can discover them. The property affects only `jvmTest`; compilation still uses Java 17. The test task logs the selected Java version and executable path when it runs.
+
 ### Pull Request Guidelines
 
 - Keep PRs focused on a single feature or fix

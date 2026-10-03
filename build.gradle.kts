@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
@@ -100,6 +102,25 @@ tasks.withType<AbstractTestTask>().configureEach {
 }
 
 tasks { withType<Test> { useJUnitPlatform() } }
+
+val testJavaVersion = providers.gradleProperty("testJavaVersion").map(String::toInt).orElse(17)
+val javaToolchains = extensions.getByType<JavaToolchainService>()
+
+tasks.named<Test>("jvmTest") {
+  javaLauncher.set(
+    javaToolchains.launcherFor {
+      languageVersion.set(testJavaVersion.map { JavaLanguageVersion.of(it) })
+    }
+  )
+  doFirst {
+    val launcher = javaLauncher.get()
+    logger.lifecycle(
+      "JVM tests use Java {} ({})",
+      launcher.metadata.languageVersion,
+      launcher.executablePath,
+    )
+  }
+}
 
 spotless {
   kotlin {
