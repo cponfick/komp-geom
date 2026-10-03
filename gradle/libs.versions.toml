@@ -5,7 +5,7 @@ kotest = "6.2.5"
 ktfmt = "0.53"
 com-vanniktech-maven-publish = "0.37.0"
 dokka = "2.2.0"
-kover = "0.9.9"
+kover = "0.9.11"
 sonarqube = "7.3.1.8318"
 kotlinx-benchmark = "0.5.0"
 
