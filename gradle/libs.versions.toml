@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.4.0"
+kotlin = "2.4.20"
 spotless = "8.10.3"
 kotest = "6.2.5"
 ktfmt = "0.53"
