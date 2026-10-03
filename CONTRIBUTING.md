@@ -62,7 +62,7 @@ Since this is a multiplatform project:
    ```
 2. **Verify formatting and tests:**
    ```bash
-   ./gradlew spotlessCheck allTests
+   ./gradlew spotlessCheck checkKotlinAbi allTests
    ```
    Always use `allTests` rather than a single target-specific test task for verification. It runs the tests available on your host; browser tests require Chrome (set `CHROME_BIN` if it is not on the PATH). GitHub Actions covers additional platforms.
 
@@ -82,6 +82,10 @@ When making API changes:
 - Mark deprecated APIs with `@Deprecated` annotation
 - Provide migration paths in deprecation messages
 - Consider backward compatibility impact
+
+The build validates public ABI signatures against the reference dumps in `api/` with `./gradlew checkKotlinAbi`. This check also runs as part of `check`, in CI, and before publishing releases.
+
+For an intentional API change, run `./gradlew updateKotlinAbi`, review the dump diff, and include the updated dumps in the same PR. Explain any compatibility impact in the PR description; do not regenerate dumps merely to silence a failed check. Before `1.0`, intentional breaking changes remain allowed. ABI validation does not replace source-compatibility review or behavioral tests.
 
 
 ## AI-Assisted Development

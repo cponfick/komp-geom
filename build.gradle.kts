@@ -3,7 +3,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.gradle.kotlin.dsl.dokkaPlugin
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.dsl.KotlinJsTargetDsl
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -30,6 +29,7 @@ dependencyLocking { lockAllConfigurations() }
 // https://kotl.in/native-targets-tiers
 kotlin {
   explicitApi()
+  @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class) abiValidation()
   jvmToolchain(17)
   jvm {
     compilations {
