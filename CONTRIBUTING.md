@@ -62,9 +62,15 @@ Since this is a multiplatform project:
    ```
 2. **Verify formatting and tests:**
    ```bash
-   ./gradlew spotlessCheck allTests
+   ./gradlew spotlessCheck checkKotlinAbi allTests
    ```
    Always use `allTests` rather than a single target-specific test task for verification. It runs the tests available on your host; browser tests require Chrome (set `CHROME_BIN` if it is not on the PATH). GitHub Actions covers additional platforms.
+
+### JVM Runtime Compatibility
+
+The JVM artifact targets Java 17. CI builds with Java 17 and runs the JVM tests on Java 17, 21, and 25 using an explicitly selected test launcher. Local tests default to Java 17.
+
+To verify the shared test suite with a different JVM runtime, run `./gradlew allTests -PtestJavaVersion=21` (or `25`). Install both JDK 17 and the selected test JDK where Gradle can discover them. The property affects only `jvmTest`; compilation still uses Java 17. The test task logs the selected Java version and executable path when it runs.
 
 ### Pull Request Guidelines
 
@@ -82,6 +88,10 @@ When making API changes:
 - Mark deprecated APIs with `@Deprecated` annotation
 - Provide migration paths in deprecation messages
 - Consider backward compatibility impact
+
+The build validates public ABI signatures against the reference dumps in `api/` with `./gradlew checkKotlinAbi`. This check also runs as part of `check`, in CI, and before publishing releases.
+
+For an intentional API change, run `./gradlew updateKotlinAbi`, review the dump diff, and include the updated dumps in the same PR. Explain any compatibility impact in the PR description; do not regenerate dumps merely to silence a failed check. Before `1.0`, intentional breaking changes remain allowed. ABI validation does not replace source-compatibility review or behavioral tests.
 
 
 ## AI-Assisted Development

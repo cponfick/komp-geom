@@ -1,0 +1,1015 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.cponfick:komp-geom>
+final enum class io.github.cponfick.kompgeom.core.shapes/IntersectionType : kotlin/Enum<io.github.cponfick.kompgeom.core.shapes/IntersectionType> { // io.github.cponfick.kompgeom.core.shapes/IntersectionType|null[0]
+    enum entry NONE // io.github.cponfick.kompgeom.core.shapes/IntersectionType.NONE|null[0]
+    enum entry OVERLAP // io.github.cponfick.kompgeom.core.shapes/IntersectionType.OVERLAP|null[0]
+    enum entry POINT // io.github.cponfick.kompgeom.core.shapes/IntersectionType.POINT|null[0]
+
+    final val entries // io.github.cponfick.kompgeom.core.shapes/IntersectionType.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.cponfick.kompgeom.core.shapes/IntersectionType> // io.github.cponfick.kompgeom.core.shapes/IntersectionType.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.cponfick.kompgeom.core.shapes/IntersectionType // io.github.cponfick.kompgeom.core.shapes/IntersectionType.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.cponfick.kompgeom.core.shapes/IntersectionType> // io.github.cponfick.kompgeom.core.shapes/IntersectionType.values|values#static(){}[0]
+}
+
+final enum class io.github.cponfick.kompgeom.core.shapes/Location : kotlin/Enum<io.github.cponfick.kompgeom.core.shapes/Location> { // io.github.cponfick.kompgeom.core.shapes/Location|null[0]
+    enum entry MINUS // io.github.cponfick.kompgeom.core.shapes/Location.MINUS|null[0]
+    enum entry ON // io.github.cponfick.kompgeom.core.shapes/Location.ON|null[0]
+    enum entry PLUS // io.github.cponfick.kompgeom.core.shapes/Location.PLUS|null[0]
+
+    final val entries // io.github.cponfick.kompgeom.core.shapes/Location.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.cponfick.kompgeom.core.shapes/Location> // io.github.cponfick.kompgeom.core.shapes/Location.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.cponfick.kompgeom.core.shapes/Location // io.github.cponfick.kompgeom.core.shapes/Location.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.cponfick.kompgeom.core.shapes/Location> // io.github.cponfick.kompgeom.core.shapes/Location.values|values#static(){}[0]
+}
+
+final enum class io.github.cponfick.kompgeom.core/AngleUnit : kotlin/Enum<io.github.cponfick.kompgeom.core/AngleUnit> { // io.github.cponfick.kompgeom.core/AngleUnit|null[0]
+    enum entry DEGREES // io.github.cponfick.kompgeom.core/AngleUnit.DEGREES|null[0]
+    enum entry RADIANS // io.github.cponfick.kompgeom.core/AngleUnit.RADIANS|null[0]
+
+    final val entries // io.github.cponfick.kompgeom.core/AngleUnit.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.cponfick.kompgeom.core/AngleUnit> // io.github.cponfick.kompgeom.core/AngleUnit.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.cponfick.kompgeom.core/AngleUnit // io.github.cponfick.kompgeom.core/AngleUnit.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.cponfick.kompgeom.core/AngleUnit> // io.github.cponfick.kompgeom.core/AngleUnit.values|values#static(){}[0]
+}
+
+final enum class io.github.cponfick.kompgeom.core/Orientation : kotlin/Enum<io.github.cponfick.kompgeom.core/Orientation> { // io.github.cponfick.kompgeom.core/Orientation|null[0]
+    enum entry CLOCKWISE // io.github.cponfick.kompgeom.core/Orientation.CLOCKWISE|null[0]
+    enum entry COLLINEAR // io.github.cponfick.kompgeom.core/Orientation.COLLINEAR|null[0]
+    enum entry COUNTERCLOCKWISE // io.github.cponfick.kompgeom.core/Orientation.COUNTERCLOCKWISE|null[0]
+
+    final val entries // io.github.cponfick.kompgeom.core/Orientation.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.cponfick.kompgeom.core/Orientation> // io.github.cponfick.kompgeom.core/Orientation.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.cponfick.kompgeom.core/Orientation // io.github.cponfick.kompgeom.core/Orientation.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.cponfick.kompgeom.core/Orientation> // io.github.cponfick.kompgeom.core/Orientation.values|values#static(){}[0]
+}
+
+final enum class io.github.cponfick.kompgeom.euclidean.threed/RotationSequence : kotlin/Enum<io.github.cponfick.kompgeom.euclidean.threed/RotationSequence> { // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence|null[0]
+    enum entry XYX // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.XYX|null[0]
+    enum entry XYZ // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.XYZ|null[0]
+    enum entry XZX // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.XZX|null[0]
+    enum entry XZY // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.XZY|null[0]
+    enum entry YXY // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.YXY|null[0]
+    enum entry YXZ // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.YXZ|null[0]
+    enum entry YZX // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.YZX|null[0]
+    enum entry YZY // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.YZY|null[0]
+    enum entry ZXY // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.ZXY|null[0]
+    enum entry ZXZ // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.ZXZ|null[0]
+    enum entry ZYX // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.ZYX|null[0]
+    enum entry ZYZ // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.ZYZ|null[0]
+
+    final val entries // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.cponfick.kompgeom.euclidean.threed/RotationSequence> // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): io.github.cponfick.kompgeom.euclidean.threed/RotationSequence // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<io.github.cponfick.kompgeom.euclidean.threed/RotationSequence> // io.github.cponfick.kompgeom.euclidean.threed/RotationSequence.values|values#static(){}[0]
+}
+
+abstract fun interface <#A: kotlin/Any?> io.github.cponfick.kompgeom.algorithms/Algorithm { // io.github.cponfick.kompgeom.algorithms/Algorithm|null[0]
+    abstract fun execute(): #A // io.github.cponfick.kompgeom.algorithms/Algorithm.execute|execute(){}[0]
+
+    abstract interface AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo|null[0]
+        abstract fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo.getGroup|getGroup(){}[0]
+        abstract fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo.getName|getName(){}[0]
+        abstract fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo.getSpaceComplexity|getSpaceComplexity(){}[0]
+        abstract fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo.getTimeComplexity|getTimeComplexity(){}[0]
+        open fun getId(): kotlin/String // io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo.getId|getId(){}[0]
+    }
+}
+
+abstract fun interface <#A: kotlin/Any?> io.github.cponfick.kompgeom.core/Distanceable { // io.github.cponfick.kompgeom.core/Distanceable|null[0]
+    abstract fun distance(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Distanceable.distance|distance(1:0){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector1<#A>> io.github.cponfick.kompgeom.core/Vector1 : io.github.cponfick.kompgeom.core/Vector<#A> { // io.github.cponfick.kompgeom.core/Vector1|null[0]
+    abstract val x // io.github.cponfick.kompgeom.core/Vector1.x|{}x[0]
+        abstract fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.x.<get-x>|<get-x>(){}[0]
+
+    abstract fun withComponents(kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector1.withComponents|withComponents(kotlin.Double){}[0]
+    open fun angle(#A, io.github.cponfick.kompgeom.core/AngleUnit): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.angle|angle(1:0;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    open fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.core/Vector1.dimensions|dimensions(){}[0]
+    open fun distance(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.distance|distance(1:0){}[0]
+    open fun dot(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.dot|dot(1:0){}[0]
+    open fun eq(io.github.cponfick.kompgeom.core/Vector1<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector1.eq|eq(io.github.cponfick.kompgeom.core.Vector1<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    open fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector1.isFinite|isFinite(){}[0]
+    open fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector1.isInfinite|isInfinite(){}[0]
+    open fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector1.isNaN|isNaN(){}[0]
+    open fun lerp(io.github.cponfick.kompgeom.core/Vector1<*>, kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.core/Vector1.lerp|lerp(io.github.cponfick.kompgeom.core.Vector1<*>;kotlin.Double){}[0]
+    open fun norm(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.norm|norm(){}[0]
+    open fun normSquared(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector1.normSquared|normSquared(){}[0]
+    open fun normalize(): #A // io.github.cponfick.kompgeom.core/Vector1.normalize|normalize(){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.algorithms.convexhull/ConvexHull : io.github.cponfick.kompgeom.algorithms/Algorithm<io.github.cponfick.kompgeom.algorithms.convexhull/Result<#A>> // io.github.cponfick.kompgeom.algorithms.convexhull/ConvexHull|null[0]
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.core.shapes/Segment2 : io.github.cponfick.kompgeom.core.shapes/Segment<#A> { // io.github.cponfick.kompgeom.core.shapes/Segment2|null[0]
+    abstract fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment2<#A> // io.github.cponfick.kompgeom.core.shapes/Segment2.reverse|reverse(){}[0]
+    abstract fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<#A>): io.github.cponfick.kompgeom.core.shapes/Segment2<#A> // io.github.cponfick.kompgeom.core.shapes/Segment2.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<1:0>){}[0]
+    open fun eq(io.github.cponfick.kompgeom.core.shapes/Segment2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Segment2.eq|eq(io.github.cponfick.kompgeom.core.shapes.Segment2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    open fun intersection(io.github.cponfick.kompgeom.core.shapes/Segment2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.core.shapes/Segment2.intersection|intersection(io.github.cponfick.kompgeom.core.shapes.Segment2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.core/Vector2 : io.github.cponfick.kompgeom.core/Vector<#A> { // io.github.cponfick.kompgeom.core/Vector2|null[0]
+    abstract val x // io.github.cponfick.kompgeom.core/Vector2.x|{}x[0]
+        abstract fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.x.<get-x>|<get-x>(){}[0]
+    abstract val y // io.github.cponfick.kompgeom.core/Vector2.y|{}y[0]
+        abstract fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.y.<get-y>|<get-y>(){}[0]
+
+    abstract fun withComponents(kotlin/Double, kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector2.withComponents|withComponents(kotlin.Double;kotlin.Double){}[0]
+    open fun angle(#A, io.github.cponfick.kompgeom.core/AngleUnit): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.angle|angle(1:0;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    open fun computeScaleFactor(io.github.cponfick.kompgeom.core/Vector2<*>): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.computeScaleFactor|computeScaleFactor(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    open fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.core/Vector2.dimensions|dimensions(){}[0]
+    open fun distance(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.distance|distance(1:0){}[0]
+    open fun dot(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.dot|dot(1:0){}[0]
+    open fun eq(io.github.cponfick.kompgeom.core/Vector2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector2.eq|eq(io.github.cponfick.kompgeom.core.Vector2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    open fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector2.isFinite|isFinite(){}[0]
+    open fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector2.isInfinite|isInfinite(){}[0]
+    open fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector2.isNaN|isNaN(){}[0]
+    open fun lerp(io.github.cponfick.kompgeom.core/Vector2<*>, kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector2.lerp|lerp(io.github.cponfick.kompgeom.core.Vector2<*>;kotlin.Double){}[0]
+    open fun norm(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.norm|norm(){}[0]
+    open fun normalize(): #A // io.github.cponfick.kompgeom.core/Vector2.normalize|normalize(){}[0]
+    open fun project(io.github.cponfick.kompgeom.core/Vector2<*>): #A // io.github.cponfick.kompgeom.core/Vector2.project|project(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    open fun reject(io.github.cponfick.kompgeom.core/Vector2<*>): #A // io.github.cponfick.kompgeom.core/Vector2.reject|reject(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    open fun signedArea(io.github.cponfick.kompgeom.core/Vector2<*>): kotlin/Double // io.github.cponfick.kompgeom.core/Vector2.signedArea|signedArea(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector3<#A>> io.github.cponfick.kompgeom.core.shapes/Segment3 : io.github.cponfick.kompgeom.core.shapes/Segment<#A> { // io.github.cponfick.kompgeom.core.shapes/Segment3|null[0]
+    abstract fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment3<#A> // io.github.cponfick.kompgeom.core.shapes/Segment3.reverse|reverse(){}[0]
+    abstract fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<#A>): io.github.cponfick.kompgeom.core.shapes/Segment3<#A> // io.github.cponfick.kompgeom.core.shapes/Segment3.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<1:0>){}[0]
+    open fun eq(io.github.cponfick.kompgeom.core.shapes/Segment3<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Segment3.eq|eq(io.github.cponfick.kompgeom.core.shapes.Segment3<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    open fun intersection(io.github.cponfick.kompgeom.core.shapes/Segment3<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.core.shapes/Segment3.intersection|intersection(io.github.cponfick.kompgeom.core.shapes.Segment3<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector3<#A>> io.github.cponfick.kompgeom.core/Vector3 : io.github.cponfick.kompgeom.core/Vector<#A> { // io.github.cponfick.kompgeom.core/Vector3|null[0]
+    abstract val x // io.github.cponfick.kompgeom.core/Vector3.x|{}x[0]
+        abstract fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.x.<get-x>|<get-x>(){}[0]
+    abstract val y // io.github.cponfick.kompgeom.core/Vector3.y|{}y[0]
+        abstract fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.y.<get-y>|<get-y>(){}[0]
+    abstract val z // io.github.cponfick.kompgeom.core/Vector3.z|{}z[0]
+        abstract fun <get-z>(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.z.<get-z>|<get-z>(){}[0]
+
+    abstract fun withComponents(kotlin/Double, kotlin/Double, kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector3.withComponents|withComponents(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    open fun angle(#A, io.github.cponfick.kompgeom.core/AngleUnit): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.angle|angle(1:0;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    open fun computeScaleFactor(io.github.cponfick.kompgeom.core/Vector3<*>): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.computeScaleFactor|computeScaleFactor(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    open fun cross(io.github.cponfick.kompgeom.core/Vector3<*>): #A // io.github.cponfick.kompgeom.core/Vector3.cross|cross(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    open fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.core/Vector3.dimensions|dimensions(){}[0]
+    open fun distance(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.distance|distance(1:0){}[0]
+    open fun dot(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.dot|dot(1:0){}[0]
+    open fun eq(io.github.cponfick.kompgeom.core/Vector3<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector3.eq|eq(io.github.cponfick.kompgeom.core.Vector3<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    open fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector3.isFinite|isFinite(){}[0]
+    open fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector3.isInfinite|isInfinite(){}[0]
+    open fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Vector3.isNaN|isNaN(){}[0]
+    open fun lerp(io.github.cponfick.kompgeom.core/Vector3<*>, kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector3.lerp|lerp(io.github.cponfick.kompgeom.core.Vector3<*>;kotlin.Double){}[0]
+    open fun norm(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector3.norm|norm(){}[0]
+    open fun project(io.github.cponfick.kompgeom.core/Vector3<*>): #A // io.github.cponfick.kompgeom.core/Vector3.project|project(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    open fun reject(io.github.cponfick.kompgeom.core/Vector3<*>): #A // io.github.cponfick.kompgeom.core/Vector3.reject|reject(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPair : io.github.cponfick.kompgeom.algorithms/Algorithm<io.github.cponfick.kompgeom.algorithms.closestpair/Result<#A>> // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPair|null[0]
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.core.shapes/Polygon : io.github.cponfick.kompgeom.core/Spatial { // io.github.cponfick.kompgeom.core.shapes/Polygon|null[0]
+    abstract val vertices // io.github.cponfick.kompgeom.core.shapes/Polygon.vertices|{}vertices[0]
+        abstract fun <get-vertices>(): kotlin.collections/List<#A> // io.github.cponfick.kompgeom.core.shapes/Polygon.vertices.<get-vertices>|<get-vertices>(){}[0]
+    open val vertexCount // io.github.cponfick.kompgeom.core.shapes/Polygon.vertexCount|{}vertexCount[0]
+        open fun <get-vertexCount>(): kotlin/Int // io.github.cponfick.kompgeom.core.shapes/Polygon.vertexCount.<get-vertexCount>|<get-vertexCount>(){}[0]
+
+    abstract fun area(): kotlin/Double // io.github.cponfick.kompgeom.core.shapes/Polygon.area|area(){}[0]
+    abstract fun centroid(): #A // io.github.cponfick.kompgeom.core.shapes/Polygon.centroid|centroid(){}[0]
+    abstract fun contains(#A): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Polygon.contains|contains(1:0){}[0]
+    abstract fun isConvex(): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Polygon.isConvex|isConvex(){}[0]
+    abstract fun isSimple(): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Polygon.isSimple|isSimple(){}[0]
+    abstract fun perimeter(): kotlin/Double // io.github.cponfick.kompgeom.core.shapes/Polygon.perimeter|perimeter(){}[0]
+    abstract fun reverse(): io.github.cponfick.kompgeom.core.shapes/Polygon<#A> // io.github.cponfick.kompgeom.core.shapes/Polygon.reverse|reverse(){}[0]
+    abstract fun scale(kotlin/Double, #A): io.github.cponfick.kompgeom.core.shapes/Polygon<#A> // io.github.cponfick.kompgeom.core.shapes/Polygon.scale|scale(kotlin.Double;1:0){}[0]
+    abstract fun signedArea(): kotlin/Double // io.github.cponfick.kompgeom.core.shapes/Polygon.signedArea|signedArea(){}[0]
+    abstract fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<#A>): io.github.cponfick.kompgeom.core.shapes/Polygon<#A> // io.github.cponfick.kompgeom.core.shapes/Polygon.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<1:0>){}[0]
+    abstract fun translate(#A): io.github.cponfick.kompgeom.core.shapes/Polygon<#A> // io.github.cponfick.kompgeom.core.shapes/Polygon.translate|translate(1:0){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.core.shapes/Segment { // io.github.cponfick.kompgeom.core.shapes/Segment|null[0]
+    abstract val end // io.github.cponfick.kompgeom.core.shapes/Segment.end|{}end[0]
+        abstract fun <get-end>(): #A // io.github.cponfick.kompgeom.core.shapes/Segment.end.<get-end>|<get-end>(){}[0]
+    abstract val start // io.github.cponfick.kompgeom.core.shapes/Segment.start|{}start[0]
+        abstract fun <get-start>(): #A // io.github.cponfick.kompgeom.core.shapes/Segment.start.<get-start>|<get-start>(){}[0]
+
+    open fun length(): kotlin/Double // io.github.cponfick.kompgeom.core.shapes/Segment.length|length(){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.core/Vector : io.github.cponfick.kompgeom.core/Distanceable<#A>, io.github.cponfick.kompgeom.core/Spatial { // io.github.cponfick.kompgeom.core/Vector|null[0]
+    abstract fun angle(#A, io.github.cponfick.kompgeom.core/AngleUnit = ...): kotlin/Double // io.github.cponfick.kompgeom.core/Vector.angle|angle(1:0;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    abstract fun dot(#A): kotlin/Double // io.github.cponfick.kompgeom.core/Vector.dot|dot(1:0){}[0]
+    abstract fun minus(#A): #A // io.github.cponfick.kompgeom.core/Vector.minus|minus(1:0){}[0]
+    abstract fun norm(): kotlin/Double // io.github.cponfick.kompgeom.core/Vector.norm|norm(){}[0]
+    abstract fun normalize(): #A // io.github.cponfick.kompgeom.core/Vector.normalize|normalize(){}[0]
+    abstract fun plus(#A): #A // io.github.cponfick.kompgeom.core/Vector.plus|plus(1:0){}[0]
+    abstract fun times(kotlin/Double): #A // io.github.cponfick.kompgeom.core/Vector.times|times(kotlin.Double){}[0]
+    abstract fun unaryMinus(): #A // io.github.cponfick.kompgeom.core/Vector.unaryMinus|unaryMinus(){}[0]
+    abstract fun zero(): #A // io.github.cponfick.kompgeom.core/Vector.zero|zero(){}[0]
+}
+
+abstract interface <#A: io.github.cponfick.kompgeom.core/Vector<*>> io.github.cponfick.kompgeom.core.shapes/Line : io.github.cponfick.kompgeom.core/Distanceable<#A> { // io.github.cponfick.kompgeom.core.shapes/Line|null[0]
+    abstract fun location(#A): io.github.cponfick.kompgeom.core.shapes/Location // io.github.cponfick.kompgeom.core.shapes/Line.location|location(1:0){}[0]
+    abstract fun offset(#A): kotlin/Double // io.github.cponfick.kompgeom.core.shapes/Line.offset|offset(1:0){}[0]
+    abstract fun reverse(): io.github.cponfick.kompgeom.core.shapes/Line<#A> // io.github.cponfick.kompgeom.core.shapes/Line.reverse|reverse(){}[0]
+    open fun contains(#A): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/Line.contains|contains(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> io.github.cponfick.kompgeom.core.collections/MutableSortedMap : io.github.cponfick.kompgeom.core.collections/SortedMap<#A, #B>, kotlin.collections/MutableMap<#A, #B> // io.github.cponfick.kompgeom.core.collections/MutableSortedMap|null[0]
+
+abstract interface <#A: kotlin/Any?, #B: out kotlin/Any?> io.github.cponfick.kompgeom.core.collections/SortedMap : kotlin.collections/Map<#A, #B> { // io.github.cponfick.kompgeom.core.collections/SortedMap|null[0]
+    abstract fun ceiling(#A): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.ceiling|ceiling(1:0){}[0]
+    abstract fun firstKey(): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.firstKey|firstKey(){}[0]
+    abstract fun floor(#A): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.floor|floor(1:0){}[0]
+    abstract fun higher(#A): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.higher|higher(1:0){}[0]
+    abstract fun lastKey(): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.lastKey|lastKey(){}[0]
+    abstract fun lower(#A): #A? // io.github.cponfick.kompgeom.core.collections/SortedMap.lower|lower(1:0){}[0]
+}
+
+abstract interface <#A: kotlin/Any?> io.github.cponfick.kompgeom.core.transform/Transformer { // io.github.cponfick.kompgeom.core.transform/Transformer|null[0]
+    abstract fun <#A1: #A> apply(#A1): #A1 // io.github.cponfick.kompgeom.core.transform/Transformer.apply|apply(0:0){0§<1:0>}[0]
+    abstract fun inverse(): io.github.cponfick.kompgeom.core.transform/Transformer<#A> // io.github.cponfick.kompgeom.core.transform/Transformer.inverse|inverse(){}[0]
+    abstract fun preserveOrientation(): kotlin/Boolean // io.github.cponfick.kompgeom.core.transform/Transformer.preserveOrientation|preserveOrientation(){}[0]
+}
+
+abstract interface io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence { // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence|null[0]
+    abstract fun eq(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.eq|eq(kotlin.Double;kotlin.Double){}[0]
+    abstract fun eqZero(kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.eqZero|eqZero(kotlin.Double){}[0]
+    abstract fun gt(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.gt|gt(kotlin.Double;kotlin.Double){}[0]
+    abstract fun gte(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.gte|gte(kotlin.Double;kotlin.Double){}[0]
+    abstract fun lt(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.lt|lt(kotlin.Double;kotlin.Double){}[0]
+    abstract fun lte(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.lte|lte(kotlin.Double;kotlin.Double){}[0]
+    abstract fun signum(kotlin/Double): kotlin/Double // io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence.signum|signum(kotlin.Double){}[0]
+}
+
+abstract interface io.github.cponfick.kompgeom.core/Spatial { // io.github.cponfick.kompgeom.core/Spatial|null[0]
+    abstract fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.core/Spatial.dimensions|dimensions(){}[0]
+    abstract fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Spatial.isFinite|isFinite(){}[0]
+    abstract fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Spatial.isInfinite|isInfinite(){}[0]
+    abstract fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.core/Spatial.isNaN|isNaN(){}[0]
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer : io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPair<#A> { // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer|null[0]
+    constructor <init>(kotlin.collections/Collection<#A>) // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.<init>|<init>(kotlin.collections.Collection<1:0>){}[0]
+
+    final fun execute(): io.github.cponfick.kompgeom.algorithms.closestpair/Result<#A> // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.execute|execute(){}[0]
+
+    final object Companion : io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.Companion|null[0]
+        final fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.Companion.getGroup|getGroup(){}[0]
+        final fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.Companion.getName|getName(){}[0]
+        final fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.Companion.getSpaceComplexity|getSpaceComplexity(){}[0]
+        final fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairDivideAndConquer.Companion.getTimeComplexity|getTimeComplexity(){}[0]
+    }
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2 : io.github.cponfick.kompgeom.algorithms.convexhull/ConvexHull<#A> { // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2|null[0]
+    constructor <init>(kotlin.collections/Collection<#A>) // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.<init>|<init>(kotlin.collections.Collection<1:0>){}[0]
+
+    final fun execute(): io.github.cponfick.kompgeom.algorithms.convexhull/Result<#A> // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.execute|execute(){}[0]
+
+    final object Companion : io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.Companion|null[0]
+        final fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.Companion.getGroup|getGroup(){}[0]
+        final fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.Companion.getName|getName(){}[0]
+        final fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.Companion.getSpaceComplexity|getSpaceComplexity(){}[0]
+        final fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.convexhull/Quickhull2.Companion.getTimeComplexity|getTimeComplexity(){}[0]
+    }
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector2<#A>> io.github.cponfick.kompgeom.algorithms.convexhull/Result { // io.github.cponfick.kompgeom.algorithms.convexhull/Result|null[0]
+    constructor <init>(kotlin.collections/List<#A>) // io.github.cponfick.kompgeom.algorithms.convexhull/Result.<init>|<init>(kotlin.collections.List<1:0>){}[0]
+
+    final val points // io.github.cponfick.kompgeom.algorithms.convexhull/Result.points|{}points[0]
+        final fun <get-points>(): kotlin.collections/List<#A> // io.github.cponfick.kompgeom.algorithms.convexhull/Result.points.<get-points>|<get-points>(){}[0]
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive : io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPair<#A> { // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive|null[0]
+    constructor <init>(kotlin.collections/Collection<#A>) // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.<init>|<init>(kotlin.collections.Collection<1:0>){}[0]
+
+    final fun execute(): io.github.cponfick.kompgeom.algorithms.closestpair/Result<#A> // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.execute|execute(){}[0]
+
+    final object Companion : io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.Companion|null[0]
+        final fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.Companion.getGroup|getGroup(){}[0]
+        final fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.Companion.getName|getName(){}[0]
+        final fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.Companion.getSpaceComplexity|getSpaceComplexity(){}[0]
+        final fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.closestpair/ClosestPairNaive.Companion.getTimeComplexity|getTimeComplexity(){}[0]
+    }
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.algorithms.closestpair/Result { // io.github.cponfick.kompgeom.algorithms.closestpair/Result|null[0]
+    constructor <init>(kotlin/Double, kotlin/Pair<#A, #A>) // io.github.cponfick.kompgeom.algorithms.closestpair/Result.<init>|<init>(kotlin.Double;kotlin.Pair<1:0,1:0>){}[0]
+
+    final val distance // io.github.cponfick.kompgeom.algorithms.closestpair/Result.distance|{}distance[0]
+        final fun <get-distance>(): kotlin/Double // io.github.cponfick.kompgeom.algorithms.closestpair/Result.distance.<get-distance>|<get-distance>(){}[0]
+    final val result // io.github.cponfick.kompgeom.algorithms.closestpair/Result.result|{}result[0]
+        final fun <get-result>(): kotlin/Pair<#A, #A> // io.github.cponfick.kompgeom.algorithms.closestpair/Result.result.<get-result>|<get-result>(){}[0]
+}
+
+final class <#A: io.github.cponfick.kompgeom.core/Vector<#A>> io.github.cponfick.kompgeom.core.shapes/IntersectionData { // io.github.cponfick.kompgeom.core.shapes/IntersectionData|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.core.shapes/IntersectionType, #A? = ..., kotlin/Pair<#A, #A>? = ...) // io.github.cponfick.kompgeom.core.shapes/IntersectionData.<init>|<init>(io.github.cponfick.kompgeom.core.shapes.IntersectionType;1:0?;kotlin.Pair<1:0,1:0>?){}[0]
+
+    final val point // io.github.cponfick.kompgeom.core.shapes/IntersectionData.point|{}point[0]
+        final fun <get-point>(): #A? // io.github.cponfick.kompgeom.core.shapes/IntersectionData.point.<get-point>|<get-point>(){}[0]
+    final val segment // io.github.cponfick.kompgeom.core.shapes/IntersectionData.segment|{}segment[0]
+        final fun <get-segment>(): kotlin/Pair<#A, #A>? // io.github.cponfick.kompgeom.core.shapes/IntersectionData.segment.<get-segment>|<get-segment>(){}[0]
+    final val type // io.github.cponfick.kompgeom.core.shapes/IntersectionData.type|{}type[0]
+        final fun <get-type>(): io.github.cponfick.kompgeom.core.shapes/IntersectionType // io.github.cponfick.kompgeom.core.shapes/IntersectionData.type.<get-type>|<get-type>(){}[0]
+
+    final fun component1(): io.github.cponfick.kompgeom.core.shapes/IntersectionType // io.github.cponfick.kompgeom.core.shapes/IntersectionData.component1|component1(){}[0]
+    final fun component2(): #A? // io.github.cponfick.kompgeom.core.shapes/IntersectionData.component2|component2(){}[0]
+    final fun component3(): kotlin/Pair<#A, #A>? // io.github.cponfick.kompgeom.core.shapes/IntersectionData.component3|component3(){}[0]
+    final fun copy(io.github.cponfick.kompgeom.core.shapes/IntersectionType = ..., #A? = ..., kotlin/Pair<#A, #A>? = ...): io.github.cponfick.kompgeom.core.shapes/IntersectionData<#A> // io.github.cponfick.kompgeom.core.shapes/IntersectionData.copy|copy(io.github.cponfick.kompgeom.core.shapes.IntersectionType;1:0?;kotlin.Pair<1:0,1:0>?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.core.shapes/IntersectionData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.core.shapes/IntersectionData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.core.shapes/IntersectionData.toString|toString(){}[0]
+}
+
+final class <#A: kotlin/Any?, #B: kotlin/Any?> io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap : io.github.cponfick.kompgeom.core.collections/MutableSortedMap<#A, #B> { // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap|null[0]
+    constructor <init>(kotlin/Comparator<in #A> = ...) // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.<init>|<init>(kotlin.Comparator<in|1:0>){}[0]
+
+    final val entries // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.entries|{}entries[0]
+        final fun <get-entries>(): kotlin.collections/MutableSet<kotlin.collections/MutableMap.MutableEntry<#A, #B>> // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.entries.<get-entries>|<get-entries>(){}[0]
+    final val keys // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.keys|{}keys[0]
+        final fun <get-keys>(): kotlin.collections/MutableSet<#A> // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.keys.<get-keys>|<get-keys>(){}[0]
+    final val size // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.size|{}size[0]
+        final fun <get-size>(): kotlin/Int // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.size.<get-size>|<get-size>(){}[0]
+    final val values // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.values|{}values[0]
+        final fun <get-values>(): kotlin.collections/MutableCollection<#B> // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.values.<get-values>|<get-values>(){}[0]
+
+    final fun ceiling(#A): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.ceiling|ceiling(1:0){}[0]
+    final fun clear() // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.clear|clear(){}[0]
+    final fun containsKey(#A): kotlin/Boolean // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.containsKey|containsKey(1:0){}[0]
+    final fun containsValue(#B): kotlin/Boolean // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.containsValue|containsValue(1:1){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.equals|equals(kotlin.Any?){}[0]
+    final fun firstKey(): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.firstKey|firstKey(){}[0]
+    final fun floor(#A): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.floor|floor(1:0){}[0]
+    final fun get(#A): #B? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.get|get(1:0){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.hashCode|hashCode(){}[0]
+    final fun higher(#A): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.higher|higher(1:0){}[0]
+    final fun isEmpty(): kotlin/Boolean // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.isEmpty|isEmpty(){}[0]
+    final fun lastKey(): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.lastKey|lastKey(){}[0]
+    final fun lower(#A): #A? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.lower|lower(1:0){}[0]
+    final fun put(#A, #B): #B? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.put|put(1:0;1:1){}[0]
+    final fun putAll(kotlin.collections/Map<out #A, #B>) // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.putAll|putAll(kotlin.collections.Map<out|1:0,1:1>){}[0]
+    final fun remove(#A): #B? // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.remove|remove(1:0){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.core.collections/MutableRedBlackTreeMap.toString|toString(){}[0]
+}
+
+final class io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann : io.github.cponfick.kompgeom.algorithms/Algorithm<kotlin.collections/List<io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection>> { // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann|null[0]
+    constructor <init>(kotlin.collections/Collection<io.github.cponfick.kompgeom.core.shapes/Segment2<*>>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.<init>|<init>(kotlin.collections.Collection<io.github.cponfick.kompgeom.core.shapes.Segment2<*>>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final fun execute(): kotlin.collections/List<io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection> // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.execute|execute(){}[0]
+
+    final object Companion : io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.Companion|null[0]
+        final fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.Companion.getGroup|getGroup(){}[0]
+        final fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.Companion.getName|getName(){}[0]
+        final fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.Companion.getSpaceComplexity|getSpaceComplexity(){}[0]
+        final fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/BentleyOttmann.Companion.getTimeComplexity|getTimeComplexity(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection { // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.twod/Vec2>) // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.<init>|<init>(kotlin.Int;kotlin.Int;io.github.cponfick.kompgeom.core.shapes.IntersectionData<io.github.cponfick.kompgeom.euclidean.twod.Vec2>){}[0]
+
+    final val first // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.first|{}first[0]
+        final fun <get-first>(): kotlin/Int // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.first.<get-first>|<get-first>(){}[0]
+    final val intersection // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.intersection|{}intersection[0]
+        final fun <get-intersection>(): io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.intersection.<get-intersection>|<get-intersection>(){}[0]
+    final val second // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.second|{}second[0]
+        final fun <get-second>(): kotlin/Int // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.second.<get-second>|<get-second>(){}[0]
+
+    final fun component1(): kotlin/Int // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.component2|component2(){}[0]
+    final fun component3(): io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.component3|component3(){}[0]
+    final fun copy(kotlin/Int = ..., kotlin/Int = ..., io.github.cponfick.kompgeom.core.shapes/IntersectionData<io.github.cponfick.kompgeom.euclidean.twod/Vec2> = ...): io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.copy|copy(kotlin.Int;kotlin.Int;io.github.cponfick.kompgeom.core.shapes.IntersectionData<io.github.cponfick.kompgeom.euclidean.twod.Vec2>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/SegmentIntersection.toString|toString(){}[0]
+}
+
+final class io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey : io.github.cponfick.kompgeom.algorithms/Algorithm<kotlin/Boolean> { // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey|null[0]
+    constructor <init>(kotlin.collections/Collection<io.github.cponfick.kompgeom.core.shapes/Segment2<*>>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.<init>|<init>(kotlin.collections.Collection<io.github.cponfick.kompgeom.core.shapes.Segment2<*>>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final fun execute(): kotlin/Boolean // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.execute|execute(){}[0]
+
+    final object Companion : io.github.cponfick.kompgeom.algorithms/Algorithm.AlgorithmInfo { // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.Companion|null[0]
+        final fun getGroup(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.Companion.getGroup|getGroup(){}[0]
+        final fun getName(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.Companion.getName|getName(){}[0]
+        final fun getSpaceComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.Companion.getSpaceComplexity|getSpaceComplexity(){}[0]
+        final fun getTimeComplexity(): kotlin/String // io.github.cponfick.kompgeom.algorithms.intersection/ShamosHoey.Companion.getTimeComplexity|getTimeComplexity(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 : io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.core/Vector1<*>> { // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.<init>|<init>(kotlin.Double;kotlin.Double){}[0]
+
+    final val m00 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.m00|{}m00[0]
+        final fun <get-m00>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.m00.<get-m00>|<get-m00>(){}[0]
+    final val m01 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.m01|{}m01[0]
+        final fun <get-m01>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.m01.<get-m01>|<get-m01>(){}[0]
+
+    final fun <#A1: io.github.cponfick.kompgeom.core/Vector1<*>> apply(#A1): #A1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.apply|apply(0:0){0§<io.github.cponfick.kompgeom.core.Vector1<*>>}[0]
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.component2|component2(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.copy|copy(kotlin.Double;kotlin.Double){}[0]
+    final fun determinant(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.determinant|determinant(){}[0]
+    final fun eq(io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.eq|eq(io.github.cponfick.kompgeom.euclidean.oned.AffineTransformationMatrix1;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.hashCode|hashCode(){}[0]
+    final fun inverse(): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.inverse|inverse(){}[0]
+    final fun preserveOrientation(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.preserveOrientation|preserveOrientation(){}[0]
+    final fun scale(io.github.cponfick.kompgeom.euclidean.oned/Vec1): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.scale|scale(io.github.cponfick.kompgeom.euclidean.oned.Vec1){}[0]
+    final fun scale(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.scale|scale(kotlin.Double){}[0]
+    final fun times(io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.times|times(io.github.cponfick.kompgeom.euclidean.oned.AffineTransformationMatrix1){}[0]
+    final fun toArray(): kotlin/DoubleArray // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.toArray|toArray(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.toString|toString(){}[0]
+    final fun translate(io.github.cponfick.kompgeom.euclidean.oned/Vec1): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.translate|translate(io.github.cponfick.kompgeom.euclidean.oned.Vec1){}[0]
+    final fun translate(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.translate|translate(kotlin.Double){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.Companion|null[0]
+        final val IDENTITY // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.Companion.IDENTITY|{}IDENTITY[0]
+            final fun <get-IDENTITY>(): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.Companion.IDENTITY.<get-IDENTITY>|<get-IDENTITY>(){}[0]
+
+        final fun createScaling(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.Companion.createScaling|createScaling(kotlin.Double){}[0]
+        final fun createTranslation(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1 // io.github.cponfick.kompgeom.euclidean.oned/AffineTransformationMatrix1.Companion.createTranslation|createTranslation(kotlin.Double){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 : io.github.cponfick.kompgeom.core/Vector1<io.github.cponfick.kompgeom.euclidean.oned/MutableVec1> { // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1|null[0]
+    constructor <init>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.<init>|<init>(kotlin.Double){}[0]
+
+    final var x // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.x.<get-x>|<get-x>(){}[0]
+        final fun <set-x>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.x.<set-x>|<set-x>(kotlin.Double){}[0]
+
+    final fun minus(io.github.cponfick.kompgeom.euclidean.oned/MutableVec1): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.minus|minus(io.github.cponfick.kompgeom.euclidean.oned.MutableVec1){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.oned/MutableVec1): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.plus|plus(io.github.cponfick.kompgeom.euclidean.oned.MutableVec1){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.withComponents|withComponents(kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.Companion|null[0]
+        final fun nan(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.Companion.nan|nan(){}[0]
+        final fun negativeInfinity(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.Companion.negativeInfinity|negativeInfinity(){}[0]
+        final fun positiveInfinity(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.Companion.positiveInfinity|positiveInfinity(){}[0]
+        final fun zero(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.euclidean.oned/MutableVec1.Companion.zero|zero(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.oned/Vec1 : io.github.cponfick.kompgeom.core/Vector1<io.github.cponfick.kompgeom.euclidean.oned/Vec1> { // io.github.cponfick.kompgeom.euclidean.oned/Vec1|null[0]
+    constructor <init>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.oned/Vec1.<init>|<init>(kotlin.Double){}[0]
+
+    final val x // io.github.cponfick.kompgeom.euclidean.oned/Vec1.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/Vec1.x.<get-x>|<get-x>(){}[0]
+
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.oned/Vec1.component1|component1(){}[0]
+    final fun copy(kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.copy|copy(kotlin.Double){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.oned/Vec1.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.oned/Vec1.hashCode|hashCode(){}[0]
+    final fun minus(io.github.cponfick.kompgeom.euclidean.oned/Vec1): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.minus|minus(io.github.cponfick.kompgeom.euclidean.oned.Vec1){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.oned/Vec1): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.plus|plus(io.github.cponfick.kompgeom.euclidean.oned.Vec1){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.oned/Vec1.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.withComponents|withComponents(kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion|null[0]
+        final val NEGATIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.NEGATIVE_INFINITY|{}NEGATIVE_INFINITY[0]
+            final fun <get-NEGATIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.NEGATIVE_INFINITY.<get-NEGATIVE_INFINITY>|<get-NEGATIVE_INFINITY>(){}[0]
+        final val NaN // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.NaN|{}NaN[0]
+            final fun <get-NaN>(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.NaN.<get-NaN>|<get-NaN>(){}[0]
+        final val POSITIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.POSITIVE_INFINITY|{}POSITIVE_INFINITY[0]
+            final fun <get-POSITIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.POSITIVE_INFINITY.<get-POSITIVE_INFINITY>|<get-POSITIVE_INFINITY>(){}[0]
+        final val ZERO // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.ZERO|{}ZERO[0]
+            final fun <get-ZERO>(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.euclidean.oned/Vec1.Companion.ZERO.<get-ZERO>|<get-ZERO>(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 : io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.core/Vector3<*>> { // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.<init>|<init>(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+    final val m00 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m00|{}m00[0]
+        final fun <get-m00>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m00.<get-m00>|<get-m00>(){}[0]
+    final val m01 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m01|{}m01[0]
+        final fun <get-m01>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m01.<get-m01>|<get-m01>(){}[0]
+    final val m02 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m02|{}m02[0]
+        final fun <get-m02>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m02.<get-m02>|<get-m02>(){}[0]
+    final val m03 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m03|{}m03[0]
+        final fun <get-m03>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m03.<get-m03>|<get-m03>(){}[0]
+    final val m10 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m10|{}m10[0]
+        final fun <get-m10>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m10.<get-m10>|<get-m10>(){}[0]
+    final val m11 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m11|{}m11[0]
+        final fun <get-m11>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m11.<get-m11>|<get-m11>(){}[0]
+    final val m12 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m12|{}m12[0]
+        final fun <get-m12>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m12.<get-m12>|<get-m12>(){}[0]
+    final val m13 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m13|{}m13[0]
+        final fun <get-m13>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m13.<get-m13>|<get-m13>(){}[0]
+    final val m20 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m20|{}m20[0]
+        final fun <get-m20>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m20.<get-m20>|<get-m20>(){}[0]
+    final val m21 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m21|{}m21[0]
+        final fun <get-m21>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m21.<get-m21>|<get-m21>(){}[0]
+    final val m22 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m22|{}m22[0]
+        final fun <get-m22>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m22.<get-m22>|<get-m22>(){}[0]
+    final val m23 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m23|{}m23[0]
+        final fun <get-m23>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.m23.<get-m23>|<get-m23>(){}[0]
+
+    final fun <#A1: io.github.cponfick.kompgeom.core/Vector3<*>> apply(#A1): #A1 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.apply|apply(0:0){0§<io.github.cponfick.kompgeom.core.Vector3<*>>}[0]
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component1|component1(){}[0]
+    final fun component10(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component10|component10(){}[0]
+    final fun component11(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component11|component11(){}[0]
+    final fun component12(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component12|component12(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component2|component2(){}[0]
+    final fun component3(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component3|component3(){}[0]
+    final fun component4(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component4|component4(){}[0]
+    final fun component5(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component5|component5(){}[0]
+    final fun component6(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component6|component6(){}[0]
+    final fun component7(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component7|component7(){}[0]
+    final fun component8(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component8|component8(){}[0]
+    final fun component9(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.component9|component9(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.copy|copy(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun determinant(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.determinant|determinant(){}[0]
+    final fun eq(io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.eq|eq(io.github.cponfick.kompgeom.euclidean.threed.AffineTransformationMatrix3;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.hashCode|hashCode(){}[0]
+    final fun inverse(): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.inverse|inverse(){}[0]
+    final fun preserveOrientation(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.preserveOrientation|preserveOrientation(){}[0]
+    final fun rotate(kotlin/Double, kotlin/Double, kotlin/Double, io.github.cponfick.kompgeom.euclidean.threed/RotationSequence, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.rotate|rotate(kotlin.Double;kotlin.Double;kotlin.Double;io.github.cponfick.kompgeom.euclidean.threed.RotationSequence;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    final fun rotateX(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.rotateX|rotateX(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    final fun rotateY(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.rotateY|rotateY(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    final fun rotateZ(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.rotateZ|rotateZ(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    final fun scale(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.scale|scale(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun scale(kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.scale|scale(kotlin.Double){}[0]
+    final fun scale(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.scale|scale(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun times(io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.times|times(io.github.cponfick.kompgeom.euclidean.threed.AffineTransformationMatrix3){}[0]
+    final fun toArray(): kotlin/DoubleArray // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.toArray|toArray(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.toString|toString(){}[0]
+    final fun translate(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.translate|translate(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun translate(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.translate|translate(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion|null[0]
+        final val IDENTITY // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.IDENTITY|{}IDENTITY[0]
+            final fun <get-IDENTITY>(): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.IDENTITY.<get-IDENTITY>|<get-IDENTITY>(){}[0]
+
+        final fun createRotation(kotlin/Double, kotlin/Double, kotlin/Double, io.github.cponfick.kompgeom.euclidean.threed/RotationSequence, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createRotation|createRotation(kotlin.Double;kotlin.Double;kotlin.Double;io.github.cponfick.kompgeom.euclidean.threed.RotationSequence;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+        final fun createRotationX(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createRotationX|createRotationX(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+        final fun createRotationY(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createRotationY|createRotationY(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+        final fun createRotationZ(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createRotationZ|createRotationZ(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+        final fun createScaling(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createScaling|createScaling(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+        final fun createScaling(kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createScaling|createScaling(kotlin.Double){}[0]
+        final fun createScaling(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createScaling|createScaling(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+        final fun createTranslation(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createTranslation|createTranslation(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+        final fun createTranslation(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3 // io.github.cponfick.kompgeom.euclidean.threed/AffineTransformationMatrix3.Companion.createTranslation|createTranslation(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/Line3 : io.github.cponfick.kompgeom.core.shapes/Line<io.github.cponfick.kompgeom.core/Vector3<*>> { // io.github.cponfick.kompgeom.euclidean.threed/Line3|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.threed/Vec3, io.github.cponfick.kompgeom.euclidean.threed/Vec3, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.euclidean.threed/Line3.<init>|<init>(io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final val direction // io.github.cponfick.kompgeom.euclidean.threed/Line3.direction|{}direction[0]
+        final fun <get-direction>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.direction.<get-direction>|<get-direction>(){}[0]
+    final val moment // io.github.cponfick.kompgeom.euclidean.threed/Line3.moment|{}moment[0]
+        final fun <get-moment>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.moment.<get-moment>|<get-moment>(){}[0]
+    final val precision // io.github.cponfick.kompgeom.euclidean.threed/Line3.precision|{}precision[0]
+        final fun <get-precision>(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.threed/Line3.precision.<get-precision>|<get-precision>(){}[0]
+
+    final fun component1(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.component1|component1(){}[0]
+    final fun component2(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.component2|component2(){}[0]
+    final fun component3(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.threed/Line3.component3|component3(){}[0]
+    final fun copy(io.github.cponfick.kompgeom.euclidean.threed/Vec3 = ..., io.github.cponfick.kompgeom.euclidean.threed/Vec3 = ..., io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.threed/Line3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.copy|copy(io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun distance(io.github.cponfick.kompgeom.core/Vector3<*>): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Line3.distance|distance(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Line3.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/Line3.hashCode|hashCode(){}[0]
+    final fun location(io.github.cponfick.kompgeom.core/Vector3<*>): io.github.cponfick.kompgeom.core.shapes/Location // io.github.cponfick.kompgeom.euclidean.threed/Line3.location|location(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    final fun offset(io.github.cponfick.kompgeom.core/Vector3<*>): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Line3.offset|offset(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.euclidean.threed/Line3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/Line3.toString|toString(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.threed/Line3.Companion|null[0]
+        final fun fromPointAndDirection(io.github.cponfick.kompgeom.core/Vector3<*>, io.github.cponfick.kompgeom.core/Vector3<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.threed/Line3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.Companion.fromPointAndDirection|fromPointAndDirection(io.github.cponfick.kompgeom.core.Vector3<*>;io.github.cponfick.kompgeom.core.Vector3<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+        final fun fromPoints(io.github.cponfick.kompgeom.core/Vector3<*>, io.github.cponfick.kompgeom.core/Vector3<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.threed/Line3 // io.github.cponfick.kompgeom.euclidean.threed/Line3.Companion.fromPoints|fromPoints(io.github.cponfick.kompgeom.core.Vector3<*>;io.github.cponfick.kompgeom.core.Vector3<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3 : io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/MutableVec3> { // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.threed/MutableVec3, io.github.cponfick.kompgeom.euclidean.threed/MutableVec3) // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.<init>|<init>(io.github.cponfick.kompgeom.euclidean.threed.MutableVec3;io.github.cponfick.kompgeom.euclidean.threed.MutableVec3){}[0]
+
+    final val end // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.end|{}end[0]
+        final fun <get-end>(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.end.<get-end>|<get-end>(){}[0]
+    final val start // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.start|{}start[0]
+        final fun <get-start>(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.start.<get-start>|<get-start>(){}[0]
+
+    final fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/MutableVec3> // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.threed/MutableVec3>): io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/MutableVec3> // io.github.cponfick.kompgeom.euclidean.threed/MutableSeg3.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.threed.MutableVec3>){}[0]
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 : io.github.cponfick.kompgeom.core/Vector3<io.github.cponfick.kompgeom.euclidean.threed/MutableVec3> { // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.<init>|<init>(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+    final var x // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.x.<get-x>|<get-x>(){}[0]
+        final fun <set-x>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.x.<set-x>|<set-x>(kotlin.Double){}[0]
+    final var y // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.y|{}y[0]
+        final fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.y.<get-y>|<get-y>(){}[0]
+        final fun <set-y>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.y.<set-y>|<set-y>(kotlin.Double){}[0]
+    final var z // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.z|{}z[0]
+        final fun <get-z>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.z.<get-z>|<get-z>(){}[0]
+        final fun <set-z>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.z.<set-z>|<set-z>(kotlin.Double){}[0]
+
+    final fun minus(io.github.cponfick.kompgeom.euclidean.threed/MutableVec3): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.minus|minus(io.github.cponfick.kompgeom.euclidean.threed.MutableVec3){}[0]
+    final fun normalize(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.normalize|normalize(){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.threed/MutableVec3): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.plus|plus(io.github.cponfick.kompgeom.euclidean.threed.MutableVec3){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.withComponents|withComponents(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.Companion|null[0]
+        final fun nan(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.Companion.nan|nan(){}[0]
+        final fun negativeInfinity(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.Companion.negativeInfinity|negativeInfinity(){}[0]
+        final fun positiveInfinity(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.Companion.positiveInfinity|positiveInfinity(){}[0]
+        final fun zero(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.euclidean.threed/MutableVec3.Companion.zero|zero(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/Polygon3 : io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.threed/Vec3> { // io.github.cponfick.kompgeom.euclidean.threed/Polygon3|null[0]
+    constructor <init>(kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.threed/Vec3>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.<init>|<init>(kotlin.collections.List<io.github.cponfick.kompgeom.euclidean.threed.Vec3>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final val edges // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.edges|{}edges[0]
+        final fun <get-edges>(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.threed/Seg3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.edges.<get-edges>|<get-edges>(){}[0]
+    final val normal // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.normal|{}normal[0]
+        final fun <get-normal>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.normal.<get-normal>|<get-normal>(){}[0]
+    final val precision // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.precision|{}precision[0]
+        final fun <get-precision>(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.precision.<get-precision>|<get-precision>(){}[0]
+    final val vertices // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.vertices|{}vertices[0]
+        final fun <get-vertices>(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.vertices.<get-vertices>|<get-vertices>(){}[0]
+
+    final fun area(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.area|area(){}[0]
+    final fun boundingBox(): kotlin/Pair<io.github.cponfick.kompgeom.euclidean.threed/Vec3, io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.boundingBox|boundingBox(){}[0]
+    final fun centroid(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.centroid|centroid(){}[0]
+    final fun component1(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.component1|component1(){}[0]
+    final fun component2(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.component2|component2(){}[0]
+    final fun contains(io.github.cponfick.kompgeom.euclidean.threed/Vec3): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.contains|contains(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun copy(kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.threed/Vec3> = ..., io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.threed/Polygon3 // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.copy|copy(kotlin.collections.List<io.github.cponfick.kompgeom.euclidean.threed.Vec3>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.dimensions|dimensions(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.hashCode|hashCode(){}[0]
+    final fun isConvex(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.isConvex|isConvex(){}[0]
+    final fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.isFinite|isFinite(){}[0]
+    final fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.isInfinite|isInfinite(){}[0]
+    final fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.isNaN|isNaN(){}[0]
+    final fun isSimple(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.isSimple|isSimple(){}[0]
+    final fun perimeter(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.perimeter|perimeter(){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.reverse|reverse(){}[0]
+    final fun scale(kotlin/Double, io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.scale|scale(kotlin.Double;io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun signedArea(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.signedArea|signedArea(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.threed/Vec3>): io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.threed.Vec3>){}[0]
+    final fun translate(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Polygon3.translate|translate(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/Seg3 : io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/Vec3> { // io.github.cponfick.kompgeom.euclidean.threed/Seg3|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.threed/Vec3, io.github.cponfick.kompgeom.euclidean.threed/Vec3) // io.github.cponfick.kompgeom.euclidean.threed/Seg3.<init>|<init>(io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+
+    final val end // io.github.cponfick.kompgeom.euclidean.threed/Seg3.end|{}end[0]
+        final fun <get-end>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Seg3.end.<get-end>|<get-end>(){}[0]
+    final val start // io.github.cponfick.kompgeom.euclidean.threed/Seg3.start|{}start[0]
+        final fun <get-start>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Seg3.start.<get-start>|<get-start>(){}[0]
+
+    final fun component1(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Seg3.component1|component1(){}[0]
+    final fun component2(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Seg3.component2|component2(){}[0]
+    final fun copy(io.github.cponfick.kompgeom.euclidean.threed/Vec3 = ..., io.github.cponfick.kompgeom.euclidean.threed/Vec3 = ...): io.github.cponfick.kompgeom.euclidean.threed/Seg3 // io.github.cponfick.kompgeom.euclidean.threed/Seg3.copy|copy(io.github.cponfick.kompgeom.euclidean.threed.Vec3;io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Seg3.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/Seg3.hashCode|hashCode(){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Seg3.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/Seg3.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.threed/Vec3>): io.github.cponfick.kompgeom.core.shapes/Segment3<io.github.cponfick.kompgeom.euclidean.threed/Vec3> // io.github.cponfick.kompgeom.euclidean.threed/Seg3.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.threed.Vec3>){}[0]
+}
+
+final class io.github.cponfick.kompgeom.euclidean.threed/Vec3 : io.github.cponfick.kompgeom.core/Vector3<io.github.cponfick.kompgeom.euclidean.threed/Vec3> { // io.github.cponfick.kompgeom.euclidean.threed/Vec3|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.threed/Vec3.<init>|<init>(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+    final val x // io.github.cponfick.kompgeom.euclidean.threed/Vec3.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.x.<get-x>|<get-x>(){}[0]
+    final val y // io.github.cponfick.kompgeom.euclidean.threed/Vec3.y|{}y[0]
+        final fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.y.<get-y>|<get-y>(){}[0]
+    final val z // io.github.cponfick.kompgeom.euclidean.threed/Vec3.z|{}z[0]
+        final fun <get-z>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.z.<get-z>|<get-z>(){}[0]
+
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.component2|component2(){}[0]
+    final fun component3(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.threed/Vec3.component3|component3(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.copy|copy(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.threed/Vec3.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.threed/Vec3.hashCode|hashCode(){}[0]
+    final fun minus(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.minus|minus(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun normalize(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.normalize|normalize(){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.threed/Vec3): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.plus|plus(io.github.cponfick.kompgeom.euclidean.threed.Vec3){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.threed/Vec3.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double, kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.withComponents|withComponents(kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion|null[0]
+        final val NEGATIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.NEGATIVE_INFINITY|{}NEGATIVE_INFINITY[0]
+            final fun <get-NEGATIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.NEGATIVE_INFINITY.<get-NEGATIVE_INFINITY>|<get-NEGATIVE_INFINITY>(){}[0]
+        final val NaN // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.NaN|{}NaN[0]
+            final fun <get-NaN>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.NaN.<get-NaN>|<get-NaN>(){}[0]
+        final val POSITIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.POSITIVE_INFINITY|{}POSITIVE_INFINITY[0]
+            final fun <get-POSITIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.POSITIVE_INFINITY.<get-POSITIVE_INFINITY>|<get-POSITIVE_INFINITY>(){}[0]
+        final val ZERO // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.ZERO|{}ZERO[0]
+            final fun <get-ZERO>(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.ZERO.<get-ZERO>|<get-ZERO>(){}[0]
+
+        final fun from(io.github.cponfick.kompgeom.core/Vector3<*>): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.euclidean.threed/Vec3.Companion.from|from(io.github.cponfick.kompgeom.core.Vector3<*>){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 : io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.core/Vector2<*>> { // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.<init>|<init>(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+
+    final val m00 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m00|{}m00[0]
+        final fun <get-m00>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m00.<get-m00>|<get-m00>(){}[0]
+    final val m01 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m01|{}m01[0]
+        final fun <get-m01>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m01.<get-m01>|<get-m01>(){}[0]
+    final val m02 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m02|{}m02[0]
+        final fun <get-m02>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m02.<get-m02>|<get-m02>(){}[0]
+    final val m10 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m10|{}m10[0]
+        final fun <get-m10>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m10.<get-m10>|<get-m10>(){}[0]
+    final val m11 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m11|{}m11[0]
+        final fun <get-m11>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m11.<get-m11>|<get-m11>(){}[0]
+    final val m12 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m12|{}m12[0]
+        final fun <get-m12>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.m12.<get-m12>|<get-m12>(){}[0]
+
+    final fun <#A1: io.github.cponfick.kompgeom.core/Vector2<*>> apply(#A1): #A1 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.apply|apply(0:0){0§<io.github.cponfick.kompgeom.core.Vector2<*>>}[0]
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component2|component2(){}[0]
+    final fun component3(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component3|component3(){}[0]
+    final fun component4(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component4|component4(){}[0]
+    final fun component5(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component5|component5(){}[0]
+    final fun component6(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.component6|component6(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ..., kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.copy|copy(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double){}[0]
+    final fun determinant(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.determinant|determinant(){}[0]
+    final fun eq(io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.eq|eq(io.github.cponfick.kompgeom.euclidean.twod.AffineTransformationMatrix2;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.hashCode|hashCode(){}[0]
+    final fun inverse(): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.inverse|inverse(){}[0]
+    final fun preserveOrientation(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.preserveOrientation|preserveOrientation(){}[0]
+    final fun rotate(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.rotate|rotate(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+    final fun scale(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.scale|scale(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun scale(kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.scale|scale(kotlin.Double){}[0]
+    final fun scale(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.scale|scale(kotlin.Double;kotlin.Double){}[0]
+    final fun shear(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.shear|shear(kotlin.Double;kotlin.Double){}[0]
+    final fun times(io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.times|times(io.github.cponfick.kompgeom.euclidean.twod.AffineTransformationMatrix2){}[0]
+    final fun toArray(): kotlin/DoubleArray // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.toArray|toArray(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.toString|toString(){}[0]
+    final fun translate(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.translate|translate(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun translate(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.translate|translate(kotlin.Double;kotlin.Double){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion|null[0]
+        final val IDENTITY // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.IDENTITY|{}IDENTITY[0]
+            final fun <get-IDENTITY>(): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.IDENTITY.<get-IDENTITY>|<get-IDENTITY>(){}[0]
+
+        final fun createRotation(kotlin/Double, io.github.cponfick.kompgeom.core/AngleUnit = ...): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createRotation|createRotation(kotlin.Double;io.github.cponfick.kompgeom.core.AngleUnit){}[0]
+        final fun createScaling(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createScaling|createScaling(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+        final fun createScaling(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createScaling|createScaling(kotlin.Double;kotlin.Double){}[0]
+        final fun createShear(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createShear|createShear(kotlin.Double;kotlin.Double){}[0]
+        final fun createTranslation(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createTranslation|createTranslation(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+        final fun createTranslation(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2 // io.github.cponfick.kompgeom.euclidean.twod/AffineTransformationMatrix2.Companion.createTranslation|createTranslation(kotlin.Double;kotlin.Double){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/Line2 : io.github.cponfick.kompgeom.core.shapes/Line<io.github.cponfick.kompgeom.core/Vector2<*>> { // io.github.cponfick.kompgeom.euclidean.twod/Line2|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.twod/Vec2, kotlin/Double, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.euclidean.twod/Line2.<init>|<init>(io.github.cponfick.kompgeom.euclidean.twod.Vec2;kotlin.Double;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final val direction // io.github.cponfick.kompgeom.euclidean.twod/Line2.direction|{}direction[0]
+        final fun <get-direction>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.direction.<get-direction>|<get-direction>(){}[0]
+    final val originOffSet // io.github.cponfick.kompgeom.euclidean.twod/Line2.originOffSet|{}originOffSet[0]
+        final fun <get-originOffSet>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Line2.originOffSet.<get-originOffSet>|<get-originOffSet>(){}[0]
+    final val precision // io.github.cponfick.kompgeom.euclidean.twod/Line2.precision|{}precision[0]
+        final fun <get-precision>(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.twod/Line2.precision.<get-precision>|<get-precision>(){}[0]
+
+    final fun component1(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Line2.component2|component2(){}[0]
+    final fun component3(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.twod/Line2.component3|component3(){}[0]
+    final fun copy(io.github.cponfick.kompgeom.euclidean.twod/Vec2 = ..., kotlin/Double = ..., io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Line2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.copy|copy(io.github.cponfick.kompgeom.euclidean.twod.Vec2;kotlin.Double;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun distance(io.github.cponfick.kompgeom.core/Vector2<*>): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Line2.distance|distance(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Line2.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/Line2.hashCode|hashCode(){}[0]
+    final fun location(io.github.cponfick.kompgeom.core/Vector2<*>): io.github.cponfick.kompgeom.core.shapes/Location // io.github.cponfick.kompgeom.euclidean.twod/Line2.location|location(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    final fun offset(io.github.cponfick.kompgeom.core/Vector2<*>): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Line2.offset|offset(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.euclidean.twod/Line2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/Line2.toString|toString(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/Line2.Companion|null[0]
+        final fun fromPointAndDirection(io.github.cponfick.kompgeom.core/Vector2<*>, io.github.cponfick.kompgeom.core/Vector2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Line2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.Companion.fromPointAndDirection|fromPointAndDirection(io.github.cponfick.kompgeom.core.Vector2<*>;io.github.cponfick.kompgeom.core.Vector2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+        final fun fromPoints(io.github.cponfick.kompgeom.core/Vector2<*>, io.github.cponfick.kompgeom.core/Vector2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Line2 // io.github.cponfick.kompgeom.euclidean.twod/Line2.Companion.fromPoints|fromPoints(io.github.cponfick.kompgeom.core.Vector2<*>;io.github.cponfick.kompgeom.core.Vector2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2 : io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/MutableVec2> { // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.twod/MutableVec2, io.github.cponfick.kompgeom.euclidean.twod/MutableVec2) // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.<init>|<init>(io.github.cponfick.kompgeom.euclidean.twod.MutableVec2;io.github.cponfick.kompgeom.euclidean.twod.MutableVec2){}[0]
+
+    final val end // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.end|{}end[0]
+        final fun <get-end>(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.end.<get-end>|<get-end>(){}[0]
+    final val start // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.start|{}start[0]
+        final fun <get-start>(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.start.<get-start>|<get-start>(){}[0]
+
+    final fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/MutableVec2> // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.twod/MutableVec2>): io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/MutableVec2> // io.github.cponfick.kompgeom.euclidean.twod/MutableSeg2.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.twod.MutableVec2>){}[0]
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 : io.github.cponfick.kompgeom.core/Vector2<io.github.cponfick.kompgeom.euclidean.twod/MutableVec2> { // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.<init>|<init>(kotlin.Double;kotlin.Double){}[0]
+
+    final var x // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.x.<get-x>|<get-x>(){}[0]
+        final fun <set-x>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.x.<set-x>|<set-x>(kotlin.Double){}[0]
+    final var y // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.y|{}y[0]
+        final fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.y.<get-y>|<get-y>(){}[0]
+        final fun <set-y>(kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.y.<set-y>|<set-y>(kotlin.Double){}[0]
+
+    final fun minus(io.github.cponfick.kompgeom.euclidean.twod/MutableVec2): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.minus|minus(io.github.cponfick.kompgeom.euclidean.twod.MutableVec2){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.twod/MutableVec2): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.plus|plus(io.github.cponfick.kompgeom.euclidean.twod.MutableVec2){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.withComponents|withComponents(kotlin.Double;kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.Companion|null[0]
+        final fun nan(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.Companion.nan|nan(){}[0]
+        final fun negativeInfinity(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.Companion.negativeInfinity|negativeInfinity(){}[0]
+        final fun positiveInfinity(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.Companion.positiveInfinity|positiveInfinity(){}[0]
+        final fun zero(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.euclidean.twod/MutableVec2.Companion.zero|zero(){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates : io.github.cponfick.kompgeom.core/Spatial { // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.<init>|<init>(kotlin.Double;kotlin.Double){}[0]
+
+    final val azimuth // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.azimuth|{}azimuth[0]
+        final fun <get-azimuth>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.azimuth.<get-azimuth>|<get-azimuth>(){}[0]
+    final val radius // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.radius|{}radius[0]
+        final fun <get-radius>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.radius.<get-radius>|<get-radius>(){}[0]
+
+    final fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.dimensions|dimensions(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.hashCode|hashCode(){}[0]
+    final fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.isFinite|isFinite(){}[0]
+    final fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.isInfinite|isInfinite(){}[0]
+    final fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.isNaN|isNaN(){}[0]
+    final fun toCartesian(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.toCartesian|toCartesian(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.toString|toString(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.Companion|null[0]
+        final fun fromCartesian(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.Companion.fromCartesian|fromCartesian(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+        final fun fromCartesian(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.Companion.fromCartesian|fromCartesian(kotlin.Double;kotlin.Double){}[0]
+        final fun toCartesian(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/PolarCoordinates.Companion.toCartesian|toCartesian(kotlin.Double;kotlin.Double){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/Polygon2 : io.github.cponfick.kompgeom.core.shapes/Polygon<io.github.cponfick.kompgeom.euclidean.twod/Vec2> { // io.github.cponfick.kompgeom.euclidean.twod/Polygon2|null[0]
+    constructor <init>(kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.twod/Vec2>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...) // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.<init>|<init>(kotlin.collections.List<io.github.cponfick.kompgeom.euclidean.twod.Vec2>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+
+    final val edges // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.edges|{}edges[0]
+        final fun <get-edges>(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.twod/Seg2> // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.edges.<get-edges>|<get-edges>(){}[0]
+    final val precision // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.precision|{}precision[0]
+        final fun <get-precision>(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.precision.<get-precision>|<get-precision>(){}[0]
+    final val vertices // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.vertices|{}vertices[0]
+        final fun <get-vertices>(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.vertices.<get-vertices>|<get-vertices>(){}[0]
+
+    final fun area(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.area|area(){}[0]
+    final fun boundingBox(): kotlin/Pair<io.github.cponfick.kompgeom.euclidean.twod/Vec2, io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.boundingBox|boundingBox(){}[0]
+    final fun centroid(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.centroid|centroid(){}[0]
+    final fun component1(): kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.component1|component1(){}[0]
+    final fun component2(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.component2|component2(){}[0]
+    final fun contains(io.github.cponfick.kompgeom.euclidean.twod/Vec2): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.contains|contains(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun convexHull(): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.convexHull|convexHull(){}[0]
+    final fun copy(kotlin.collections/List<io.github.cponfick.kompgeom.euclidean.twod/Vec2> = ..., io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.copy|copy(kotlin.collections.List<io.github.cponfick.kompgeom.euclidean.twod.Vec2>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    final fun dimensions(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.dimensions|dimensions(){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.hashCode|hashCode(){}[0]
+    final fun isConvex(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.isConvex|isConvex(){}[0]
+    final fun isFinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.isFinite|isFinite(){}[0]
+    final fun isInfinite(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.isInfinite|isInfinite(){}[0]
+    final fun isNaN(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.isNaN|isNaN(){}[0]
+    final fun isSimple(): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.isSimple|isSimple(){}[0]
+    final fun orientation(): io.github.cponfick.kompgeom.core/Orientation // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.orientation|orientation(){}[0]
+    final fun perimeter(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.perimeter|perimeter(){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.reverse|reverse(){}[0]
+    final fun scale(kotlin/Double, io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.scale|scale(kotlin.Double;io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun signedArea(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.signedArea|signedArea(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.twod/Vec2>): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.twod.Vec2>){}[0]
+    final fun translate(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.translate|translate(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.Companion|null[0]
+        final fun rectangle(kotlin/Double, kotlin/Double, kotlin/Double, kotlin/Double, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.Companion.rectangle|rectangle(kotlin.Double;kotlin.Double;kotlin.Double;kotlin.Double;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+        final fun regular(kotlin/Int, kotlin/Double, io.github.cponfick.kompgeom.euclidean.twod/Vec2 = ..., kotlin/Double = ..., io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Polygon2 // io.github.cponfick.kompgeom.euclidean.twod/Polygon2.Companion.regular|regular(kotlin.Int;kotlin.Double;io.github.cponfick.kompgeom.euclidean.twod.Vec2;kotlin.Double;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]
+    }
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/Seg2 : io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/Vec2> { // io.github.cponfick.kompgeom.euclidean.twod/Seg2|null[0]
+    constructor <init>(io.github.cponfick.kompgeom.euclidean.twod/Vec2, io.github.cponfick.kompgeom.euclidean.twod/Vec2) // io.github.cponfick.kompgeom.euclidean.twod/Seg2.<init>|<init>(io.github.cponfick.kompgeom.euclidean.twod.Vec2;io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+
+    final val end // io.github.cponfick.kompgeom.euclidean.twod/Seg2.end|{}end[0]
+        final fun <get-end>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Seg2.end.<get-end>|<get-end>(){}[0]
+    final val start // io.github.cponfick.kompgeom.euclidean.twod/Seg2.start|{}start[0]
+        final fun <get-start>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Seg2.start.<get-start>|<get-start>(){}[0]
+
+    final fun component1(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Seg2.component1|component1(){}[0]
+    final fun component2(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Seg2.component2|component2(){}[0]
+    final fun copy(io.github.cponfick.kompgeom.euclidean.twod/Vec2 = ..., io.github.cponfick.kompgeom.euclidean.twod/Vec2 = ...): io.github.cponfick.kompgeom.euclidean.twod/Seg2 // io.github.cponfick.kompgeom.euclidean.twod/Seg2.copy|copy(io.github.cponfick.kompgeom.euclidean.twod.Vec2;io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Seg2.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/Seg2.hashCode|hashCode(){}[0]
+    final fun reverse(): io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.euclidean.twod/Seg2.reverse|reverse(){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/Seg2.toString|toString(){}[0]
+    final fun transform(io.github.cponfick.kompgeom.core.transform/Transformer<io.github.cponfick.kompgeom.euclidean.twod/Vec2>): io.github.cponfick.kompgeom.core.shapes/Segment2<io.github.cponfick.kompgeom.euclidean.twod/Vec2> // io.github.cponfick.kompgeom.euclidean.twod/Seg2.transform|transform(io.github.cponfick.kompgeom.core.transform.Transformer<io.github.cponfick.kompgeom.euclidean.twod.Vec2>){}[0]
+}
+
+final class io.github.cponfick.kompgeom.euclidean.twod/Vec2 : io.github.cponfick.kompgeom.core/Vector2<io.github.cponfick.kompgeom.euclidean.twod/Vec2> { // io.github.cponfick.kompgeom.euclidean.twod/Vec2|null[0]
+    constructor <init>(kotlin/Double, kotlin/Double) // io.github.cponfick.kompgeom.euclidean.twod/Vec2.<init>|<init>(kotlin.Double;kotlin.Double){}[0]
+
+    final val x // io.github.cponfick.kompgeom.euclidean.twod/Vec2.x|{}x[0]
+        final fun <get-x>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Vec2.x.<get-x>|<get-x>(){}[0]
+    final val y // io.github.cponfick.kompgeom.euclidean.twod/Vec2.y|{}y[0]
+        final fun <get-y>(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Vec2.y.<get-y>|<get-y>(){}[0]
+
+    final fun component1(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Vec2.component1|component1(){}[0]
+    final fun component2(): kotlin/Double // io.github.cponfick.kompgeom.euclidean.twod/Vec2.component2|component2(){}[0]
+    final fun copy(kotlin/Double = ..., kotlin/Double = ...): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.copy|copy(kotlin.Double;kotlin.Double){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // io.github.cponfick.kompgeom.euclidean.twod/Vec2.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // io.github.cponfick.kompgeom.euclidean.twod/Vec2.hashCode|hashCode(){}[0]
+    final fun minus(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.minus|minus(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun plus(io.github.cponfick.kompgeom.euclidean.twod/Vec2): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.plus|plus(io.github.cponfick.kompgeom.euclidean.twod.Vec2){}[0]
+    final fun times(kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.times|times(kotlin.Double){}[0]
+    final fun toString(): kotlin/String // io.github.cponfick.kompgeom.euclidean.twod/Vec2.toString|toString(){}[0]
+    final fun unaryMinus(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.unaryMinus|unaryMinus(){}[0]
+    final fun withComponents(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.withComponents|withComponents(kotlin.Double;kotlin.Double){}[0]
+    final fun zero(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.zero|zero(){}[0]
+
+    final object Companion { // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion|null[0]
+        final val NEGATIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.NEGATIVE_INFINITY|{}NEGATIVE_INFINITY[0]
+            final fun <get-NEGATIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.NEGATIVE_INFINITY.<get-NEGATIVE_INFINITY>|<get-NEGATIVE_INFINITY>(){}[0]
+        final val NaN // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.NaN|{}NaN[0]
+            final fun <get-NaN>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.NaN.<get-NaN>|<get-NaN>(){}[0]
+        final val POSITIVE_INFINITY // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.POSITIVE_INFINITY|{}POSITIVE_INFINITY[0]
+            final fun <get-POSITIVE_INFINITY>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.POSITIVE_INFINITY.<get-POSITIVE_INFINITY>|<get-POSITIVE_INFINITY>(){}[0]
+        final val ZERO // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.ZERO|{}ZERO[0]
+            final fun <get-ZERO>(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.ZERO.<get-ZERO>|<get-ZERO>(){}[0]
+
+        final fun from(io.github.cponfick.kompgeom.core/Vector2<*>): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.from|from(io.github.cponfick.kompgeom.core.Vector2<*>){}[0]
+        final fun unit(kotlin/Double, kotlin/Double): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.euclidean.twod/Vec2.Companion.unit|unit(kotlin.Double;kotlin.Double){}[0]
+    }
+}
+
+open class io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence : io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence { // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence|null[0]
+    constructor <init>(kotlin/Double = ...) // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.<init>|<init>(kotlin.Double){}[0]
+
+    final val epsilon // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.epsilon|{}epsilon[0]
+        final fun <get-epsilon>(): kotlin/Double // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.epsilon.<get-epsilon>|<get-epsilon>(){}[0]
+
+    open fun compare(kotlin/Double, kotlin/Double): kotlin/Int // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.compare|compare(kotlin.Double;kotlin.Double){}[0]
+    open fun eq(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.eq|eq(kotlin.Double;kotlin.Double){}[0]
+    open fun eqZero(kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.eqZero|eqZero(kotlin.Double){}[0]
+    open fun gt(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.gt|gt(kotlin.Double;kotlin.Double){}[0]
+    open fun gte(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.gte|gte(kotlin.Double;kotlin.Double){}[0]
+    open fun lt(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.lt|lt(kotlin.Double;kotlin.Double){}[0]
+    open fun lte(kotlin/Double, kotlin/Double): kotlin/Boolean // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.lte|lte(kotlin.Double;kotlin.Double){}[0]
+    open fun signum(kotlin/Double): kotlin/Double // io.github.cponfick.kompgeom.core.equivalence/EpsilonDoubleEquivalence.signum|signum(kotlin.Double){}[0]
+}
+
+final object io.github.cponfick.kompgeom.euclidean.internal/MatrixUtil // io.github.cponfick.kompgeom.euclidean.internal/MatrixUtil|null[0]
+
+final object io.github.cponfick.kompgeom.euclidean.internal/VectorUtil // io.github.cponfick.kompgeom.euclidean.internal/VectorUtil|null[0]
+
+final const val io.github.cponfick.kompgeom.core.equivalence/GEOMETRIC_EPSILON // io.github.cponfick.kompgeom.core.equivalence/GEOMETRIC_EPSILON|{}GEOMETRIC_EPSILON[0]
+    final fun <get-GEOMETRIC_EPSILON>(): kotlin/Double // io.github.cponfick.kompgeom.core.equivalence/GEOMETRIC_EPSILON.<get-GEOMETRIC_EPSILON>|<get-GEOMETRIC_EPSILON>(){}[0]
+final const val io.github.cponfick.kompgeom.core/DEGREES_TO_RADIANS // io.github.cponfick.kompgeom.core/DEGREES_TO_RADIANS|{}DEGREES_TO_RADIANS[0]
+    final fun <get-DEGREES_TO_RADIANS>(): kotlin/Double // io.github.cponfick.kompgeom.core/DEGREES_TO_RADIANS.<get-DEGREES_TO_RADIANS>|<get-DEGREES_TO_RADIANS>(){}[0]
+final const val io.github.cponfick.kompgeom.core/RADIANS_TO_DEGREES // io.github.cponfick.kompgeom.core/RADIANS_TO_DEGREES|{}RADIANS_TO_DEGREES[0]
+    final fun <get-RADIANS_TO_DEGREES>(): kotlin/Double // io.github.cponfick.kompgeom.core/RADIANS_TO_DEGREES.<get-RADIANS_TO_DEGREES>|<get-RADIANS_TO_DEGREES>(){}[0]
+
+final val io.github.cponfick.kompgeom.core.equivalence/DEFAULT_DOUBLE_EQUIVALENCE // io.github.cponfick.kompgeom.core.equivalence/DEFAULT_DOUBLE_EQUIVALENCE|{}DEFAULT_DOUBLE_EQUIVALENCE[0]
+    final fun <get-DEFAULT_DOUBLE_EQUIVALENCE>(): io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence // io.github.cponfick.kompgeom.core.equivalence/DEFAULT_DOUBLE_EQUIVALENCE.<get-DEFAULT_DOUBLE_EQUIVALENCE>|<get-DEFAULT_DOUBLE_EQUIVALENCE>(){}[0]
+
+final fun (io.github.cponfick.kompgeom.core/Vector1<*>).io.github.cponfick.kompgeom.core/toImmutable(): io.github.cponfick.kompgeom.euclidean.oned/Vec1 // io.github.cponfick.kompgeom.core/toImmutable|toImmutable@io.github.cponfick.kompgeom.core.Vector1<*>(){}[0]
+final fun (io.github.cponfick.kompgeom.core/Vector1<*>).io.github.cponfick.kompgeom.core/toMutable(): io.github.cponfick.kompgeom.euclidean.oned/MutableVec1 // io.github.cponfick.kompgeom.core/toMutable|toMutable@io.github.cponfick.kompgeom.core.Vector1<*>(){}[0]
+final fun (io.github.cponfick.kompgeom.core/Vector2<*>).io.github.cponfick.kompgeom.core/toImmutable(): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.core/toImmutable|toImmutable@io.github.cponfick.kompgeom.core.Vector2<*>(){}[0]
+final fun (io.github.cponfick.kompgeom.core/Vector2<*>).io.github.cponfick.kompgeom.core/toMutable(): io.github.cponfick.kompgeom.euclidean.twod/MutableVec2 // io.github.cponfick.kompgeom.core/toMutable|toMutable@io.github.cponfick.kompgeom.core.Vector2<*>(){}[0]
+final fun (io.github.cponfick.kompgeom.core/Vector3<*>).io.github.cponfick.kompgeom.core/toImmutable(): io.github.cponfick.kompgeom.euclidean.threed/Vec3 // io.github.cponfick.kompgeom.core/toImmutable|toImmutable@io.github.cponfick.kompgeom.core.Vector3<*>(){}[0]
+final fun (io.github.cponfick.kompgeom.core/Vector3<*>).io.github.cponfick.kompgeom.core/toMutable(): io.github.cponfick.kompgeom.euclidean.threed/MutableVec3 // io.github.cponfick.kompgeom.core/toMutable|toMutable@io.github.cponfick.kompgeom.core.Vector3<*>(){}[0]
+final fun io.github.cponfick.kompgeom.core.shapes/computeIntersection(io.github.cponfick.kompgeom.core.shapes/Segment2<*>, io.github.cponfick.kompgeom.core.shapes/Segment2<*>, io.github.cponfick.kompgeom.core.equivalence/DoubleEquivalence = ...): io.github.cponfick.kompgeom.euclidean.twod/Vec2 // io.github.cponfick.kompgeom.core.shapes/computeIntersection|computeIntersection(io.github.cponfick.kompgeom.core.shapes.Segment2<*>;io.github.cponfick.kompgeom.core.shapes.Segment2<*>;io.github.cponfick.kompgeom.core.equivalence.DoubleEquivalence){}[0]

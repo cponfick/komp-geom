@@ -1,0 +1,33 @@
+name: ABI Check Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  abi-check:
+    name: API/ABI Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Cache Konan
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.konan
+          key: ${{ runner.os }}-${{ runner.arch }}-konan-${{ hashFiles('gradle/libs.versions.toml', '**/*.gradle*', 'gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-konan-
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6
+
+      - name: Check reference ABI dumps
+        run: ./gradlew checkKotlinAbi

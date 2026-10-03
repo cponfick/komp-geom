@@ -1,0 +1,1263 @@
+public abstract interface class io/github/cponfick/kompgeom/algorithms/Algorithm {
+	public abstract fun execute ()Ljava/lang/Object;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public abstract fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getSpaceComplexity ()Ljava/lang/String;
+	public abstract fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo$DefaultImpls {
+	public static fun getId (Lio/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo;)Ljava/lang/String;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPair : io/github/cponfick/kompgeom/algorithms/Algorithm {
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairDivideAndConquer : io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPair {
+	public static final field Companion Lio/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairDivideAndConquer$Companion;
+	public fun <init> (Ljava/util/Collection;)V
+	public fun execute ()Lio/github/cponfick/kompgeom/algorithms/closestpair/Result;
+	public synthetic fun execute ()Ljava/lang/Object;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairDivideAndConquer$Companion : io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getSpaceComplexity ()Ljava/lang/String;
+	public fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairNaive : io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPair {
+	public static final field Companion Lio/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairNaive$Companion;
+	public fun <init> (Ljava/util/Collection;)V
+	public fun execute ()Lio/github/cponfick/kompgeom/algorithms/closestpair/Result;
+	public synthetic fun execute ()Ljava/lang/Object;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/closestpair/ClosestPairNaive$Companion : io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getSpaceComplexity ()Ljava/lang/String;
+	public fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/closestpair/Result {
+	public fun <init> (DLkotlin/Pair;)V
+	public final fun getDistance ()D
+	public final fun getResult ()Lkotlin/Pair;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/algorithms/convexhull/ConvexHull : io/github/cponfick/kompgeom/algorithms/Algorithm {
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/convexhull/Quickhull2 : io/github/cponfick/kompgeom/algorithms/convexhull/ConvexHull {
+	public static final field Companion Lio/github/cponfick/kompgeom/algorithms/convexhull/Quickhull2$Companion;
+	public fun <init> (Ljava/util/Collection;)V
+	public fun execute ()Lio/github/cponfick/kompgeom/algorithms/convexhull/Result;
+	public synthetic fun execute ()Ljava/lang/Object;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/convexhull/Quickhull2$Companion : io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getSpaceComplexity ()Ljava/lang/String;
+	public fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/convexhull/Result {
+	public fun <init> (Ljava/util/List;)V
+	public final fun getPoints ()Ljava/util/List;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/intersection/BentleyOttmann : io/github/cponfick/kompgeom/algorithms/Algorithm {
+	public static final field Companion Lio/github/cponfick/kompgeom/algorithms/intersection/BentleyOttmann$Companion;
+	public fun <init> (Ljava/util/Collection;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Ljava/util/Collection;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun execute ()Ljava/lang/Object;
+	public fun execute ()Ljava/util/List;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/intersection/BentleyOttmann$Companion : io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getSpaceComplexity ()Ljava/lang/String;
+	public fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/intersection/SegmentIntersection {
+	public fun <init> (IILio/github/cponfick/kompgeom/core/shapes/IntersectionData;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public final fun copy (IILio/github/cponfick/kompgeom/core/shapes/IntersectionData;)Lio/github/cponfick/kompgeom/algorithms/intersection/SegmentIntersection;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/algorithms/intersection/SegmentIntersection;IILio/github/cponfick/kompgeom/core/shapes/IntersectionData;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/algorithms/intersection/SegmentIntersection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFirst ()I
+	public final fun getIntersection ()Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public final fun getSecond ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/intersection/ShamosHoey : io/github/cponfick/kompgeom/algorithms/Algorithm {
+	public static final field Companion Lio/github/cponfick/kompgeom/algorithms/intersection/ShamosHoey$Companion;
+	public fun <init> (Ljava/util/Collection;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Ljava/util/Collection;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun execute ()Ljava/lang/Boolean;
+	public synthetic fun execute ()Ljava/lang/Object;
+}
+
+public final class io/github/cponfick/kompgeom/algorithms/intersection/ShamosHoey$Companion : io/github/cponfick/kompgeom/algorithms/Algorithm$AlgorithmInfo {
+	public fun getGroup ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getSpaceComplexity ()Ljava/lang/String;
+	public fun getTimeComplexity ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/core/AngleUnit : java/lang/Enum {
+	public static final field DEGREES Lio/github/cponfick/kompgeom/core/AngleUnit;
+	public static final field RADIANS Lio/github/cponfick/kompgeom/core/AngleUnit;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/cponfick/kompgeom/core/AngleUnit;
+	public static fun values ()[Lio/github/cponfick/kompgeom/core/AngleUnit;
+}
+
+public final class io/github/cponfick/kompgeom/core/AngleUtilKt {
+	public static final field DEGREES_TO_RADIANS D
+	public static final field RADIANS_TO_DEGREES D
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Distanceable {
+	public abstract fun distance (Ljava/lang/Object;)D
+}
+
+public final class io/github/cponfick/kompgeom/core/Orientation : java/lang/Enum {
+	public static final field CLOCKWISE Lio/github/cponfick/kompgeom/core/Orientation;
+	public static final field COLLINEAR Lio/github/cponfick/kompgeom/core/Orientation;
+	public static final field COUNTERCLOCKWISE Lio/github/cponfick/kompgeom/core/Orientation;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/cponfick/kompgeom/core/Orientation;
+	public static fun values ()[Lio/github/cponfick/kompgeom/core/Orientation;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Spatial {
+	public abstract fun dimensions ()I
+	public abstract fun isFinite ()Z
+	public abstract fun isInfinite ()Z
+	public abstract fun isNaN ()Z
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Vector : io/github/cponfick/kompgeom/core/Distanceable, io/github/cponfick/kompgeom/core/Spatial {
+	public abstract fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public static synthetic fun angle$default (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)D
+	public abstract fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public abstract fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun norm ()D
+	public abstract fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+}
+
+public final class io/github/cponfick/kompgeom/core/Vector$DefaultImpls {
+	public static synthetic fun angle$default (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)D
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Vector1 : io/github/cponfick/kompgeom/core/Vector {
+	public fun angle (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun dimensions ()I
+	public fun distance (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public fun dot (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public abstract fun getX ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector1;D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public fun norm ()D
+	public fun normSquared ()D
+	public fun normalize ()Lio/github/cponfick/kompgeom/core/Vector1;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun withComponents (D)Lio/github/cponfick/kompgeom/core/Vector1;
+}
+
+public final class io/github/cponfick/kompgeom/core/Vector1$DefaultImpls {
+	public static fun angle (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public static fun dimensions (Lio/github/cponfick/kompgeom/core/Vector1;)I
+	public static fun distance (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public static fun dot (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public static fun eq (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public static fun isFinite (Lio/github/cponfick/kompgeom/core/Vector1;)Z
+	public static fun isInfinite (Lio/github/cponfick/kompgeom/core/Vector1;)Z
+	public static fun isNaN (Lio/github/cponfick/kompgeom/core/Vector1;)Z
+	public static fun lerp (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/Vector1;D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public static fun norm (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public static fun normSquared (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public static fun normalize (Lio/github/cponfick/kompgeom/core/Vector1;)Lio/github/cponfick/kompgeom/core/Vector1;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Vector2 : io/github/cponfick/kompgeom/core/Vector {
+	public fun angle (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public fun dimensions ()I
+	public fun distance (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public fun dot (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public abstract fun getX ()D
+	public abstract fun getY ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun norm ()D
+	public fun normalize ()Lio/github/cponfick/kompgeom/core/Vector2;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun signedArea (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public abstract fun withComponents (DD)Lio/github/cponfick/kompgeom/core/Vector2;
+}
+
+public final class io/github/cponfick/kompgeom/core/Vector2$DefaultImpls {
+	public static fun angle (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public static fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public static fun dimensions (Lio/github/cponfick/kompgeom/core/Vector2;)I
+	public static fun distance (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public static fun dot (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public static fun eq (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public static fun isFinite (Lio/github/cponfick/kompgeom/core/Vector2;)Z
+	public static fun isInfinite (Lio/github/cponfick/kompgeom/core/Vector2;)Z
+	public static fun isNaN (Lio/github/cponfick/kompgeom/core/Vector2;)Z
+	public static fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/core/Vector2;
+	public static fun norm (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public static fun normalize (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public static fun project (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public static fun reject (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public static fun signedArea (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;)D
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/Vector3 : io/github/cponfick/kompgeom/core/Vector {
+	public fun angle (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public fun cross (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun dimensions ()I
+	public fun distance (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public fun dot (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public abstract fun getX ()D
+	public abstract fun getY ()D
+	public abstract fun getZ ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun norm ()D
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public abstract fun withComponents (DDD)Lio/github/cponfick/kompgeom/core/Vector3;
+}
+
+public final class io/github/cponfick/kompgeom/core/Vector3$DefaultImpls {
+	public static fun angle (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public static fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public static fun cross (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public static fun dimensions (Lio/github/cponfick/kompgeom/core/Vector3;)I
+	public static fun distance (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public static fun dot (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public static fun eq (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public static fun isFinite (Lio/github/cponfick/kompgeom/core/Vector3;)Z
+	public static fun isInfinite (Lio/github/cponfick/kompgeom/core/Vector3;)Z
+	public static fun isNaN (Lio/github/cponfick/kompgeom/core/Vector3;)Z
+	public static fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/core/Vector3;
+	public static fun norm (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public static fun project (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public static fun reject (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+}
+
+public final class io/github/cponfick/kompgeom/core/VectorExtensionsKt {
+	public static final fun toImmutable (Lio/github/cponfick/kompgeom/core/Vector1;)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public static final fun toImmutable (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public static final fun toImmutable (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public static final fun toMutable (Lio/github/cponfick/kompgeom/core/Vector1;)Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public static final fun toMutable (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public static final fun toMutable (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+}
+
+public final class io/github/cponfick/kompgeom/core/collections/MutableRedBlackTreeMap : io/github/cponfick/kompgeom/core/collections/MutableSortedMap {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Comparator;)V
+	public synthetic fun <init> (Ljava/util/Comparator;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun ceiling (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun clear ()V
+	public fun containsKey (Ljava/lang/Object;)Z
+	public fun containsValue (Ljava/lang/Object;)Z
+	public final fun entrySet ()Ljava/util/Set;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun firstKey ()Ljava/lang/Object;
+	public fun floor (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun get (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun getEntries ()Ljava/util/Set;
+	public fun getKeys ()Ljava/util/Set;
+	public fun getSize ()I
+	public fun getValues ()Ljava/util/Collection;
+	public fun hashCode ()I
+	public fun higher (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun isEmpty ()Z
+	public final fun keySet ()Ljava/util/Set;
+	public fun lastKey ()Ljava/lang/Object;
+	public fun lower (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun put (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+	public fun putAll (Ljava/util/Map;)V
+	public fun remove (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun size ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun values ()Ljava/util/Collection;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/collections/MutableSortedMap : io/github/cponfick/kompgeom/core/collections/SortedMap, java/util/Map, kotlin/jvm/internal/markers/KMutableMap {
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/collections/SortedMap : java/util/Map, kotlin/jvm/internal/markers/KMappedMarker {
+	public abstract fun ceiling (Ljava/lang/Object;)Ljava/lang/Object;
+	public abstract fun firstKey ()Ljava/lang/Object;
+	public abstract fun floor (Ljava/lang/Object;)Ljava/lang/Object;
+	public abstract fun higher (Ljava/lang/Object;)Ljava/lang/Object;
+	public abstract fun lastKey ()Ljava/lang/Object;
+	public abstract fun lower (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence {
+	public abstract fun eq (DD)Z
+	public abstract fun eqZero (D)Z
+	public abstract fun gt (DD)Z
+	public abstract fun gte (DD)Z
+	public abstract fun lt (DD)Z
+	public abstract fun lte (DD)Z
+	public abstract fun signum (D)D
+}
+
+public class io/github/cponfick/kompgeom/core/equivalence/EpsilonDoubleEquivalence : io/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence {
+	public fun <init> ()V
+	public fun <init> (D)V
+	public synthetic fun <init> (DILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compare (DD)I
+	public fun eq (DD)Z
+	public fun eqZero (D)Z
+	public final fun getEpsilon ()D
+	public fun gt (DD)Z
+	public fun gte (DD)Z
+	public fun lt (DD)Z
+	public fun lte (DD)Z
+	public fun signum (D)D
+}
+
+public final class io/github/cponfick/kompgeom/core/equivalence/EquivalenceKt {
+	public static final field GEOMETRIC_EPSILON D
+	public static final fun getDEFAULT_DOUBLE_EQUIVALENCE ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/IntersectionData {
+	public fun <init> (Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;Lio/github/cponfick/kompgeom/core/Vector;Lkotlin/Pair;)V
+	public synthetic fun <init> (Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;Lio/github/cponfick/kompgeom/core/Vector;Lkotlin/Pair;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/core/Vector;
+	public final fun component3 ()Lkotlin/Pair;
+	public final fun copy (Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;Lio/github/cponfick/kompgeom/core/Vector;Lkotlin/Pair;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;Lio/github/cponfick/kompgeom/core/Vector;Lkotlin/Pair;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPoint ()Lio/github/cponfick/kompgeom/core/Vector;
+	public final fun getSegment ()Lkotlin/Pair;
+	public final fun getType ()Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/IntersectionType : java/lang/Enum {
+	public static final field NONE Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public static final field OVERLAP Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public static final field POINT Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+	public static fun values ()[Lio/github/cponfick/kompgeom/core/shapes/IntersectionType;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/shapes/Line : io/github/cponfick/kompgeom/core/Distanceable {
+	public fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public abstract fun location (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public abstract fun offset (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public abstract fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Line;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Line$DefaultImpls {
+	public static fun contains (Lio/github/cponfick/kompgeom/core/shapes/Line;Lio/github/cponfick/kompgeom/core/Vector;)Z
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Location : java/lang/Enum {
+	public static final field MINUS Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public static final field ON Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public static final field PLUS Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public static fun values ()[Lio/github/cponfick/kompgeom/core/shapes/Location;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/shapes/Polygon : io/github/cponfick/kompgeom/core/Spatial {
+	public abstract fun area ()D
+	public abstract fun centroid ()Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public fun getVertexCount ()I
+	public abstract fun getVertices ()Ljava/util/List;
+	public abstract fun isConvex ()Z
+	public abstract fun isSimple ()Z
+	public abstract fun perimeter ()D
+	public abstract fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public abstract fun scale (DLio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public abstract fun signedArea ()D
+	public abstract fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public abstract fun translate (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Polygon$DefaultImpls {
+	public static fun getVertexCount (Lio/github/cponfick/kompgeom/core/shapes/Polygon;)I
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/shapes/Segment {
+	public abstract fun getEnd ()Lio/github/cponfick/kompgeom/core/Vector;
+	public abstract fun getStart ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun length ()D
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Segment$DefaultImpls {
+	public static fun length (Lio/github/cponfick/kompgeom/core/shapes/Segment;)D
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/shapes/Segment2 : io/github/cponfick/kompgeom/core/shapes/Segment {
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static synthetic fun intersection$default (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public abstract fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+	public abstract fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Segment2$DefaultImpls {
+	public static fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public static fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static synthetic fun intersection$default (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static fun length (Lio/github/cponfick/kompgeom/core/shapes/Segment2;)D
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/shapes/Segment3 : io/github/cponfick/kompgeom/core/shapes/Segment {
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static synthetic fun intersection$default (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public abstract fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+	public abstract fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/Segment3$DefaultImpls {
+	public static fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public static fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static synthetic fun intersection$default (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public static fun length (Lio/github/cponfick/kompgeom/core/shapes/Segment3;)D
+}
+
+public final class io/github/cponfick/kompgeom/core/shapes/SegmentKt {
+	public static final fun computeIntersection (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public static synthetic fun computeIntersection$default (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+}
+
+public abstract interface class io/github/cponfick/kompgeom/core/transform/Transformer {
+	public abstract fun apply (Ljava/lang/Object;)Ljava/lang/Object;
+	public abstract fun inverse ()Lio/github/cponfick/kompgeom/core/transform/Transformer;
+	public abstract fun preserveOrientation ()Z
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/internal/MatrixUtil {
+	public static final field INSTANCE Lio/github/cponfick/kompgeom/euclidean/internal/MatrixUtil;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/internal/VectorUtil {
+	public static final field INSTANCE Lio/github/cponfick/kompgeom/euclidean/internal/VectorUtil;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1 : io/github/cponfick/kompgeom/core/transform/Transformer {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1$Companion;
+	public fun <init> (DD)V
+	public fun apply (Lio/github/cponfick/kompgeom/core/Vector1;)Lio/github/cponfick/kompgeom/core/Vector1;
+	public synthetic fun apply (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun copy (DD)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;DDILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun determinant ()D
+	public final fun eq (Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getM00 ()D
+	public final fun getM01 ()D
+	public fun hashCode ()I
+	public synthetic fun inverse ()Lio/github/cponfick/kompgeom/core/transform/Transformer;
+	public fun inverse ()Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public fun preserveOrientation ()Z
+	public final fun scale (D)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun scale (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun times (Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun toArray ()[D
+	public fun toString ()Ljava/lang/String;
+	public final fun translate (D)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun translate (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1$Companion {
+	public final fun createScaling (D)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun createTranslation (D)Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+	public final fun getIDENTITY ()Lio/github/cponfick/kompgeom/euclidean/oned/AffineTransformationMatrix1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/MutableVec1 : io/github/cponfick/kompgeom/core/Vector1 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1$Companion;
+	public fun <init> (D)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun getX ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector1;D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;)Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public fun norm ()D
+	public fun normSquared ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector1;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;)Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public fun setX (D)V
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public synthetic fun withComponents (D)Lio/github/cponfick/kompgeom/core/Vector1;
+	public fun withComponents (D)Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/MutableVec1$Companion {
+	public final fun nan ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public final fun negativeInfinity ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public final fun positiveInfinity ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+	public final fun zero ()Lio/github/cponfick/kompgeom/euclidean/oned/MutableVec1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/Vec1 : io/github/cponfick/kompgeom/core/Vector1 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/oned/Vec1$Companion;
+	public fun <init> (D)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public final fun component1 ()D
+	public final fun copy (D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;DILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector1;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector1;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getX ()D
+	public fun hashCode ()I
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector1;D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public fun norm ()D
+	public fun normSquared ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector1;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun withComponents (D)Lio/github/cponfick/kompgeom/core/Vector1;
+	public fun withComponents (D)Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/oned/Vec1$Companion {
+	public final fun getNEGATIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public final fun getNaN ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public final fun getPOSITIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+	public final fun getZERO ()Lio/github/cponfick/kompgeom/euclidean/oned/Vec1;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3 : io/github/cponfick/kompgeom/core/transform/Transformer {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion;
+	public fun <init> (DDDDDDDDDDDD)V
+	public fun apply (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public synthetic fun apply (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun component1 ()D
+	public final fun component10 ()D
+	public final fun component11 ()D
+	public final fun component12 ()D
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun component5 ()D
+	public final fun component6 ()D
+	public final fun component7 ()D
+	public final fun component8 ()D
+	public final fun component9 ()D
+	public final fun copy (DDDDDDDDDDDD)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;DDDDDDDDDDDDILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun determinant ()D
+	public final fun eq (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getM00 ()D
+	public final fun getM01 ()D
+	public final fun getM02 ()D
+	public final fun getM03 ()D
+	public final fun getM10 ()D
+	public final fun getM11 ()D
+	public final fun getM12 ()D
+	public final fun getM13 ()D
+	public final fun getM20 ()D
+	public final fun getM21 ()D
+	public final fun getM22 ()D
+	public final fun getM23 ()D
+	public fun hashCode ()I
+	public synthetic fun inverse ()Lio/github/cponfick/kompgeom/core/transform/Transformer;
+	public fun inverse ()Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public fun preserveOrientation ()Z
+	public final fun rotate (DDDLio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;Lio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun rotate$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;DDDLio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;Lio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun rotateX (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun rotateX$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun rotateY (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun rotateY$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun rotateZ (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun rotateZ$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun scale (D)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun scale (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun scale (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun times (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun toArray ()[D
+	public fun toString ()Ljava/lang/String;
+	public final fun translate (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun translate (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion {
+	public final fun createRotation (DDDLio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;Lio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun createRotation$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion;DDDLio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;Lio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createRotationX (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun createRotationX$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createRotationY (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun createRotationY$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createRotationZ (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public static synthetic fun createRotationZ$default (Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3$Companion;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createScaling (D)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createScaling (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createScaling (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createTranslation (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun createTranslation (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+	public final fun getIDENTITY ()Lio/github/cponfick/kompgeom/euclidean/threed/AffineTransformationMatrix3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Line3 : io/github/cponfick/kompgeom/core/shapes/Line {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/threed/Line3$Companion;
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun component3 ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun contains (Lio/github/cponfick/kompgeom/core/Vector3;)Z
+	public synthetic fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public final fun copy (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/threed/Line3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public fun distance (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDirection ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getMoment ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getPrecision ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun hashCode ()I
+	public fun location (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public synthetic fun location (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public fun offset (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun offset (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public synthetic fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Line;
+	public fun reverse ()Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Line3$Companion {
+	public final fun fromPointAndDirection (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public static synthetic fun fromPointAndDirection$default (Lio/github/cponfick/kompgeom/euclidean/threed/Line3$Companion;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public final fun fromPoints (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+	public static synthetic fun fromPoints$default (Lio/github/cponfick/kompgeom/euclidean/threed/Line3$Companion;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Line3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/MutableSeg3 : io/github/cponfick/kompgeom/core/shapes/Segment3 {
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;)V
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public synthetic fun getEnd ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getEnd ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun getStart ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getStart ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public fun length ()D
+	public fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+	public fun toString ()Ljava/lang/String;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/MutableVec3 : io/github/cponfick/kompgeom/core/Vector3 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3$Companion;
+	public fun <init> (DDD)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun cross (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun cross (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun getX ()D
+	public fun getY ()D
+	public fun getZ ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public synthetic fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public fun norm ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun project (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun reject (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public fun setX (D)V
+	public fun setY (D)V
+	public fun setZ (D)V
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun withComponents (DDD)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun withComponents (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/MutableVec3$Companion {
+	public final fun nan ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public final fun negativeInfinity ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public final fun positiveInfinity ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+	public final fun zero ()Lio/github/cponfick/kompgeom/euclidean/threed/MutableVec3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Polygon3 : io/github/cponfick/kompgeom/core/shapes/Polygon {
+	public fun <init> (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun area ()D
+	public final fun boundingBox ()Lkotlin/Pair;
+	public synthetic fun centroid ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun centroid ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public synthetic fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public fun contains (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Z
+	public final fun copy (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/threed/Polygon3;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/threed/Polygon3;Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Polygon3;
+	public fun dimensions ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEdges ()Ljava/util/List;
+	public final fun getNormal ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getPrecision ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun getVertexCount ()I
+	public fun getVertices ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun isConvex ()Z
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun isSimple ()Z
+	public fun perimeter ()D
+	public fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public synthetic fun scale (DLio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun scale (DLio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun signedArea ()D
+	public fun toString ()Ljava/lang/String;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public synthetic fun translate (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun translate (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/RotationSequence : java/lang/Enum {
+	public static final field XYX Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field XYZ Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field XZX Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field XZY Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field YXY Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field YXZ Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field YZX Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field YZY Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field ZXY Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field ZXZ Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field ZYX Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static final field ZYZ Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+	public static fun values ()[Lio/github/cponfick/kompgeom/euclidean/threed/RotationSequence;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Seg3 : io/github/cponfick/kompgeom/core/shapes/Segment3 {
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)V
+	public final fun component1 ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun copy (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/Seg3;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/threed/Seg3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Seg3;
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getEnd ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getEnd ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun getStart ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getStart ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public fun hashCode ()I
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public fun length ()D
+	public fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+	public fun toString ()Ljava/lang/String;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Vec3 : io/github/cponfick/kompgeom/core/Vector3 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/threed/Vec3$Companion;
+	public fun <init> (DDD)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public final fun copy (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;DDDILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun cross (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun cross (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector3;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector3;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getX ()D
+	public fun getY ()D
+	public fun getZ ()D
+	public fun hashCode ()I
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public synthetic fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector3;D)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public fun norm ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun project (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun reject (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun withComponents (DDD)Lio/github/cponfick/kompgeom/core/Vector3;
+	public fun withComponents (DDD)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/threed/Vec3$Companion {
+	public final fun from (Lio/github/cponfick/kompgeom/core/Vector3;)Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getNEGATIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getNaN ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getPOSITIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+	public final fun getZERO ()Lio/github/cponfick/kompgeom/euclidean/threed/Vec3;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2 : io/github/cponfick/kompgeom/core/transform/Transformer {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2$Companion;
+	public fun <init> (DDDDDD)V
+	public fun apply (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public synthetic fun apply (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun component5 ()D
+	public final fun component6 ()D
+	public final fun copy (DDDDDD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;DDDDDDILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun determinant ()D
+	public final fun eq (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public static synthetic fun eq$default (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getM00 ()D
+	public final fun getM01 ()D
+	public final fun getM02 ()D
+	public final fun getM10 ()D
+	public final fun getM11 ()D
+	public final fun getM12 ()D
+	public fun hashCode ()I
+	public synthetic fun inverse ()Lio/github/cponfick/kompgeom/core/transform/Transformer;
+	public fun inverse ()Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public fun preserveOrientation ()Z
+	public final fun rotate (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public static synthetic fun rotate$default (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun scale (D)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun scale (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun scale (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun shear (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun times (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun toArray ()[D
+	public fun toString ()Ljava/lang/String;
+	public final fun translate (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun translate (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2$Companion {
+	public final fun createRotation (DLio/github/cponfick/kompgeom/core/AngleUnit;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public static synthetic fun createRotation$default (Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2$Companion;DLio/github/cponfick/kompgeom/core/AngleUnit;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun createScaling (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun createScaling (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun createShear (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun createTranslation (DD)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun createTranslation (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+	public final fun getIDENTITY ()Lio/github/cponfick/kompgeom/euclidean/twod/AffineTransformationMatrix2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Line2 : io/github/cponfick/kompgeom/core/shapes/Line {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/Line2$Companion;
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun component2 ()D
+	public final fun component3 ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun contains (Lio/github/cponfick/kompgeom/core/Vector2;)Z
+	public synthetic fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public final fun copy (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/twod/Line2;Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public fun distance (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDirection ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun getOriginOffSet ()D
+	public final fun getPrecision ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun hashCode ()I
+	public fun location (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public synthetic fun location (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Location;
+	public fun offset (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun offset (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public synthetic fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Line;
+	public fun reverse ()Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Line2$Companion {
+	public final fun fromPointAndDirection (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public static synthetic fun fromPointAndDirection$default (Lio/github/cponfick/kompgeom/euclidean/twod/Line2$Companion;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public final fun fromPoints (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+	public static synthetic fun fromPoints$default (Lio/github/cponfick/kompgeom/euclidean/twod/Line2$Companion;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Line2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/MutableSeg2 : io/github/cponfick/kompgeom/core/shapes/Segment2 {
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;)V
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public synthetic fun getEnd ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getEnd ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun getStart ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getStart ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public fun length ()D
+	public fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+	public fun toString ()Ljava/lang/String;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/MutableVec2 : io/github/cponfick/kompgeom/core/Vector2 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2$Companion;
+	public fun <init> (DD)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun getX ()D
+	public fun getY ()D
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public synthetic fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public fun norm ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector2;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun project (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun reject (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public fun setX (D)V
+	public fun setY (D)V
+	public fun signedArea (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun withComponents (DD)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun withComponents (DD)Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/MutableVec2$Companion {
+	public final fun nan ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public final fun negativeInfinity ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public final fun positiveInfinity ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+	public final fun zero ()Lio/github/cponfick/kompgeom/euclidean/twod/MutableVec2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/PolarCoordinates : io/github/cponfick/kompgeom/core/Spatial {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/PolarCoordinates$Companion;
+	public fun <init> (DD)V
+	public fun dimensions ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAzimuth ()D
+	public final fun getRadius ()D
+	public fun hashCode ()I
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public final fun toCartesian ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/PolarCoordinates$Companion {
+	public final fun fromCartesian (DD)Lio/github/cponfick/kompgeom/euclidean/twod/PolarCoordinates;
+	public final fun fromCartesian (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/PolarCoordinates;
+	public final fun toCartesian (DD)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Polygon2 : io/github/cponfick/kompgeom/core/shapes/Polygon {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2$Companion;
+	public fun <init> (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)V
+	public synthetic fun <init> (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun area ()D
+	public final fun boundingBox ()Lkotlin/Pair;
+	public synthetic fun centroid ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun centroid ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public synthetic fun contains (Lio/github/cponfick/kompgeom/core/Vector;)Z
+	public fun contains (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Z
+	public final fun convexHull ()Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public final fun copy (Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;Ljava/util/List;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public fun dimensions ()I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEdges ()Ljava/util/List;
+	public final fun getPrecision ()Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;
+	public fun getVertexCount ()I
+	public fun getVertices ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun isConvex ()Z
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public fun isSimple ()Z
+	public final fun orientation ()Lio/github/cponfick/kompgeom/core/Orientation;
+	public fun perimeter ()D
+	public synthetic fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun reverse ()Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public synthetic fun scale (DLio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun scale (DLio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public fun signedArea ()D
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public synthetic fun translate (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/shapes/Polygon;
+	public fun translate (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Polygon2$Companion {
+	public final fun rectangle (DDDDLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public static synthetic fun rectangle$default (Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2$Companion;DDDDLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public final fun regular (IDLio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+	public static synthetic fun regular$default (Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2$Companion;IDLio/github/cponfick/kompgeom/euclidean/twod/Vec2;DLio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Polygon2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Seg2 : io/github/cponfick/kompgeom/core/shapes/Segment2 {
+	public fun <init> (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)V
+	public final fun component1 ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun component2 ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun copy (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/Seg2;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/twod/Seg2;Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;ILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Seg2;
+	public fun eq (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public synthetic fun getEnd ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getEnd ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun getStart ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun getStart ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun hashCode ()I
+	public fun intersection (Lio/github/cponfick/kompgeom/core/shapes/Segment2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Lio/github/cponfick/kompgeom/core/shapes/IntersectionData;
+	public fun length ()D
+	public fun reverse ()Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+	public fun toString ()Ljava/lang/String;
+	public fun transform (Lio/github/cponfick/kompgeom/core/transform/Transformer;)Lio/github/cponfick/kompgeom/core/shapes/Segment2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Vec2 : io/github/cponfick/kompgeom/core/Vector2 {
+	public static final field Companion Lio/github/cponfick/kompgeom/euclidean/twod/Vec2$Companion;
+	public fun <init> (DD)V
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public synthetic fun angle (Lio/github/cponfick/kompgeom/core/Vector;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public fun angle (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;Lio/github/cponfick/kompgeom/core/AngleUnit;)D
+	public final fun component1 ()D
+	public final fun component2 ()D
+	public fun computeScaleFactor (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public final fun copy (DD)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public static synthetic fun copy$default (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;DDILjava/lang/Object;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun dimensions ()I
+	public synthetic fun distance (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public fun distance (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)D
+	public synthetic fun distance (Ljava/lang/Object;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun dot (Lio/github/cponfick/kompgeom/core/Vector;)D
+	public fun dot (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)D
+	public fun eq (Lio/github/cponfick/kompgeom/core/Vector2;Lio/github/cponfick/kompgeom/core/equivalence/DoubleEquivalence;)Z
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getX ()D
+	public fun getY ()D
+	public fun hashCode ()I
+	public fun isFinite ()Z
+	public fun isInfinite ()Z
+	public fun isNaN ()Z
+	public synthetic fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun lerp (Lio/github/cponfick/kompgeom/core/Vector2;D)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun minus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun minus (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun norm ()D
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector2;
+	public synthetic fun normalize ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun normalize ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun plus (Lio/github/cponfick/kompgeom/core/Vector;)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun plus (Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun project (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun project (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun reject (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun reject (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun signedArea (Lio/github/cponfick/kompgeom/core/Vector2;)D
+	public synthetic fun times (D)Lio/github/cponfick/kompgeom/core/Vector;
+	public fun times (D)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public fun toString ()Ljava/lang/String;
+	public synthetic fun unaryMinus ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun unaryMinus ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun withComponents (DD)Lio/github/cponfick/kompgeom/core/Vector2;
+	public fun withComponents (DD)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public synthetic fun zero ()Lio/github/cponfick/kompgeom/core/Vector;
+	public fun zero ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+}
+
+public final class io/github/cponfick/kompgeom/euclidean/twod/Vec2$Companion {
+	public final fun from (Lio/github/cponfick/kompgeom/core/Vector2;)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun getNEGATIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun getNaN ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun getPOSITIVE_INFINITY ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun getZERO ()Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+	public final fun unit (DD)Lio/github/cponfick/kompgeom/euclidean/twod/Vec2;
+}
+
