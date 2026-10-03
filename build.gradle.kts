@@ -123,21 +123,34 @@ tasks.named<Test>("jvmTest") {
 }
 
 spotless {
+  val excludedPaths =
+    arrayOf(
+      "**/build/**",
+      "**/.gradle/**",
+      "**/.kotlin/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.idea/**",
+      "docs/dokka/**",
+    )
   kotlin {
-    target("**/*.kt", "**/*.kts")
+    target("src/**/*.kt")
+    targetExclude(*excludedPaths)
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     trimTrailingWhitespace()
     endWithNewline()
     toggleOffOn()
   }
   kotlinGradle {
-    target("**/*.gradle.kts")
+    target("*.gradle.kts")
+    targetExclude(*excludedPaths)
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     trimTrailingWhitespace()
     endWithNewline()
   }
   format("misc") {
     target("**/*.md", "**/*.yaml", "**/*.yml")
+    targetExclude(*excludedPaths)
     trimTrailingWhitespace()
     endWithNewline()
   }
