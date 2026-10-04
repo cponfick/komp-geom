@@ -1,7 +1,6 @@
 package io.github.cponfick.kompgeom.core.numeric
 
 import java.math.BigInteger
-import kotlin.random.Random
 import kotlinx.benchmark.*
 
 /** JVM-only performance reference for [ExactInteger] against [BigInteger]. */
@@ -15,41 +14,48 @@ open class ExactIntegerBigIntegerBenchmark {
 
   private lateinit var exactLeft: ExactInteger
   private lateinit var exactRight: ExactInteger
-  private lateinit var exactDivisor: ExactInteger
+  private lateinit var exactCancellation: ExactInteger
+  private lateinit var exactSingleLimbDivisor: ExactInteger
+  private lateinit var exactMultiLimbDivisor: ExactInteger
   private lateinit var exactSharedLeft: ExactInteger
   private lateinit var exactSharedRight: ExactInteger
   private lateinit var bigLeft: BigInteger
   private lateinit var bigRight: BigInteger
-  private lateinit var bigDivisor: BigInteger
+  private lateinit var bigCancellation: BigInteger
+  private lateinit var bigSingleLimbDivisor: BigInteger
+  private lateinit var bigMultiLimbDivisor: BigInteger
   private lateinit var bigSharedLeft: BigInteger
   private lateinit var bigSharedRight: BigInteger
 
   @Setup
   fun setup() {
-    exactLeft = exactOperand(bitCount, 0x13579BDF)
-    exactRight = -exactOperand((bitCount * 3) / 4, 0x2468ACE1)
-    exactDivisor = exactOperand(maxOf(32, bitCount / 2), 0x31415926)
-    val exactShared = exactOperand(maxOf(32, bitCount / 3), 0x55AA55AA)
-    exactSharedLeft = exactShared * exactOperand(bitCount - exactShared.bitLength() + 1, 0x10203040)
-    exactSharedRight =
-      exactShared * exactOperand(bitCount - exactShared.bitLength() + 1, 0x50607080)
+    val inputs = ExactIntegerBenchmarkInputs(bitCount)
+    exactLeft = inputs.left.toExactInteger()
+    exactRight = inputs.right.toExactInteger()
+    exactCancellation = exactLeft - (exactLeft shr 1)
+    exactSingleLimbDivisor = inputs.singleLimbDivisor.toExactInteger()
+    exactMultiLimbDivisor = inputs.multiLimbDivisor.toExactInteger()
+    val exactShared = inputs.shared.toExactInteger()
+    exactSharedLeft = exactShared * inputs.gcdLeftFactor.toExactInteger()
+    exactSharedRight = exactShared * inputs.gcdRightFactor.toExactInteger()
 
-    bigLeft = bigOperand(bitCount, 0x13579BDF)
-    bigRight = bigOperand((bitCount * 3) / 4, 0x2468ACE1).negate()
-    bigDivisor = bigOperand(maxOf(32, bitCount / 2), 0x31415926)
-    val bigShared = bigOperand(maxOf(32, bitCount / 3), 0x55AA55AA)
-    bigSharedLeft = bigShared.multiply(bigOperand(bitCount - bigShared.bitLength() + 1, 0x10203040))
-    bigSharedRight =
-      bigShared.multiply(bigOperand(bitCount - bigShared.bitLength() + 1, 0x50607080))
+    bigLeft = inputs.left.toBigInteger()
+    bigRight = inputs.right.toBigInteger()
+    bigCancellation = bigLeft.subtract(bigLeft.shiftRight(1))
+    bigSingleLimbDivisor = inputs.singleLimbDivisor.toBigInteger()
+    bigMultiLimbDivisor = inputs.multiLimbDivisor.toBigInteger()
+    val bigShared = inputs.shared.toBigInteger()
+    bigSharedLeft = bigShared.multiply(inputs.gcdLeftFactor.toBigInteger())
+    bigSharedRight = bigShared.multiply(inputs.gcdRightFactor.toBigInteger())
   }
 
   @Benchmark fun exactAdd(bh: Blackhole) = bh.consume(exactLeft + exactRight)
 
   @Benchmark fun bigAdd(bh: Blackhole) = bh.consume(bigLeft.add(bigRight))
 
-  @Benchmark fun exactSubtract(bh: Blackhole) = bh.consume(exactLeft - exactRight)
+  @Benchmark fun exactSubtract(bh: Blackhole) = bh.consume(exactLeft - exactCancellation)
 
-  @Benchmark fun bigSubtract(bh: Blackhole) = bh.consume(bigLeft.subtract(bigRight))
+  @Benchmark fun bigSubtract(bh: Blackhole) = bh.consume(bigLeft.subtract(bigCancellation))
 
   @Benchmark fun exactMultiply(bh: Blackhole) = bh.consume(exactLeft * exactRight)
 
@@ -57,14 +63,14 @@ open class ExactIntegerBigIntegerBenchmark {
 
   @Benchmark
   fun exactDivideAndRemainder(bh: Blackhole) {
-    val result = exactLeft.divideAndRemainder(exactDivisor)
+    val result = exactLeft.divideAndRemainder(exactRight)
     bh.consume(result.first)
     bh.consume(result.second)
   }
 
   @Benchmark
   fun bigDivideAndRemainder(bh: Blackhole) {
-    val result = bigLeft.divideAndRemainder(bigDivisor)
+    val result = bigLeft.divideAndRemainder(bigRight)
     bh.consume(result[0])
     bh.consume(result[1])
   }
@@ -73,31 +79,36 @@ open class ExactIntegerBigIntegerBenchmark {
 
   @Benchmark fun bigGcd(bh: Blackhole) = bh.consume(bigSharedLeft.gcd(bigSharedRight))
 
-  private fun exactOperand(bits: Int, seed: Int): ExactInteger {
-    if (bits <= 0) return ExactInteger.ONE
-    val random = Random(seed)
-    var result = ExactInteger.ZERO
-    var remaining = bits
-    while (remaining > 0) {
-      val width = minOf(30, remaining)
-      val chunk = random.nextInt(1 shl width)
-      result = (result shl width) + ExactInteger.fromLong(chunk.toLong())
-      remaining -= width
-    }
-    return result + ExactInteger.ONE
+  @Benchmark
+  fun exactDivideBySingleLimb(bh: Blackhole) {
+    val (quotient, remainder) = exactLeft.divideAndRemainder(exactSingleLimbDivisor)
+    bh.consume(quotient)
+    bh.consume(remainder)
   }
 
-  private fun bigOperand(bits: Int, seed: Int): BigInteger {
-    if (bits <= 0) return BigInteger.ONE
-    val random = Random(seed)
-    var result = BigInteger.ZERO
-    var remaining = bits
-    while (remaining > 0) {
-      val width = minOf(30, remaining)
-      val chunk = random.nextInt(1 shl width)
-      result = result.shiftLeft(width).add(BigInteger.valueOf(chunk.toLong()))
-      remaining -= width
-    }
-    return result.add(BigInteger.ONE)
+  @Benchmark
+  fun bigDivideBySingleLimb(bh: Blackhole) {
+    val result = bigLeft.divideAndRemainder(bigSingleLimbDivisor)
+    bh.consume(result[0])
+    bh.consume(result[1])
   }
+
+  @Benchmark
+  fun exactDivideByMultiLimb(bh: Blackhole) {
+    val (quotient, remainder) = exactLeft.divideAndRemainder(exactMultiLimbDivisor)
+    bh.consume(quotient)
+    bh.consume(remainder)
+  }
+
+  @Benchmark
+  fun bigDivideByMultiLimb(bh: Blackhole) {
+    val result = bigLeft.divideAndRemainder(bigMultiLimbDivisor)
+    bh.consume(result[0])
+    bh.consume(result[1])
+  }
+
+  private fun BenchmarkMagnitude.toBigInteger(): BigInteger =
+    build(BigInteger.ZERO) { value, chunk ->
+      value.shiftLeft(30).add(BigInteger.valueOf(chunk.toLong()))
+    }
 }

@@ -12,6 +12,7 @@ class Binary64FixturesTest {
         0x0010000000000000L to ((1L shl 52) to -1074), // smallest normal
         0x000fffffffffffffL to (((1L shl 52) - 1L) to -1074), // largest subnormal
         0x3ff0000000000000L to ((1L shl 52) to -52),
+        0x3ff0000000000001L to (((1L shl 52) + 1L) to -52),
         0x4000000000000000L to ((1L shl 52) to -51),
         0x3fefffffffffffffL to (((1L shl 53) - 1L) to -53),
         0x7fefffffffffffffL to (0x1fffffffffffffL to 971),
@@ -27,14 +28,19 @@ class Binary64FixturesTest {
 
   @Test
   fun `materializes exact numerator and denominator fixtures`() {
-    val values =
+    // Expected fractions are specified independently of the decoded fields. Cross multiplication
+    // allows the decoder to retain its unreduced significand without weakening the value check.
+    val one = ExactInteger.ONE
+    val fixtures =
       listOf(
-        0x3ff0000000000000L,
-        Long.MIN_VALUE or 0x3ff8000000000000L, // -1.5
-        0x0000000000000001L, // smallest subnormal
-        0x7fefffffffffffffL,
+        0x3ff0000000000000L to (one to one),
+        (Long.MIN_VALUE or 0x3ff8000000000000L) to
+          (ExactInteger.fromLong(-3) to ExactInteger.fromLong(2)),
+        0x0000000000000001L to (one to (one shl 1074)),
+        0x7fefffffffffffffL to ((((one shl 53) - one) shl 971) to one),
+        0x3ff0000000000001L to (((one shl 52) + one) to (one shl 52)),
       )
-    for (bits in values) {
+    for ((bits, expected) in fixtures) {
       val decoded = Binary64.decode(Double.fromBits(bits))
       val numerator = ExactInteger.fromLong(decoded.signedSignificand)
       val denominator = ExactInteger.ONE
@@ -44,11 +50,8 @@ class Binary64FixturesTest {
         } else {
           numerator to (denominator shl -decoded.binaryExponent)
         }
-      (exactNumerator * denominator) shouldBe exactNumerator
       exactDenominator.sign shouldBe 1
-      exactDenominator shouldBe
-        if (decoded.binaryExponent >= 0) ExactInteger.ONE
-        else ExactInteger.ONE shl -decoded.binaryExponent
+      (exactNumerator * expected.second) shouldBe (expected.first * exactDenominator)
     }
   }
 
