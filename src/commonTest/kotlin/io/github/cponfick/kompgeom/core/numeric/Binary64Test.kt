@@ -40,6 +40,19 @@ class Binary64Test {
     }
   }
 
+  @Test
+  fun `validates decoded value invariants and equality`() {
+    assertFailsWith<IllegalArgumentException> { Binary64(0L, 1) }
+    assertFailsWith<IllegalArgumentException> { Binary64(1L shl 53, 0) }
+
+    val value = Binary64(3, -2)
+    assertEquals(true, value.equals(value))
+    assertEquals(value, Binary64(3, -2))
+    assertEquals(false, value.equals(Binary64(-3, -2)))
+    assertEquals(false, value.equals("3/4"))
+    assertEquals(value.hashCode(), Binary64(3, -2).hashCode())
+  }
+
   private infix fun Binary64.shouldBeDecoded(expected: Pair<Long, Int>) {
     assertEquals(expected.first, signedSignificand)
     assertEquals(expected.second, binaryExponent)

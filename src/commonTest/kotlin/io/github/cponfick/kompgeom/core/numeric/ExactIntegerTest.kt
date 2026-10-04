@@ -11,9 +11,22 @@ class ExactIntegerTest {
 
     zero shouldBe ExactInteger.ZERO
     zero.isZero shouldBe true
+    zero.isNegative shouldBe false
+    zero.isPositive shouldBe false
     zero.sign shouldBe 0
     ExactInteger.ONE.sign shouldBe 1
+    ExactInteger.ONE.isPositive shouldBe true
     ExactInteger.ONE shouldBe ExactInteger.fromLong(1)
+    ExactInteger.fromLong(-1).isNegative shouldBe true
+  }
+
+  @Test
+  fun `compares with unrelated values and preserves hash semantics`() {
+    val value = ExactInteger.fromLong(7)
+
+    value.equals("7") shouldBe false
+    (value == ExactInteger.fromLong(-7)) shouldBe false
+    value.hashCode() shouldBe ExactInteger.fromLong(7).hashCode()
   }
 
   @Test
@@ -78,7 +91,9 @@ class ExactIntegerTest {
     value shouldBe ExactInteger.fromLong((1L shl 60) - 1)
     (-value) * ExactInteger.fromLong(-3) shouldBe ExactInteger.fromLong(3) * value
     ExactInteger.ZERO * value shouldBe ExactInteger.ZERO
+    value * ExactInteger.ZERO shouldBe ExactInteger.ZERO
     value * ExactInteger.ONE shouldBe value
+    ExactInteger.ONE * value shouldBe value
   }
 
   @Test
@@ -117,6 +132,8 @@ class ExactIntegerTest {
       (remainder.absoluteValue() < divisor.absoluteValue()) shouldBe true
     }
     assertFailsWith<ArithmeticException> { ExactInteger.ONE.divideAndRemainder(ExactInteger.ZERO) }
+    ExactInteger.ZERO.divideAndRemainder(ExactInteger.fromLong(5)) shouldBe
+      (ExactInteger.ZERO to ExactInteger.ZERO)
   }
 
   @Test
