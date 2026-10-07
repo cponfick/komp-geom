@@ -83,9 +83,7 @@ private constructor(internal val numerator: ExactInteger, internal val denominat
       of(ExactInteger.fromLong(value), ExactInteger.ONE)
 
     internal fun fromBinary64(decoded: Binary64): ExactRational {
-      if (decoded.binaryExponent == Int.MIN_VALUE) {
-        throw IllegalArgumentException("binary exponent is too small")
-      }
+      require(decoded.binaryExponent != Int.MIN_VALUE) { "binary exponent is too small" }
       val significand = ExactInteger.fromLong(decoded.signedSignificand)
       if (significand.isZero) return ZERO
       return if (decoded.binaryExponent >= 0) {

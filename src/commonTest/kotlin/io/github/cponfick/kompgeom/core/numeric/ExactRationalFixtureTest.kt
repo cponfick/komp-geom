@@ -6,24 +6,25 @@ import kotlin.test.Test
 class ExactRationalFixtureTest {
   @Test
   fun `matches checked in independent arithmetic fixtures`() {
-    for ((
-      leftNumerator,
-      leftDenominator,
-      rightNumerator,
-      rightDenominator,
-      sumNumerator,
-      sumDenominator,
-      comparison) in exactRationalArithmeticFixtures) {
-      val left = rational(leftNumerator, leftDenominator)
-      val right = rational(rightNumerator, rightDenominator)
-      val expected = rational(sumNumerator, sumDenominator)
-      (left + right) shouldBe expected
-      left.compareTo(right) shouldBe comparison
+    for (fixture in exactRationalArithmeticFixtures) {
+      val left = rational(fixture.left)
+      val right = rational(fixture.right)
+      assertCanonical(left + right, fixture.sum)
+      assertCanonical(left - right, fixture.difference)
+      assertCanonical(left * right, fixture.product)
+      assertCanonical(left / right, fixture.quotient)
+      left.compareTo(right) shouldBe fixture.comparison
     }
   }
 
-  private fun rational(numerator: String, denominator: String): ExactRational =
-    ExactRational.of(parse(numerator), parse(denominator))
+  private fun rational(value: ExactRationalValueFixture): ExactRational =
+    ExactRational.of(parse(value.numerator), parse(value.denominator))
+
+  private fun assertCanonical(actual: ExactRational, expected: ExactRationalValueFixture) {
+    // Do not normalize the expected result through the implementation under test.
+    actual.numerator shouldBe parse(expected.numerator)
+    actual.denominator shouldBe parse(expected.denominator)
+  }
 
   private fun parse(text: String): ExactInteger {
     require(text.isNotEmpty())

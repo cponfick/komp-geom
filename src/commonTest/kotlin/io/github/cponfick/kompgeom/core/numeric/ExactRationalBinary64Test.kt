@@ -31,6 +31,27 @@ class ExactRationalBinary64Test {
     bits(r(ExactInteger.fromLong(3), p(1075))) shouldBe 2L
     bits(r(ExactInteger.fromLong(-1), p(5000))) shouldBe Long.MIN_VALUE
     bits(r(ExactInteger.ONE, p(5000))) shouldBe 0L
+    val belowHalfSubnormal = r(ExactInteger.ONE, ExactInteger.fromLong(3) * p(1074))
+    bits(belowHalfSubnormal) shouldBe 0L
+    bits(-belowHalfSubnormal) shouldBe Long.MIN_VALUE
+  }
+
+  @Test
+  fun `rounds across the subnormal normal boundary with ties to even`() {
+    // The midpoint is (2^53 - 1) / 2^1075. Use another denominator bit so the
+    // values on either side differ by less than one subnormal step.
+    val midpointNumerator = (p(53) - ExactInteger.ONE) shl 1
+    val denominator = p(1076)
+    val cases =
+      listOf(
+        r(midpointNumerator - ExactInteger.ONE, denominator) to 0x000fffffffffffffL,
+        r(midpointNumerator, denominator) to 0x0010000000000000L,
+        r(midpointNumerator + ExactInteger.ONE, denominator) to 0x0010000000000000L,
+      )
+    for ((value, expected) in cases) {
+      bits(value) shouldBe expected
+      bits(-value) shouldBe (expected or Long.MIN_VALUE)
+    }
   }
 
   @Test
@@ -40,8 +61,11 @@ class ExactRationalBinary64Test {
     bits(r(max + p(969), ExactInteger.ONE)) shouldBe 0x7fefffffffffffffL
     val threshold = p(1024) - p(970)
     bits(r(threshold - ExactInteger.ONE, ExactInteger.ONE)) shouldBe 0x7fefffffffffffffL
-    assertFailsWith<ArithmeticException> { r(threshold, ExactInteger.ONE).toDoubleNearestEven() }
-    assertFailsWith<ArithmeticException> { r(p(1024), ExactInteger.ONE).toDoubleNearestEven() }
+    bits(r(-(threshold - ExactInteger.ONE))) shouldBe (0x7fefffffffffffffL or Long.MIN_VALUE)
+    for (value in listOf(threshold, threshold + ExactInteger.ONE, p(1024), p(1025))) {
+      assertFailsWith<ArithmeticException> { r(value).toDoubleNearestEven() }
+      assertFailsWith<ArithmeticException> { r(-value).toDoubleNearestEven() }
+    }
   }
 
   @Test
