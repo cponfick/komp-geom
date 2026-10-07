@@ -1,6 +1,6 @@
 package io.github.cponfick.kompgeom.core.numeric
 
-internal data class ExactRationalOracleArithmeticFixture(
+internal data class ExactRationalArithmeticFixture(
   val leftNumerator: String,
   val leftDenominator: String,
   val rightNumerator: String,
@@ -12,7 +12,7 @@ internal data class ExactRationalOracleArithmeticFixture(
 
 internal val exactRationalArithmeticFixtures =
   listOf(
-    ExactRationalOracleArithmeticFixture(
+    ExactRationalArithmeticFixture(
       "4259931581",
       "1544716083",
       "1",
@@ -21,7 +21,7 @@ internal val exactRationalArithmeticFixtures =
       "514905361",
       1,
     ),
-    ExactRationalOracleArithmeticFixture(
+    ExactRationalArithmeticFixture(
       "2766578804",
       "3884337229",
       "2",
@@ -30,7 +30,7 @@ internal val exactRationalArithmeticFixtures =
       "11653011687",
       1,
     ),
-    ExactRationalOracleArithmeticFixture(
+    ExactRationalArithmeticFixture(
       "2342424365",
       "3058784338",
       "1",
