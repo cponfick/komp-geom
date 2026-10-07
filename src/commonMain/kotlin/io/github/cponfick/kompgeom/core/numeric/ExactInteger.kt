@@ -46,6 +46,23 @@ private constructor(
   /** Returns the nonnegative magnitude of this integer. */
   internal fun abs(): ExactInteger = absoluteValue()
 
+  /**
+   * Narrows this integer to a [Long], failing when its mathematical value is outside the signed
+   * 64-bit range. The magnitude accumulation intentionally wraps to `Long.MIN_VALUE` for the one
+   * representable magnitude `2^63`; applying the negative sign then preserves `Long.MIN_VALUE`.
+   */
+  internal fun toLongExact(): Long {
+    if (isZero) return 0L
+    if (this < fromLong(Long.MIN_VALUE) || this > fromLong(Long.MAX_VALUE)) {
+      throw ArithmeticException("integer does not fit in Long")
+    }
+    var magnitude = 0L
+    for (index in limbs.lastIndex downTo 0) {
+      magnitude = (magnitude shl LIMB_BITS) + limbs[index].toLong()
+    }
+    return if (sign < 0) -magnitude else magnitude
+  }
+
   /** Returns the additive inverse of this integer. */
   internal operator fun unaryMinus(): ExactInteger {
     if (isZero) return this

@@ -59,6 +59,29 @@ class ExactIntegerExtendedTest {
   }
 
   @Test
+  fun `narrows exactly at signed long boundaries`() {
+    val values =
+      listOf(
+        0L,
+        1L,
+        -1L,
+        (1L shl 30) - 1L,
+        1L shl 30,
+        (1L shl 60) - 1L,
+        1L shl 60,
+        Long.MIN_VALUE,
+        Long.MAX_VALUE,
+      )
+    for (value in values) ExactInteger.fromLong(value).toLongExact() shouldBe value
+    assertFailsWith<ArithmeticException> { ((ExactInteger.ONE shl 63)).toLongExact() }
+    assertFailsWith<ArithmeticException> {
+      (-(ExactInteger.ONE shl 63) - ExactInteger.ONE).toLongExact()
+    }
+    assertFailsWith<ArithmeticException> { (ExactInteger.ONE shl 100).toLongExact() }
+    assertFailsWith<ArithmeticException> { (-(ExactInteger.ONE shl 100)).toLongExact() }
+  }
+
+  @Test
   fun `rejects impossible division and keeps values immutable`() {
     val value = ExactInteger.fromLong(-123456789)
     val snapshot = value
